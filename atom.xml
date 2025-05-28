@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-05-28T05:09:00.385Z</updated>
+  <updated>2025-05-28T13:26:28.870Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>podman容器</title>
+    <link href="https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/"/>
+    <id>https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/</id>
+    <published>2025-05-28T13:12:00.000Z</published>
+    <updated>2025-05-28T13:26:28.870Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-容器的概念&quot;&gt;&lt;a href=&quot;#1-容器的概念&quot; class=&quot;headerlink&quot; title=&quot;1 容器的概念&quot;&gt;&lt;/a&gt;1 容器的概念&lt;/h1&gt;&lt;h2 id=&quot;1-1-容器技术介绍&quot;&gt;&lt;a href=&quot;#1-1-容器技术介绍&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="podman容器" scheme="https://linuxcenter.icu/tags/podman%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>容器&amp;K8S</title>
