@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-05-28T03:54:32.765Z</updated>
+  <updated>2025-05-28T04:56:25.618Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -17,21 +17,27 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>typora-vue-theme主题介绍</title>
-    <link href="https://linuxcenter.icu/2018/09/07/hello-world/"/>
-    <id>https://linuxcenter.icu/2018/09/07/hello-world/</id>
-    <published>2018-09-07T01:25:00.000Z</published>
-    <updated>2025-05-28T03:54:32.765Z</updated>
+    <title>容器&amp;K8S</title>
+    <link href="https://linuxcenter.icu/2025/05/28/kubernetes/rong-qi-k8s/"/>
+    <id>https://linuxcenter.icu/2025/05/28/kubernetes/rong-qi-k8s/</id>
+    <published>2025-05-28T04:34:00.000Z</published>
+    <updated>2025-05-28T04:56:25.618Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-微服务&quot;&gt;&lt;a href=&quot;#1-微服务&quot; class=&quot;headerlink&quot; title=&quot;1 微服务&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
     
     
     
+    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
     
-    <category term="Markdown" scheme="https://linuxcenter.icu/categories/Markdown/"/>
     
-    
-    <category term="Typora" scheme="https://linuxcenter.icu/tags/Typora/"/>
-    
-    <category term="Markdown" scheme="https://linuxcenter.icu/tags/Markdown/"/>
+    <category term="容器&amp;K8S" scheme="https://linuxcenter.icu/tags/%E5%AE%B9%E5%99%A8-K8S/"/>
     
   </entry>
   

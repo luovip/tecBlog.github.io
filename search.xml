@@ -4,25 +4,23 @@
   
     
     <entry>
-      <title>typora-vue-theme主题介绍</title>
-      <link href="/2018/09/07/hello-world/"/>
-      <url>/2018/09/07/hello-world/</url>
+      <title>容器&amp;K8S</title>
+      <link href="/2025/05/28/kubernetes/rong-qi-k8s/"/>
+      <url>/2025/05/28/kubernetes/rong-qi-k8s/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="1-微服务"><a href="#1-微服务" class="headerlink" title="1 微服务"></a>1 微服务</h1><p>  把一个庞大的应用拆成几个小的独立的服务，再把独立的服务串起来的一种架构设计:内聚更强，更加敏捷</p><p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1.png" title="微服务"></p>]]></content>
       
       
       <categories>
           
-          <category> Markdown </category>
+          <category> Kubernetes </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Typora </tag>
-            
-            <tag> Markdown </tag>
+            <tag> 容器&amp;K8S </tag>
             
         </tags>
       
