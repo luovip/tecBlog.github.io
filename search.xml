@@ -8,7 +8,7 @@
       <link href="/2025/05/28/kubernetes/rong-qi-k8s/"/>
       <url>/2025/05/28/kubernetes/rong-qi-k8s/</url>
       
-        <content type="html"><![CDATA[<h1 id="1-微服务"><a href="#1-微服务" class="headerlink" title="1 微服务"></a>1 微服务</h1><p>  把一个庞大的应用拆成几个小的独立的服务，再把独立的服务串起来的一种架构设计:内聚更强，更加敏捷</p><p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1.png" title="微服务"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="1-微服务"><a href="#1-微服务" class="headerlink" title="1 微服务"></a>1 微服务</h1><p>  把一个庞大的应用拆成几个小的独立的服务，再把独立的服务串起来的一种架构设计:内聚更强，更加敏捷</p><p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1.png"></p><h2 id="1-1-应用架构的发展"><a href="#1-1-应用架构的发展" class="headerlink" title="1.1 应用架构的发展"></a>1.1 应用架构的发展</h2><p><img src="/images/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E7%9A%84%E5%8F%91%E5%B1%95.png"></p><h2 id="1-2-传统单体架构vs微服务软件架构"><a href="#1-2-传统单体架构vs微服务软件架构" class="headerlink" title="1.2 传统单体架构vs微服务软件架构"></a>1.2 传统单体架构vs微服务软件架构</h2><p>  不同于微服务，传统的项目会包含很多功能，是一个大而全的“超级”工程</p><p>  例如：以普通架构方式实现的电商平台包含：登录、权限、会员、商品库存、订单、收藏、关注、购物车等功能的多个单一项目。随着项目业务越来越复杂、开发人员越来越多，相应开发、编译、部署、技术扩展、水平扩展都会受到限制</p>]]></content>
       
       
       <categories>
