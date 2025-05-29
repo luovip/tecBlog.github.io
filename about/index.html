@@ -61,14 +61,12 @@
 </style>
 
     
-
     <body>
         <div class="stars-con">
             <div id="stars"></div>
             <div id="stars2"></div>
             <div id="stars3"></div>
         </div>
-
         <svg aria-hidden="true"
             style="position: absolute; overflow: hidden; width: 0; height: 0">
             <symbol id="icon-sun" viewBox="0 0 1024 1024">
@@ -381,14 +379,15 @@
         <div class="brand">
             <div class="title center-align">
                 
-                一切皆文件
+                about
                 
             </div>
 
             <div class="description center-align">
                 
                 <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script
+                    src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
                 <script>
                     var typed = new Typed("#subtitle", {
                         strings: ['用开放的思维，解决封闭的问题！','Solve closed problems with an open mind!'],
@@ -645,7 +644,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"容器技术","value":1},{"name":"Kubernetes","value":1}],
+                data: [{"name":"Kubernetes","value":1},{"name":"容器技术","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -669,7 +668,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["podman容器","容器&K8S"]
+                data: ["容器&K8S","podman容器"]
             }
         ],
         yAxis: [
@@ -800,14 +799,14 @@
         <div class="tag-chips center-align">
             
             
-            <a href="/tags/podman%E5%AE%B9%E5%99%A8/">
-                <span class="chip center-align waves-effect waves-light chip-default">podman容器</span>
+            <a href="/tags/%E5%AE%B9%E5%99%A8-K8S/">
+                <span class="chip center-align waves-effect waves-light chip-default">容器&K8S</span>
             </a>
             
             
             
-            <a href="/tags/%E5%AE%B9%E5%99%A8-K8S/">
-                <span class="chip center-align waves-effect waves-light chip-default">容器&K8S</span>
+            <a href="/tags/podman%E5%AE%B9%E5%99%A8/">
+                <span class="chip center-align waves-effect waves-light chip-default">podman容器</span>
             </a>
             
             

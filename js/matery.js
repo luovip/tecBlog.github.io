@@ -178,7 +178,7 @@ setTimeout(function () {
         M.toast({ html: toastHTML })
     }
 }, 2200)
-//定时开启功能由于定时开启功能会导致强制深色模式，我太拉跨没办法解决，不推荐大家开启
+//定时开启功能会导致强制深色模式
 if (new Date().getHours() >= 22 || new Date().getHours() < 6) {
     document.body.classList.add('DarkMode');
 } 
