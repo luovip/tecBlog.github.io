@@ -44,9 +44,9 @@
     <script
         src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -422,19 +422,19 @@
                 
                 
                 
-                <a href="/categories/Kubernetes/" title="Kubernetes: 1">
+                <a href="/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="容器技术: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">Kubernetes
+                             chip-active "
+                            style="background-color: #F9EBEA;">容器技术
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="容器技术: 1">
+                <a href="/categories/Kubernetes/" title="Kubernetes: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            style="background-color: #F5EEF8;">容器技术
+                             chip-default "
+                            style="background-color: #F5EEF8;">Kubernetes
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -895,6 +895,49 @@ var _hmt = _hmt || [];
         );
     </script>
         
+        <script type="text/javascript">
+    var a_idx = 0;
+jQuery(document).ready(function ($) {
+    $("body").click(function (e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+            y = e.pageY;
+        $i.css({
+            "z-index": 5,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": "#FF0000"
+        });
+        $("body").append($i);
+        $i.animate({
+                "top": y - 180,
+                "opacity": 0
+            },
+            3000,
+            function () {
+                $i.remove();
+            });
+    });
+    setTimeout('delay()', 2000);
+});
+ 
+function delay() {
+    $(".buryit").removeAttr("onclick");
+}
+ 
+    </script>
+        <script type="text/javascript" src="/js/mouse_snow.js"></script>
+
+        <!-- 动态标签栏 -->
+        <script type="text/javascript">
+      var OriginTitile = document.title, st; 
+      document.addEventListener("visibilitychange", function () { 
+        document.hidden ? (document.title = "爱我，别走！", clearTimeout(st)) : (document.title = "咦，你来啦！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) 
+    </script>
 
     </body>
 
