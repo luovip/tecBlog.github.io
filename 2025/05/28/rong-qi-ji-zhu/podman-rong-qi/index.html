@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-05-28
+                    2025-05-31
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    12.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    55 分
                 </div>
                 
 
@@ -551,6 +551,9 @@
         </div>
         <hr class="clearfix">
 
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
         
 
         
@@ -600,13 +603,907 @@
 <p>  3.红帽容器目录(<a target="_blank" rel="noopener" href="https://access.redhat.com/containers)%E6%8F%90%E4%BE%9B%E4%BA%86%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EWeb%E7%9A%84%E7%95%8C%E9%9D%A2%EF%BC%8C%E9%80%9A%E8%BF%87%E5%AE%83%E5%8F%AF%E4%BB%A5%E6%90%9C%E7%B4%A2%E8%BF%99%E4%BA%9B%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%AE%A4%E8%AF%81%E5%86%85%E5%AE%B9">https://access.redhat.com/containers)提供了一个基于Web的界面，通过它可以搜索这些注册表中的认证内容</a></p>
 <h2 id="2-1-安装容器"><a href="#2-1-安装容器" class="headerlink" title="2.1 安装容器"></a>2.1 安装容器</h2><p>  使用的镜像仓库浏览器访问为: <a target="_blank" rel="noopener" href="https://utility/">https://utility</a> 账号&amp;密码是:admin/redhat321</p>
 <p>  镜像对应的地址为:utility.lab.example.com</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[kiosk@foundation0 ~]$ <span class="built_in">cat</span> /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line"><span class="comment">### rht-vm-hosts file listing the entries to be appended to /etc/hosts</span></span><br><span class="line"></span><br><span class="line">172.25.250.254 bastion.lab.example.com bastion</span><br><span class="line">172.25.250.10  servera.lab.example.com servera</span><br><span class="line">172.25.250.11  serverb.lab.example.com serverb</span><br><span class="line">172.25.250.220 utility.lab.example.com utility</span><br><span class="line">172.25.250.9   workstation.lab.example.com workstation</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录servera请使用ssh方式，不要使用su切换。</span></span><br><span class="line">[root@foundation0 ~]# ssh root@servera</span><br><span class="line">[root@servera ~]# ssh student@localhost</span><br><span class="line">[student@servera ~]$ <span class="built_in">sudo</span> dnf -y install container-tools    <span class="comment"># 安装podman容器 </span></span><br><span class="line">[student@servera ~]$ podman --version</span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[kiosk@foundation0 ~]$ cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+### rht-vm-hosts file listing the entries to be appended to /etc/hosts
+
+172.25.250.254 bastion.lab.example.com bastion
+172.25.250.10  servera.lab.example.com servera
+172.25.250.11  serverb.lab.example.com serverb
+172.25.250.220 utility.lab.example.com utility
+172.25.250.9   workstation.lab.example.com workstation
+
+# 登录servera请使用ssh方式，不要使用su切换。
+[root@foundation0 ~]# ssh root@servera
+[root@servera ~]# ssh student@localhost
+[student@servera ~]$ sudo dnf -y install container-tools    # 安装podman容器 
+[student@servera ~]$ podman --version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-2-登录容器"><a href="#2-2-登录容器" class="headerlink" title="2.2 登录容器"></a>2.2 登录容器</h2><p>  需要红帽开发人员账户才能从红帽注册表下载镜像。可以使用podman login命令对注册表进行身份验证。如果不向podman login命令提供注册表URL，它会向默认配置的注册表进行身份验证</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$ podman login --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录方法一(交互)：</span></span><br><span class="line">$ podman login utility.lab.example.com </span><br><span class="line">Username: admin</span><br><span class="line">Password: redhat321</span><br><span class="line">Login Succeeded!</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录方法二(非交互)： #</span></span><br><span class="line">$ podman login utility.lab.example.com -u admin -p redhat321  <span class="comment"># 生产环境中是有https验证的</span></span><br><span class="line">Login Succeeded!</span><br><span class="line"></span><br><span class="line">[student@servera ~]$ podman login -u admin -p redhat321 utility.lab.example.com</span><br><span class="line">Error: authenticating creds <span class="keyword">for</span> <span class="string">"utility.lab.example.com"</span>: pinging container registry utility.lab.example.com: Get <span class="string">"https://utility.lab.example.com/v2/"</span>: tls: failed to verify certificate: x509: certificate is not valid <span class="keyword">for</span> any names, but wanted to match utility.lab.example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果出现以上报错，是要求https验证，需要通过选项--tls-verify进行手动关闭</span></span><br><span class="line">$ podman login utility.lab.example.com -u admin -p redhat321 --tls-verify=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">[student@servera ~]$ podman login --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line">[student@servera ~]$ podman login -u admin -p redhat321 utility.lab.example.com --tls-verify=<span class="literal">false</span></span><br><span class="line">Login Succeeded!</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录方法三(非交互):</span></span><br><span class="line"><span class="comment"># 使用podman login命令的--username和--password-sdtin选项，指定用于登录注册表的用户和密码</span></span><br><span class="line"><span class="comment"># --password-stdin选项从stdin读取密码</span></span><br><span class="line"><span class="comment"># 红帽建议不要使用--password选项直接提供密码，因为此选项会将密码存储在日志文件中</span></span><br><span class="line">$ <span class="built_in">echo</span> redhat321 | podman login -u admin --password-stdin utility.lab.example.com  </span><br><span class="line">Login Succeeded!</span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman login --help
+
+# 登录方法一(交互)：
+$ podman login utility.lab.example.com 
+Username: admin
+Password: redhat321
+Login Succeeded!
+
+# 登录方法二(非交互)： #
+$ podman login utility.lab.example.com -u admin -p redhat321  # 生产环境中是有https验证的
+Login Succeeded!
+
+[student@servera ~]$ podman login -u admin -p redhat321 utility.lab.example.com
+Error: authenticating creds for "utility.lab.example.com": pinging container registry utility.lab.example.com: Get "https://utility.lab.example.com/v2/": tls: failed to verify certificate: x509: certificate is not valid for any names, but wanted to match utility.lab.example.com
+
+# 如果出现以上报错，是要求https验证，需要通过选项--tls-verify进行手动关闭
+$ podman login utility.lab.example.com -u admin -p redhat321 --tls-verify=false
+
+[student@servera ~]$ podman login --help
+
+[student@servera ~]$ podman login -u admin -p redhat321 utility.lab.example.com --tls-verify=false
+Login Succeeded!
+
+# 登录方法三(非交互):
+# 使用podman login命令的--username和--password-sdtin选项，指定用于登录注册表的用户和密码
+# --password-stdin选项从stdin读取密码
+# 红帽建议不要使用--password选项直接提供密码，因为此选项会将密码存储在日志文件中
+$ echo redhat321 | podman login -u admin --password-stdin utility.lab.example.com  
+Login Succeeded!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-3-验证容器的登录"><a href="#2-3-验证容器的登录" class="headerlink" title="2.3 验证容器的登录"></a>2.3 验证容器的登录</h2><p>  要验证是否已登录到某一注册表，请使用 podman login命令的–get-login选项</p>
 <p>  退出登录：podman logout</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman login --get-login   # 查看登录的用户
+admin
+
+[student@servera ~]$ podman login utility.lab.example.com --get-login    # 指定仓库地址，查看登录用户
+admin
+
+[student@servera ~]$ podman logout utility.lab.example.com  # 登出
+Removed login credentials for utility.lab.example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-4-配置容器注册表"><a href="#2-4-配置容器注册表" class="headerlink" title="2.4 配置容器注册表"></a><strong>2.4 配置容器注册表</strong></h2><p>  容器注册表的默认配置文件是： /etc/containers/registries.conf</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ sudo vim /etc/containers/registries.conf
+[sudo] password for student: student
+
+#第22行 指定可搜索的镜像仓库地址，如果使用完全合格域名，此处可以留空
+unqualified-search-registries = ["utility.lab.example.com","registry.access.redhat.com","registry.redhat.io","docker.io"]
+
+[[utility]]   #第24行 解除注释开启以下功能
+
+insecure = true    #false/true 开启https安全验证/关闭安全验证
+
+blocked = false    #第40行 需要过滤掉的镜像仓库地址
+
+location = "utility.lab.example.com" #第56行 指定容器注册表位置
+
+# $注意 ~/.config/containers/registries.conf目录设置会覆盖/etc/containers/registries.conf
+
+# 推荐：
+【student】
+$ mkdir -p ~/.config/containers
+$ cp /etc/containers/registries.conf ~/.config/containers/registries.conf
+$ vim ~/.config/containers/registries.conf
+unqualified-search-registries = ["utility.lab.example.com"] 
+[[utility]]   
+insecure = true 
+blocked = false    
+location = "utility.lab.example.com" 
+
+# 登录容器注册表
+[student@servera ~]$ podman login -u admin -p redhat321 utility.lab.example.com
+Login Succeeded!
+
+# 根据仓库地址搜索镜像
+[student@servera ~]$ podman search utility.lab.example.com/
+
+# 如果只访问本地仓库，unqualified-search-registries = ["utility.lab.example.com"]默认即可，但要需要访问外网，需要用root用户修改vim /etc/resolv.conf文件内容添加nameserver 8.8.8.8 优先解析。
+# 阿里容器 i2kldsde.mirror.aliyuncs.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-5-容器文件构建容器镜像"><a href="#2-5-容器文件构建容器镜像" class="headerlink" title="2.5 容器文件构建容器镜像"></a>2.5 容器文件构建容器镜像</h2><p>  容器文件是一种文本文件，内含用于构建容器镜像的指令</p>
+<p>  容器文件通常具有定义其文件和目录所在路径或URL的上下文。生成的容器镜像由只读层组成，每一层代表容器文件中的一条指令</p>
+<p>  以下是一个容器文件示例，它使用utility.access.redhat.com注册表中的UBI镜像,安装python3 软件包，并将hello字符串打印到控制台</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ cat Containerfile
+FROM utility.access.redhat.com/ubi8/ubi:latest
+RUN dnf install -y python3
+CMD["/bin/bash"，"-c"，"echo hello"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-6-规模化容器管理"><a href="#2-6-规模化容器管理" class="headerlink" title="2.6 规模化容器管理"></a>2.6 规模化容器管理</h2><p>  新应用越来越多地使用容器来实施功能组件，这些容器提供应用的其他部分使用的服务</p>
+<p>  组织管理越来越多的容器，可能很快就会不堪重负</p>
+<p>  在生产中大规模部署容器需要一个能够应对以下挑战的环境：</p>
+<p>   1.平台必须确保提供必要服务的容器的可用性</p>
+<p>   2.环境必须通过增加或减少运行中的容器实例，并对流量进行负载平衡，从而应对应用的使用高峰</p>
+<p>   3.平台必须检测容器或主机的故障，并相应地作出反应</p>
+<p>   4.开发人员可能需要自动工作流，以便透明、安全地向客户交付新的应用版本</p>
+<p>  Kubernetes是一项编排服务，可以使在容器主机集群中部署、管理和扩展基于容器的应用变得更加轻而易举</p>
+<p>  Kubernetes通过负载平衡器将流量重定向到容器，以便可以扩展提供服务的容器数量</p>
+<p>  Kubernetes支持用户定义的健康检查，以便监控您的容器，并在容器出现故障时将其重新启动</p>
+<p>  红帽提供了一个名为红帽OpenShift 的kubernetes发行版。OpenShift是基于Kubernetes基础架构构建的一组模块化组件和服务，为开发人员提供的额外功能包括基于Web的远程管理、多租户、监控与审计、高级安全功能、应用生命周期管理和自助服务实例等</p>
+<h1 id="3-部署容器"><a href="#3-部署容器" class="headerlink" title="3 部署容器"></a><strong>3 部署容器</strong></h1><h2 id="3-1-Podman实用程序"><a href="#3-1-Podman实用程序" class="headerlink" title="3.1 Podman实用程序"></a>3.1 Podman实用程序</h2><p>  Podman是来自container-tools元数据包的全功能容器引警，用于管理开放容器计划(OCI)容器和镜像</p>
+<p>  podman实用程序的运作不使用守护进程，因此开发人员无需系统上的特权用户帐户来启动或停止容器</p>
+<p>  Podman提供多个子命令来与容器和镜像交互</p>
+<p>  Podman的命令如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">podman build</td>
+<td align="left">使用容器文件构建容器镜像</td>
+</tr>
+<tr>
+<td align="left">podman run</td>
+<td align="left">在新容器中运行命令</td>
+</tr>
+<tr>
+<td align="left">podman images</td>
+<td align="left">列出本地存储中的镜像</td>
+</tr>
+<tr>
+<td align="left">podman ps</td>
+<td align="left">打印有关容器的信息</td>
+</tr>
+<tr>
+<td align="left">podman inspect</td>
+<td align="left">显示容器、镜像、卷、网络或容器集的配置</td>
+</tr>
+<tr>
+<td align="left">podman pull</td>
+<td align="left">从注册表下载镜像</td>
+</tr>
+<tr>
+<td align="left">podman cp</td>
+<td align="left">在容器和本地文件系统之间复制文件或目录</td>
+</tr>
+<tr>
+<td align="left">podman exec</td>
+<td align="left">在运行中的容器内执行命令</td>
+</tr>
+<tr>
+<td align="left">podman rm</td>
+<td align="left">删除一个或多个容器</td>
+</tr>
+<tr>
+<td align="left">podman rmi</td>
+<td align="left">删除一个或多个本地存储的镜像</td>
+</tr>
+<tr>
+<td align="left">podman search</td>
+<td align="left">在注册表中搜索镜像</td>
+</tr>
+</tbody></table>
+<p>  有关各个子命令使用帮助手册的更多信息，将子命令附加到podman命令，并用连字符将两者分隔。例如，podman-build帮助手册介绍了podman build子命令的用法</p>
+<h2 id="3-2-安装容器实用工具"><a href="#3-2-安装容器实用工具" class="headerlink" title="3.2 安装容器实用工具"></a>3.2 安装容器实用工具</h2><p>  container-tools软件包包含与容器和容器镜像交互所需的实用程序</p>
+<p>  若要在系统上下载、运行和比较容器，使用dnf install命令来安装container-tools元软件包</p>
+<p>  使用dnf info命令查看container-tools软件包的版本和内容</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ sudo dnf -y install container-tools    # 安装podman容器 
+[student@servera ~]$ podman --version
+[student@servera ~]$ dnf info container-tools<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  container-tools元数据包提供所需的podman和skope实用程序，用于完成分配的任务</p>
+<h2 id="3-3-从注册表下载容器镜像文件"><a href="#3-3-从注册表下载容器镜像文件" class="headerlink" title="3.3 从注册表下载容器镜像文件"></a>3.3 从注册表下载容器镜像文件</h2><p>  1.确保podman实用程序已配置为从utility.lab.example.com注册表搜索和下载容器</p>
+<p>  2.podman info命令显示podman实用程序的配置信息，包括其配置的注册表</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  podman search命令使用registries.conf文件中指定的注册表列表搜索匹配的名称镜像。默认情况下，Podman在所有非限定搜索注册表中执行搜索</p>
+<p>  使用podman search命令，显示包含python-38软件包的已配置注册表的镜像列表</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 在注册表中搜索镜像
+[student@servera ~]$ podman search utility.lab.example.com/
+
+# 从注册表中下载镜像
+[student@servera ~]$ podman pull utility.lab.example.com/ubi7/ubi
+
+# 列出本地存储中的镜像
+[student@servera ~]$ podman images
+REPOSITORY                                 TAG         IMAGE ID      CREATED      SIZE
+utility.lab.example.com/ubi7/ubi           latest      87dd8ec61bbc  4 years ago  215 MB
+
+# 镜像信息注解:
+1.REPOSITORY    仓库地址
+2.TAG           标记，latest最近版本
+3.IMAGE ID      镜像ID，ID号唯一，保证镜像唯一性
+4.CREATED       创建时间；
+5.SIZE          镜像大小<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-4-从容器文件创建容器镜像"><a href="#3-4-从容器文件创建容器镜像" class="headerlink" title="3.4 从容器文件创建容器镜像"></a>3.4 从容器文件创建容器镜像</h2><p>  您获得了以下容器文件，用于在 python36-app目录中创建容器镜像</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ cat Containerfile 
+FROM utility.access.redhat.com/ubi8/ubi:latest
+RUN dnf install -y python36
+CMD["/bin/bash"，"-c"，"sleep infinity"]
+# 此容器文件是教材中例子默认报错，可以使用下面的容器文件
+
+[student@servera ~]$ vim Containerfile
+FROM utility.lab.example.com/ubi9/ubi:latest
+RUN echo -e '[rhel-9.3-for-x86_64-baseos-rpms]\nbaseurl = http://content.example.com/rhel9.3/x86_64/dvd/BaseOS\nenabled = true\ngpgcheck = false\nname = Red Hat Enterprise Linux 9.3 BaseOS (dvd)\n[rhel-9.3-for-x86_64-appstream-rpms]\nbaseurl = http://content.example.com/rhel9.3/x86_64/dvd/AppStream\nenabled = true\ngpgcheck = false\nname = Red Hat Enterprise Linux 9.3 Appstream (dvd)'&gt;/etc/yum.repos.d/rhel_dvd.repo
+RUN yum install --disablerepo=* --enablerepo=rhel-9.3-for-x86_64-baseos-rpms --enablerepo=rhel-9.3-for-x86_64-appstream-rpms -y python3
+CMD ["/bin/bash", "-c", "sleep infinity"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  以上容器文件使用utility.lab.example.com/ubi9/ubi:latest镜像作为基础镜像。容器文件而后将安装python36软件包，并运行sleep infinity bash命令来防止容器退出</p>
+<p>  通常，容器运行一个进程，然后在该进程完成后退出。sleep infinity命令可防止容器退出因为该进程永远不会完成，然后可以在容器内进行测试、开发和调试</p>
+<p>  在检查容器文件后，可以使用podman build命令来构建镜像。podman build命令的语法如下所示：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman build -t NAME:TAG  DIR
+[student@servera ~]$ podman build -t rhel7:2.0 .
+[student@servera ~]$ podman images
+REPOSITORY                                 TAG         IMAGE ID      CREATED         SIZE
+localhost/rhel7                            2.0         98d0b6385a00  40 seconds ago  238 MB
+utility.lab.example.com/ubi9/ubi           latest      8d2a8803cfca  12 months ago   219 MB
+utility.lab.example.com/ubi7/ubi           latest      87dd8ec61bbc  4 years ago     215 MB
+utility.lab.example.com/rhel8/mariadb-103  latest      11a47e0fbed0  4 years ago     572 MB
+# 以上输出的最后一行显示了容器镜像ID。大多数Podman命令使用容器镜像ID的前12个字符来指代容器镜像，可以将此短ID或者容器或容器镜像的名称，作为大多数Podman命令的参数
+# 注解:
+-t,--tag name 生成镜像的名称
+NAME:新镜像的名称
+标签:新镜像的标签。如果未指定标签，则镜像自动标记为latest
+DIR:工作目录路径。容器文件必须位于工作目录中。如果工作目录是当前目录，则可以用点(.)来指定它。使用-f标志指定与当前目录不同的目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  使用podman inspect命令来查看容器镜像的低级别信息，并验证其内容是否符合容器要求:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman inspect localhost/rhel7:2.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  podman inspect命令的输出显示reqistry.access.redhat.com/ubi8/ubi:latest基础镜像、用于安装python36 软件包的dnf命令，以及在运行时执行以防止容器退出的sleep infinity bash命令</p>
+<h1 id="4-运行容器"><a href="#4-运行容器" class="headerlink" title="4 运行容器"></a>4 运行容器</h1><p>  现在已拥有所需的容器镜像，可以使用它们来运行容器。容器可以处于以下状态之一!</p>
+<p>   1.Created：已创建好但尚未启动的容器</p>
+<p>   2.运行中：与其进程一起运行的容器</p>
+<p>   3.已停止：其进程已停止的容器</p>
+<p>   4.Paused：其进程已暂停的容器，不支持 Rootless容器</p>
+<p>   5.Deleted：其进程处于已死状态的容器</p>
+<p>  podman ps命令列出系统上正在运行的容器</p>
+<p>  使用podman ps -a来命令查看计算机中的所有容器 (已创建、已停止、已暂停或正在运行)</p>
+<p>  可使用podman create命令来创建容器，以便稍后运行。若要创建容器，请使用容器localhost/rhel7:2.0镜像的ID。也可以使用–name<br>选项设置名称来标识容器。此命令的输出是容器的长ID，如果不指定–name选项，会自动生成一个容器名称</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman create --name python36 dd6ca291f097
+
+# 使用podman ps和podman ps -a命令来验证容器是否已创建但尚未启动
+$ podman ps -a
+$ podman ps 
+
+# 运行podman start命令。可以使用名称或容器ID来启动容器。此命令的输出是容器的名称
+$ podman start python36
+$ podman ps<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-1-从远程存储库运行容器"><a href="#4-1-从远程存储库运行容器" class="headerlink" title="4.1 从远程存储库运行容器"></a>4.1 从远程存储库运行容器</h2><p>  可使用podman run命令，在一个步骤中创建并运行容器。podman run命令在容器内运行进程，此进程将启动新容器</p>
+<p>  可使用podman run命令的-d选项以分离模式运行容器，这将在后台运行容器，而不是在会话的前台运行</p>
+<p>  在python36容器的示例中，您不需要提供容器运行所提的命令，原因是为该容器创建镜像的容器文件中已提供了sleep infinity 命令</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># podman run 
+-t：终端     -i：交互    -d：放在后台    --name：指定容器的名称，如果不指定，会自动产生名称
+
+[student@servera ~]$ podman run -it utility.lab.example.com/ubi7/ubi
+[student@servera ~]$ podman ps
+CONTAINER ID  IMAGE                                    COMMAND     CREATED             STATUS             PORTS       NAMES
+537b1f1fbb6d  utility.lab.example.com/ubi7/ubi:latest  /bin/bash   About a minute ago  Up About a minute              objective_antonelli
+
+#实验前可以提前下载镜像至本地 
+#podman search utility.lab.example.com/
+#podman pull utility.lab.example.com/ubi8/ubi
+#podman images
+[student@servera ~]$ podman run -it --name rhel9 utility.lab.example.com/ubi9/ubi
+[student@servera ~]$ podman run -di --name rhel9-1 utility.lab.example.com/ubi9/ubi
+[student@servera ~]$ podman ps
+CONTAINER ID  IMAGE                                    COMMAND     CREATED         STATUS         PORTS       NAMES
+537b1f1fbb6d  utility.lab.example.com/ubi7/ubi:latest  /bin/bash   5 minutes ago   Up 5 minutes               objective_antonelli
+fb45a06e2271  utility.lab.example.com/ubi9/ubi:latest  /bin/bash   56 seconds ago  Up 57 seconds              rhel9-1
+
+# ctrl+d退出后再查看容器的状态
+[student@servera ~]$ podman exec -ti rhel9-1 /bin/bash
+[student@servera ~]$ podman run -d --name rhel9-2 utility.lab.example.com/ubi9/ubi sleep infinity
+[student@servera ~]$ podman ps
+CONTAINER ID  IMAGE                                    COMMAND         CREATED         STATUS         PORTS       NAMES
+fb45a06e2271  utility.lab.example.com/ubi9/ubi:latest  /bin/bash       5 minutes ago   Up 5 minutes               rhel9-1
+c4f7f4d72747  utility.lab.example.com/ubi9/ubi:latest  sleep infinity  34 seconds ago  Up 34 seconds              rhel9-2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-容器中的环境隔离"><a href="#4-2-容器中的环境隔离" class="headerlink" title="4.2 容器中的环境隔离"></a>4.2 容器中的环境隔离</h2><p>  每个容器都有自己的文件系统、网络和进程。查看ps命令的输出，并在主机和运行中容器之间进行比较，就会注意到隔离功能</p>
+<p>  在本地计算机上运行ps -ax命令，该命令将返回具有许多进程的预期结果</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ ps -ax
+[student@servera ~]$ podman run -di --name python36-db utility.lab.example.com/rhel8/mariadb-103
+f4c3d26df7bd3614e6b4954ae6ed485046128afc89a95cba20c834b2ba0327ff
+[student@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE                                             COMMAND         CREATED         STATUS                     PORTS       NAMES
+850618efbece  utility.lab.example.com/ubi9/ubi:latest           /bin/bash       9 hours ago     Exited (0) 9 hours ago                 rhel9
+fb45a06e2271  utility.lab.example.com/ubi9/ubi:latest           /bin/bash       9 hours ago     Up 9 hours                             rhel9-1
+c4f7f4d72747  utility.lab.example.com/ubi9/ubi:latest           sleep infinity  9 hours ago     Up 9 hours                             rhel9-2
+f4c3d26df7bd  utility.lab.example.com/rhel8/mariadb-103:latest  run-mysqld      22 minutes ago  Exited (1) 22 minutes ago              python36-db<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-3-容器内执行命令"><a href="#4-3-容器内执行命令" class="headerlink" title="4.3 容器内执行命令"></a>4.3 容器内执行命令</h2><p>  podman exec命令可在运行中的容器内执行命令，该命令取容器的名称或ID作为第一个参数，并将下列参数作为要在容器内运行的命令</p>
+<p>  使用podman exec命令查看rhel7容器中正在运行的进程</p>
+<p>  ps aux命令的输出看起来有所不同，因为它运行与本地计算机不同的进程</p>
+<p>  使用sh -c命令来封装要在容器中执行的命令</p>
+<p>  ps ax &gt; /tmp/process-data.log命令被解释为要在容器中执行的命令。如果不封装命令，则Podman可能会将大于号字符(&gt;)解释为podman命令的一部分，而不是podman exec选项的参数</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman exec rhel7 ps -ax
+    PID TTY      STAT   TIME COMMAND
+      1 ?        Ss     0:00 /bin/bash
+      2 ?        R      0:00 ps -ax
+[student@servera ~]$ podman exec rhel7 sh -c 'ps -a &gt; /tmp/process_data.log'
+[student@servera ~]$ podman exec rhel7 sh -c 'echo China &gt; /test.txt'
+[student@servera ~]$ podman exec -ti rhel7 /bin/bash
+[root@2d4b030f4141 /]# ls /
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  test.txt  tmp  usr  var
+[root@2d4b030f4141 /]# cat test.txt
+China
+[root@2d4b030f4141 /]# cat /tmp/process_data.log
+    PID TTY          TIME CMD
+[root@2d4b030f4141 /]# exit
+exit
+[student@servera ~]$ 
+
+# 将主机系统上安装的python版本与容器上安装的python版本进行比较
+[student@servera ~]$ podman exec rhel9-1 python3 --version
+Python 3.9.18
+[student@servera ~]$ python3 --version
+Python 3.9.18
+[student@servera ~]$ podman exec python38  python3 --version
+Python 3.9.18<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-4-容器中的文件系统隔离"><a href="#4-4-容器中的文件系统隔离" class="headerlink" title="4.4 容器中的文件系统隔离"></a>4.4 容器中的文件系统隔离</h2><p>  开发人员可以使用文件系统隔离功能，为不同版本的编程语言编写和测试应用，无需使用多个物理机或虚拟机</p>
+<p>  在终端上的/tmp目录中创建一个显示hello world的简单bash脚本</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ echo "echo Hello China!" &gt; /tmp/hello.sh
+[student@servera tmp]$ cd /tmp;ll
+total 8
+-rw-r--r--. 1 student student 18 Mar  3 21:24 hello.sh
+-rw-r--r--. 1 student student 30 Mar  3 21:01 process_data.log
+drwx------. 3 root    root    17 Mar  3 08:28 systemd-private-3f251aad6ce74edb86dddf89d56e8aed-chronyd.service-c0Zzhi
+drwx------. 3 root    root    17 Mar  3 08:28 systemd-private-3f251aad6ce74edb86dddf89d56e8aed-dbus-broker.service-QaiP7N
+drwx------. 3 root    root    17 Mar  3 08:28 systemd-private-3f251aad6ce74edb86dddf89d56e8aed-systemd-logind.service-iM6Zeq<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  /tmp/hello.sh文件位于主机计算机上，而不存在于容器内的文件系统上。如果尝试使用podmanexec来执行脚本，则会出现错误，因为容器中不存在/tmp/hello.sh脚本</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera tmp]$ stat /tmp/hello.sh
+  File: /tmp/hello.sh
+  Size: 18          Blocks: 8          IO Block: 4096   regular file
+Device: fc04h/64516d    Inode: 18159864    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ student)   Gid: ( 1000/ student)
+Context: unconfined_u:object_r:user_tmp_t:s0
+Access: 2025-03-03 21:24:33.865950531 -0500
+Modify: 2025-03-03 21:24:33.865950531 -0500
+Change: 2025-03-03 21:24:33.865950531 -0500
+ Birth: 2025-03-03 21:24:33.865950531 -0500
+[student@servera tmp]$ podman exec rhel7 stat /tmp/hello.sh
+stat: cannot stat '/tmp/hello.sh': No such file or directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  podman cp命令在主机和容器文件系统之间复制文件和文件夹。可以使用podman cp 命令将/tmp/hello.sh文件复制到python38容器:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman cp /tmp/hello.sh rhel7:/tmp/hello.sh
+[student@servera ~]$ podman exec rhel7 stat /tmp/hello.sh
+  File: '/tmp/hello.sh'
+  Size: 18          Blocks: 8          IO Block: 4096   regular file
+Device: 58h/88d Inode: 10261231    Links: 1
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2025-03-04 02:24:34.000000000 +0000
+Modify: 2025-03-04 02:24:34.000000000 +0000
+Change: 2025-03-04 02:28:24.720471184 +0000
+ Birth: -<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  脚本复制到容器文件系统后，即可从容器内执行:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman exec rhel7 bash /tmp/hello.sh
+Hello China!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="4-5-删除容器和镜像"><a href="#4-5-删除容器和镜像" class="headerlink" title="4.5 删除容器和镜像"></a>4.5 删除容器和镜像</h2><p>  使用podman rm和podman rmi命令删除容器和镜像</p>
+<p>  删除容器镜像之前，必须先从该镜像移除任何现有的运行中容器</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE                                             COMMAND         CREATED            STATUS                        PORTS       NAMES
+850618efbece  utility.lab.example.com/ubi9/ubi:latest           /bin/bash       10 hours ago       Exited (0) 10 hours ago                   rhel9
+student@servera ~]$ podman rmi utility.lab.example.com/ubi9/ubi:latest
+Error: image used by 8e7870d50daa32c768c4301911364285a659a5383b4cdadc96b8d3b7ff411c2d: image is in use by a container: consider listing external containers and force-removing image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  必须先停止容器，然后才能删除它。若要停止容器，请使用podman stop命令</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman stop python38
+python38<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  停止容器后，使用podman rm命令来删除容器</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman rm --help
+[student@servera ~]$ podman rm python38
+python38<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  当容器不再存在时，可使用podman rmi命令删除对应的镜像:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman images
+REPOSITORY                                 TAG         IMAGE ID      CREATED        SIZE
+localhost/rhel7                            2.0         98d0b6385a00  11 hours ago   238 MB
+utility.lab.example.com/ubi9/ubi           latest      8d2a8803cfca  12 months ago  219 MB
+utility.lab.example.com/ubi7/ubi           latest      87dd8ec61bbc  4 years ago    215 MB
+utility.lab.example.com/rhel8/mariadb-103  latest      11a47e0fbed0  4 years ago    572 MB
+[student@servera ~]$ podman rmi 8d2a8803cfca
+Error: image used by c4f7f4d727471d590f6241cccf0be0b1ef2256cc43a710594642611fe6d0be47: image is in use by a container: consider listing external containers and force-removing image
+[student@servera ~]$ podman rmi 98d0b6385a00
+Untagged: localhost/rhel7:2.0
+Deleted: 98d0b6385a005e09cfcee59a393cfce2fc46b56f09af6c4f87bd874f00966ed2
+Deleted: 53c739e51f226903b6568038c9cf563de2007f756e0a0e86e5c00604cf474f3d
+Deleted: 92b83aa1157f23b209f53480c6bbdf780c39490b37337bc4f4fcb1061b7c978<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="5-容器存储和网络资源"><a href="#5-容器存储和网络资源" class="headerlink" title="5 容器存储和网络资源"></a>5 容器存储和网络资源</h1><h2 id="5-1-管理容器资源"><a href="#5-1-管理容器资源" class="headerlink" title="5.1 管理容器资源"></a>5.1 管理容器资源</h2><p>  可以使用容器来运行简单的进程，然后退出。还可以配置容器以连续运行某一服务，如数据库服务器。如果持续运行服务，最终可能需要向容器添加更多资源，如持久存储或对其他网络的访问权限</p>
+<p>  可以使用不同的策略为容器配置持久存储:</p>
+<p>   1.对于红帽OpenShift等企业容器平台上的大型部署，可以使用复杂的存储解决方案为容器提供存储，而无需了解底层基础架构</p>
+<p>   2.对于单个容器主机上且无需扩展的小型部署，可以通过在运行中的容器上创建要挂载的目录，从容器主机创建持久存储</p>
+<p>  当Web服务器或数据库服务器等容器为容器主机外部的客户端提供内容时，必须为这些客户端设置通信通道，以访问容器的内容</p>
+<p>  可以配置端口映射，以启用与容器的通信。通过端口映射，目的地为容器主机上端口的请求将被转发到容器内的端口</p>
+<h2 id="5-2-容器的环境变量"><a href="#5-2-容器的环境变量" class="headerlink" title="5.2 容器的环境变量"></a>5.2 容器的环境变量</h2><p>  容器镜像允许在创建时传递环境变量以自定义容器</p>
+<p>  可以使用环境变量为容器设置参数，以根据您的环境进行定制，无需创建自己的自定义镜像。通常不会修改容器镜像，因为这会向镜像添加层，或许更加难以维护</p>
+<p>  使用podman run -d –name db01 utility.lab.example.com/rhel8/mariadb-103命令运行容器化数据库，但发现容器无法启动</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman search utility.lab.example.com/
+     
+[student@servera ~]$ podman pull utility.lab.example.com/rhel8/mariadb-103
+
+[student@servera ~]$ podman images
+REPOSITORY                                 TAG         IMAGE ID      CREATED        SIZE
+utility.lab.example.com/rhel8/mariadb-103  latest      11a47e0fbed0  4 years ago    572 MB
+
+[student@servera ~]$ podman run -d --name db01 utility.lab.example.com/rhel8/mariadb-103
+29decc6e48d62506e62e503a383943709138a8f789a32dd27d2fa1761bf3ea9f
+
+# 发现容器无法启动
+[student@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE           COMMAND     CREATED        STATUS                    PORTS       NAMES
+29decc6e48d6  utility.lab.example.com/rhel8/mariadb-103:latest  run-mysqld  2 minutes ago  Exited (1) 2 minutes ago              db01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  使用podman container logs命令调查容器状态的原因</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman container logs db01
+Warning: Can't detect memory limit from cgroups
+Warning: Can't detect number of CPU cores from cgroups
+Warning: Can't detect memory limit from cgroups
+Warning: Can't detect number of CPU cores from cgroups
+=&gt; sourcing 20-validate-variables.sh ...
+You must either specify the following environment variables:
+  MYSQL_USER (regex: '^[a-zA-Z0-9_]+$')
+  MYSQL_PASSWORD (regex: '^[a-zA-Z0-9_~!@#$%^&amp;*()-=&lt;&gt;,.?;:|]+$')
+  MYSQL_DATABASE (regex: '^[a-zA-Z0-9_]+$')
+Or the following environment variable:
+  MYSQL_ROOT_PASSWORD (regex: '^[a-zA-Z0-9_~!@#$%^&amp;*()-=&lt;&gt;,.?;:|]+$')
+Or both.
+Optional Settings:
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  容器信息展示</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 输出中的usage 标签提供了如何运行镜像的示例。url标签指向红帽容器目录中的一个Web页面，其中记录了环境变量以及有关如何使用容器镜像的其他信息。
+# 此镜像的文档显示容器将3306端口用于数据库服务。文档中还显示了以下环境变量可用于配置数据库服务:
+[student@servera ~]$ podman images
+REPOSITORY                                 TAG         IMAGE ID      CREATED        SIZE
+utility.lab.example.com/ubi9/ubi           latest      8d2a8803cfca  12 months ago  219 MB
+utility.lab.example.com/ubi7/ubi           latest      87dd8ec61bbc  4 years ago    215 MB
+utility.lab.example.com/rhel8/mariadb-103  latest      11a47e0fbed0  4 years ago    572 MB
+[student@servera ~]$ podman inspect utility.lab.example.com/rhel8/mariadb-103 | grep usage
+                    "usage": "podman run -d -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -p 3306:3306 rhel8/mariadb-103",
+               "usage": "podman run -d -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -p 3306:3306 rhel8/mariadb-103",
+
+$ skopeo inspect docker://utility.lab.example.com/rhel8/mariadb-105 | grep -B 1 Usage<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  mariadb镜像的环境变量</p>
+<table>
+<thead>
+<tr>
+<th align="left">变量</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MYSQL_USER</td>
+<td align="left">要创建的MySQL帐户的用户名</td>
+</tr>
+<tr>
+<td align="left">MYSQL_PASSWORD</td>
+<td align="left">用户帐户的密码</td>
+</tr>
+<tr>
+<td align="left">MYSQL_DATABASE</td>
+<td align="left">数据库名称</td>
+</tr>
+<tr>
+<td align="left">MYSQL_ROOT_PASSWORD</td>
+<td align="left">root用户的密码 (可选)</td>
+</tr>
+</tbody></table>
+<p>  在检查了镜像的可用环境变量后，使用podman run命令-e选项将环境变量传递给容器，并使用podman ps命令来验证它是否正在运行</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman rm -af
+29decc6e48d62506e62e503a383943709138a8f789a32dd27d2fa1761bf3ea9f
+
+[student@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE       COMMAND     CREATED     STATUS      PORTS       NAMES
+
+[student@servera ~]$ podman run -d --name db01 -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db utility.lab.example.com/rhel8/mariadb-103
+41a62ff2efd7f268e52d6f6a0a9b503411824c5f4391b86dae5d3f01376cb896
+
+# 容器启动成功
+[student@servera ~]$ podman ps  -a
+CONTAINER ID  IMAGE                                             COMMAND     CREATED        STATUS        PORTS       NAMES
+41a62ff2efd7  utility.lab.example.com/rhel8/mariadb-103:latest  run-mysqld  8 seconds ago  Up 8 seconds              db01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-3-容器持久存储"><a href="#5-3-容器持久存储" class="headerlink" title="5.3 容器持久存储"></a>5.3 容器持久存储</h2><p>  默认情况下运行容器时，所有内容都使用基于容器的镜像</p>
+<p>  鉴于容器镜像的寿命短，用户或应用写入的所有新数据在移除容器后都会丢失</p>
+<p>  若要持久保留数据，可以将容器中的主机文件系统内容与–volume(-v)选项搭配使用。在容器中使用此卷类型时，必须考虑文件系统级别的权限<br>  MariaDB容器镜像中，mysql用户必须拥有/var/lib/mysql目录，就如同MariaDB在主机上运行时一样</p>
+<p>  打算挂载到容器中的目录必须具有mysql作为用户和组所有者(或mysql用户的UID/GID，如果主机上没有安装MariaDB)</p>
+<p>  如果以root用户身份运行容器，则主机上的UID和GID与容器内的UID和GID匹配</p>
+<p>  可使用podman unshare命令在用户命名空间内运行命令。要获取用户命名空间的UID映射，请使用podman unshare cat命令</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman unshare cat /proc/self/uid_map
+         0       1000          1
+         1     100000      65536
+[student@servera ~]$ podman unshare cat /proc/self/gid_map
+         0       1000          1
+         1     100000      65536<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  以上输出显示：</p>
+<p>   1.容器中的root用户 (UID和GID为0)映射到主机计算机上的用户(UID和GID为1000)</p>
+<p>   2.容器中的UID和GID1映射到主机计算机上的UID和GID 100000</p>
+<p>   3.1后的每个UID和GID以1增量递增。例如，容器内的UID和GID30映射到主机计算机上的UID和GID100029</p>
+<p>   4.可使用podman exec命令查看使用临时存储运行的容器内的mysql用户UID和GID:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman exec -it db01 grep mysql /etc/passwd
+mysql:x:27:27:MySQL Server:/var/lib/mysql:/sbin/nologin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  将/home/user/db_data目录挂载到db01容器中，以在容器的/var/lib/mysql目录中提供持久存储</p>
+<p>  创建/home/user/db_data目录，并使用podmanunshare命令将27的用户命名空间UID和GID设置为该目录的所有者</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ mkdir /home/student/db_data
+[student@servera ~]$ ll -d /home/student/db_data
+drwxr-xr-x. 2 student student 6 Mar  4 00:43 /home/student/db_data
+
+[student@servera ~]$ ll -d -n /home/student/db_data
+drwxr-xr-x. 2 1000 1000 6 Mar  4 00:43 /home/student/db_data
+
+[student@servera ~]$ podman unshare chown 27:27 /home/student/db_data/
+[student@servera ~]$ ll -d /home/student/db_data
+drwxr-xr-x. 2 100026 100026 6 Mar  4 00:43 /home/student/db_data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  容器中的UID和GID 27映射到主机计算机上的UID和GID100026</p>
+<p>  可使用ll -d命令查看/home/student/db_data目录的所有权来验证映射</p>
+<p>  现在已设置了正确的文件系统级权限，可使用podman run 命令-v选项来挂载目录:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman rm -af
+41a62ff2efd7f268e52d6f6a0a9b503411824c5f4391b86dae5d3f01376cb896
+
+[student@servera ~]$ podman run -d --name db01 -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -v /home/student/db_data/:/var/lib/mysql  utility.lab.example.com/rhel8/mariadb-103
+54279d1fff7f3b679dd9d4efb7bfa28a626f41f7d07bea50a445ec2392c8cb02
+
+# db01容器未在运行
+[student@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE                                             COMMAND     CREATED        STATUS                    PORTS       NAMES
+54279d1fff7f  utility.lab.example.com/rhel8/mariadb-103:latest  run-mysqld  6 minutes ago  Exited (1) 6 minutes ago              db01
+
+$ podman run -d --name db01 \
+-e MYSQL_USER=user \
+-e MYSQL_PASSWORD=pass \
+-e MYSQL_DATABASE=db \
+-e MYSQL_ROOT_PASSWORD=redhat \
+-v /home/student/db_data/:/var/lib/mysql \
+utility.lab.example.com/rhel8/mariadb-103<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  podman container logs命令显示/var/lib/mysql/data目录的权限错误：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman container logs db01
+Warning: Can't detect memory limit from cgroups
+Warning: Can't detect number of CPU cores from cgroups
+Warning: Can't detect memory limit from cgroups
+Warning: Can't detect number of CPU cores from cgroups
+=&gt; sourcing 20-validate-variables.sh ...
+=&gt; sourcing 25-validate-replication-variables.sh ...
+=&gt; sourcing 30-base-config.sh ...
+---&gt; 05:58:29     Processing basic MySQL configuration files ...
+=&gt; sourcing 60-replication-config.sh ...
+=&gt; sourcing 70-s2i-config.sh ...
+---&gt; 05:58:29     Processing additional arbitrary  MySQL configuration provided by s2i ...
+=&gt; sourcing 40-paas.cnf ...
+=&gt; sourcing 50-my-tuning.cnf ...
+---&gt; 05:58:29     Initializing database ...
+---&gt; 05:58:29     Running mysql_install_db ...
+mkdir: cannot create directory '/var/lib/mysql/data': Permission denied
+Fatal error Can't create database directory '/var/lib/mysql/data'
+# 发生此错误的原因是，主机上/home/user/db\_data目录中设置的SELinux上下文不正确<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-4-容器存储的SELinux上下文"><a href="#5-4-容器存储的SELinux上下文" class="headerlink" title="5.4 容器存储的SELinux上下文"></a>5.4 容器存储的SELinux上下文</h2><p>  必须先设置container_file_t SELinux上下文类型，然后才能将该目录作为持久存储挂载到容器。如果目录没有container_file_t SELinux 上下文，则容器无法访问该目录</p>
+<p>  可以将Z选项附加到podman run命令-v选项的参数，以自动设置目录的SELinux上下文</p>
+<p>  /home/student/db_data挂载为/var/lib/mysql目录的持久存储时，可使用podman run -v /home/student/db_data:/var/lib/mysql:Z命令设置该目录的SELinux上下文</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman run -d --name db01 -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -v /home/student/db_data/:/var/lib/mysql:Z utility.lab.example.com/rhel8/mariadb-103
+6195fc399b1f6ae8f5b9d3f436c02bb5d6b093b597949dc968b2a64f6e7d023c
+
+[student@servera ~]$ ll -dZ /home/student/db_data/
+drwxr-xr-x. 3 100026 100026 system_u:object_r:container_file_t:s0:c428,c988 36 Mar  4 01:26 /home/student/db_data/
+
+$ podman run -d --name db01 \
+-e MYSQL_USER=user \
+-e MYSQL_PASSWORD=pass \
+-e MYSQL_DATABASE=db \
+-e MYSQL_ROOT_PASSWORD=redhat \
+-v /home/student/db_data:/var/lib/mysql:Z utility.lab.example.com/rhel8/mariadb-103<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-5-分配端口映射到容器"><a href="#5-5-分配端口映射到容器" class="headerlink" title="5.5 分配端口映射到容器"></a>5.5 分配端口映射到容器</h2><p>  要提供对容器的网络访问权限，客户端必须连接到容器主机上的端口，这些端口将网络流量传递到容器中的端口</p>
+<p>  将容器主机上的网络端口映射到容器中的端口时，容器将接收发送到主机网络端口的网络流量</p>
+<p>  例如，可以将容器主机上的13306端口映射到容器上的3306端口，以便与MariaDB容器通信。因此，发送到容器主机端口13306的流量将由容器中运行的MariaDB接收</p>
+<p>  可以使用 podman run命令的-p选项设置从容器主机上13306端口到db01容器上3306端口的端口映射</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman run -d --name db01 -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -v /home/student/db_data/:/var/lib/mysql:Z -p 13306:3306 utility.lab.example.com/rhel8/mariadb-103
+28202973f22d60ea4ccd096b8a321b30c7d57156a2c41d2502c1a0456c794ced
+
+[student@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE                                             COMMAND     CREATED         STATUS         PORTS                    NAMES
+28202973f22d  utility.lab.example.com/rhel8/mariadb-103:latest  run-mysqld  20 seconds ago  Up 20 seconds  0.0.0.0:13306-&gt;3306/tcp  db01
+
+$ podman run -d --name db01 \
+-e MYSQL_USER=user \
+-e MYSQL_PASSWORD=pass \
+-e MYSQL_DATABASE=db \
+-e MYSQL_ROOT_PASSWORD=redhat \
+-p 13306:3306 \
+-v /home/student/db_data:/var/lib/mysql:Z \
+utility.lab.example.com/rhel8/mariadb-103<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  使用podman port命令的-a选项可显示正在使用的所有容器端口映射。还可以使用podman port db01命令显示 db01容器的映射端口</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ podman port -a
+28202973f22d    3306/tcp -&gt; 0.0.0.0:13306
+[student@servera ~]$ podman port db01
+3306/tcp -&gt; 0.0.0.0:13306<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  可使用firewall-cmd命令允许端口13306流量传入容器主机，以便它可以重定向到容器:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># Rootless(特权)容器无法打开主机上特权端口1024有 以下的端口。比如-p 80:8000 ，比必须使用root才可以对其进行调整
+[student@servera ~]$ sudo firewall-cmd --permanent --add-port=13306/tcp
+[sudo] password for student: 
+success
+[student@servera ~]$ sudo firewall-cmd --reload
+success
+[student@servera ~]$ sudo firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: eth0
+  sources: 
+  services: cockpit dhcpv6-client ssh
+  ports: 13306/tcp
+  protocols: 
+  forward: yes
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+# firewall-cmd --add-port=13306/tcp --permanent
+# firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-6-容器的网络后端"><a href="#5-6-容器的网络后端" class="headerlink" title="5.6 容器的网络后端"></a>5.6 容器的网络后端</h2><p>  Podmanv4.0支持两种容器网络后端，即Netavark和CNI</p>
+<p>  自RHEL9起，系统默认使用Netavark。若要验证所用的网络后端，请运行以下podman info命令</p>
+<p>  <a target="_blank" rel="noopener" href="https://docs.redhat.com/zh_hans/documentation/red_hat_enterprise_linux/9/html/building_running_and_managing_containers/proc_switching-the-network-stack-from-cni-to-netavark_assembly_setting-container-network-modes">将网络堆栈从 CNI 切换到 Netavark | Red Hat Product Documentation</a></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman info --format {{.Host.NetworkBackend}}
+netavark<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  主机上使用默认Podman网络的现有容器无法解析彼此的主机名，因为默认网络上未启用DNS</p>
+<p>  使用podman network create命令创建一个支持DNS的网络：</p>
+<p>   使用podman network create命令创建名为db_net的网络，并将子网指定为10.87.0.0/16，网关指定为10.87.0.1</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman network create --gateway 10.87.0.1 --subnet 10.87.0.0/16 db_net
+
+$ podman network ls # 列出容器网络<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  如果不指定–gateway 或–subnet 选项，则会使用默认值创建它们</p>
+<p>  podman network inspect 命令显示关于特定网络的信息：</p>
+<p>   可使用podman network inspect 命令验证网关和子网的设置是否正确，以及新的dbnet网络是否启用了DNS</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman network inspect db_net<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  podman run命令–network选项将启用DNS的db_net网络添加到新容器：</p>
+<p>   可使用podman run命令–network选项创建连接到db_net网络的db01和client01容器</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman run -d --name db01 \
+--network db_net \
+-e MYSQL_USER=user \
+-e MYSQL_PASSWORD=pass \
+-e MYSQL_DATABASE=db \
+-e MYSQL_ROOT_PASSWORD=redhat \
+-v /home/student/db_data:/var/lib/mysql:Z \
+-p 13306:3306 \
+utility.lab.example.com/rhel8/mariadb-105
+
+
+$ podman run -d --name client01 \
+--network db_net \
+-v /etc/yum.repos.d:/etc/yum.repos.d/ \
+utility.lab.example.com/ubi9-beta/ubi \
+sleep infinity
+
+$ podman ps -a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  由于容器设计为仅具有所需的最少软件包，因此容器可能不具有测试通信所需的实用程序，如ping和ip命令。可以使用podman exec 命令在容器中安装这些实用程序</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman exec client01 dnf install -y iputils iproute
+..output omitted..<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  容器现在可以通过容器名称互相ping</p>
+<p>  可以使用podman exec命令来测试DNS解析，名称解析到为db_net网络手动设置的子网内的IP</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman exec client01 ping -c4 db01
+PING db01.dns.podman (10.87.0.2) 56(84) bytes of data.
+64 bytes from 10.87.0.2 (10.87.0.2): icmp_seq=1 ttl=64 time=1.08 ms
+64 bytes from 10.87.0.2 (10.87.0.2): icmp_seq=2 ttl=64 time=0.082 ms
+64 bytes from 10.87.0.2 (10.87.0.2): icmp_seq=3 ttl=64 time=0.063 ms
+64 bytes from 10.87.0.2 (10.87.0.2): icmp_seq=4 ttl=64 time=0.070 ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  可以使用 podman exec命令验证每个容器中的IP地址是否与DNS解析匹配</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman exec client01 ip a | grep 10.8
+    inet 10.87.0.3/16 brd 10.87.255.255 scope global eth0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="5-7-多个网络连接到单个容器"><a href="#5-7-多个网络连接到单个容器" class="headerlink" title="5.7 多个网络连接到单个容器"></a>5.7 多个网络连接到单个容器</h2><p>  多个网络可以同时连接到一个容器，以帮助分隔不同类型的流量</p>
+<p>  可以使用podman network create命令创建backend网络</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman network create backend<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  使用podman network ls 命令查看所有Podman网络</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman network ls
+NETWORK ID    NAME    DRIVER  
+a7fea510a6d1  backend bridge
+fe680efc5276  db01    bridge
+2f259bab93aa  podman  bridge<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  没有通过podman network create命令的–gateway和–subnet选项指定子网和网关，使用podman network inspect命令获取backend<br>网络的IP信息</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman network inspect backend<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  在容器运行时，可以使用podman network connect命令将其他网络连接到容器</p>
+<p>  可以使用podman network connect命令，将backend网络连接到db01和client01容器</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman network connect backend db01
+$ podman network connect backend client01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  可以使用podman inspect命令验证两个网络是否都已连接到各个容器并显示IP信息</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman inspect db01
+
+$ podman inspect db01 | grep -A 34 Networks &gt; db01
+$ cat db01  #查看db01的两个网络IP为10.89.0.2 ， 10.87.0.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  client01容器现在可以与两个网络上的db01容器通信，可以使用podman exec命令从cliento1容器pingdb01容器上的两个网络</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman exec -ti client01 ping -c4 10.89.0.2
+PING 10.89.0.2 (10.89.0.2) 56(84) bytes of data.
+64 bytes from 10.89.0.2: icmp_seq=1 ttl=64 time=0.352 ms
+$ podman exec -ti client01 ping -c4 10.87.0.2
+PING 10.87.0.2 (10.87.0.2) 56(84) bytes of data.
+64 bytes from 10.87.0.2: icmp_seq=1 ttl=64 time=0.594 ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  容器内安装mariadb客户端访问容器数据库</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman exec client01 dnf -y install mariadb
+podman
+$ podman exec -ti client01 mysql -u user -ppass -h db01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="6-系统服务管理容器"><a href="#6-系统服务管理容器" class="headerlink" title="6 系统服务管理容器"></a>6 系统服务管理容器</h1><h2 id="6-1-systemd管理小型容器"><a href="#6-1-systemd管理小型容器" class="headerlink" title="6.1 systemd管理小型容器"></a>6.1 systemd管理小型容器</h2><p>  可以运行容器来完成系统任务、获取一系列命令的输出，可能还希望运行无限期运行服务的容器，如Web服务器或数据库</p>
+<p>  在传统环境中，特权用户通常将这些服务配置为在系统启动时运行，并使用systemctl命令进行管理</p>
+<p>  普通用户可以创建systemd单元来配置您的Rootless容器。利用此配置，可以通过systemctl命令将容器作为常规系统服务进行管理</p>
+<p>  基于systemd单元管理容器主要用于不需要扩展的基本和小型部署</p>
+<p>  对于许多基于容器的应用和服务的更复杂扩展和编排，可以使用基于Kubernetes的企业编排平台，如红帽OpenShift容器平台</p>
+<h2 id="6-2-systemd用户服务要求"><a href="#6-2-systemd用户服务要求" class="headerlink" title="6.2 systemd用户服务要求"></a>6.2 systemd用户服务要求</h2><p>  普通用户可以使用systemctl命令来启用服务，该服务在打开会话(图形界面、文本控制台或SSH)时启动，并在关闭最后一个会话时停止。</p>
+<p>此行为与系统服务有所不同，系统服务是在系统启动时启动并在系统关机时停止</p>
+<p>  默认情况下，当使用useradd命令创建用户帐户时，系统将使用普通用户ID范围中的下一个可用ID</p>
+<p>  系统在/etc/subuid文件中为用户的容器保留一系列ID</p>
+<p>  如果使用useradd命令–system选项创建用户帐户，系统不会为用户容器保留范围。因此，无法使用系统帐户启动Rootless容器</p>
+<p>  创建一个专门的用户帐户来管理容器，使用useradd命令创建appdev-adm用户，并将redhat用作密码</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ sudo useradd appdev-adm
+[sudo] password for student:student
+[student@servera ~]$ sudo passwd appdev-adm
+Changing password for user appdev-adm.
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  使用su命令切换到appdev-adm用户，并使用podman命令来启动</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[student@servera ~]$ su appdev-adm
+Password:redhat
+[appdev-adm@servera student]$ podman info
+ERRO[0000] XDG_RUNTIME_DIR directory "/run/user/1000" is not owned by the current user
+[root@servera ~]# su appdev-adm
+[appdev-adm@servera root]$ podman info
+ERRO[0000] XDG_RUNTIME_DIR directory "/run/user/0" is not owned by the current user<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  Podman是一款无状态实用程序，需要完整的登录会话</p>
+<p>  Podman必须在SSH会话中使用，不能在sudo或su shell中使用。因此，将退出su shell，并通过SSH登录计算机</p>
+<p>  无状态应用：</p>
+<p>   Stateless Application指不会在会话中保存下次会话中去要的客户端数据，每个会话都像首次执行一样,不会依赖之前的数据进行响应</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[appdev-adm@servera root]$ exit
+exit
+[root@servera ~]# ssh appdev-adm@localhost
+appdev-adm@localhost's password:
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Tue Mar  4 09:06:27 2025
+[appdev-adm@servera ~]$ podman info
+[appdev-adm@servera ~]$ podman login -u admin -p redhat321 utility.lab.example.com
+Login Succeeded!
+[appdev-adm@servera ~]$ podman search utility.lab.example.com/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  配置容器注册表并使用您的凭据进行身份验证，可以使用以下命令运行http容器</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[appdev-adm@servera ~]$ mkdir /home/appdev-adm/nginx_web/
+[appdev-adm@servera ~]$ echo nginx_web_page &gt; /home/appdev-adm/nginx_web/index.html
+[appdev-adm@servera ~]$ cat /home/appdev-adm/nginx_web/index.html
+nginx_web_page
+[appdev-adm@servera ~]$ podman run -d --name nginx -v /home/appdev-adm/nginx_web/:/usr/share/nginx/html/:Z -p 8080:80 utility.lab.example.com/library/nginx
+[appdev-adm@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE                                         COMMAND               CREATED        STATUS        PORTS                 NAMES
+6f72fe3fc6d7  utility.lab.example.com/library/nginx:latest  nginx -g daemon o...  2 minutes ago  Up 2 minutes  0.0.0.0:8080-&gt;80/tcp  nginx
+[appdev-adm@servera ~]$ curl localhost:8080
+nginx_web_page<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-2-1-创建systemd用户文件"><a href="#6-2-1-创建systemd用户文件" class="headerlink" title="6.2.1 创建systemd用户文件"></a>6.2.1 创建systemd用户文件</h3><p>  在~/.confiq/svstemd/user/目录中手动定义systemd服务</p>
+<p>  用户服务的文件语法与系统服务文件的相同，详细信息可查看systemd.unit(5)和systemd.service(5)man手册</p>
+<p>  podman generate systemd命令为现有容器生成systemd服务文件，podman generate systemd命令使用容器作为模型创建配置文件</p>
+<p>  podman generate systemd命令的–new选项指示podman实用程序对systemd服务进行配置，以便在该服务启动时创建容器并在该服务停止时删除容器</p>
+<p>  使用podman generate systemd命令和–name选项来显示为nginx容器建模的systemd服务文件</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[appdev-adm@servera ~]$ man systemd.unit | grep config.*user
+       ~/.config/systemd/user.control/*
+       ~/.config/systemd/user/*
+       │~/.config/systemd/user.control                    │ using the dbus API ($XDG_CONFIG_HOME is used if   │
+       │$HOME/.config/systemd/user                        │ set, ~/.config otherwise)                         │
+[appdev-adm@servera ~]$ man systemd.unit
+[appdev-adm@servera ~]$ mkdir -p ~/.config/systemd/user/
+[appdev-adm@servera ~]$ cd ~/.config/systemd/user/
+[appdev-adm@servera ~]$ podman stop nginx        # 生成单元文件之前先停止容器
+nginx
+[appdev-adm@servera user]$ podman generate systemd -n nginx -f
+/home/appdev-adm/.config/systemd/user/container-nginx.service
+[appdev-adm@servera user]$ ls
+container-nginx.service
+[appdev-adm@servera user]$ systemctl --user enable --now container-nginx.service
+Created symlink /home/appdev-adm/.config/systemd/user/default.target.wants/container-nginx.service → /home/appdev-adm/.config/systemd/user/container-nginx.service.
+[appdev-adm@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE                                         COMMAND               CREATED         STATUS             PORTS                 NAMES
+6f72fe3fc6d7  utility.lab.example.com/library/nginx:latest  nginx -g daemon o...  26 minutes ago  Up About a minute  0.0.0.0:8080-&gt;80/tcp  nginx
+[appdev-adm@servera user]$ systemctl --user stop container-nginx.service
+[appdev-adm@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE                                         COMMAND               CREATED         STATUS                     PORTS                 NAMES
+6f72fe3fc6d7  utility.lab.example.com/library/nginx:latest  nginx -g daemon o...  27 minutes ago  Exited (0) 16 seconds ago  0.0.0.0:8080-&gt;80/tcp  nginx
+[appdev-adm@servera user]$ systemctl --user restart container-nginx.service
+
+$ podman generate systemd -n nginx
+ExecStart=/usr/bin/podman start nginx
+ExecStop=/usr/bin/podman stop -t 10 nginx
+
+*$ podman generate systemd -n nginx -f
+$ ls
+container-nginx.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  启动时，systemd守护进程执行podman start命令来启动现有容器</p>
+<p>  停止时，systemd守护进程执行podman stop命令来停止容器，systemd守护进程不会删除该容器</p>
+<p>  使用上一命令并加上–new选项来比较systemd配置</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ podman generate systemd -n nginx --new
+
+ExecStartPre=/bin/rm -f %t/%n.ctr-id
+ExecStart=/usr/bin/podman run --cidfile=%t/%n.ctr-id --cgroups=no-conmon --rm --sdnotify=conmon --replace -d --name nginx -p 8080:80 -v /home/appdev-adm/nginx_web/:/usr/share/nginx/html/:Z utility.lab.example.com/library/nginx
+ExecStop=/usr/bin/podman stop --ignore --cidfile=%t/%n.ctr-id
+ExecStopPost=/usr/bin/podman rm -f --ignore --cidfile=%t/%n.ctr-id
+
+#通过--new选项创建用户单元文件的方法，仅供参考
+$ cd ~/.config/systemd/user/
+$ podman generate systemd -n nginx --new -f
+/home/appdev-adm/.config/systemd/user/container-nginx.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  启动时，systemd守护进程执行podman run命令创建并启动新容器。此操作使用podman run命令的–rm选项，将在停止时删除容器</p>
+<p>  停止时，systemd 执行podman stop命令以停止容器</p>
+<p>  在systemd停止容器后，systemd将使用podman rm -f命令将其移除</p>
+<p>  验证podman generate systemd命令的输出，并使用–files选项运行上一命令，以在当前目录中创建systemd用户文件。由于nginx容器使用持久存储，因此选择使用带有–new选项的podman generate systemd命令。然后创建~/config/systemd/user/目录并将文件移到此位置上</p>
+<h3 id="6-2-2-管理systemd用户文件"><a href="#6-2-2-管理systemd用户文件" class="headerlink" title="6.2.2 管理systemd用户文件"></a>6.2.2 管理systemd用户文件</h3><p>  现在已创建了systemd用户文件，可以使用systemctl命令的–user选项来管理nginx容器</p>
+<p>  首先，重新加载systemd守护进程，使systemctl命令知道新的用户文件：</p>
+<p>   使用systemctl–user start命令启动nginx容器</p>
+<p>   使用为容器生成的systemd用户文件的名称</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ systemctl --user enable --now container-nginx.service
+#其他的管理方法，仅供参考
+$ systemctl --user status container-nginx.service
+$ systemctl --user stop container-nginx.service
+
+#建议重启验证容器是否可以 开机自启动<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  systemd 系统和用户服务之间使用的不同目录和命令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.存储自定义单元文件     系统服务   /etc/systemd/system/unit.service
+                       用户服务   \~/.config/systemd/user/unit.service
+                         
+2.重新加载单元文件       系统服务   \# systemctl daemon-reload
+                       用户服务   \$ systemctl --user daemon-reload
+                       
+3.启动和停止服务         系统服务   \# systemctl start UNIT    
+                                 \# systemctl stop UNIT
+                       用户服务   \$ systemctl --user start UNIT   
+                                 \$ systemctl --user stop UNIT
+                     
+4.在计算机启动时启动服务  系统服务   \# systemctl enable UNIT
+                       用户服务   \$ loginctl enable-linger  
+                                 \$ systemctl --user enable UNIT                    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="6-2-3-配置为系统引导时启动"><a href="#6-2-3-配置为系统引导时启动" class="headerlink" title="6.2.3 配置为系统引导时启动"></a>6.2.3 配置为系统引导时启动</h3><p>  此时systemd服务配置已就绪，可以为给定的用户运行容器。但是，如果用户从系统注销，systemd服务会在特定时间后停止容器。出现此行为的原因是，systemd服务单元是使用.user选项创建的，它在用户登录时启动服务，并在用户注销时停止服务</p>
+<p>  可以通过运行loginctl enable-linger命令来更改此默认行为，并强制已启用的服务在服务器启动时启动，并在服务器关闭期间停止。使用loginctl命令将systemd用户服务配置为在所配置服务的最后一个用户会话关闭后保留</p>
+<p>  使用 loginctl show-user 命令验证配置是否成功。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[appdev-adm@servera ~]$ loginctl show-user appdev-adm
+Linger=no
+[appdev-adm@servera ~]$ loginctl enable-linger
+[appdev-adm@servera ~]$ loginctl show-user appdev-adm
+Linger=yes
+
+# 重启后进行测试
+[kiosk@foundation0 ~]$ ssh root@servera
+[root@servera ~]# ssh appdev-adm@localhost
+[appdev-adm@servera ~]$ podman ps -a
+CONTAINER ID  IMAGE                                         COMMAND               CREATED         STATUS             PORTS                 NAMES
+6f72fe3fc6d7  utility.lab.example.com/library/nginx:latest  nginx -g daemon o...  40 minutes ago  Up About a minute  0.0.0.0:8080-&gt;80/tcp  nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-2-4-Root使用Systemd管理容器"><a href="#6-2-4-Root使用Systemd管理容器" class="headerlink" title="6.2.4 Root使用Systemd管理容器"></a>6.2.4 Root使用Systemd管理容器</h3><p>  将容器配置为以root身份运行，并使用systemd服务文件进行管理的优势是可以将这些服务文件配置为像常见systemd单元文件那样工作，而不是以特定用户身份来运行</p>
+<p>  将服务文件设置为root的过程与前面概述的Rootless容器过程类似，但以下例外:</p>
+<p>   1.不要创建专门的用户来管理容器</p>
+<p>   2.服务文件必须在/etc/systemd/system目录中，而不是在~/config/systemd/user目录中</p>
+<p>   3.使用systemctl命令管理容器，但不使用–user选项，不要以root用户身份运行loginctl enable-linger命令</p>
 
                 
             </div>
@@ -1013,7 +1910,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">2.4k</span>&nbsp;字
+                class="white-color">50.6k</span>&nbsp;字
             
             
             

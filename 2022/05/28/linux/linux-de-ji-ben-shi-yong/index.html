@@ -1,0 +1,3592 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Linux的基本使用, Linux技术博客">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Linux的基本使用 | Linux技术博客</title>
+    <link rel="icon" type="image/png"
+        href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css"
+        href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/matery.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/my.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/loading.css">
+
+    <script
+        src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+    
+    <style>
+    body{
+       background-image: url(/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+    
+    <body>
+        <div class="stars-con">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
+        <svg aria-hidden="true"
+            style="position: absolute; overflow: hidden; width: 0; height: 0">
+            <symbol id="icon-sun" viewBox="0 0 1024 1024">
+                <path
+                    d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z"
+                    fill="#FFD878" p-id="8420"></path>
+                <path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z"
+                    fill="#FFE4A9" p-id="8421"></path>
+                <path
+                    d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z"
+                    fill="#4D5152" p-id="8422"></path>
+                <path
+                    d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z"
+                    fill="#4D5152" p-id="8423"></path>
+            </symbol>
+            <symbol id="icon-moon" viewBox="0 0 1024 1024">
+                <path
+                    d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z"
+                    fill="#FFB531" p-id="11345"></path>
+                <path
+                    d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z"
+                    fill="#030835" p-id="11346"></path>
+            </symbol>
+        </svg>
+        <a onclick="switchNightMode()" class="icon-V hidden" title="切换主题">
+            <svg width="48" height="48" viewBox="0 0 1024 1024">
+                <use id="modeicon" xlink:href="#icon-moon"></use>
+            </svg>
+        </a>
+        <script>
+      function checkNightMode() {
+        '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
+      }
+      function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+          setTimeout(function () {
+            $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+              setTimeout(function () {
+                $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                  $(this).remove()
+                })
+              }, 2e3)
+          })
+      }
+      function switchNightModeTop() {
+        $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
+      }
+    </script>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Linux技术博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Linux技术博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/luovip/tecBlog.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/luovip/tecBlog.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/img/Linux.jpeg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Linux的基本使用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet"
+    href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+        background-color: rgb(255, 255, 255,0.7);
+        border-radius: 10px;
+        box-shadow: 0 10px 35px 2px rgba(0, 0, 0, .15), 0 5px 15px rgba(0, 0, 0, .07), 0 2px 5px -5px rgba(0, 0, 0, .1) !important;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+    #toc-content .toc-link:hover {
+        color: #f40;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #f40;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+                                <span class="chip bg-color">Linux的基本使用</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Linux/" class="post-category">
+                                Linux
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-05-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-05-31
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    13.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    62 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-访问命令行"><a href="#1-访问命令行" class="headerlink" title="1 访问命令行"></a>1 访问命令行</h1><h2 id="1-1-登录Linux系统"><a href="#1-1-登录Linux系统" class="headerlink" title="1.1 登录Linux系统"></a>1.1 登录Linux系统</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">图形化：系统菜单-注销-或切换用户
+字符界面：Ctrl+alt+F2-F6   
+在本机上切换用户：su - root
+退出登录：ctrl+d、exit、logout)
+网络登录：ssh ip、ssh 主机名
+[kiosk@foundation0 ~]$ ssh servera
+ssh 用户名@ip/主机名
+[kiosk@foundation0 ~]$ ssh student@servera<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-2-终端切换"><a href="#1-2-终端切换" class="headerlink" title="1.2 终端切换"></a>1.2 终端切换</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">CLI   Ctrl+alt+Fx   xin （2，6）
+GUI   Ctrl+alt+F1  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="1-3-Shell简介"><a href="#1-3-Shell简介" class="headerlink" title="1.3 Shell简介"></a>1.3 Shell简介</h2><p>  是一个解释器，可以帮助用户将指令信息传递内核</p>
+<p>  红帽企业Linux中为用户提供的默认shell是bash，bash是与UNIX类似的系统上使用的其中一个最成功的shell改进版本</p>
+<h2 id="1-4-基本组成"><a href="#1-4-基本组成" class="headerlink" title="1.4 基本组成"></a>1.4 基本组成</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[kiosk@foundation0 ~]$                    #$普通用户
+
+[kiosk@foundation0 ~]$ su - root          #切换用户：su - 用户名
+Password:                                 #输入用户登录密码
+Last login: Sat Feb 22 15:11:13 CST 2020 on tty3
+
+[root@foundation0 ~]#                    #超级用户
+
+ctrl+d or exit                           退出登录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注明：</p>
+<p>  1.bash shell在概念上与微软的cmd相似，但bash具有更加复杂的脚本语言</p>
+<p>  2.与win系统powershell类似、mac的管理终端使用工具也是使用的bash shell</p>
+<h2 id="1-5-GNOME-Shell"><a href="#1-5-GNOME-Shell" class="headerlink" title="1.5 GNOME Shell"></a>1.5 GNOME Shell</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ALT+F2  输入 gnome-terminal    # 启动终端
+win+l  # 锁定
+#  关闭                 重启
+  init 0               init 6
+  poweroff             reboot
+  systemctl poweroff   systemctl reboot
+  shutdown -h 20：00   shutdown -r 0
+
+ctrl+alt 上\|下 箭头   # 工作区切换<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-6-Shell的特性"><a href="#1-6-Shell的特性" class="headerlink" title="1.6 Shell的特性"></a>1.6 Shell的特性</h2><h3 id="1-6-1-linux命令语法"><a href="#1-6-1-linux命令语法" class="headerlink" title="1.6.1 linux命令语法"></a>1.6.1 linux命令语法</h3><p>  完成具体功能的命令、扩展该命令功能的选项、命令要操作的对象</p>
+<p>  cmd 【-option】 【arg1】 【arg2】</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">简单的命令示例：
+whoami
+date
+touch file1；mkdir dir1
+
+完成某些工作的指令
+扩展命令功能的选项
+参数
+
+ls
+ls -a    
+ls -a    ~/.bashrc
+ls -a  -l  ~/.bashrc
+ls -al  ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-6-2-命令的基础分类"><a href="#1-6-2-命令的基础分类" class="headerlink" title="1.6.2 命令的基础分类"></a>1.6.2 命令的基础分类</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 回显式命令
+date +%Y%m%d
+date +%Y-%m-%d
+
+# 交互式命令
+passwd
+
+# tab补全
+按一下是补全
+按两下列出可用命令
+tab键  输入单词或命令前面几个首字母后，保证唯一可补全，不唯一可列出能选择的命令
+
+# 历史命令-history
+env--能容纳1000条
+[root@servera ~]# env | grep SIZE
+HISTSIZE=1000
+
+[root@servera ~]# history -w 
+[root@servera ~]# vim ~/.bash_history     记录历史命令文件，vim是一个文本工具，可以打开后面的文件，进入后:q退出
+[root@servera ~]# history -c   清除
+[root@servera ~]# history 
+history的其他方法：
+！！
+！23    历史命令的编号
+！h      命令首字母
+
+当前历史命令支持的最大条数
+[root@foundation0 /]# grep ^HISTSIZE /etc/profile
+HISTSIZE=1000
+
+历史命令存放文件路径
+[root@foundation0 /]# set | grep HISTFILE
+HISTFILE=/root/.bash_history
+vim /etc/profile
+export HISTFILE=/root/.newfile
+source /etc/profile
+history -w
+cat /root/.newfile
+
+ctrl+R 搜索历史命令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-7-命令行快捷键"><a href="#1-7-命令行快捷键" class="headerlink" title="1.7 命令行快捷键"></a>1.7 命令行快捷键</h2><table>
+<thead>
+<tr>
+<th align="left">快捷键</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ctrl + shift + t</td>
+<td align="left">当前画面添加一个标签</td>
+</tr>
+<tr>
+<td align="left">ctrl + shift + n</td>
+<td align="left">打开一个新的标签</td>
+</tr>
+<tr>
+<td align="left">alt + 1，alt + 2</td>
+<td align="left">切换标签</td>
+</tr>
+<tr>
+<td align="left">ctrl + shift + =，ctrl + -</td>
+<td align="left">扩大与缩小终端字体</td>
+</tr>
+<tr>
+<td align="left">ctrl + shift + w</td>
+<td align="left">关闭标签</td>
+</tr>
+</tbody></table>
+<h2 id="1-8-Shell常用快捷键"><a href="#1-8-Shell常用快捷键" class="headerlink" title="1.8 Shell常用快捷键"></a>1.8 Shell常用快捷键</h2><table>
+<thead>
+<tr>
+<th align="left">快捷键</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ctrl + a</td>
+<td align="left">光标跳至行首</td>
+</tr>
+<tr>
+<td align="left">ctrl + e</td>
+<td align="left">光标跳至行尾</td>
+</tr>
+<tr>
+<td align="left">ctrl + u</td>
+<td align="left">从光标所在位置清空至行首</td>
+</tr>
+<tr>
+<td align="left">ctrl + k</td>
+<td align="left">从光标所在位置清空至行末</td>
+</tr>
+<tr>
+<td align="left">ctrl + 左箭头</td>
+<td align="left">光标向左跳一个单词</td>
+</tr>
+<tr>
+<td align="left">ctrl + 右箭头</td>
+<td align="left">光标向右跳一个单词</td>
+</tr>
+<tr>
+<td align="left">ctrl + w</td>
+<td align="left">回删一个单词</td>
+</tr>
+<tr>
+<td align="left">alt + d</td>
+<td align="left">删除光标后一个单词</td>
+</tr>
+<tr>
+<td align="left">esc + . 或 alt + .</td>
+<td align="left">调用之前使用过的路径，alt+.一直点可以向上翻阅路径</td>
+</tr>
+</tbody></table>
+<h1 id="2-从命令行管理文件"><a href="#2-从命令行管理文件" class="headerlink" title="2 从命令行管理文件"></a>2 从命令行管理文件</h1><h2 id="2-1-系统目录结构"><a href="#2-1-系统目录结构" class="headerlink" title="2.1 系统目录结构"></a>2.1 系统目录结构</h2><p>  根(/)目录下每个目录的作用:</p>
+<table>
+<thead>
+<tr>
+<th align="left">目录名</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">bin</td>
+<td align="left">用户可执行目录(命令root和普通)</td>
+</tr>
+<tr>
+<td align="left">sbin</td>
+<td align="left">系统可执行目录(命令root)</td>
+</tr>
+<tr>
+<td align="left">lib</td>
+<td align="left">库文件目录(32位)</td>
+</tr>
+<tr>
+<td align="left">lib64</td>
+<td align="left">库文件目录(64位)</td>
+</tr>
+<tr>
+<td align="left">dev</td>
+<td align="left">设备文件目录dev</td>
+</tr>
+<tr>
+<td align="left">usr</td>
+<td align="left">应用程序目录</td>
+</tr>
+<tr>
+<td align="left">var</td>
+<td align="left">服务器数据目录(数据日志)</td>
+</tr>
+<tr>
+<td align="left">src</td>
+<td align="left">服务器数据目录</td>
+</tr>
+<tr>
+<td align="left">etc</td>
+<td align="left">配置文件目录</td>
+</tr>
+<tr>
+<td align="left">tmp</td>
+<td align="left">临时文件目录</td>
+</tr>
+<tr>
+<td align="left">boot</td>
+<td align="left">服务器启动目录(内核和启动文件)</td>
+</tr>
+<tr>
+<td align="left">media</td>
+<td align="left">媒介目录(u盘、cdrom)</td>
+</tr>
+<tr>
+<td align="left">mnt</td>
+<td align="left">其他挂载点</td>
+</tr>
+<tr>
+<td align="left">opt</td>
+<td align="left">第三方应用程序目录</td>
+</tr>
+<tr>
+<td align="left">proc</td>
+<td align="left">伪文件系统(内核参数、进程信息、硬件信息)</td>
+</tr>
+<tr>
+<td align="left">sys</td>
+<td align="left">伪文件系统(配置文件目录、内核参数、进程信息、硬件信息)</td>
+</tr>
+<tr>
+<td align="left">run</td>
+<td align="left">进程锁目录</td>
+</tr>
+<tr>
+<td align="left">root</td>
+<td align="left">root管理员家目录</td>
+</tr>
+<tr>
+<td align="left">home</td>
+<td align="left">普通用户家目录</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-文件类型"><a href="#2-2-文件类型" class="headerlink" title="2.2 文件类型"></a>2.2 文件类型</h2><table>
+<thead>
+<tr>
+<th align="left">文件类型</th>
+<th align="left">说明</th>
+<th align="left">全称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-</td>
+<td align="left">普通文件</td>
+<td align="left">file</td>
+</tr>
+<tr>
+<td align="left">d</td>
+<td align="left">目录文件</td>
+<td align="left">directory</td>
+</tr>
+<tr>
+<td align="left">c</td>
+<td align="left">字符设备文件</td>
+<td align="left">character</td>
+</tr>
+<tr>
+<td align="left">b</td>
+<td align="left">块设备文件</td>
+<td align="left">block</td>
+</tr>
+<tr>
+<td align="left">s</td>
+<td align="left">套接字文件</td>
+<td align="left">socket</td>
+</tr>
+<tr>
+<td align="left">p</td>
+<td align="left">管道文件</td>
+<td align="left">pipe</td>
+</tr>
+<tr>
+<td align="left">l</td>
+<td align="left">符号链接文件(软链接)</td>
+<td align="left">symbolic</td>
+</tr>
+</tbody></table>
+<h2 id="2-3-文件名定位文件"><a href="#2-3-文件名定位文件" class="headerlink" title="2.3 文件名定位文件"></a>2.3 文件名定位文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@foundation0 home]# cd /
+[root@foundation0 /]# cd /etc/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="2-4-路径"><a href="#2-4-路径" class="headerlink" title="2.4 路径"></a>2.4 路径</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 路径的表示:
+1.绝对路径(通常以/开头)
+  例如：根开头    cd /etc/sysconfig
+2.相对路径:
+  非根开头 cd  ..
+  
+# 导航路径
+# pwd
+[root@foundation0 yum.repos.d]# pwd
+/etc/yum.repos.d
+
+# cd
+cd -   返回之前的目录
+cd or cd ~  家目录
+cd .    当前目录
+cd ..    上一级目录
+
+# ls
+ls
+ls -a 
+ls -a /home 
+ls -a -l 
+ls -al
+[root@foundation0 ~]# ls -a .viminfo
+.viminfo
+[root@foundation0 ~]# ls -a -l .viminfo
+-rw-------. 1 root root 2545 Mar 13 13:12 .viminfo
+[root@foundation0 ~]# ls -al .viminfo
+-rw-------. 1 root root 2545 Mar 13 13:12 .viminfo
+[root@foundation0 /]# ls -l -d /home
+drwxr-xr-x. 4 root root 30 Mar 13 11:38 /home<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-5-查看文件内容"><a href="#2-5-查看文件内容" class="headerlink" title="2.5 查看文件内容"></a>2.5 查看文件内容</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat    cat /etc/passwd             # 将文件内容打印到屏幕上
+tail   tail /var/log/message       # 默认查看文件后10行。-F （追踪）指定文件不存在时再创建相同名称文件
+       tail -n 5 或 tail -5 /var/log/message   
+head   head /var/log/message       # 默认查看文件头10行
+       head -5 /var/log/message                
+less   less /var/log/message           
+more   more /var/log/message         
+vim    vim /etc/passwd             # 文本编辑器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-6-命令行管理文件-目录"><a href="#2-6-命令行管理文件-目录" class="headerlink" title="2.6 命令行管理文件/目录"></a>2.6 命令行管理文件/目录</h2><h3 id="2-6-1-管理文件-目录的命令"><a href="#2-6-1-管理文件-目录的命令" class="headerlink" title="2.6.1 管理文件/目录的命令"></a>2.6.1 管理文件/目录的命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"> 创建   touch   mkdir -p
+ 改名   mv      mv
+ 移动   mv      mv
+ 拷贝   cp      cp -r
+ 删除   rm      rm -r
+touch、mkdir、rm、cp、mv<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-6-2-touch命令-管理文件"><a href="#2-6-2-touch命令-管理文件" class="headerlink" title="2.6.2 touch命令(管理文件)"></a>2.6.2 touch命令(管理文件)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera opt]# man touch
+[root@servera opt]# touch /file4 /tmp/file5
+[root@servera opt]# ls /file4;ls /tmp/file5
+/file4
+/tmp/file5
+[root@servera opt]# touch file{10..20}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-6-3-mkdir命令-管理目录"><a href="#2-6-3-mkdir命令-管理目录" class="headerlink" title="2.6.3 mkdir命令(管理目录)"></a>2.6.3 mkdir命令(管理目录)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mkdir
+选项： -p：递归创建     -v：显示过程
+[root@servera opt]# ls
+dir1
+[root@servera opt]# mkdir dir2 /dir3
+[root@servera opt]# ls
+dir1  dir2
+[root@servera opt]# mkdir dir3/dir4
+mkdir: cannot create directory ‘dir3/dir4’: No such file or directory
+[root@servera opt]# mkdir -pv dir3/dir4
+mkdir: created directory 'dir3'
+mkdir: created directory 'dir3/dir4'
+[root@servera opt]# ls -R dir3  # -R递归查看，可以查看多级目录内容
+dir3:
+dir4
+dir3/dir4:
+[root@servera opt]# ll -R dir3/dir4
+dir3/dir4:
+total 0
+[root@servera opt]# ll  dir3
+total 0
+drwxr-xr-x. 2 root root 6 Mar 13 22:23 dir4
+[root@servera opt]# ll  dir3/dir4/
+total 0
+[root@servera opt]# ll  dir3/dir4/ -d
+drwxr-xr-x. 2 root root 6 Mar 13 22:23 dir3/dir4/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-6-4-rm命令-删除"><a href="#2-6-4-rm命令-删除" class="headerlink" title="2.6.4 rm命令(删除)"></a>2.6.4 rm命令(删除)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera opt]# man rm
+[root@servera opt]# ls
+dir1  dir2  dir3  file1  file2  file3
+[root@servera opt]# rm file1
+rm: remove regular empty file 'file1'? y    # 询问是否删除y删除n不删除
+[root@servera opt]# rm file2
+rm: remove regular empty file 'file2'? n
+[root@servera opt]# rm -f file2             强制删除不询问
+[root@servera opt]# ls
+dir1  dir2  dir3  file3
+[root@servera opt]# rm -f file*         *代表一个或多个字符
+[root@servera opt]# ls
+dir1  dir2  dir3
+[root@servera opt]# rm dir1             
+rm: cannot remove 'dir1': Is a directory
+[root@servera opt]# rm -r dir1          删除目录需要-r表示递归
+rm: remove directory 'dir1'? y
+[root@servera opt]# rm -rf dir2
+[root@servera opt]# ls
+dir3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-6-5-copy命令-复制"><a href="#2-6-5-copy命令-复制" class="headerlink" title="2.6.5 copy命令(复制)"></a>2.6.5 copy命令(复制)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera opt]# ls
+dir1  dir2  file1  file2  file3
+[root@servera opt]# cp file1 /tmp/
+[root@servera opt]# ls /tmp/file1
+/tmp/file1
+[root@servera opt]# cp file1 /tmp/file10
+[root@servera opt]# ls /tmp/file10
+/tmp/file10
+[root@servera opt]# cp /etc/man_db.conf .
+[root@servera opt]# ls
+dir1  dir2  file1  file2  file3  man_db.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-6-6-mv命令-移动文件-目录"><a href="#2-6-6-mv命令-移动文件-目录" class="headerlink" title="2.6.6 mv命令(移动文件/目录)"></a>2.6.6 mv命令(移动文件/目录)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera opt]# mv file1 /
+[root@servera opt]# ls
+dir1  dir2  file2  file3  man_db.conf
+[root@servera opt]# mv file2 /file20
+[root@servera opt]# ls
+dir1  dir2  file3  man_db.conf
+[root@servera opt]# mv file3 file30
+[root@servera opt]# ls
+dir1  dir2  file30  man_db.conf
+[root@servera opt]# mv dir1 /
+[root@servera opt]# ls
+dir2  file30  man_db.conf
+[root@servera opt]# mv dir2 dir20
+[root@servera opt]# ls
+dir20  file30  man_db.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-7-通配符规则"><a href="#2-7-通配符规则" class="headerlink" title="2.7 通配符规则"></a>2.7 通配符规则</h2><table>
+<thead>
+<tr>
+<th align="left">通配符</th>
+<th align="left">规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">*</td>
+<td align="left">匹配0个或多个任意字符</td>
+</tr>
+<tr>
+<td align="left">？</td>
+<td align="left">匹配1个任意字符</td>
+</tr>
+<tr>
+<td align="left">[ ]</td>
+<td align="left">匹配中括号内一个字符</td>
+</tr>
+<tr>
+<td align="left">[ - ]</td>
+<td align="left">匹配中括号内连续范围的一个字符</td>
+</tr>
+<tr>
+<td align="left">[ ^ ]</td>
+<td align="left">取反，匹配非中括号内的字符，表示一定有一个字符，但不是中括号内出现的。【^ab】</td>
+</tr>
+<tr>
+<td align="left">{a,b}或{a..c}</td>
+<td align="left">匹配括号中的字符或连续的字符</td>
+</tr>
+</tbody></table>
+<h1 id="3-在线获取帮助"><a href="#3-在线获取帮助" class="headerlink" title="3 在线获取帮助"></a>3 在线获取帮助</h1><h2 id="3-1-MAN手册说明"><a href="#3-1-MAN手册说明" class="headerlink" title="3.1 MAN手册说明"></a>3.1 MAN手册说明</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">man 1</td>
+<td align="left">用户命令</td>
+</tr>
+<tr>
+<td align="left">man 2</td>
+<td align="left">系统调用</td>
+</tr>
+<tr>
+<td align="left">man 3</td>
+<td align="left">库调用</td>
+</tr>
+<tr>
+<td align="left">man 4</td>
+<td align="left">特殊文件</td>
+</tr>
+<tr>
+<td align="left">man 5</td>
+<td align="left">配置文件</td>
+</tr>
+<tr>
+<td align="left">man 6</td>
+<td align="left">游戏</td>
+</tr>
+<tr>
+<td align="left">man 7</td>
+<td align="left">杂项</td>
+</tr>
+<tr>
+<td align="left">man 8</td>
+<td align="left">系统命令</td>
+</tr>
+</tbody></table>
+<h2 id="3-2-获取帮助的方法"><a href="#3-2-获取帮助的方法" class="headerlink" title="3.2 获取帮助的方法"></a>3.2 获取帮助的方法</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># man命令
+mandb
+man passwd
+man -k passwd 
+man 5 passwd
+man setfacl | grep -B 1 lisa
+
+# --help
+setfacl --help | grep \\-a
+setfacl --help | grep -w \\-a  
+
+# pinfo
+pinfo   回车  u
+pinfo  ls
+
+# rpm包中提供帮助
+rpm -qa | grep httpd
+rpm -ql 软件包名称
+rpm -qc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="4-创建、查看、编辑文本"><a href="#4-创建、查看、编辑文本" class="headerlink" title="4 创建、查看、编辑文本"></a>4 创建、查看、编辑文本</h1><h2 id="4-1-VIM的模式分类"><a href="#4-1-VIM的模式分类" class="headerlink" title="4.1 VIM的模式分类"></a>4.1 VIM的模式分类</h2><table>
+<thead>
+<tr>
+<th align="left">模式</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">命令模式</td>
+<td align="left">光标移动、复制、删除</td>
+</tr>
+<tr>
+<td align="left">输入模式</td>
+<td align="left">输入文本内容</td>
+</tr>
+<tr>
+<td align="left">末行模式</td>
+<td align="left">保存退出、设置环境</td>
+</tr>
+</tbody></table>
+<h2 id="4-2-VIM的模式说明"><a href="#4-2-VIM的模式说明" class="headerlink" title="4.2 VIM的模式说明"></a>4.2 VIM的模式说明</h2><h3 id="4-2-1-命令模式"><a href="#4-2-1-命令模式" class="headerlink" title="4.2.1 命令模式"></a>4.2.1 命令模式</h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">h j k l</td>
+<td align="left">左下上右</td>
+</tr>
+<tr>
+<td align="left">方向键</td>
+<td align="left">上下左右</td>
+</tr>
+<tr>
+<td align="left">1G、nG</td>
+<td align="left">n代表一个数字，去第1行或n行</td>
+</tr>
+<tr>
+<td align="left">gg</td>
+<td align="left">将光标定位到文章的顶端</td>
+</tr>
+<tr>
+<td align="left">G</td>
+<td align="left">将光标定位到文章的底端（$定位光标到行尾，0和^定位光标到行首）</td>
+</tr>
+<tr>
+<td align="left">x，X</td>
+<td align="left">向后删除一个字符、向前删除一个字符</td>
+</tr>
+<tr>
+<td align="left">dd，ndd</td>
+<td align="left">删除1行，n是一个数字，n行 例如：dgg、dG、d$、d0 D</td>
+</tr>
+<tr>
+<td align="left">yy，nyy</td>
+<td align="left">复制1行，复制n行</td>
+</tr>
+<tr>
+<td align="left">p，P</td>
+<td align="left">粘贴到下一行，粘贴到上一行</td>
+</tr>
+<tr>
+<td align="left">u</td>
+<td align="left">撤销</td>
+</tr>
+<tr>
+<td align="left">ZZ</td>
+<td align="left">保存退出</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-2-插入模式"><a href="#4-2-2-插入模式" class="headerlink" title="4.2.2 插入模式"></a>4.2.2 插入模式</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">a   字符后进入插入模式
+i   当前字符位置进入插入模式
+o   在下一行新创建一行进入插入模式
+A   在行尾进入插入模式
+I   在行首进入插入模式
+O   在上一行新创建一行进入插入模式
+s   删除光标位置字符并进入插入模式
+S   删除光标所在行并进入插入模式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-3-末行模式"><a href="#4-2-3-末行模式" class="headerlink" title="4.2.3 末行模式"></a>4.2.3 末行模式</h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">w</td>
+<td align="left">保存</td>
+</tr>
+<tr>
+<td align="left">q</td>
+<td align="left">退出</td>
+</tr>
+<tr>
+<td align="left">wq</td>
+<td align="left">退出并保存</td>
+</tr>
+<tr>
+<td align="left">q!</td>
+<td align="left">强制退出</td>
+</tr>
+<tr>
+<td align="left">x</td>
+<td align="left">保存退出</td>
+</tr>
+<tr>
+<td align="left">set nu</td>
+<td align="left">设置行号</td>
+</tr>
+<tr>
+<td align="left">set nonu</td>
+<td align="left">取消行号</td>
+</tr>
+<tr>
+<td align="left">：w /newfile</td>
+<td align="left">另存为其他文件 例子：”:w /man.txt”</td>
+</tr>
+<tr>
+<td align="left">：r /newfile</td>
+<td align="left">读取/newfile到本文件中 例子： “:r /etc/passwd”</td>
+</tr>
+<tr>
+<td align="left">：！ command</td>
+<td align="left">vim编辑过程中，查询linux “:! ls /“</td>
+</tr>
+<tr>
+<td align="left">: e！</td>
+<td align="left">重新读取文件</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-4-其他模式"><a href="#4-2-4-其他模式" class="headerlink" title="4.2.4 其他模式"></a>4.2.4 其他模式</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">v、V或Ctrl+V    # 可视模式
+R              # 替换模式
+/word，？word  # /向下查找，？向上查找
+n，N          # 定位到下一个匹配字符，定位到上一个匹配字符
+
+# 视图模式
+# 视图模式修改方法：
+ctrl+v ， jjj，I，  写入#号，esc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-3-VIM的缩进与保存"><a href="#4-3-VIM的缩进与保存" class="headerlink" title="4.3 VIM的缩进与保存"></a>4.3 VIM的缩进与保存</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">：set all         # 查看末行模式的帮助
+：set autoindent  # 保存上下缩进
+：set tabstop=2   # 调整tab键缩进
+：set nu          # 设置行号
+
+[root@foundation0 ~]# vim ~/.vimrc    仅对当前用户生效
+set nu
+set tabstop=2
+
+[root@foundation0 ~]# vim /etc/vimrc  全局设置，每个用户使用vim工具都有行号
+set nu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-4-VIM的替换"><a href="#4-4-VIM的替换" class="headerlink" title="4.4 VIM的替换"></a>4.4 VIM的替换</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">:s///   @@@  AAA  ; ;;
+:s/old/new/
+:s/old/new/g
+:#,#s/old/new/g     #井号代表一个数字比如：1,5s/old/new/g
+:%s/old/new/g
+:#,$s/old/new/g    #井号代表数字，比如1，$s ，$代表末行，该命令为1行至末行
+
+# 修改某一段ip地址: %s/192.168.1/172.25.250/g
+
+# 取消文本中某个字段：:%s/10.10.10.10//g<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-5-关于重定向"><a href="#4-5-关于重定向" class="headerlink" title="4.5 关于重定向"></a>4.5 关于重定向</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1=stand，2=error，&amp;=1+2
+echo $SHELL
+echo 123456 &gt; file1
+grep root /etc/passwd &gt; /opt/a.txt
+grep apache /etc/passwd &gt; /opt/a.txt
+
+grep -n ^$ /etc/resolv.conf
+grep na /etc/resolv.conf   &gt; /root/lines.txt
+tc/resolv.conf   &gt; /root/lines.txt                 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="5-管理本地用户和组"><a href="#5-管理本地用户和组" class="headerlink" title="5 管理本地用户和组"></a>5 管理本地用户和组</h1><h2 id="5-1-USER-用户"><a href="#5-1-USER-用户" class="headerlink" title="5.1 USER-用户"></a>5.1 USER-用户</h2><p>  基本概念：用户用于访问计算机资源</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">0          超级用户 
+1000以下   系统用户
+1000以上   普通用户 
+组与用户ID对应(自然创建)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-1-useradd-添加用户"><a href="#5-1-1-useradd-添加用户" class="headerlink" title="5.1.1 useradd-添加用户"></a>5.1.1 useradd-添加用户</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法:useradd 选项 选项参数 用户名
+
+option：
+-u：指定用户uid
+-g：指定主要群组
+-G：指定附加群组
+-s：指定shell环境 /bin/bash /sbin/nolgoin /bin/false
+-c：指定描述
+-d：指定用户家目录(通常不更改，如果设置，需要是未存在的目录)
+
+例：
+useradd user1   创建user1
+passwd user1    为user1设置密码
+id user1        查询用户信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-2-用户配置文件"><a href="#5-1-2-用户配置文件" class="headerlink" title="5.1.2 用户配置文件"></a>5.1.2 用户配置文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 用户配置文件路径:/etc/passwd
+[kiosk@foundation0 ~]$ vim /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+#用户名：密码占位符：UID：GID：描述：家目录：shell环境
+
+# 练习1：   
+[root@servera /]# useradd -u 2000 user1
+[root@servera /]# id user1
+
+[root@servera /]# groupadd group1
+[root@servera /]# tail -1 /etc/group
+[root@servera /]# useradd -g group1 user2
+[root@servera /]# tail -1 /etc/passwd
+
+[root@servera /]# useradd -G wheel user3
+[root@servera /]# useradd -c student -d /user4dir -s /sbin/nologin user4
+[root@servera /]# tail -1 /etc/passwd
+
+[root@servera /]# su - user1
+[user1@servera /]# ctrl+d
+[root@servera /]# su - user1
+[root@servera /]# su - user2  需要密码
+[root@servera /]# ctrl+d  退出用户
+
+[root@servera /]# passwd user2  超级用户设置密码
+123456
+123456
+[root@servera /]# su - user1
+[root@servera /]# su - user2  输入密码
+[root@servera /]# useradd -G root,tom user5   #将user5同时加入到组root和tom组中
+
+# 练习2：tom10，uid 3000 ，gid devops，shell环境为/bin/false,描述 student，家目录/tom10dir,附加组 root。
+useradd -u 3000 -g devops -s /bin/false -c student -d /tom10dir -G root  tom10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-3-usermod-修改用户"><a href="#5-1-3-usermod-修改用户" class="headerlink" title="5.1.3 usermod-修改用户"></a>5.1.3 usermod-修改用户</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：usermod 选项 选项参数 用户名
+
+option：
+-u：指定用户uid
+-g：指定主要群组
+-G：指定附加群组
+-s：指定shell环境 /bin/bash  /sbin/nolgoin /bin/false
+-c：指定描述
+-d：指定用户家目录（通常不更改，且如设置需要是未存在的目录）
+-a：额外指定附加组
+
+# 练习1:
+[root@servera /]# usermod -u 3000 user1
+[root@servera /]# usermod -g group1 user1
+[root@servera /]# usermod -G root user1
+[root@servera /]# usermod -s /bin/false user1    #shell环境为/bin/false的用户和系统无任何交互
+[root@servera /]# su - user1
+[root@servera /]# usermod -c heihei user1
+
+
+# 练习2：tom11的附加组，root。想额外添加一个附加组为devops
+[root@servera opt]# usermod -a -G root tom11
+[root@servera opt]# usermod -G root,devops tom11<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-4-userdel-删除用户"><a href="#5-1-4-userdel-删除用户" class="headerlink" title="5.1.4 userdel-删除用户"></a>5.1.4 userdel-删除用户</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：userdel 选项 选项参数  用户名
+
+option：
+-r：删除用户同时删除邮箱和家目录
+[root@servera /]# userdel -r user5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-2-PASSWORD-密码"><a href="#5-2-PASSWORD-密码" class="headerlink" title="5.2 PASSWORD-密码"></a>5.2 PASSWORD-密码</h2><h3 id="5-2-1-设置密码"><a href="#5-2-1-设置密码" class="headerlink" title="5.2.1 设置密码"></a>5.2.1 设置密码</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法:passwd 用户名
+# 方法1：
+[root@foundation0 /]# echo 123456 | passwd --stdin zhangsan  非交互式
+Changing password for user zhangsan.
+passwd: all authentication tokens updated successfully.
+# 方法2：
+[root@foundation0 /]# passwd zhangsan  交互式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-2-密码配置文件"><a href="#5-2-2-密码配置文件" class="headerlink" title="5.2.2 密码配置文件"></a>5.2.2 密码配置文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">路径:/etc/shadow
+user2:$6$9R47OYVVaxga34EJ$Y3pGf5EnHpn6vfiBk5ZU1U89d7UiySOsnAs/fkFMuPRyhCZAvv0a6UXRVLGXqRUKwP34Sg0W/CYb1VQp7H08L0:20015:0:99999:7:::
+
+说明:
+第一列: 用户名
+第二列: 密码(有密码状态,无密码状态,!!帐号锁定,* 该帐号永久不能登陆系统)
+第三列: 密码的最后一次修改时间（从1970年1月1日至今的天数）18834=今天
+第四列: 密码的最小时间(和第三列比较，密码修改相隔时间，或理解为密码自最后一次修改后多少天内不能再重复修改)
+第五列: 密码的最大时间(密码有效期) 99999表示永久不过期(和第3列比，相当于自最后一次修改多久后必须变更密码，否则过期)
+第六列: 密码过期前警告时间（和第5列比，在过n天你的密码就过期了，需要重设密码。）
+第七列: 密码过期后帐号（宽限时间，第五列密码的最大时间到期后，还可以使用系统的宽限时间，该期间中可以继续使用系统，但是再次登入系统时强制修改密码，否则无法进入）
+第八列: 帐号有效期（账号失效后，无论密码是否过期都不能使用。）
+第九列: 保留列<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-3-GROUP-用户组"><a href="#5-3-GROUP-用户组" class="headerlink" title="5.3 GROUP-用户组"></a>5.3 GROUP-用户组</h2><h3 id="5-3-1-groupadd"><a href="#5-3-1-groupadd" class="headerlink" title="5.3.1 groupadd"></a>5.3.1 groupadd</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：
+groupadd 选项 选项参数 组名
+-g：指定组ID
+[root@servera /]# groupadd group10
+[root@servera /]# groupadd -g 3000 group10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-3-2-groupmod"><a href="#5-3-2-groupmod" class="headerlink" title="5.3.2 groupmod"></a>5.3.2 groupmod</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：
+groupmod 选项 选项参数 组名
+-n：更改组名 groupmod -n 新组名 旧组名
+[root@servera /]# groupmod -n group100 group10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-3-3-groupdel"><a href="#5-3-3-groupdel" class="headerlink" title="5.3.3 groupdel"></a>5.3.3 groupdel</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 删除组信息
+groupdel groupname
+[root@foundation0 ~]# groupdel haha1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-3-4-gpasswd"><a href="#5-3-4-gpasswd" class="headerlink" title="5.3.4 gpasswd"></a>5.3.4 gpasswd</h3><p>  加入群组与清除群组成员</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpasswd
+-a：添加用户到群组
+-d：从组中清除用户
+
+[root@foundation0 ~]# useradd -G upup user5  添加用户时指定附加组（次要群组）
+[root@foundation0 ~]# usermod -G upup user1  修改用户时指定附加组（次要群组） 
+[root@foundation0 ~]# gpasswd -a user2 root
+Adding user user2 to group root
+[root@foundation0 ~]# gpasswd -d user2 root
+Removing user user2 from group root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-3-5-用户组配置文件"><a href="#5-3-5-用户组配置文件" class="headerlink" title="5.3.5 用户组配置文件"></a>5.3.5 用户组配置文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">路径:/etc/group
+[root@localhost ~]# vim /etc/group
+upup:x:2006:
+第一段: 组名
+第二段: 组密码占位符号
+第三段: gid
+第四段: 用户列表<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="6-控制对文件的访问"><a href="#6-控制对文件的访问" class="headerlink" title="6 控制对文件的访问"></a>6 控制对文件的访问</h1><h2 id="6-1-系统安全的技术点对比"><a href="#6-1-系统安全的技术点对比" class="headerlink" title="6.1 系统安全的技术点对比"></a><strong>6.1 系统安全的技术点对比</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#Linux操作系统涉及的安全部分:           
+防火墙                              semanage port ，
+selinux                            semanage ...
+软件app                             semanage boolean
+文件系统权限 特殊权限 facl 隐藏权限    semanage fcontext<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-2-文件权限说明"><a href="#6-2-文件权限说明" class="headerlink" title="6.2 文件权限说明"></a>6.2 文件权限说明</h2><table>
+<thead>
+<tr>
+<th align="left">权限表示</th>
+<th align="left">权限解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">r</td>
+<td align="left">read(读)</td>
+</tr>
+<tr>
+<td align="left">w</td>
+<td align="left">write(写)</td>
+</tr>
+<tr>
+<td align="left">x</td>
+<td align="left">execute(执行)</td>
+</tr>
+</tbody></table>
+<h2 id="6-3-权限表示"><a href="#6-3-权限表示" class="headerlink" title="6.3 权限表示"></a>6.3 权限表示</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># ls -l test
+-rw-r--r--. 1 stu1 class1 35 May 21 14:09 test
+rw-r--r--   #中间9位是权限，逻辑分三组，所有者 所属组 其他人权限
+stu1   所有者
+class1 所属组<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-4-系统权限的作用"><a href="#6-4-系统权限的作用" class="headerlink" title="6.4 系统权限的作用"></a>6.4 系统权限的作用</h2><table>
+<thead>
+<tr>
+<th align="left">权限</th>
+<th align="left">对文件的影响</th>
+<th align="left">对目录的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">r</td>
+<td align="left">cat</td>
+<td align="left">ls</td>
+</tr>
+<tr>
+<td align="left">w</td>
+<td align="left">vim</td>
+<td align="left">touch，rm，mkdir</td>
+</tr>
+<tr>
+<td align="left">x</td>
+<td align="left">./script</td>
+<td align="left">cd</td>
+</tr>
+</tbody></table>
+<h2 id="6-5-符号修改文件权限"><a href="#6-5-符号修改文件权限" class="headerlink" title="6.5 符号修改文件权限"></a>6.5 符号修改文件权限</h2><table>
+<thead>
+<tr>
+<th align="left">对象</th>
+<th align="left">设置方式</th>
+<th align="left">权限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">u(user)</td>
+<td align="left">+ (添加)</td>
+<td align="left">r</td>
+</tr>
+<tr>
+<td align="left">g(group)</td>
+<td align="left">-(减去)</td>
+<td align="left">w</td>
+</tr>
+<tr>
+<td align="left">o(other)</td>
+<td align="left">= (设置）</td>
+<td align="left">x</td>
+</tr>
+<tr>
+<td align="left">a(all)</td>
+<td align="left"></td>
+<td align="left">s(SUID、SGID)、t(Sbit)</td>
+</tr>
+</tbody></table>
+<h2 id="6-6-数字方式修改文件权限"><a href="#6-6-数字方式修改文件权限" class="headerlink" title="6.6 数字方式修改文件权限"></a>6.6 <strong>数字方式修改文件权限</strong></h2><table>
+<thead>
+<tr>
+<th align="left">rwx</th>
+<th align="left">8进制表示</th>
+<th align="left">数字表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">r–</td>
+<td align="left">100</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">-w-</td>
+<td align="left">010</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">–x</td>
+<td align="left">001</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<h2 id="6-7-文件权限设置-chmod"><a href="#6-7-文件权限设置-chmod" class="headerlink" title="6.7 文件权限设置-chmod"></a>6.7 文件权限设置-chmod</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法：chmod 权限 文件名
+u g o a   + - =   r w x s t
+
+[root@node1 opt]# ll test 
+-rw-r--r--. 1 root root 0 Nov 24 04:55 test
+[root@node1 opt]# chmod u+x test 
+[root@node1 opt]# ll test 
+-rwxr--r--. 1 root root 0 Nov 24 04:55 test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-8-文件属主和属组-chown"><a href="#6-8-文件属主和属组-chown" class="headerlink" title="6.8 文件属主和属组-chown"></a>6.8 文件属主和属组-chown</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法：
+chown  所有者:所属组 文件名 
+chown  该命令可以作用于文件、目录，修改时保证所有者的用户及组都是存在的。
+例:chown user2:user2 newfile
+
+# 练习:
+[root@node1 opt]# ll test
+-rwxr--r--. 1 root root 0 Nov 24 04:55 test
+
+[root@node1 opt]# id student
+uid=1000(student) gid=1000(student) groups=1000(student),10(wheel)
+
+[root@node1 opt]# useradd harry
+[root@node1 opt]# chown student test;ll test
+-rwxr--r--. 1 student root 0 Nov 24 04:55 test
+
+[root@node1 opt]# chown :harry test;ll test
+-rwxr--r--. 1 student harry 0 Nov 24 04:55 test
+
+[root@node1 opt]# useradd sally
+[root@node1 opt]# chown sally:sally test;ll test
+-rwxr--r--. 1 sally sally 0 Nov 24 04:55 test
+
+# -R参数
+[root@node1 opt]# ll -d dir1
+drwxrwxr-x. 2 root root 19 Nov 24 05:15 dir1
+
+[root@node1 opt]# chown -R sally:sally dir1
+[root@node1 opt]# ll -d dir1
+drwxrwxr-x. 2 sally sally 19 Nov 24 05:15 dir1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-9-文件默认权限-umask"><a href="#6-9-文件默认权限-umask" class="headerlink" title="6.9 文件默认权限-umask"></a>6.9 文件默认权限-umask</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#系统默认定义权限对于文件是666、对于目录是777
+
+#查看umask值
+[root@servera /]# umask
+0022
+
+#修改方法umask
+[root@servera /]# umask 0002
+修改完后，可以去文件和目录查看权限，看是否和之前不一样，看完改回来
+
+#永久生效
+[root@servera /]# echo 'umask 0002' &gt;&gt; ~/.bash_profile
+
+#将后面文件中的值加载到当前shell中。系统登录会读取~/.bash_profile文件自动加载
+[root@servera /]# source ~/.bash_profile  #source <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-10-umask的计算"><a href="#6-10-umask的计算" class="headerlink" title="6.10 umask的计算"></a>6.10 umask的计算</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#示例1：
+文件默认权限666
+umask后三位022
+快捷方法：变成权限后相减
+rw-rw-rw-  =  666  文件系统默认权限
+----w--w-  =  022  umask值
+------------------------------
+rw-r--r--  =  644  创建文件时的默认权限
+
+目录默认权限777
+rwxrwxrwx  =  777  目录系统默认权限
+----w--w-  =  022  umask值
+------------------------------
+rwxr-xr-x  =  755  创建目录时的默认权限
+故系统中应设置为:0022
+
+#示例2:
+文件权限是r-- --- ---， 400   文件夹是dr-x --- ---  500
+umask?
+
+目录
+rwxrwxrwx =  777
+r-x------ =  500
+-------------------
+-w-rwxrwx =  277
+
+文件
+rw-rw-rw-  =  666
+-w-rwxrwx  =  umask  
+------------------
+r-------   =  400
+
+参考umask计算方法：https://www.cnblogs.com/wyllearning/p/16482006.html
+如果减法时目录和文件权限不一致时，以目录的为准计算umask值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-10-特殊权限"><a href="#6-10-特殊权限" class="headerlink" title="6.10 特殊权限"></a>6.10 特殊权限</h2><p>  文件系统权限可以完成一些基本权限功能设置，但有些特殊要求是达不到的，可能需要特殊权限来完成</p>
+<p>  Linux系统中特殊权限有三个：SUID 4 、SGID 2 、SBIT 1</p>
+<h3 id="6-10-1-SUID-4"><a href="#6-10-1-SUID-4" class="headerlink" title="6.10.1 SUID 4"></a>6.10.1 SUID 4</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 通常设置在二进制可执行文件（命令）上，并具有执行权限的情况下
+# 作用：设置了该权限的命令，被其他用户执行时，会临时获取文件所有者权限
+[student@clear ~]$ cat /etc/shadow   #普通用户无法查看/etc/shadow
+[student@clear ~]$ su - root         #切换root身份
+[root@clear ~]# chmod u+s /usr/bin/cat   #数字修改方式：chmod 4755 /usr/bin/cart
+[root@clear ~]# ll /usr/bin/cat
+-rwsr-xr-x. 1 root root 34512 Aug 13  2018 /usr/bin/cat
+[student@clear ~]$ su - studnet
+[student@clear ~]$ cat /etc/shadow #能够看见内容，临时获取拥有者权限
+
+#数字修改法：chmod 4755 /usr/bin/cat
+
+# check：创建两个不同用户登录操作系统，进入dirt目录分别创建文件，尝试互相删除对方文件，结果应不能互相删除文件
+
+# 大S和小s区别，
+  1.执行权限位大S是，没有x
+  2.执行权限位小s是该位，有x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-10-2-SGID-2"><a href="#6-10-2-SGID-2" class="headerlink" title="6.10.2 SGID 2"></a>6.10.2 SGID 2</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#该权限通常设置在`目录`上，设置了该权限的目录，在该目录中创建`子文件及目录`时会`继承`父目录所属组
+[root@clear opt]# chmod g+s dir1
+[root@clear opt]# ll -d dir1
+drwxr-sr-x. 2 student student 22 Nov 19 04:51 dir1
+[root@clear opt]# touch dir1/root1.txt
+[root@clear opt]# ll dir1/root1.txt
+-rw-r--r--. 1 root student 0 Nov 19 04:52 dir1/root1.txt
+
+#数字修改法： chmod 2755 dir1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-10-3-SBIT-1"><a href="#6-10-3-SBIT-1" class="headerlink" title="6.10.3 SBIT 1"></a>6.10.3 SBIT 1</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#该权限通常设置在目录上，设置了该权限的目录，其他用户在该目录中只能删除所有者是自己的文件
+[root@clear opt]# chmod 1777 /opt/share/
+[root@clear opt]# ll -d /opt/share/
+drwxrwxrwt. 2 root root 6 Nov 19 04:56 /opt/share/
+[root@clear opt]# su - student
+Last login: Sat Nov 19 04:55:24 EST 2022 on pts/0
+[student@clear ~]$ touch /opt/share/student.txt.haha
+[student@clear ~]$ logout
+[root@clear opt]# su - tom
+Last login: Sat Nov 19 04:55:38 EST 2022 on pts/0
+[tom@clear ~]$ rm -f /opt/share/student.txt.haha
+rm: cannot remove '/opt/share/student.txt.haha': Operation not permitted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="7-进程监控及管理"><a href="#7-进程监控及管理" class="headerlink" title="7 进程监控及管理"></a>7 进程监控及管理</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum install -y psmisc
+pstree -p
+# 程序被开启会产生一个或多个进程，他们都有对应父进程与子进程，每个进程都有进程号PID
+# systemd 1 不能被杀死，除非重启，关机<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-1-查看进程"><a href="#7-1-查看进程" class="headerlink" title="7.1 查看进程"></a>7.1 查看进程</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># ps以静态的方式查看系统进程
+ps -l
+ps  aux  
+ps aux | grep http
+
+[root@servera ~]# ps -l
+
+# 查看httpd进程
+ps aux |grep httpd
+
+
+# top以同态的形式查看进程
+top<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-2-终止进程"><a href="#7-2-终止进程" class="headerlink" title="7.2 终止进程"></a>7.2 终止进程</h2><h3 id="7-2-1-kill命令"><a href="#7-2-1-kill命令" class="headerlink" title="7.2.1 kill命令"></a>7.2.1 kill命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法 kill -s 信号名称 或-n 信号编号
+
+#Options:
+-s sig  SIG is a signal name
+-n sig  SIG is a signal number
+
+kill -s SIGKILL httpd
+kill -n 9 httpd   # 或 kill -9 httpd
+
+[root@node1 /]# kill -l
+ 1) SIGHUP   2) SIGINT   3) SIGQUIT  4) SIGILL   5) SIGTRAP
+ 6) SIGABRT  7) SIGBUS   8) SIGFPE   9) SIGKILL 10) SIGUSR1
+
+[root@node1 /]# vim 1 &amp;
+[1] 1372
+[root@node1 /]# ps -l
+[root@node1 /]# kill -n 9 1372
+[root@node1 /]# ps -l
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S     0    1313    1312  0  80   0 - 59084 -      pts/1    00:00:00 bash
+0 R     0    1374    1313  0  80   0 - 63799 -      pts/1    00:00:00 ps
+[1]+  Killed                  vim 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="7-2-2-killall命令"><a href="#7-2-2-killall命令" class="headerlink" title="7.2.2 killall命令"></a>7.2.2 killall命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法：killall 守护进程名称
+
+#yum install -y httpd
+systemctl start httpd
+ps aux | grep httpd
+killall httpd
+yum provides killall
+yum install -y psmisc-23.1-3.el8.x86_64
+killall httpd
+ps aux | grep httpd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-3-作业控制jobs"><a href="#7-3-作业控制jobs" class="headerlink" title="7.3 作业控制jobs"></a>7.3 作业控制jobs</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# dd if=/dev/zero of=./bigfile bs=1M count=1000
+ctrl + z 
+[root@servera ~]# jobs
+[1]+  Stopped                 dd if=/dev/zero of=./bigfile bs=1M count=1000
+[root@servera ~]# bg ％1
+[1]+ dd if=/dev/zero of=./bigfile bs=1M count=1000 &amp;
+[root@servera ~]# jobs
+[1]+  Running                 dd if=/dev/zero of=./bigfile bs=1M count=1000 &amp;
+[root@servera ~]# fg %1
+
+[root@servera ~]# kill -9 %2
+[2]-  Stopped                 vim file2
+[root@servera ~]# jobs
+[2]-  Killed                  vim file2
+[3]+  Stopped                 nice -n -10 vim file4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-4-进程优先级调整"><a href="#7-4-进程优先级调整" class="headerlink" title="7.4 进程优先级调整"></a>7.4 进程优先级调整</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#nice值
+#超级用户root 可以修改nice值范围 -20~19
+#普通用户user 可以修改nice值范围  0-19
+
+1.进程优先级数字越小，优先级越高
+2.优先级不能直接改，可以通过nice值来影响优先级
+3.旧优先级 + nice值 = 新优先级
+  80       -10   = 70
+
+#两种方法：
+1.产生新进程时，设置nice值
+  nice  -n -5  vim file2 &amp;
+2.修改现有进程nice值
+  renice -n  10  PID
+# ps -l 查看需要更改的进程号
+  renice -n 10 28183<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="8-控制服务与守护进程"><a href="#8-控制服务与守护进程" class="headerlink" title="8 控制服务与守护进程"></a>8 控制服务与守护进程</h1><h2 id="8-1-服务状态关键字段"><a href="#8-1-服务状态关键字段" class="headerlink" title="8.1 服务状态关键字段"></a>8.1 服务状态关键字段</h2><table>
+<thead>
+<tr>
+<th align="left">字段</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Loaded</td>
+<td align="left">服务单元是否加载到内存</td>
+</tr>
+<tr>
+<td align="left">Active</td>
+<td align="left">服务单元是否在运行，运行了多久</td>
+</tr>
+<tr>
+<td align="left">Main PID</td>
+<td align="left">服务的主进程ID，包括命令名称</td>
+</tr>
+<tr>
+<td align="left">Status</td>
+<td align="left">有关该服务的其他信息</td>
+</tr>
+</tbody></table>
+<h2 id="8-2-systemctl管理服务"><a href="#8-2-systemctl管理服务" class="headerlink" title="8.2 systemctl管理服务"></a>8.2 systemctl管理服务</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl -t help
+
+# 列入.service扩展名，代表服务，如web服务
+systemctl list-units --type service  列出当前服务器加载的服务单元
+systemctl  status  httpd.service     查看某个服务
+    
+[root@servera system]# systemctl status httpd
+
+# 查看服务是否启动
+[root@servera system]# systemctl  is-active httpd
+active
+
+# 查看服务是否开机启动
+[root@servera system]# systemctl enable httpd
+[root@servera system]# systemctl is-enabled httpd
+enabled
+[root@servera system]# systemctl disable httpd
+Removed /etc/systemd/system/multi-user.target.wants/httpd.service.
+[root@servera system]# systemctl is-enabled httpd
+disabled
+
+# 常见特征：
+1、安装   yum install -y httpd
+2、启动   systemctl  start  httpd.service （单元文件）/usr/lib/systemd/system/
+3、查进程 ps aux | grep httpd , 每个服务有自己的守护进程/usr/sbin/httpd
+4、查端口 netstat -ntlp ，找到80端口，对应Listen监听状态 对应httpd服务
+
+# vim /etc/service  该文件记录了系统服务的端口和协议的对应关系<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-3-服务状态分类"><a href="#8-3-服务状态分类" class="headerlink" title="8.3 服务状态分类"></a>8.3 服务状态分类</h2><table>
+<thead>
+<tr>
+<th align="left">关键字</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">loaded</td>
+<td align="left">单元配置文件已处理</td>
+</tr>
+<tr>
+<td align="left">active（running）</td>
+<td align="left">正在通过一个或多个持续进程与运行</td>
+</tr>
+<tr>
+<td align="left">active（exited）</td>
+<td align="left">已成功完成一次性配置</td>
+</tr>
+<tr>
+<td align="left">active（waiting）</td>
+<td align="left">运行中，但正在等待事件</td>
+</tr>
+<tr>
+<td align="left">inactive</td>
+<td align="left">不在运行</td>
+</tr>
+<tr>
+<td align="left">enabled</td>
+<td align="left">在系统引导时启动</td>
+</tr>
+<tr>
+<td align="left">disabled</td>
+<td align="left">未设为在系统引导时启动</td>
+</tr>
+<tr>
+<td align="left">static</td>
+<td align="left">无法启动，但可以由某一启动的单元自动启动</td>
+</tr>
+</tbody></table>
+<h2 id="8-4-管理系统服务"><a href="#8-4-管理系统服务" class="headerlink" title="8.4 管理系统服务"></a>8.4 管理系统服务</h2><p>  语法：systemctl 管理命令 unitname</p>
+<table>
+<thead>
+<tr>
+<th align="left">管理命令</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">status</td>
+<td align="left">查看状态</td>
+</tr>
+<tr>
+<td align="left">start</td>
+<td align="left">开启</td>
+</tr>
+<tr>
+<td align="left">stop</td>
+<td align="left">关闭</td>
+</tr>
+<tr>
+<td align="left">restart</td>
+<td align="left">重启</td>
+</tr>
+<tr>
+<td align="left">reload</td>
+<td align="left">加载配置文件</td>
+</tr>
+<tr>
+<td align="left">enable</td>
+<td align="left">开机启动</td>
+</tr>
+<tr>
+<td align="left">disable</td>
+<td align="left">关闭开机启动</td>
+</tr>
+<tr>
+<td align="left">is-active</td>
+<td align="left">查看服务状态是否启动</td>
+</tr>
+<tr>
+<td align="left">is-enabled</td>
+<td align="left">查看服务是否开机自启动</td>
+</tr>
+<tr>
+<td align="left">list-dependencies 【unitname】</td>
+<td align="left">查看单元依赖</td>
+</tr>
+<tr>
+<td align="left">mask</td>
+<td align="left">禁止服务，无法启动或开机启动</td>
+</tr>
+<tr>
+<td align="left">unmask</td>
+<td align="left">解除码</td>
+</tr>
+</tbody></table>
+<h1 id="9-OPENSSH服务"><a href="#9-OPENSSH服务" class="headerlink" title="9 OPENSSH服务"></a>9 OPENSSH服务</h1><h2 id="9-1-ssh常用功能"><a href="#9-1-ssh常用功能" class="headerlink" title="9.1 ssh常用功能"></a>9.1 ssh常用功能</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# vim /etc/hosts     系统是否做了dns,ip和域名及主机名的映射
+[root@servera ~]# ssh root@172.25.250.11
+
+[root@serverb /]# scp root@172.25.250.10:/opt/newfile  .
+root@172.25.250.10's password: 
+newfile                                                  100%    0     0.0KB/s   00:00 
+
+[root@servera opt]# ssh root@172.25.250.11 'yum install -y httpd'
+ssh root@172.25.250.11 'yum install -y httpd'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-2-ssh免密登录"><a href="#9-2-ssh免密登录" class="headerlink" title="9.2 ssh免密登录"></a>9.2 ssh免密登录</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ssh]# ssh-keygen  后面三个回车
+[root@servera ssh]# ssh-copy-id  root@serverb
+[root@serverb /]# cd /root/.ssh/
+[root@serverb .ssh]# ls
+authorized_keys  known_hosts
+[root@servera ssh]# ssh root@serverb
+
+# a免密远程b，如果想b远程a免密，需要相同的配置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-3-ssh服务控制"><a href="#9-3-ssh服务控制" class="headerlink" title="9.3 ssh服务控制"></a>9.3 ssh服务控制</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 拒绝root登录
+[root@serverb ~]# vim /etc/ssh/sshd_config
+PermitRootLogin no
+[root@serverb ~]# systemctl reload sshd（或restart）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-4-sudo命令"><a href="#9-4-sudo命令" class="headerlink" title="9.4 sudo命令"></a>9.4 sudo命令</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 将用户设置为特权用户
+[student@servera ~]$ yum remove -y httpd
+Error: This command has to be run under the root user.
+
+[root@servera /]# vim /etc/sudoers    或者 visudo
+## Allow root to run any commands anywhere 
+root    ALL=(ALL)       ALL
+student ALL=(ALL)       ALL
+
+[student@servera ~]$ sudo yum remove -y httpd
+[sudo] password for student: student
+
+# 将账号添加到特权用户组中，培训环境默认特权用户组是wheel组，在/etc/sudoers文件中用%wheel来表示
+usermod -G wheel tom
+
+# 设置特权组中用户切换时不需要密码
+%admin  ALL=(ALL)       NOPASSWD: ALL
+
+# 添加一个特权组admin，而且组内有一个成员是harry。最终harry账号应当为特权账号
+[root@serverb ~]# groupadd admin
+[root@serverb ~]# visudo
+[root@serverb ~]# useradd -G admin harry
+[root@serverb ~]# su - harry
+[harry@serverb ~]$ sudo -i
+[sudo] password for harry: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="10-日志分析与存储"><a href="#10-日志分析与存储" class="headerlink" title="10 日志分析与存储"></a>10 日志分析与存储</h1><h2 id="10-1-系统中的日志文件"><a href="#10-1-系统中的日志文件" class="headerlink" title="10.1 系统中的日志文件"></a>10.1 系统中的日志文件</h2><table>
+<thead>
+<tr>
+<th align="left">日志文件</th>
+<th align="left">存储的消息类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">/var/log/messages</td>
+<td align="left">大多数系统日志消息处存放处</td>
+</tr>
+<tr>
+<td align="left">/var/log/secure</td>
+<td align="left">与安全性和身份验证时间相关的syslog消息</td>
+</tr>
+<tr>
+<td align="left">/var/log/maillog</td>
+<td align="left">与邮件服务器相关的syslog消息</td>
+</tr>
+<tr>
+<td align="left">/var/log/cron</td>
+<td align="left">与计划任务执行相关的syslog消息</td>
+</tr>
+<tr>
+<td align="left">/var/log/boot.log</td>
+<td align="left">与系统启动相关的消息</td>
+</tr>
+</tbody></table>
+<h3 id="10-1-1-rsyslog服务管理日志"><a href="#10-1-1-rsyslog服务管理日志" class="headerlink" title="10.1.1 rsyslog服务管理日志"></a>10.1.1 rsyslog服务管理日志</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@haha log]# yum provides /etc/rsyslog.conf  #查看文件是哪个软件包提供的
+[root@clear log]# rpm -qc rsyslog-8.1911.0-3.el8.x86_64 
+/etc/logrotate.d/syslog
+/etc/rsyslog.conf       #一般服务文件以.conf结尾，改文件是日志服务的配置文件
+/etc/sysconfig/rsyslog
+[root@clear log]# vim /etc/rsyslog.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-1-2-记录日志的规则"><a href="#10-1-2-记录日志的规则" class="headerlink" title="10.1.2 记录日志的规则"></a>10.1.2 记录日志的规则</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#日志文件配置格式:
+ mail.info  /var/log/vsftpd.log  #.点代表包含后面级别及以上级别
+
+AAAA.BBBB CCCC
+
+AAAA 产生日志的设备（类别）    #如何产生的日志
+BBBB 日志的级别              #日志有不同安全级别，类似轻重缓急的严重程度，发出警告
+CCCC 保存日志的位置          #在系统中保存日志文件的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-1-3-rsyslog配置文件类别"><a href="#10-1-3-rsyslog配置文件类别" class="headerlink" title="10.1.3 rsyslog配置文件类别"></a>10.1.3 rsyslog配置文件类别</h3><table>
+<thead>
+<tr>
+<th align="left">类别</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Kern</td>
+<td align="left">内核</td>
+</tr>
+<tr>
+<td align="left">authpriv</td>
+<td align="left">授权和安全</td>
+</tr>
+<tr>
+<td align="left">cron</td>
+<td align="left">计划任务</td>
+</tr>
+<tr>
+<td align="left">mail</td>
+<td align="left">邮件</td>
+</tr>
+<tr>
+<td align="left">daemon</td>
+<td align="left">系统守护进程</td>
+</tr>
+<tr>
+<td align="left">user</td>
+<td align="left">普通用户级别的</td>
+</tr>
+<tr>
+<td align="left">syslog</td>
+<td align="left">由rsyslog生成的信息</td>
+</tr>
+<tr>
+<td align="left">loca10~loca17</td>
+<td align="left">自定义本地策略</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">所有类别</td>
+</tr>
+</tbody></table>
+<h3 id="10-1-4-日志级别"><a href="#10-1-4-日志级别" class="headerlink" title="10.1.4 日志级别"></a>10.1.4 日志级别</h3><table>
+<thead>
+<tr>
+<th align="left">等级</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">EMERG（紧急）</td>
+<td align="left">会导致主机系统不可用的情况</td>
+</tr>
+<tr>
+<td align="left">ALERT（警告）</td>
+<td align="left">必须马上采取措施解决的问题</td>
+</tr>
+<tr>
+<td align="left">CRIT（严重）</td>
+<td align="left">比较严重的情况</td>
+</tr>
+<tr>
+<td align="left">ERR（错误）</td>
+<td align="left">运行出现错误</td>
+</tr>
+<tr>
+<td align="left">WARNING（提醒）</td>
+<td align="left">可能会影响系统功能的事件</td>
+</tr>
+<tr>
+<td align="left">NOTICE（注意）</td>
+<td align="left">不会影响系统但值得注意</td>
+</tr>
+<tr>
+<td align="left">INFO（信息）</td>
+<td align="left">一般信息</td>
+</tr>
+<tr>
+<td align="left">DEBUG（调试）</td>
+<td align="left">程序或系统调试信息等</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">所有等级</td>
+</tr>
+<tr>
+<td align="left">none</td>
+<td align="left">不记录日志</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">*.info;mail.none;authpriv.none;cron.none                /var/log/messages
+*.info    # *代表所有级别    .点代表后面的等级及以上等级，也就是info以上的等级全记录
+；分号是不同设备等级的分隔符号
+-/var/log/maillog   # - 代表先记录缓存，再记录硬盘，减轻硬盘i/o读写压力<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-1-5-logger发送测试日志"><a href="#10-1-5-logger发送测试日志" class="headerlink" title="10.1.5 logger发送测试日志"></a>10.1.5 logger发送测试日志</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1 查看rsyslog服务是否开启 (默认系统已开启)
+[root@servera ~]# systemctl status rsyslog
+
+2 编辑rsyslog配置文件
+[root@servera ~]# vim /etc/rsyslog.conf
+# Save boot messages also to boot.log
+local7.*                                                /var/log/boot.log
+.
+.
+*.debug                                                 /var/log/messages.debug
+3 重启rsyslog日志服务让配置生效
+[root@servera ~]# systemctl restart rsyslog
+
+4 开另一个窗口 ctrl+shift+t
+[root@servera ~]# tail -n 0 -f /var/log/messages.debug   
+
+5 使用logger命令生成一个user类别，debug级别的日志内容为“Debug test messages”  #（考点）
+[root@servera ~]# logger -p user.debug "Debug test messages"    
+
+6 在第4步的窗口中查看新生成日志信息
+[root@servera ~]# tail -n 0 -f /var/log/messages.debug
+Jun 18 14:45:31 servera root[29174]: messages haha<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-2-journalctl"><a href="#10-2-journalctl" class="headerlink" title="10.2 journalctl"></a>10.2 journalctl</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 传统的日志服务是rsyslog
+# 新的日志服务是systemd-journal，它也是一个日志管理服务，可以收集来自内核、系统早期启动阶段的日志，以及系统进程在启动和运行中的一些标准输出与错误输出
+# systemd-journal一旦重启既消失，因为保存在了/run/log/journal/*/*.journal结尾，该文件是一个二进制日志文件，需要用journalctl命令查看
+
+journalctl      #查看系统日志
+journalctl -n   #通过q或ctrl接触观看  ，此命令显示方式类似与tail -n
+journalctl -n 5 
+
+journalctl -p err  日志等级
+journalctl -f 
+journalctl -p err 
+journalctl -p info
+  （deubg、info、notice、warning、err、crit、alert、emerg）
+
+journalctl --since "2020-02-28 22:53:35" --until "2020-02-28 22:53:40"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-2-1-journalctl常用字段"><a href="#10-2-1-journalctl常用字段" class="headerlink" title="10.2.1 journalctl常用字段"></a>10.2.1 journalctl常用字段</h3><table>
+<thead>
+<tr>
+<th align="left">常用字段</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">_COMM</td>
+<td align="left">命令名称</td>
+</tr>
+<tr>
+<td align="left">_EXE</td>
+<td align="left">进程的可执行文件的路径</td>
+</tr>
+<tr>
+<td align="left">_PID</td>
+<td align="left">进程的PID</td>
+</tr>
+<tr>
+<td align="left">_UID</td>
+<td align="left">UID</td>
+</tr>
+<tr>
+<td align="left">_SYSTEM_UNIT</td>
+<td align="left">启动该进程的systemd单元</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">journalctl -o verbose 
+journalctl _HOSTNAME=localhost
+journalctl _HOSTNAME=localhost _PID=1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="102-2-保存journal服务文件"><a href="#102-2-保存journal服务文件" class="headerlink" title="102.2 保存journal服务文件"></a>102.2 保存journal服务文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mandb
+man -k journal
+man 5 journald.conf  ， Storage=
+
+[root@clear journal]# ll -d /run/log/journal
+[root@clear journal]# cp -a /run/log/journal/ /var/log/journal
+[root@clear journal]# ll -d /var/log/journal
+drwxr-sr-x. 4 root systemd-journal 86 Nov 19 04:30 /var/log/journal
+[root@clear journal]# systemctl restart systemd-journald
+[root@clear journal]# ll /var/log/journal/3a2b4da8dabb4729935c193e58ad052d/  #字符串目录名字每个人的可能不一样。不要复制我的笔记。
+total 8192
+-rw-r-----. 1 root root 8388608 Nov 19 04:30 system.journal
+[root@clear journal]# journalctl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-3-准确的系统时间"><a href="#10-3-准确的系统时间" class="headerlink" title="10.3 准确的系统时间"></a>10.3 准确的系统时间</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># RHEL6 ntp服务
+# RHEL8 chrony服务
+# 还是使用同样的协议标准ntp（network time protocol）
+
+UTC：通用协调时
+   （UTC时间0点是北京时间8点,因为中国、新加坡、马来西亚、菲律宾等国的时间与UTC的时差均为+8,也就是UTC+8,所以当UTC时间0点,北京时间即为0+8=8点）
+GMT：格林威治标准时间
+CST：中国标准时间 (China Standard Time）
+    （中国大陆、中国香港、中国澳门、中国台湾、蒙古国、新加坡、马来西亚、菲律宾、西澳大利亚州的时间与UTC的时差均为＋8，也就是UTC+8）
+RTC：(Real-Time Clock)也称为硬件时间：RTC是芯片内置的硬件时钟，只要芯片不断电，即使操作系统关机的时候，RTC时钟也是正常在      走的，所以当操作系统关机重启后，可通过读取RTC时间来更新系统时间
+    （可通过hwclock命令来获取具体的时间 
+      -r 查看硬件时间
+      -s 硬件时间设置到系统
+      -w 系统设置到硬件）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-3-1-timedatectl命令"><a href="#10-3-1-timedatectl命令" class="headerlink" title="10.3.1 timedatectl命令"></a>10.3.1 timedatectl命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera log]# timedatectl 
+               Local time: Sat 2020-02-29 08:51:49 CST
+           Universal time: Sat 2020-02-29 00:51:49 UTC
+                 RTC time: Sat 2020-02-29 08:11:07
+                Time zone: Asia/Shanghai (CST, +0800)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+          
+[root@servera log]# timedatectl list-timezones     
+[root@servera log]# timedatectl set-timezone Asia/Hong_Kong 
+[root@servera log]# timedatectl 
+               Local time: Sat 2020-02-29 08:55:48 HKT
+           Universal time: Sat 2020-02-29 00:55:48 UTC
+                 RTC time: Sat 2020-02-29 08:15:06
+                Time zone: Asia/Hong_Kong (HKT, +0800)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+
+# 修改时间方法
+timedatectl set-time "2020-02-30 10:00:00"
+Failed to set time: NTP unit is active
+timedatectl set-ntp false 
+timedatectl set-time "2020-02-30 10:00:00"
+timedatectl set-ntp true <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-3-2-chrony命令"><a href="#10-3-2-chrony命令" class="headerlink" title="10.3.2 chrony命令"></a>10.3.2 chrony命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server
+===server选项格式===
+server host  [ key n ] [ version n ] [ prefer ] [ mode n ] [ minpoll n ] [ maxpoll n ] [ iburst ]
+其中host是上层NTP服务器的IP地址或域名，随后所跟的参数解释如下所示：
+◆ key： 表示所有发往服务器的报文包含有秘钥加密的认证信息，n是32位的整数，表示秘钥号。
+◆ version： 表示发往上层服务器的报文使用的版本号，n默认是3，可以是1或者2。
+◆ prefer： 如果有多个server选项，具有该参数的服务器有限使用。
+◆ mode： 指定数据报文mode字段的值。
+◆ minpoll： 指定与查询该服务器的最小时间间隔为2的n次方秒，n默认为6，范围为4-14。
+◆ maxpoll：  指定与查询该服务器的最大时间间隔为2的n次方秒，n默认为10，范围为4-14。
+◆ iburst： 当初始同步请求时，采用突发方式接连发送8个报文，时间间隔为2秒。
+[root@servera ~]# systemctl enable --now chronyd    #--now启动服务 enable 开机自动
+[root@servera ~]# systemctl status chronyd
+[root@servera ~]# vim /etc/chrony.conf   #大概第7行 server 后面添加服务器'地址'或'域名'。
+server classroom.exmaple.com iburst
+[root@servera ~]# systemctl  restart chronyd.service
+[root@servera ~]# chronyc sources -v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="11-RHEL网络管理"><a href="#11-RHEL网络管理" class="headerlink" title="11 RHEL网络管理"></a>11 RHEL网络管理</h1><h2 id="11-1-IPv4地址"><a href="#11-1-IPv4地址" class="headerlink" title="11.1 IPv4地址"></a>11.1 IPv4地址</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">IP/(NETMASK\|PREFIX)   172.25.0.9/255.255.0.0 \| 172.25.0.9/16
+--- ---------------------- --------------------------------------------
+GATEWAY                172.25.x.x
+DNS                    正向解析 \# host servera， 反向解析 \# host
+
+私有地址：
+A　１－１２７
+B　１２８－１９１
+C　１９２－２２３
+
+IP地址分类默认对应的子网掩码掩码：
+Ａ：２５５．０．０．０         11111111.00000000.00000000.00000000     /8
+Ｂ：２５５．２５５．０．０      11111111.11111111.00000000.00000000     /16
+Ｃ：２５５．２５５．２５５．０  11111111.11111111.11111111.00000000     /24<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-1-1-IP与掩码二进制与运算"><a href="#11-1-1-IP与掩码二进制与运算" class="headerlink" title="11.1.1 IP与掩码二进制与运算"></a>11.1.1 IP与掩码二进制与运算</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">网络地址   172.25.0.0       主机位全0
+---------- ---------------- -----------
+广播地址   172.25.255.255   主机位全1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-1-2-查看ipv4与ipv6"><a href="#11-1-2-查看ipv4与ipv6" class="headerlink" title="11.1.2 查看ipv4与ipv6"></a>11.1.2 查看ipv4与ipv6</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 查看ip地址方法1：
+[root@servera ~]#ifconfig 
+[root@servera ~]#ifconfig  eth0
+
+# 查看ip地址方法2：
+[root@servera ~]# ip addr show eth0
+[root@servera ~]# ip a  s eth0
+[root@servera ~]# ip -s link show enp1s0 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-1-3-端口与服务"><a href="#11-1-3-端口与服务" class="headerlink" title="11.1.3 端口与服务"></a>11.1.3 端口与服务</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 查看服务端口是否被占用
+lsof -i:80 或 netstat
+-n：显示接口和端口编号
+-t：tcp信息
+-u：udp信息
+-l：监听状态信息
+-a：显示所有信息
+-p：显示协议名称而不是端口
+
+netstat -ntlp | grep 80
+
+# 参考ss和netstat区别：https://blog.csdn.net/qq_37863891/article/details/107283415
+
+# 标准服务端口 /etc/services<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="11-2-网络管理工具"><a href="#11-2-网络管理工具" class="headerlink" title="11.2 网络管理工具"></a>11.2 网络管理工具</h2><h3 id="11-2-1-nmcli的概念"><a href="#11-2-1-nmcli的概念" class="headerlink" title="11.2.1 nmcli的概念"></a>11.2.1 nmcli的概念</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.使用nmcli管理网络服务NetworkManager
+2.nmcli工具的功能：查看网络设备、创建网络连接、修改网络配置
+3.nmcli的特点及概念：
+  nmcli工具可以对网卡或网卡配置文件操作
+  device ---- 网卡设备
+  connection --- 连接  指的就是网卡配置文件
+  一个device可以拥有多个connection，同一时间只能启用一个connection，且一个connection只能属于一个device
+
+4.举例：
+  device-----eth0
+  connection1  ----  dhcp    自动获取IP  
+  connection2  ----  static  静态IP  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-2-2-nmcli管理网络"><a href="#11-2-2-nmcli管理网络" class="headerlink" title="11.2.2 nmcli管理网络"></a>11.2.2 nmcli管理网络</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mandb
+man -k nmcli
+nmcli (1) 
+nmcli-examples (7)
+man nmcli | grep -A 2 'nmcli connection add'
+
+-basic
+[root@servera ~]# nmcli connection show 
+[root@servera ~]# nmcli connection show --active 
+[root@servera ~]# nmcli device status 
+
+-add---添加
+   dhcp方式: #创建一个名为default的手动链接，绑定至eth0网卡
+[root@servera ~]# nmcli connection add  con-name 'default' type ethernet ifname eth0  autoconnect yes    
+[root@servera ~]# nmcli con show 
+
+   static方式：#创建一个名为static的静态链接，绑定至eth1网卡
+[root@servera ~]# nmcli connection add con-name static type ethernet ifname eth0 autoconnect yes ipv4.addresses 192.168.0.1/24 ipv4.gateway 192.168.0.254 ipv4.dns 8.8.8.8 ipv4.method manual  
+[root@servera ~]# nmcli connection show
+NAME                UUID                                  TYPE      DEVICE 
+Wired connection 1  1f5ad5ae-e926-3f54-9805-33174e63af47  ethernet  eth0   
+static              980f6712-86b7-4d92-bc84-62e677ccabfc  ethernet  eth1     #此处
+dhcp                82c4a93f-1ca2-432b-94da-59a6c4f5aaca  ethernet  --     
+Wired connection 2  e801f880-78a6-3344-857f-588f7495bb26  ethernet  --     
+[root@servera /]# nmcli connection up static   启动static网卡
+[root@servera /]# ip a s eth1 | grep -w inet
+
+-modify---修改
+#将链接static网络信息更改： IP：192.168.0.2  mask：/24  gw：192.168.0.200 dns：114.114.114.114
+[root@servera ~]# nmcli connection modify static ipv4.addresses 192.168.0.2/24 ipv4.gateway 192.168.0.200 ipv4.dns 114.114.114.114 autoconnect yes ipv4.method manual
+[root@servera ~]# nmcli connection up  static
+[root@servera ~]# ip a s eth0
+    inet 192.168.0.2/24 brd 192.168.0.255 scope global noprefixroute eth1
+   
+[root@servera ~]# route -n
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.25.250.254  0.0.0.0         UG    100    0        0 eth0
+0.0.0.0         192.168.0.200   0.0.0.0         UG    101    0        0 eth1
+
+[root@servera ~]# cat /etc/resolv.conf 
+# Generated by NetworkManager
+search lab.example.com example.com
+nameserver 172.25.250.254
+nameserver 114.114.114.114
+ 
+[root@serverb ~]# nmcli connection delete static  #删除一个链接
+Connection 'static' (b85e6a57-b8f7-421f-8d15-9ff5e27cbb85) successfully deleted.
+
+-up_down---启动与关闭网卡
+[root@servera /]# nmcli connection down static   关闭static网卡
+
+-off---关闭网络服务
+[root@servera /]# nmcli networking off       关闭网络服务，慎重使<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-2-3-图形化管理工具nmtui"><a href="#11-2-3-图形化管理工具nmtui" class="headerlink" title="11.2.3 图形化管理工具nmtui"></a>11.2.3 图形化管理工具nmtui</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nmtui-edit
+图形化管理配置
+通过点击设置--network--网卡设置，ipv4address  netmask  dns  gateway
+nmtui-edit
+[root@servera /]# nmcli connection up static<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-2-4-网卡配置文件"><a href="#11-2-4-网卡配置文件" class="headerlink" title="11.2.4 网卡配置文件"></a>11.2.4 网卡配置文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">-RHEL8 版本
+# grep -r IPADDR /usr/share/ #找到下面手册的指令
+vim /usr/share/doc/initscripts/sysconfig.txt 帮助手册
+
+修改配置文件方式修改IP
+[root@servera ~]# vim /etc/sysconfig/network-scripts/ifcfg-Wired_connection_1
+
+BOOTPROTO=none          #获取IP的方式  static--静态 none--不设置 dhcp--自动获取 ，手动配IP选前两个中任意一个
+ONBOOT=yes              #开机自动连接
+IPADDR=172.25.250.100   #ip地址
+PREFIX=24               #子网掩码  PREFIX=24(等效于255.255.255.0)，mask=255.255.255.0 netmask=255.255.255.0
+GATEWAY=172.25.250.254  #网关
+DNS1=xxxx               #dns，dns可以有三个 DNS1= DNS2= DNS3=
+
+加载网卡配置文件方法一：
+[root@serverb network-scripts]# nmcli connection reload ifcfg-Wired_connection_1 或 nmcli connection reload
+[root@serverb network-scripts]# nmcli connection up static
+
+systemctl restart NetworkManager
+
+-RHEL9版本 网卡配置文件位置
+[root@node1 system-connections]# vim /etc/NetworkManager/system-connections/System\ eth0.nmconnection<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="11-3-更改网络信息"><a href="#11-3-更改网络信息" class="headerlink" title="11.3 更改网络信息"></a>11.3 更改网络信息</h2><h3 id="11-3-1-主机名"><a href="#11-3-1-主机名" class="headerlink" title="11.3.1 主机名"></a>11.3.1 主机名</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# hostname
+servera.lab.example.com
+[root@servera ~]# hostnmae  www.example.com 临时
+[root@servera ~]# vim /etc/hostname  永久（重启系统:reboot、init 6)
+[root@servera ~]# hostnamectl set-hostname hostname　永久<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-3-2-网关-gateway"><a href="#11-3-2-网关-gateway" class="headerlink" title="11.3.2 网关(gateway)"></a>11.3.2 网关(gateway)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 使用nmcli
+nmcli con add con-name xxx ipv4.gateway xxx.xxx.xxx.xxx  配置网关
+nmcli con mod xxx ipv4.gateway xxx.xxx.xxx.xxx           修改网关
+以上两种改完之后，需要nmcli con up xxx
+
+# 修改配置文件
+vim /etc/sysconfig/network-scripts/ifcfg-xxxx
+GATEWAY=xxx.xxx.xxx.xxx  
+修改完后要nmcli con reload ，再nmcli con up xxxx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-3-3-查看路由及网关"><a href="#11-3-3-查看路由及网关" class="headerlink" title="11.3.3 查看路由及网关"></a>11.3.3 查看路由及网关</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# ip route 
+default via 172.25.250.254 dev enp1s0 proto static metric 100 
+172.25.250.0/24 dev enp1s0 proto kernel scope link src 172.25.250.10 metric 100
+
+[root@servera ~]# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.25.250.254  0.0.0.0         UG    100    0        0 enp1s0
+172.25.250.0    0.0.0.0         255.255.255.0   U     100    0        0 enp1s0
+
+[root@servera ~]# nmcli connection show Wired\ connection\ 1 | grep ipv4.ga
+ipv4.gateway:                           172.25.250.254
+
+[root@servera ~]# netstat -nr
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         172.25.250.254  0.0.0.0         UG        0 0          0 enp1s0
+172.25.250.0    0.0.0.0         255.255.255.0   U         0 0          0 enp1s0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-3-4-指定DNS"><a href="#11-3-4-指定DNS" class="headerlink" title="11.3.4 指定DNS"></a>11.3.4 指定DNS</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">vim /etc/resolv.conf   #该文件指定dns和域名的/etc/sysconfig/network-scripts/ifcfg-xxx中的DNS字段会同步到/etc/resolv.conf，后者优先。
+nameserver 172.25.250.254
+
+# 测DNS域名解析是否正常
+[root@servera ~]# host classroom.example.com 
+classroom.example.com has address 172.25.254.254
+[root@servera ~]# nslookup classroom.example.com
+Server:     172.25.250.254
+Address:    172.25.250.254#53
+
+Name:   classroom.example.com
+Address: 172.25.254.254
+
+[root@servera ~]# dig classroom.example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="12-归档与系统间复制文件"><a href="#12-归档与系统间复制文件" class="headerlink" title="12 归档与系统间复制文件"></a>12 归档与系统间复制文件</h1><h2 id="12-1-归档及压缩"><a href="#12-1-归档及压缩" class="headerlink" title="12.1 归档及压缩"></a>12.1 归档及压缩</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 语法：tar 选项  归档文件名    源文件 源文件2 源文件N
+-c  创建
+-t  查看
+-f  指定文件名
+-v  显示详细信息
+-x  解包
+-C  指定解包路径
+
+man tar
+tar -cvf /root/etc.tar /etc/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="12-1-1-文件及目录打包、解包"><a href="#12-1-1-文件及目录打包、解包" class="headerlink" title="12.1.1 文件及目录打包、解包"></a>12.1.1 文件及目录打包、解包</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 文件打包归档
+[root@servera opt]#
+etc.tar  file1  file2  file3
+
+[root@servera opt]# tar -cvf file.tar file1 file2 file3
+[root@servera opt]# ls
+etc.tar  file1  file2  file3  file.tar
+
+# 文件解包
+[root@servera opt]# tar -xvf file.tar -C /tmp/
+[root@servera opt]# ls /tmp/
+file1  rclocal.log
+file2  rht-bastion
+file3  rht-default
+NIC1   rht-vm-hosts
+NIC2   systemd-private-ef2feb022cd2465c9dd920878a1d962b-chronyd.service-kRKFp0
+
+# 目录打包归档
+[root@servera opt]# tar -cvf etc.tar /etc
+[root@servera opt]# ls
+etc.tar  file1  file2  file3  file.tar
+
+# 目录解包
+[root@servera opt]# tar -xvf etc.tar <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="12-1-2-文件压缩"><a href="#12-1-2-文件压缩" class="headerlink" title="12.1.2 文件压缩"></a>12.1.2 文件压缩</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 只压缩文件
+[root@servera opt]# gzip file1
+[root@servera opt]# file file1.gz 
+file1.gz: gzip compressed data, was "file1", last modified: Sun Mar  1 05:54:06 2020, from Unix, original size 0
+[root@servera opt]# bzip2 file2
+[root@servera opt]# file file2.bz2 
+file2.bz2: bzip2 compressed data, block size = 900k
+[root@servera opt]# xz file.tar 
+[root@servera opt]# ls
+etc.tar  file1.gz  file2.bz2  file3  file.tar.xz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="12-1-3-tar打包并压缩"><a href="#12-1-3-tar打包并压缩" class="headerlink" title="12.1.3 tar打包并压缩"></a>12.1.3 tar打包并压缩</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># tar的压缩选项
+  man tar | grep gzip
+-z  gzip    -j  bzip2    -J  xz
+# 打包并压缩
+ tar -zcvf /root/etc.tar.gz /etc/
+ file etc.tar.gz 
+ tar -jcvf /opt.tar.bz2 /opt/
+ tar -Jcvf /root/etc.tar.gz /etc/
+
+# 解压缩并指定路径
+tar -zxvf etc.tar.gz -C /opt/
+tar xf etc.tar.gz -C /opt/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="12-2-远程传输"><a href="#12-2-远程传输" class="headerlink" title="12.2 远程传输"></a>12.2 远程传输</h2><h3 id="12-2-1-远程文件传输"><a href="#12-2-1-远程文件传输" class="headerlink" title="12.2.1 远程文件传输"></a>12.2.1 远程文件传输</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># scp实现远程文件传输
+scp servra.txt root@bastion:/opt/
+scp root@bastion:/opt/bastion.txt .
+
+# sftp实现远程文件传输
+ID    app   roles
+---- ------- ----------------
+1     ftp    client
+2     sftp   ssh SubService
+3     vsftp  service
+
+[root@servera opt]# touch put.txt
+[root@servera opt]# sftp instructor@classroom.example.com
+instructor@classroom.example.com's password: 
+Connected to instructor@classroom.example.com.
+sftp&gt; cd /tmp/
+sftp&gt; put /opt/put.txt 
+Uploading /opt/put.txt to /tmp/put.txt
+/opt/put.txt                                    100%    0     0.0KB/s   00:00    
+sftp&gt; ls<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="12-2-2-同步文件内容"><a href="#12-2-2-同步文件内容" class="headerlink" title="12.2.2 同步文件内容"></a>12.2.2 同步文件内容</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># rsync  -v  显示详细信息     -a  相当于存档模式
+  
+# 本地同步
+[root@servera tmp]# rsync -av /var/log/* /tmp
+
+# 远程同步
+[root@servera tmp]# rsync -av /var/log/* serverb:/tmp
+
+# 将serverb上的/var/log/同步到，servera当前目录下
+[root@servera tmp]# rsync -av serverb:/var/log/  .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="13-安装和升级软件包"><a href="#13-安装和升级软件包" class="headerlink" title="13 安装和升级软件包"></a>13 安装和升级软件包</h1><h2 id="13-1-RPM包管理"><a href="#13-1-RPM包管理" class="headerlink" title="13.1 RPM包管理"></a>13.1 RPM包管理</h2><h3 id="13-1-1-rpm包语法"><a href="#13-1-1-rpm包语法" class="headerlink" title="13.1.1 rpm包语法"></a>13.1.1 rpm包语法</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#软件的获取方式：
+ 1、互联网(下载光盘镜像.iso)、直接使用网络yum源
+ 2、光盘
+
+#rpm包语法:rpm 选项 包名
+-i  安装
+-v  显示过程
+-h  以易读方式显示进度条
+-e  卸载
+
+rpm -ivh xxx.rpm
+
+#示例:
+1. 在f0中进入软件包的存储位置
+[root@foundation0 /]# cd /content/rhel8.0/x86_64/dvd/AppStream/Packages/
+[root@foundation0 Packages]# pwd
+/content/rhel8.0/x86_64/dvd/AppStream/Packages
+
+2.安装软件
+[root@foundation0 Packages]# rpm -ivh lftp-4.8.4-1.el8.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-1-2-rpm包查询命令"><a href="#13-1-2-rpm包查询命令" class="headerlink" title="13.1.2 rpm包查询命令"></a>13.1.2 rpm包查询命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法:rpm -q 软件包名称
+-q: query      查询，和其他参数配合
+-l：list       列出软件包安装后给系统带来的所有文件
+-a：all        查看所有已安装的软件包
+-c: configure  查看软件包提供的配置文件
+
+rpm -qa | grep telnet
+rpm -qc openssh-server-8.0p1-4.el8_1.x86_64
+
+#卸载RPM包
+[root@node1 /]# rpm -q telnet
+telnet-0.17-73.el8.x86_64
+[root@node1 /]# rpm -e telnet-0.17-73.el8.x86_64
+[root@node1 /]# rpm -q telnet
+package telnet is not installed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="13-2-YUM工具"><a href="#13-2-YUM工具" class="headerlink" title="13.2 YUM工具"></a>13.2 YUM工具</h2><h3 id="13-2-1-管理yum源文件"><a href="#13-2-1-管理yum源文件" class="headerlink" title="13.2.1 管理yum源文件"></a>13.2.1 管理yum源文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># yum源软件配置方式:
+[root@servera /]# cd /etc/yum.repos.d/
+[root@servera yum.repos.d]# mkdir old
+[root@servera yum.repos.d]# mv * old     #将系统默认的yum源文件移动到old中，可以在该文件中查看原来的yum源路径
+[root@servera yum.repos.d]# man 5 yum.conf
+[root@servera yum.repos.d]# vim rhel.repo
+[AppStream]      #id名称自定义
+name=AppStream   #描述自定义，和id不必一样
+baseurl=http://content.example.com/rhel8.4/x86_64/dvd/AppStream   #file:///中://是url格式，第三个/是根目录
+gpgcheck=0   #gpgchek=1 要进行公钥验证，需要再添加选项gpgkey=http://content.example.com/rhel8.4/x86_64/dvd/RPM-GPG-KEY-redhat-release
+enabled=1
+
+[BaseOS]
+name=BaseOS
+baseurl=http://content.example.com/rhel8.4/x86_64/dvd/BaseOS
+gpgcheck=0
+enabled=1
+[root@servera yum.repos.d]# yum clean all           #清除缓存，避免沿用之前缓存的软件
+[root@servera yum.repos.d]# yum makecache           #和当前yum源建立缓存关联
+[root@servera yum.repos.d]# yum repolist all        #查看当前yum源状态
+[root@servera yum.repos.d]# yum install -y telnet   #测试安装软件telnet
+[root@servera yum.repos.d]# rpm -q telnet           #使用rpm方式查询测试<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-2-2-yum源命令配置"><a href="#13-2-2-yum源命令配置" class="headerlink" title="13.2.2 yum源命令配置"></a>13.2.2 yum源命令配置</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1 找到提供yum-config-manager命令的软件包名称
+[kiosk@foundation0 ~]$ yum provides yum-config-manager
+
+2 安装yum-utils软件
+ #打开浏览器输入yum源仓库地址，找到yum-utils的软件包，并且通过rpm命令安装网络上的yum-utils软件包，来提通yum-config-manager命令
+[root@servera ]# rpm -ivh http://content.example.com/rhel8.4/x86_64/dvd/BaseOS/Packages/yum-utils-4.0.18-4.el8.noarch.rpm
+
+3  通过yum-config-manager命令部署yum源
+[root@servera ]# yum-config-manager --help
+[root@servera ]# yum-config-manager --add-repo=http://content.example.com/rhel8.4/x86_64/dvd/AppStream
+[root@servera ]# yum-config-manager --add-repo=http://content.example.com/rhel8.4/x86_64/dvd/BaseOS
+
+4 命令制作的yum源中没有gpgcheck选项，如何配置？可以通过以下方法：
+   1、此处可以在/etc/yum.repos.d/xx.repo文件里添加 gpgcheck=0
+   2、rpm --import ‘公钥地址’   导入公钥` 
+[root@servera yum.repos.d]# rpm --import http://content.example.com/rhel8.4/x86_64/dvd/RPM-GPG- KEY-redhat-release  
+
+
+5.开启或关闭
+[root@servera /]# yum-config-manager --disable rhel-8.0-for-x86_64-appstream-rpms（yum池ID）
+[root@servera /]# yum repolist all
+[root@servera /]# yum-config-manager --enable rhel-8.0-for-x86_64-appstream-rpms
+[root@servera /]# yum repolist all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-2-3-YUM常见的命令"><a href="#13-2-3-YUM常见的命令" class="headerlink" title="13.2.3 YUM常见的命令"></a>13.2.3 YUM常见的命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum list http*
+yum search httpd
+yum info httpd-manual
+[root@servera /]# yum provides /var/www/html
+# yum update
+# yum install 包名      yum remove 包名
+
+[root@servera /]# yum install  -y autofs
+[root@servera /]# yum remove -y autofs
+[root@servera /]# yum history
+
+# yum clean all      yum repolist     yum repolist all
+# yum group list     yum groupinfo 'Server with GUI'
+# yum groupinstall -y 'Server with GUI'
+# startx 切图形<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="13-3-第三方YUM源"><a href="#13-3-第三方YUM源" class="headerlink" title="13.3 第三方YUM源"></a>13.3 第三方YUM源</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.虚拟机联网
+  虚拟机设置里面NAT选择已连接   nmcli connection up ens192
+  
+2.百度搜索（阿里源、华为源...），将.repo文件下载到系统
+curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
+
+3.验证
+cd /etc/yum.repos.d/;ls
+yum repolist all
+yum install -y vsftpd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="14-访问Linux文件系统"><a href="#14-访问Linux文件系统" class="headerlink" title="14 访问Linux文件系统"></a>14 访问Linux文件系统</h1><h2 id="14-1-存储管理"><a href="#14-1-存储管理" class="headerlink" title="14.1 存储管理"></a>14.1 存储管理</h2><h3 id="14-1-1-文件系统、存储和块设备"><a href="#14-1-1-文件系统、存储和块设备" class="headerlink" title="14.1.1 文件系统、存储和块设备"></a>14.1.1 文件系统、存储和块设备</h3><table>
+<thead>
+<tr>
+<th align="left">块设备</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">/dev/sda、/dev/sdb</td>
+<td align="left">STAT/SAS（新SCSI技术）/USB 附加存储</td>
+</tr>
+<tr>
+<td align="left">/dev/vda、/dev/vdb</td>
+<td align="left">virtio-blk 超虚拟化存储（部分虚拟机）</td>
+</tr>
+<tr>
+<td align="left">/dev/nvme0，/dev/nvme1</td>
+<td align="left">附加存储 （SSD）</td>
+</tr>
+<tr>
+<td align="left">/dev/mmcblk0、/dev/mmcblk1</td>
+<td align="left">SD卡</td>
+</tr>
+</tbody></table>
+<h3 id="14-1-2-磁盘分区"><a href="#14-1-2-磁盘分区" class="headerlink" title="14.1.2 磁盘分区"></a>14.1.2 磁盘分区</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 分区--格式化--挂载--使用
+# mount命令挂载是临时的，意味着重启系统后将取消挂载。需要手动重新挂载
+# 永久挂载需要将挂载项记入/etc/fstab中
+
+1 分区，gpt方案 ，分2个区，每个1G
+[root@servera ~]# fdisk /dev/vdb
+Command (m for help): m
+   d   delete a partition    #删除分区
+   n   add a new partition   #创建分区
+   p   print the partition table  #打印分区表
+   w   write table to disk and exit   #保存并退出
+  Create a new label
+   g   create a new empty GPT partition table  #指定分区方案gpt
+   o   create a new empty DOS partition table  #指定分区方位mbr
+
+Command (m for help): g   #指定分区方案gpt
+Created a new GPT disklabel (GUID: D29B3E19-BA51-1042-BFE6-0FD975D1B7DB).
+Command (m for help): n
+Partition number (1-128, default 1): #回车
+First sector (2048-10485726, default 2048):  #回车
+Last sector, +sectors or +size{K,M,G,T,P} (2048-10485726, default 10485726): +1G  #指定分区大小1G
+
+Created a new partition 1 of type 'Linux filesystem' and of size 1 GiB.
+
+Command (m for help): p
+Disklabel type: gpt  #查看分区方案
+
+Device     Start     End Sectors Size Type  #分区表
+/dev/vdb1   2048 2099199 2097152   1G Linux filesystem  #/dev/vdb 分区为1G
+
+Command (m for help): n   #创建第二个分区
+Partition number (2-128, default 2): 
+First sector (2099200-10485726, default 2099200): 
+Last sector, +sectors or +size{K,M,G,T,P} (2099200-10485726, default 10485726): +1G
+
+Command (m for help): p
+Device       Start     End Sectors Size Type
+/dev/vdb1     2048 2099199 2097152   1G Linux filesystem
+/dev/vdb2  2099200 4196351 2097152   1G Linux filesystem
+
+Command (m for help): w  #保存退出
+[root@servera ~]# fdisk -l /dev/vdb  #查看/dev/vdb分区表
+Device       Start     End Sectors Size Type
+/dev/vdb1     2048 2099199 2097152   1G Linux filesystem
+/dev/vdb2  2099200 4196351 2097152   1G Linux filesystem
+
+[root@servera ~]# lsblk /dev/vdb   #lsblk查看块设备
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+vdb    252:16   0   5G  0 disk 
+├─vdb1 252:17   0   1G  0 part 
+└─vdb2 252:18   0   1G  0 part 
+
+2 格式化，将两个分区分别格式化为ext4和xfs文件系统
+  # mkfs 选项 设备名     -t 指定文件系统类型
+mkfs -t ext4 /dev/vdb1     mkfs.ext4 /dev/vdb1    
+
+[root@servera /]# mkfs -t ext4 /dev/vdb1   #mkfs格式化 ext4是文件系统类型 /dev/vdb1是要格式化的磁盘分区
+[root@servera /]# echo $?     $?是看上一条命令返回值，0为正确，非0为错误
+0
+[root@servera /]# mkfs.xfs /dev/vdb2
+[root@servera /]# echo $?
+0
+[root@servera ~]# lsblk -f
+[root@servera ~]# lsblk -f /dev/vdb  #查看文件系统类型，
+NAME   FSTYPE LABEL UUID                                 MOUNTPOINT
+vdb                                                      
+├─vdb1 ext4         ecb332da-5bf4-4b86-b92e-d9da25f22a07 
+└─vdb2 xfs          b538bf38-2b33-4d53-a785-372627587c52 
+
+
+3 挂载
+  创建挂载点  mkdir /mnt/disk1
+  文件系统：格式化后的设备或分区   挂载点：linux中的空目录
+挂载：
+mount  文件系统  挂载点    mount  /dev/vdb1  /mnt/disk1
+
+卸载：
+umount 文件系统/挂载点     umount /dev/vdb1 or umount /mnt/disk1
+
+
+#挂载
+[root@servera ~]# lsblk -f /dev/vdb
+NAME   FSTYPE LABEL UUID                                 MOUNTPOINT
+vdb                                                      
+├─vdb1 ext4         ecb332da-5bf4-4b86-b92e-d9da25f22a07 
+└─vdb2 xfs          b538bf38-2b33-4d53-a785-372627587c52 
+[root@servera ~]# mkdir /mnt/{disk1,disk2}  # 创建挂载点
+[root@servera ~]# ls /mnt
+disk1  disk2
+[root@servera ~]# mount /dev/vdb1 /mnt/disk1  #将/dev/vdb1 挂载到/mnt/disk1目录上
+[root@servera ~]# df 
+[root@servera ~]# df -Th  #-T 显示文件系统，-h以易读单位显示
+Filesystem     Type      Size  Used Avail Use% Mounted on
+/dev/vdb1      ext4      976M  2.6M  907M   1% /mnt/disk1
+/dev/vdb2      xfs      1014M   40M  975M   4% /mnt/disk2
+[root@servera ~]# tree /mnt/
+/mnt/
+├── disk1
+│   ├── haha.txt
+│   └── lost+found
+└── disk2
+    └── heihei.txt
+ 卸载   
+[root@servera ~]# cd /mnt/disk2
+[root@servera disk2]# umount /dev/vdb2      #使用时不能卸载
+umount: /mnt/disk2: target is busy.
+[root@servera disk2]# cd /    #需要退出挂载点
+[root@servera /]# umount /dev/vdb2   #卸载
+[root@servera /]# df -h | tail -2
+tmpfs           183M     0  183M   0% /run/user/0
+/dev/vdb1       976M  2.6M  907M   1% /mnt/disk1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="14-1-3-检查文件系统"><a href="#14-1-3-检查文件系统" class="headerlink" title="14.1.3 检查文件系统"></a>14.1.3 检查文件系统</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># df查看系统挂载状态
+-T 查看文件系统类型
+-h 以易读方式列出容量单位
+
+du查看文件大小
+[root@servera /]# du /etc/
+[root@servera /]# du -h /etc/
+[root@servera /]# du -sh  /etc/
+24M /etc/
+
+[root@servera /]# du /etc/man_db.conf 
+8   /etc/man_db.conf
+[root@servera /]# du /etc/man_db.conf  -h  #占用了的块大小，linux默认一个块4k
+8.0K    /etc/man_db.conf
+[root@servera /]# ll /etc/man_db.conf 
+-rw-r--r--. 1 root root 5165 Nov  7  2018 /etc/man_db.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="14-2-文件查找"><a href="#14-2-文件查找" class="headerlink" title="14.2 文件查找"></a>14.2 文件查找</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># locate
+updatedb      #收集所有文件元数据
+locate passwd
+locate -i image
+locate -n 5  image   #显示前5行
+
+# find
+find  查找范围  查找条件   动作(可选)
+find /  -name  passwd
+
+-name： 以文件名的形式查找
+-size： 根据文件大小 -size 1k ：大小为1k的文件，+1k大于1k的文件，-1k小于1k的文件
+-user /  -uid： 文件所有者   -user studnet  ：student是用户名，查找student拥有的文件
+-group / -gid
+-perm： 权限查找     -perm 700 ：搜索权限为700的文件
+-type： 按文件类型   -type f ： f表示文件，d表示目录
+-exec： 选项后接Linux指令，操作查找到的文件  command {} ; 
+
+find /etc -name sshd_config
+find / -user student | xargs ls -l
+find / -perm 700 -type d -user student | xargs ls -ld
+find /etc -type f -size +3k  -and -size -10k  
+find / -perm -4000 | xargs ls -ld
+
+将系统中student用户的文件复制到/root/studentdir目录中，并且保留权限
+[root@servera ~]# find / -user student -exec cp -a {} /root/studentdir/ \;
+
+将系统中student用户的文件列表保存到/root/studentdir文件中
+find / -user student &gt; /root/studentdir<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="14-3-ln-软链接与硬链接"><a href="#14-3-ln-软链接与硬链接" class="headerlink" title="14.3 ln 软链接与硬链接"></a>14.3 ln 软链接与硬链接</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 软链接(符号链接)：使用范围广，方便访问源文件
+# 文件链接创建方式：ln -s 源文件   链接文件
+ln -s dir1 linkdir1
+
+#硬链接：节省系统空间    
+ln 源文件  链接文件
+ln /opt/sou_file.txt /opt/link_file.txt
+
+# 取消链接
+[root@servera opt]# unlink /opt/link_file.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="14-4-软链接和硬链接区别"><a href="#14-4-软链接和硬链接区别" class="headerlink" title="14.4 软链接和硬链接区别"></a>14.4 软链接和硬链接区别</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.命令相同 参数不同
+2.硬链接的权限和源文件完全一致、软链接的链接文件权限永远是777，和源文件权限不同
+3.硬链接可以删除，移动源文件、软链接不可以删除，移动源文件
+4.软链接inode和源文件不同、硬链接的inode的源文件相同
+5.软链接可以对目录及文件生效、硬链接只可以对文件操作
+6.软链接可以跨文件系统、硬链接不可以跨文件系统<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">罗宇</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://linuxcenter.icu/2022/05/28/linux/linux-de-ji-ben-shi-yong/">https://linuxcenter.icu/2022/05/28/linux/linux-de-ji-ben-shi-yong/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">罗宇</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+                                    <span class="chip bg-color">Linux的基本使用</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/05/28/linux/linux-jin-jie/">
+                    <div class="card-image">
+                        
+                        <img src="/img/Linux.jpeg" class="responsive-img" alt="Linux进阶">
+                        
+                        <span class="card-title">Linux进阶</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Linux操作系统广泛应用于服务器、桌面和嵌入式设备中，以其稳定性、安全性和高效性受到广泛欢迎‌‌，文章描述了Linux的进阶使用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux%E8%BF%9B%E9%98%B6/">
+                        <span class="chip bg-color">Linux进阶</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/05/28/linux/linux-de-ji-ben-shi-yong/">
+                    <div class="card-image">
+                        
+                        <img src="/img/Linux.jpeg" class="responsive-img" alt="Linux的基本使用">
+                        
+                        <span class="card-title">Linux的基本使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Linux操作系统广泛应用于服务器、桌面和嵌入式设备中，以其稳定性、安全性和高效性受到广泛欢迎‌‌，文章描述了Linux入门级的基本操作
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+                        <span class="chip bg-color">Linux的基本使用</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i
+                    class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script
+    src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+        <footer class="page-footer bg-color">
+    
+    <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="6402467630"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align"
+        style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+            <span id="year">2021-2025</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">罗宇</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/"
+                target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a
+                href="https://github.com/blinkfox/hexo-theme-matery"
+                target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">50.6k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span
+                    id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span
+                    id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            
+            <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2021";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+<a href="https://github.com/luovip/tecBlog.github.io" class="tooltipped" target="_blank"
+    data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fab fa-github"></i>
+</a>
+
+
+
+<a href="mailto:luovipyu@163.com" class="tooltipped"
+    target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fas fa-envelope-open"></i>
+</a>
+
+
+
+<a
+    href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=252414302"
+    class="tooltipped" target="_blank"
+    data-tooltip="QQ联系我: 252414302" data-position="top"
+    data-delay="50">
+    <i class="fab fa-qq"></i>
+</a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+        <script
+            src="/libs/materialize/materialize.min.js"></script>
+        <script
+            src="/libs/masonry/masonry.pkgd.min.js"></script>
+        <script
+            src="/libs/aos/aos.js"></script>
+        <script
+            src="/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script
+            src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script
+            src="/js/matery.js"></script>
+
+        <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+        <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+        
+        <script
+            src="/libs/others/clicklove.js"
+            async="async"></script>
+        
+        
+        <script async
+            src="/libs/others/busuanzi.pure.mini.js"></script>
+        
+
+        
+
+        
+
+        
+        
+        <script type="text/javascript" color="64,224,208"
+            pointColor="0,0,255"
+            opacity='0.5'
+            zIndex="-1"
+            count="100"
+            src="/libs/background/canvas-nest.js"></script>
+        
+
+        
+        
+        <script type="text/javascript" size="150"
+            alpha='0.6'
+            zIndex="-1"
+            src="/libs/background/ribbon.min.js"
+            async="async"></script>
+        
+
+        
+        <script type="text/javascript"
+            src="/libs/background/ribbon-dynamic.js"
+            async="async"></script>
+        
+
+        
+        <script
+            src="/libs/instantpage/instantpage.js"
+            type="module"></script>
+        
+        <!-- 冒泡 -->
+        
+        <script type="text/javascript">
+        // 只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        document.write(
+            '<script type="text/javascript" src="/libs/others/buble.js"><\/script>'
+        );
+    </script>
+        
+        <script type="text/javascript">
+    var a_idx = 0;
+jQuery(document).ready(function ($) {
+    $("body").click(function (e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+            y = e.pageY;
+        $i.css({
+            "z-index": 5,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": "#FF0000"
+        });
+        $("body").append($i);
+        $i.animate({
+                "top": y - 180,
+                "opacity": 0
+            },
+            3000,
+            function () {
+                $i.remove();
+            });
+    });
+    setTimeout('delay()', 2000);
+});
+ 
+function delay() {
+    $(".buryit").removeAttr("onclick");
+}
+ 
+    </script>
+        <script type="text/javascript" src="/js/mouse_snow.js"></script>
+
+        <!-- 动态标签栏 -->
+        <script type="text/javascript">
+      var OriginTitile = document.title, st; 
+      document.addEventListener("visibilitychange", function () { 
+        document.hidden ? (document.title = "爱我，别走！", clearTimeout(st)) : (document.title = "咦，你来啦！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) 
+    </script>
+
+    </body>
+
+</html>
