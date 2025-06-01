@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-05-31T13:47:36.871Z</updated>
+  <updated>2025-06-01T04:47:40.198Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes企业级运维</title>
+    <link href="https://linuxcenter.icu/2025/06/01/kubernetes/kubernetes-qi-ye-ji-yun-wei/"/>
+    <id>https://linuxcenter.icu/2025/06/01/kubernetes/kubernetes-qi-ye-ji-yun-wei/</id>
+    <published>2025-06-01T04:34:00.000Z</published>
+    <updated>2025-06-01T04:47:40.198Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-Kubernetes概述&quot;&gt;&lt;a href=&quot;#1-Kubernetes概述&quot; class=&quot;headerlink&quot; title=&quot;1 Kubernetes概述&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes企业级运维" scheme="https://linuxcenter.icu/tags/Kubernetes%E4%BC%81%E4%B8%9A%E7%BA%A7%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kubernetes网络系统原理</title>
+    <link href="https://linuxcenter.icu/2025/05/30/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/"/>
+    <id>https://linuxcenter.icu/2025/05/30/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/</id>
+    <published>2025-05-30T04:34:00.000Z</published>
+    <updated>2025-06-01T04:55:00.752Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-网络通信基础&quot;&gt;&lt;a href=&quot;#1-网络通信基础&quot; class=&quot;headerlink&quot; title=&quot;1 网络通信基础&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes网络系统原理" scheme="https://linuxcenter.icu/tags/Kubernetes%E7%BD%91%E7%BB%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>podman容器</title>
@@ -42,11 +92,11 @@
   </entry>
   
   <entry>
-    <title>容器&amp;K8S</title>
-    <link href="https://linuxcenter.icu/2025/05/28/kubernetes/rong-qi-k8s/"/>
-    <id>https://linuxcenter.icu/2025/05/28/kubernetes/rong-qi-k8s/</id>
+    <title>Docker容器&amp;Kubernetes</title>
+    <link href="https://linuxcenter.icu/2025/05/28/kubernetes/docker-rong-qi-k8s/"/>
+    <id>https://linuxcenter.icu/2025/05/28/kubernetes/docker-rong-qi-k8s/</id>
     <published>2025-05-28T04:34:00.000Z</published>
-    <updated>2025-05-31T09:46:16.407Z</updated>
+    <updated>2025-06-01T05:54:21.454Z</updated>
     
     
       
@@ -62,16 +112,33 @@
     <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
     
     
-    <category term="容器&amp;K8S" scheme="https://linuxcenter.icu/tags/%E5%AE%B9%E5%99%A8-K8S/"/>
+    <category term="Docker容器&amp;Kubernetes" scheme="https://linuxcenter.icu/tags/Docker%E5%AE%B9%E5%99%A8-Kubernetes/"/>
     
   </entry>
   
   <entry>
-    <title>Linux服务</title>
-    <link href="https://linuxcenter.icu/2024/07/28/linux/linux-fu-wu/"/>
-    <id>https://linuxcenter.icu/2024/07/28/linux/linux-fu-wu/</id>
+    <title>Shell脚本</title>
+    <link href="https://linuxcenter.icu/2024/08/28/zi-dong-hua-yun-wei/shell-jiao-ben/"/>
+    <id>https://linuxcenter.icu/2024/08/28/zi-dong-hua-yun-wei/shell-jiao-ben/</id>
+    <published>2024-08-28T13:12:00.000Z</published>
+    <updated>2025-06-01T04:56:23.508Z</updated>
+    
+    
+    
+    
+    <category term="自动化运维" scheme="https://linuxcenter.icu/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="Shell脚本" scheme="https://linuxcenter.icu/tags/Shell%E8%84%9A%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux的基础服务</title>
+    <link href="https://linuxcenter.icu/2024/07/28/linux/linux-de-ji-chu-fu-wu/"/>
+    <id>https://linuxcenter.icu/2024/07/28/linux/linux-de-ji-chu-fu-wu/</id>
     <published>2024-07-28T13:12:00.000Z</published>
-    <updated>2025-06-01T02:04:12.191Z</updated>
+    <updated>2025-06-01T05:00:06.720Z</updated>
     
     
     
@@ -79,7 +146,7 @@
     <category term="Linux" scheme="https://linuxcenter.icu/categories/Linux/"/>
     
     
-    <category term="Linux服务" scheme="https://linuxcenter.icu/tags/Linux%E6%9C%8D%E5%8A%A1/"/>
+    <category term="Linux的基础服务" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1/"/>
     
   </entry>
   
@@ -105,7 +172,7 @@
     <link href="https://linuxcenter.icu/2024/04/28/zi-dong-hua-yun-wei/ansible-de-ji-ben-shi-yong/"/>
     <id>https://linuxcenter.icu/2024/04/28/zi-dong-hua-yun-wei/ansible-de-ji-ben-shi-yong/</id>
     <published>2024-04-28T13:12:00.000Z</published>
-    <updated>2025-05-30T08:44:19.297Z</updated>
+    <updated>2025-06-01T04:56:36.437Z</updated>
     
     
       
@@ -130,8 +197,16 @@
     <link href="https://linuxcenter.icu/2023/05/28/linux/linux-jin-jie/"/>
     <id>https://linuxcenter.icu/2023/05/28/linux/linux-jin-jie/</id>
     <published>2023-05-28T13:12:00.000Z</published>
-    <updated>2025-05-31T13:36:35.456Z</updated>
+    <updated>2025-06-01T05:51:45.093Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-提高命令行生产率&quot;&gt;&lt;a href=&quot;#1-提高命令行生产率&quot; class=&quot;headerlink&quot; title=&quot;1 提高命令行生产率&quot;&gt;&lt;/a&gt;1 提高命令行生产率&lt;/h1&gt;&lt;h2 id=&quot;1-1-脚本的分类&quot;&gt;&lt;a href=&quot;#1-1-脚本的分类&quot;</summary>
+        
+      
     
     
     

@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-05-31
+                    2025-06-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    19.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    94 分
                 </div>
                 
 
@@ -560,7 +560,2538 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="1-提高命令行生产率"><a href="#1-提高命令行生产率" class="headerlink" title="1 提高命令行生产率"></a>1 提高命令行生产率</h1><h2 id="1-1-脚本的分类"><a href="#1-1-脚本的分类" class="headerlink" title="1.1 脚本的分类"></a>1.1 脚本的分类</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 系统      
+--------- --------------------------------
+Windows   *.bat,*.cmd,.vbd
+Linux     #!/bin/bash , chmod +x file.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-2-创建和执行脚本"><a href="#1-2-创建和执行脚本" class="headerlink" title="1.2 创建和执行脚本"></a>1.2 创建和执行脚本</h2><h3 id="1-2-1-指定命令解释器"><a href="#1-2-1-指定命令解释器" class="headerlink" title="1.2.1 指定命令解释器"></a>1.2.1 <strong>指定命令解释器</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@foundation0 ~]# vim /test.sh     #掌握
+#!/bin/bash                            #指定解释器为/bin/bash
+date
+echo  "hello world"
+
+[root@foundation0 ~]# chmod +x test.sh  #赋予脚本执行权限
+[root@foundation0 ~]# cd /
+[root@foundation0 ~]# ./test.sh          #可以通过./这种相对路径方式执行脚本
+[root@foundation0 ~]# /root/test.sh      #或通过绝对路径方式执行脚本
+
+[root@foundation0 bin]# first.sh 
+hello world
+[root@foundation0 bin]# sh first.sh 
+hello world
+[root@foundation0 bin]# bash first.sh 
+hello world
+[root@foundation0 bin]# source first.sh 
+hello world
+[root@foundation0 bin]# . first.sh    
+hello world
+
+脚本中需要书写解释器#!/bin/bash，脚本内容可以是linux命令。linux系统可以通过/etc/shells查看支持的shell类型。也可以通过echo $SHELL来查看当前系统正在使用的shell类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-2-2-执行Bash-Shell"><a href="#1-2-2-执行Bash-Shell" class="headerlink" title="1.2.2 执行Bash Shell"></a>1.2.2 <strong>执行Bash Shell</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@foundation0 /]# which ls
+
+[root@foundation0 /]# echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+
+练习:
+[root@servera ~]# ls
+findfiles  test.sh
+[root@servera opt]# echo $PATH
+/root/.local/bin:/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+[root@servera opt]# mkdir /root/bin
+ [root@servera opt]# mv /root/test.sh /root/bin/
+[root@servera opt]# ls /root/bin/
+test.sh
+[root@servera opt]# test.sh
+Sat Jul 13 09:49:11 PM EDT 2024<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-2-3-对特殊字符加引号"><a href="#1-2-3-对特殊字符加引号" class="headerlink" title="1.2.3 对特殊字符加引号"></a>1.2.3 <strong>对特殊字符加引号</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">\, '' , ""   #掌握
+
+[root@servera /]# echo $SHELL
+/bin/bash
+[root@servera /]# echo '$SHELL'
+$SHELL
+[root@servera /]# echo "$SHELL"
+/bin/bash
+[root@servera /]# echo '$SHELL world' #单引号内容是普通字符串，变量不生效
+$SHELL world
+[root@servera /]# echo "$SHELL world" #双引号内变量生效
+/bin/bash world
+
+【f0】
+[kiosk@foundation0 ~]$ echo $HOSTNAME
+[kiosk@foundation0 ~]$ ssh root@bastion 'touch /tmp/$HOSTNAME'     
+[kiosk@foundation0 ~]$ ssh root@bastion 'ls /tmp'
+-rw-r--r--. 1 root root  0 Jul 13 22:13 bastion.lab.example.com
+
+[kiosk@foundation0 ~]$ ssh root@bastion "touch /tmp/$HOSTNAME"     
+[kiosk@foundation0 ~]$ ssh root@bastion 'ls -l /tmp'
+total 16
+-rw-r--r--. 1 root root  0 Jul 13 22:13 bastion.lab.example.com
+-rw-r--r--. 1 root root  0 Jul 13 22:15 foundation0.ilt.example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-2-4-与"><a href="#1-2-4-与" class="headerlink" title="1.2.4 ``与$()"></a>1.2.4 <strong>``与$()</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">`命令`   #掌握  优先执行
+$(命令)
+
+
+在shell中设置一个变量暂时使用
+[root@servera /]# var=`date`
+[root@servera /]# var=$(date)
+[root@servera /]# echo 'to day $var'
+to day $var
+[root@servera /]# touch $(date +%H%M%S).txt
+取消一个变量
+[root@servera /]# unset var
+[root@servera /]# echo $var
+
+第二个例子
+whoami
+echo whoami
+echo `whoami`
+echo $(whoami)
+date
+echo `date`
+man date
+date +%y%m%d
+date +%Y%m%d
+date +%Y-%m-%d
+echo $(date +%Y-%m-%d)
+touch $(date +%Y-%m-%d).txt
+ls
+tar -zcvf $(date +%Y-%m-%d).tar.gz /etc/
+ls
+cd /
+
+既然可以通过``和$()的结果，通过echo来通过标准输出打印到屏幕上，那么我们也可以将其应用到脚本。
+vim os.current
+#!/bin/bash
+
+// echo的"-e"参数是启用反斜杠转义: 
+echo -e "User:\t" $(whoami)
+echo -e "HOST:\t" `hostname`
+echo -e "ipv4:\t" $(ip a s eth0 | awk '/inet / {print $2}')
+echo -e "Memory:\t" $(free -h | awk '/Mem/ {print $2}') 
+echo -e "Disk:\t" $(df -ht xfs | awk '/dev/ {print $4}')
+
+chmod +x os.current 
+./os.current <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-3-使用循环更高效的命令"><a href="#1-3-使用循环更高效的命令" class="headerlink" title="1.3 使用循环更高效的命令"></a><strong>1.3 使用循环更高效的命令</strong></h2><h3 id="1-3-1-for语句"><a href="#1-3-1-for语句" class="headerlink" title="1.3.1 for语句"></a>1.3.1 <strong>for语句</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：
+for variable in list
+    do
+        command variable
+done
+
+例子：
+for i in 1 2 3    
+    do 
+        echo $i
+done
+
+例子2：
+for  i in 1 2 3;do
+    echo $i
+done
+
+# echo {1..10}
+# echo $(seq 1 10)
+
+[root@servera ~]# echo {1..10}      #掌握
+1 2 3 4 5 6 7 8 9 10
+[root@servera ~]# echo $(seq 1 10)
+1 2 3 4 5 6 7 8 9 10
+
+[root@servera ~]# for i in host1 host2 host3;do echo $i;done    #掌握
+host1
+host2
+host3
+[root@servera ~]# for num in host{1..3};do echo $num;done         #掌握
+host1
+host2
+host3
+[root@servera ~]# for num in `ls /`;do echo $num;done             #掌握
+
+[root@servera ~]# cd /opt/
+[root@servera opt]# ls
+[root@servera opt]# touch file{1..3}
+[root@servera opt]# ls
+file1  file2  file3
+[root@servera opt]# for i in file*;do ls $i;done
+file1
+file2
+file3
+
+[root@servera opt]# vim for.sh   #(考点)
+#!/bin/bash
+
+for i in 1 2 3;do
+    echo $i
+done
+
+[root@foundation0]#for i in bastion  workstation utility servera serverb;do rht-vmctl start $i;done
+
+小技巧
+[root@servera ~]# echo ${HOSTNAME}O
+servera.lab.example.comO
+[root@servera ~]# echo $HOSTNAME\O
+servera.lab.example.comO
+
+练习：
+[root@bastion /]# vim user_list.txt 
+user1
+user2
+user3
+
+[root@servera ~]# vim user.sh
+#!/bin/bash
+for i in `cat user_list.txt`;do
+        useradd testuser2 
+        echo P@ssw0rduser2a | passwd --stdin testuser2
+done
+[root@servera ~]# sh user.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-3-2-在脚本中使用退出代码"><a href="#1-3-2-在脚本中使用退出代码" class="headerlink" title="1.3.2 在脚本中使用退出代码"></a>1.3.2 <strong>在脚本中使用退出代码</strong></h3><p>  处理完所有内容后，脚本会退出到调用它的进程。但是，有时候可能需要加载完成之前退出脚本，比如加载遇到错误条件时。可以通过加载脚本中使用exit命令来实现这一目的</p>
+<p>  当脚本遇到exit命令时，脚本将立即退出且不会对脚本的其余内容进行处理</p>
+<p>  可以使用可选的整数参数（0到255之间，表示退出代码）来执行exit命令。退出代码进程完成后返回的代码。退出代码值0表示没有错误。所有其他非零值都表示存在错误的退出代码</p>
+<p>  尽可以使用不同的非零值来区分遇到的不同类型错误。此退出代码传回到父进程，后这将它存储在？变量中，并可通过$?进行访问。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera /]# vim hello.sh
+#!/bin/bash
+
+echo "hello world"
+exit 1
+[root@servera /]# echo $?<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-3-3-使用运算符执行测试"><a href="#1-3-3-使用运算符执行测试" class="headerlink" title="1.3.3 使用运算符执行测试"></a>1.3.3 <strong>使用运算符执行测试</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># test与[]:
+test 0 -ne 1 
+   36  echo $?
+   37  test 0 -ge 0 
+   38  echo $?
+   39  test 0 -ge 1 
+   40  echo $?
+   41  test 8 -gt 4
+   42  echo $?
+   43  [ 0 -ge 0 ]
+   44  echo $?
+
+-eq 等于则为真
+-ne 不等于则为真
+-gt 大于则为真
+-lt 小于则为真
+-ge 大于等于则为真
+-le 小于等于则为真
+
+字符串判断
+= ==  != 
+[ 字符 == 字符 ]
+[ 字符 != 字符 ]
+
+单目，双目
+-e 文件和文件夹
+-f 普通文件
+-d 目录
+-c 设备文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-3-4-exit、if、elif、else"><a href="#1-3-4-exit、if、elif、else" class="headerlink" title="1.3.4 exit、if、elif、else"></a>1.3.4 <strong>exit、if、elif、else</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">if [ 条件 ]
+  then
+       声明
+fi
+
+if [ xx ];then
+     command
+fi
+ 
+一、
+vim if.sh
+#!/bin/bash
+if [ 0 -ge 0 ];then
+        echo ok
+fi
+
+二、
+vim test.sh
+#!/bin/bash
+if [ -e /file1 ];then
+        echo one
+        exit 10
+fi
+
+三、
+#!/bin/bash
+if [ -e /file1 ];then
+        echo one
+        exit 10
+else
+        echo two
+        exit 20
+fi
+
+四、
+#!/bin/bash
+if [ -e /file1 ];then
+        echo one
+        exit 10
+elif [ -e /opt/file1 ];then
+        echo two
+        exit 20
+else
+        echo three
+        exit 30
+fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-3-5-位置变量"><a href="#1-3-5-位置变量" class="headerlink" title="1.3.5 位置变量"></a>1.3.5 <strong>位置变量</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># $0、$1、$2..$9、$#:
+vim ping.sh
+#!/bin/bash
+ping -c $2 172.25.254.$1
+
+echo '$0: ' $0
+echo '$1: ' $1
+echo '$2: ' $2
+echo '$3: ' $3
+echo '$#: ' $#
+[root@servera ~]# chmod +x ping.sh
+[root@servera ~]# ./ping.sh 254 5
+PING 172.25.254.254 (172.25.254.254) 56(84) bytes of data.
+64 bytes from 172.25.254.254: icmp_seq=1 ttl=63 time=3.02 ms
+64 bytes from 172.25.254.254: icmp_seq=2 ttl=63 time=0.976 ms
+64 bytes from 172.25.254.254: icmp_seq=3 ttl=63 time=1.03 ms
+64 bytes from 172.25.254.254: icmp_seq=4 ttl=63 time=1.09 ms
+64 bytes from 172.25.254.254: icmp_seq=5 ttl=63 time=2.16 ms
+
+--- 172.25.254.254 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 12ms
+rtt min/avg/max/mdev = 0.976/1.654/3.015/0.808 ms
+$0:  ./ping.sh       脚本名
+$1:  254             执行脚本时赋予脚本的第一个值
+$2:  5               执行脚本时赋予脚本的第二个值
+$3: 
+$#:  2               一共赋予多少个值
+
+补充:
+$@                    具体赋予了什么值
+$？                    看上一条命令的返回值0为正常执行，非0是非正常执行
+$$                    查看子进程进程号
+创建一个添加用户的脚本
+在system1上创建一个脚本，名为/root/makeusers，此脚本能实现为系统system1创建本地用户，并且这些用户的用户名来自一个包含列表的文件。用户满足下列要求：
+（1） 此脚本要求提供一个参数，此参数就是包含用户名列表的文件
+（2） 如果没有提供参数，此脚本应该给出下面的提示信息 Usage: /root/makeusers userfile然后退出并返回相应的值
+（3） 如果提供一个不存在的文件名，此脚本应该给出下面的提示信息 Input file not found然后退出并返回相应的值
+（4） 创建的用户登录shell为/bin/false
+（5） 此脚本不需要为用户设置密码
+[root@servera ~]# cd /root/
+[root@servera ~]# cat /root/userfile
+testuser1
+testuser2
+testuser3
+
+[root@servera ~]# vim /root/makeusers
+#!/bin/bash
+if [ $# -lt 1 ];then
+        echo "Usage: $0 userfile"
+        exit 1
+elif [ ! -f $1 ];then
+        echo "Input file not found"
+        exit 1
+else
+        for i in `cat $1`;do
+                /usr/sbin/useradd -s /bin/false $i
+        done
+fi
+[root@servera ~]# ./root/makeusers /root/userlist<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-4-cut"><a href="#1-4-cut" class="headerlink" title="1.4 cut"></a><strong>1.4 cut</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">grep root /etc/passwd   #重要 grep将文本中包含关键字的行打印出来，默认是从上到下的查询顺序。查文件内容用的
+grep root /etc/passwd | cut  -d :  -f 1,3-5      #截取文本中的列 -d 指定分隔符号 -f 指定列     
+grep root /etc/passwd | cut -c 1,3-5           #-c 指定字符        
+grep ^root /etc/passwd
+grep nologin$ /etc/passwd
+cat -n /etc/passwd                                   
+grep -n ^# /etc/selinux/config   
+grep ^$ /etc/selinux/config  | wc -l
+grep -n ^$ /etc/selinux/config   // 过滤空行  
+grep -v ^$ /etc/selinux/config   // 过滤非空行 
+grep -vn ^# /etc/selinux/config  // 过滤非#开头的行
+
+
+cat /etc/selinux/config | grep -v ^# | grep -v ^$
+
+
+[root@foundation0 /]# grep ng /usr/share/xml/iso-codes/iso_639_3.xml &gt; /1.txt
+[root@foundation0 /]# 
+[root@foundation0 /]# 
+[root@foundation0 /]# grep ^$ /1.txt
+[root@foundation0 /]# grep ^$ /1.txt | wc -l
+额外：
+# grep -e root -e 0 /etc/passwd       grep -e可以在一个文件内单独匹配多个参数
+root:x:0:0:root:/root:/bin/bash
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+# grep -E 'root|0' /etc/passwd
+
+[root@foundation0 ~]# grep 'kiosk|root' /etc/passwd
+[root@foundation0 ~]# egrep 'kiosk|root' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+kiosk:x:1000:1000::/home/kiosk:/bin/bash
+[root@foundation0 ~]# grep  -E 'kiosk|root' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+kiosk:x:1000:1000::/home/kiosk:/bin/bash
+
+
+grep -A  2 root #查看root关键字后两行
+grep -B         #前x行
+grep -C         #前后x行
+
+grep -A 2 daemon   /etc/passwd
+
+head -5 /etc/passwd
+head -5 /etc/passwd &gt; /opt/passwd.tst
+ls
+cat passwd.tst 
+grep -A 2 daemon 
+grep -A 2 daemon passwd.tst 
+grep -B  2 daemon passwd.tst 
+grep -C  2 daemon passwd.tst 
+
+// 正则表达式:
+[root@foundation0 /]# cat testfile 
+cat
+cot
+cut
+cut
+cut
+dog
+dog
+concatenate
+dogma
+category
+educated
+boondoggle
+vindication
+chilidog
+aacat
+caaaaaaaat
+
+匹配行首和行尾
+[root@foundation0 /]# grep ^cat testfile 
+cat
+category 
+[root@foundation0 /]# grep cat$ testfile 
+cat
+aacat
+[root@foundation0 /]# grep ^cat$ testfile 
+cat
+
+向正则表达式中添加通配符和倍数
+1、.匹配换行符以外的任何“单”个字符
+[root@servera opt]# grep c.t testfile 
+
+2、选择[]内的一个字符。搜索结果应为c开头、中间a或o或u、结尾t
+[root@servera opt]# grep c[aou]t testfile     cat cot cut
+
+3、倍数* 匹配前面的子表达式零次或多次
+[root@servera opt]# grep c*t testfile  
+
+4、倍数通常与通配符一起使用，如.*  这将匹配任何以包含c和t中间有0个或多个任意字符的行
+[root@servera opt]# grep c.*t testfile <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="2-Linux计划任务"><a href="#2-Linux计划任务" class="headerlink" title="2 Linux计划任务"></a><strong>2 Linux计划任务</strong></h1><h2 id="2-1-at"><a href="#2-1-at" class="headerlink" title="2.1 at"></a><strong>2.1 at</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera /]# rpm -q at
+at-3.1.20-11.el8.x86_64
+[root@servera /]# systemctl status atd.service 
+[root@servera /]# rpm -qc at
+/etc/at.deny
+/etc/pam.d/atd
+/etc/sysconfig/atd
+
+语法：
+at 选项 参数
+at 时间  #设置一个任务
+atq 查询
+atrm 删除任务
+
+
+创建
+13:49分时候执行touch指令
+[root@servera /]# at 13:49
+warning: commands will be executed using /bin/sh
+at&gt; touch /at.txt
+at&gt; &lt;EOT&gt;          ctrl+d退出
+
+3分钟后执行
+echo `date` &gt;&gt; /home/student/myjob.txt | at now +3min
+
+
+明天17:20点执行echo
+at 17:20 tomorrow
+at&gt; echo hello
+
+三天后下午5:10分执行/bin/ls
+at 5:20pm+3days
+at&gt; /bin/ls
+
+使用时间，和月/日/年的方式指定任务
+at 17:20 5/20/2022
+
+在7月的31日上午10点
+at 10am Jul 31
+
+
+查看
+[root@servera /]# atq
+作业编号  执行日期和时间             队列a           运行作业所有者
+7        Sun Mar  8 13:51:00 2020 a              root
+
+[root@servera /]# at -l
+
+查看任务内容
+[root@servera /]# at -c 7
+
+删除
+[root@servera /]# at -d 9
+[root@servera /]# atrm 8
+
+systemctl status atd
+man at
+at 17:30
+man at
+at - 1
+at -c 1
+atq
+atrm 1
+atq
+at 17:20
+atq
+at 17:30 08/19/2022
+at 17:30 2022-7-24
+man at
+at now +3min
+at now +3hour
+at now +3days
+man at
+at 4pm +3days
+at 16:02 +3days
+man at
+at teatime
+man at
+history
+echo 123 &gt; /root/backup | at 17:20
+atq
+at -c 11
+atq
+
+监控任务
+[root@servera ~]# watch atq      ctrl+c 退出监控模式
+
+一次性计划任务重启后，任务未执行依然会保存，直至删除或执行完毕后消失。
+
+黑白名单
+/etc/at.deny  哪个用户在黑名单里，哪个用户不能使用at，该文件默认存在
+/etc/at.allow 在白名单内的用户可以使用at，白名单以外的人不能使用，白名单和黑名单同时存在时优先于黑名单，该文件默认不存在，如使用需自己创建。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-2-crontab"><a href="#2-2-crontab" class="headerlink" title="2.2 crontab"></a><strong>2.2 crontab</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera /]# systemctl status crond.service  #重要
+[root@servera /]# systemctl  enable crond
+[root@servera /]# systemctl is-enabled crond
+[root@servera /]# systemctl enable --now crond
+
+[root@servera ~]# rpm -q crontab
+package crontab is not installed
+[root@servera ~]# rpm -qa | grep cron
+cronie-anacron-1.5.7-8.el9.x86_64
+cronie-1.5.7-8.el9.x86_64
+crontabs-1.11-27.20190603git.el9_0.noarch
+[root@servera ~]# rpm -qc crontabs
+/etc/crontab
+/etc/sysconfig/run-parts
+[root@servera ~]# vim /etc/crontab
+[root@servera ~]# 
+
+crontab 选项 
+-e  编辑计划任务    crontab -e
+-u  指定用户          crontab -u student -e
+-r  删除所有任务       crontab -r              #删除某个任务时利用-e选项进入编辑模式手动删除即可。
+-l  列出                crontab -l
+
+cron时间表示方法:
+前五个字段使用相同的语法规则
+规则          说明
+*             表示“无关紧要”，始终
+x-y           表示范围,x到y(含)
+x,y           表示列表，也可以包含范围，如5,10-13,15
+*/x           表示x的时间间隔
+
+*       *       *       *       *       command
+分       时     日      月       周       任务内容
+0-59    0-23   1-31    1-12    0-7
+
+1.每年2月2日上午9点执行echo  hello
+0       9       2       2       *       /usr/bin/echo hello  #which echo可以寻找命令绝对路径
+
+2.每天3到6点 第2分 执行一个脚本/root/1.sh
+2   3-6  *  *   * /bin/sh /root/1.sh
+
+3.每两个小时的第2分钟，执行一个脚本/root/1.sh
+2   */2   * *   *    /bin/sh /root/1.sh
+
+4.每年７月的第１天和第５天，两点２分，执行一个脚本/root/1.sh
+2   2   1,5  7  *    /bin/sh /root/1.sh
+
+5.配置cron任务，每隔2分钟运行logger “Ex200 in progress”，以harry用户身份运行
+[root@servera /]# id harry 
+[root@servera /]# crontab -u harry -e
+[root@servera /]# crontab -u harry -l  (也可以su - harry切换到任务用户，运行crontab -l)
+*/2     *   *   *   *    /usr/bin/logger “Ex200 in progress” 
+
+删除某条可以crontab -e 进去编辑
+删除用户的所有任务 crontab -r    
+
+黑名单：
+vim /etc/cron.deny  限制用户使用crond服务
+
+白名单：
+mandb
+man -k cron
+man 1 crontab
+echo harry &gt;&gt; /etc/cron.allow
+白名单启用后，就不用黑名单了，谁在白名单里谁能用该功能
+   
+测试：
+su - harry,crontab -e    #可以使用
+exit
+su - tom,crontab -e     #不可使用
+
+// 练习:
+1、每年2月2日上午9点执行echo hello任务
+   0    9   2   2  *  /usr/bin/echo hello
+
+2、七月每周5的,9点至下午5点，每5分钟执行echo hi
+   */5  9-17  * 7   5  /usr/bin/echo hello
+
+3、执行一个任务,该任务每隔2分钟运行以下命令/usr/bin/logger "hello"，给harry设定这个任务
+   */2 *    *   *   *  /usr/bin/logger "hello"
+
+4、使用root身份为用户tom设置一个计划任务，每天的下午2点43分执行/home/tom/tom.sh脚本
+   crontab -u tom -e
+   43  14  *  *  *  /bin/bash /home/tom/tom.sh
+
+5、每天的，1点，6点，9点整，将/var/log/messages文件进行归档，要求使用gzip工具，归档文件保存在/tmp/当前时间.tar.gz
+   0  1,6,9  *  *   *  tar -zcvf /tmp/$(date +%Y-%m-%d).tar.gz /var/log/messages<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-3-管理临时文件"><a href="#2-3-管理临时文件" class="headerlink" title="2.3 管理临时文件"></a><strong>2.3 管理临时文件</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rhel6 tmpwatch
+systemd-tmpfiles
+
+1 手动清理临时文件
+[root@servera /]# systemctl status systemd-tmpfiles-setup   查看服务状态
+[root@servera /]# rpm -qf /usr/lib/tmpfiles.d/tmp.conf 
+systemd-239-13.el8.x86_64
+
+cp /usr/lib/tmpfiles.d/tmp.conf /etc/tmpfiles.d/
+cd /etc/tmpfiles.d/
+vim tmp.conf
+q /tmp 1777 root root 5d
+systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf 
+
+2 清理临时文件小实验
+创建一个存放临时文件的目录，并且设置相应权限/run/momentary 0700 root root
+[root@servera /]# vim /etc/tmpfiles.d/momentary.conf
+d /run/momentary 0700 root root 30s
+创建存放临时文件目录
+[root@servera /]# systemd-tmpfiles --create /etc/tmpfiles.d/momentary.conf 
+[root@servera /]# ll /run/momentary/ -d
+drwx------. 2 root root 40 Mar  8 15:08 /run/momentary/
+在目录中创建一个文件叫做mom.txt，此文件模拟临时文件
+[root@servera /]# touch /run/momentary/mom.txt
+[root@servera /]# sleep 30
+[root@servera /]# ll /run/momentary/mom.txt 
+-rw-r--r--. 1 root root 0 Mar  8 15:08 /run/momentary/mom.txt
+输入清除临时文件命令，清除所有的临时文件
+[root@servera /]# systemd-tmpfiles --clean /etc/tmpfiles.d/momentary.conf 
+[root@servera /]# ll /run/momentary/mom.txt 
+ls: cannot access '/run/momentary/mom.txt': No such file or directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="3-系统性能调优"><a href="#3-系统性能调优" class="headerlink" title="3 系统性能调优"></a><strong>3 系统性能调优</strong></h1><h2 id="3-1-tuned"><a href="#3-1-tuned" class="headerlink" title="3.1 tuned"></a><strong>3.1 tuned</strong></h2><h3 id="3-1-1-查看状态"><a href="#3-1-1-查看状态" class="headerlink" title="3.1.1 查看状态"></a>3.1.1 <strong>查看状态</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera tmp]# yum install -y tuned
+[root@servera tmp]# systemctl enable --now tuned
+[root@servera tmp]# systemctl status tuned<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-1-2-tuned-adm管理指令"><a href="#3-1-2-tuned-adm管理指令" class="headerlink" title="3.1.2 tuned-adm管理指令"></a>3.1.2 <strong>tuned-adm管理指令</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera tmp]# tuned-adm list  #列出优化方案
+[root@servera tmp]# tuned-adm recommend   #系统推荐的优化方案
+[root@servera tmp]# tuned-adm profile virtual-guest #修改优化方案为virtual-guest
+[root@servera tmp]# tuned-adm off #关闭优化，默认不关闭，考试时不要关闭<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-1-3-配置文件存储路径"><a href="#3-1-3-配置文件存储路径" class="headerlink" title="3.1.3 配置文件存储路径"></a>3.1.3 <strong>配置文件存储路径</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">每个优化方案对应要给配置文件，其中描述了修改的内核参数
+
+路径：/usr/lib/tuned/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-2-使用cockpit修改调优的方式"><a href="#3-2-使用cockpit修改调优的方式" class="headerlink" title="3.2 使用cockpit修改调优的方式"></a><strong>3.2 使用cockpit修改调优的方式</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">【servera】
+systemctl start cockpit
+【foundation】
+打开浏览器输入：https://servera:9090--点击右侧高级选项---添加访问---账号密码：root redhat ----左边Overview---找到configure--找到调优<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-3-调节nice值"><a href="#3-3-调节nice值" class="headerlink" title="3.3 调节nice值"></a><strong>3.3 调节nice值</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">进程有默认优先级，但是优先级默认不能更改，但是可以通过修改nice值来影响进程优先级。
+nice值+old优先级=new优先级
+Nice +  80   = 新优先级
+
+Nice值调节范围：
+    root：修改范围-20~19    调节优先级的工作由root来执行
+    user:   修改范围0~19        调节后无法降级
+    
+优先级：
+        数值越大优先度越低
+        数值越小优先级越高
+
+nice 直接给一个新的指令设置优先级
+renice 给一个现有的进程调节优先<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-3-1-nice值管理"><a href="#3-3-1-nice值管理" class="headerlink" title="3.3.1 nice值管理"></a>3.3.1 <strong>nice值管理</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：
+nice 选项  command
+选项：
+-n ： -n 后面添加优先级 
+例：
+nice -n 10 vim 1.txt 
+
+
+语法：
+renice 选项 进程号
+-n：  -n 后面添加优先级 
+例：
+renice -n 10 pid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-4-练习"><a href="#3-4-练习" class="headerlink" title="3.4 练习"></a><strong>3.4 练习</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@clear ~]# cd /opt/
+[root@clear opt]# ls
+dir1  file1
+[root@clear opt]# rm -rf *
+[root@clear opt]# vim test.txt  &amp;   #生成一个进程，&amp;放后台
+[1] 59090
+[root@clear opt]# ps -l
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+4 S     0    1139    1138  0  80   0 - 59210 -      pts/2    00:00:03 bash
+0 T     0   59090    1139  1  80   0 - 60817 -      pts/2    00:00:00 vim  #出现了
+0 R     0   59091    1139  0  80   0 - 63799 -      pts/2    00:00:00 ps
+[root@clear opt]# nice -n 10 vim 1.txt &amp;  #创建新进程 并且添加nice值为正10
+[2] 59097
+[root@clear opt]# ps -l
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+4 S     0    1139    1138  0  80   0 - 59243 -      pts/2    00:00:03 bash
+0 T     0   59090    1139  0  80   0 - 60817 -      pts/2    00:00:00 vim
+0 T     0   59097    1139  2  90  10 - 60817 -      pts/2    00:00:00 vim  #在这里
+0 R     0   59098    1139  0  80   0 - 63799 -      pts/2    00:00:00 ps
+[2]+  Stopped                 nice -n 10 vim 1.txt
+[root@clear opt]# renice -n -5 59090         #修改现有进程，nice值为负5，指定进程号
+59090 (process ID) old priority 0, new priority -5
+[root@clear opt]# ps -l
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+4 S     0    1139    1138  0  80   0 - 59243 -      pts/2    00:00:03 bash
+0 T     0   59090    1139  0  75  -5 - 60817 -      pts/2    00:00:00 vim   #已经改变了
+0 T     0   59097    1139  0  90  10 - 60817 -      pts/2    00:00:00 vim
+0 R     0   59100    1139  0  80   0 - 63799 -      pts/2    00:00:00 ps
+[root@clear opt]# <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="4-管理SELinux"><a href="#4-管理SELinux" class="headerlink" title="4 管理SELinux"></a><strong>4 管理SELinux</strong></h1><h2 id="4-1-介绍selinux"><a href="#4-1-介绍selinux" class="headerlink" title="4.1 介绍selinux"></a><strong>4.1 介绍selinux</strong></h2><h3 id="4-1-1-selinux简介"><a href="#4-1-1-selinux简介" class="headerlink" title="4.1.1 selinux简介"></a>4.1.1 <strong>selinux简介</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">SELinux全称是Security Enhanced Linux (安全强化 Linux),是MAC (Mandatory Access Control，强制访问控制系统)的一个实现，在于明确的指明某个进程可以访问哪些资源(文件、网络端口等)
+强制访问控制系统的用途在于增强系统抵御0-Day攻击(利用尚未公开的漏洞实现的攻击行为)的能力
+它不是网络防火墙或FACL的替代品，在用途上也不重复。在目前的大多数发行版中，已经默认在内核集成了SELinux<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-1-2-selinux实现原理"><a href="#4-1-2-selinux实现原理" class="headerlink" title="4.1.2 selinux实现原理"></a>4.1.2 <strong>selinux实现原理</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">    普通权限和selinux权限对比：
+    传统的Linux使用用户、文件权限的概念来限制资源的访问，通过对比进程的发起用户和文件权限以此来保证系统资源的安全，这是一种自由访问控制方式（DAC）
+    SELinux是Linux下的一种安全强化机制，为进程和文件加入了除权限之外更多的限制来增强访问条件，这种方式为强制访问控制(MAC)
+    进程和文件都有相应的标签，称为上下文，只有进程上下文和文件上下文对应上，该进程才可以访问文件
+    何为对应？系统中大量的进程和文件上下文已经被定义，如http服务进程上下文为httpd_t域，/var/www/html/目录上下文为httpd_sys_content_t，后者归属于前者的匹配域内，即可匹配
+    
+  分类                  源               目的
+--------------------- ---------------- ----------------------------
+  传统文件系统权限DAC   用户             文件系统权限
+  SELinux权限MAC        用户进程上下文   文件（或目录端口等）上下文<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-1-3-selinux的限制范围"><a href="#4-1-3-selinux的限制范围" class="headerlink" title="4.1.3 selinux的限制范围"></a>4.1.3 <strong>selinux的限制范围</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">SElinux具有多种上下文类型，常见种类:  
+   安全上下文(限制文件的访问)：该种类上下文存在于内存和文件中，进程访问文件inode时读取到上下文类型进行对比
+   布尔值(限制软件功能的访问)：该种类型上下文主要控制某些进程是否可以访问服务常用功能中出现的文件
+   安全端口(限制服务的访问)：selinux会限制服务启用的非标准端口号
+ ID                                     SELinux
+---- ------------ --------------------- ---------------------------------------------
+ Filesystem   chmod, chown, setfacl semanage fcontext ... restorecon ... chcon
+                                          ... touch /.autorelabel
+ Service      vim /etc/\*.conf      setsebool -P ...
+ Firewall     firewall-cmd ...      semanage port ...
+ SELinux      vim          /etc/selinux/config             <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-1-4-查看上下文"><a href="#4-1-4-查看上下文" class="headerlink" title="4.1.4 查看上下文"></a>4.1.4 <strong>查看上下文</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# dnf install -y httpd
+[root@servera ~]# systemctl enable --now httpd
+
+进程：              
+ps auxZ            
+ps -eZ
+[root@servera ~]# ps auxZ | grep httpd
+system_u:system_r:httpd_t:s0    root      1971  0.0  1.2 273800 10496 ?        Ss   04:58   0:00 /usr/sbin/httpd -DFOREGROUND
+
+文件：
+ls -Z
+[root@servera ~]# ll -dZ /var/www/html/
+system_u:object_r:httpd_sys_content_t:s0 /var/www/html/
+
+只要进程和文件的安全上下文匹配，该进程就可以访问该文件资源<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-1-5-security-context介绍"><a href="#4-1-5-security-context介绍" class="headerlink" title="4.1.5 security context介绍"></a>4.1.5 <strong>security context介绍</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">content一词是我们常说的上下文，安全上下文有5个字段，以：冒号分割，
+unconfined_u   :object_r:   httpd_sys_content_t:      s0           [类别]   
+
+身份 user -u    角色roles -r  类型 type  -t                             灵敏度（级别）     类别     
+
+1) 身份字段（user)
+   用于标识该数据被哪个身份所拥有，相当于权限中的用户身份。这个字段并没有特别的作用，知道就好。常见的身份类型有以下 3 种：
+- root：表示安全上下文的身份是 root。
+- system_u：表示系统用户身份，其中“_u”代表 user。
+- user_u：表示与一般用户账号相关的身份，其中“_u”代表 user。
+- 以使用 seinfo 命令来进行查询
+
+2) 角色（role）
+主要用来表示此数据是进程还是文件或目录。这个字段在实际使用中也不需要修改，所以了解就好。
+常见的角色有以下两种：
+- object_r：代表该数据是文件或目录，这里的“_r”代表 role。
+- system_r：代表该数据是进程，这里的“_r”代表 role。
+
+3) 类型（type）
+   类型字段是安全上下文中最重要的字段，进程是否可以访问文件，主要就是看进程的安全上下文类型字段是否和文件的安全上下文类型字段相匹配，如果匹配则可以访问。#（掌握重点）
+
+注意，类型字段在文件或目录的安全上下文中被称作类型（type），但是在进程的安全上下文中被称作域（domain）。也就是说，在主体（Subject）的安全上下文中，这个字段被称为域；在目标（Object）的安全上下文中，这个字段被称为类型。域和类型需要匹配（进程的类型要和文件的类型相匹配），才能正确访问。
+context查询工具seinfo、sesearch
+    seinfo -u    # 查询所有的user字段的种类
+    seinfo -r    # 查询所有的role字段的种类
+    seinfo -t    # 查询所有的type字段的种类 
+
+sesearch -A 可以查询什么类型进程可以读取什么type类型的文件
+    sesearch -A -s 进程type    # 查询type类型的进程能够读取的文件type   
+    sesearch -A -b 规则（规则的boolean值，所以为-b选项，理解为bool规则）
+    
+[root@foundation0 ~]# sesearch -A -s httpd_t | grep '^allow httpd_t httpd_sys_content_t'
+
+4) 灵敏度
+   灵敏度一般是用 s0、s1、s2 来命名的，数字代表灵敏度的分级。数值越大，代表灵敏度越高。
+
+5) 类别
+   类别字段不是必须有的，所以我们使用 ls 和 ps 命令查询的时候并没有看到类别字段。通过seinfo -u -x查看
+-servera
+systemctl stop firewalld
+setenforce 1
+yum install -y httpd
+systemctl enable --now httpd
+ps auxZ | grep httpd     #-Z 大写Z就表示上下文，发现http_t字段就是httpd服务进程上下文'类型'字段
+
+cd /var/www/html
+ll -dZ /var/www/html    #发现上下文是httpd开头
+echo test &gt;  /var/www/html/index.html    #创建测试页面
+ll -Z  /var/www/html/index.html #发现所有文件类型字段上下文，都是httpd开头,看上下文的第三段 类型字段
+
+-foundation0 
+打开浏览器，网址位置输入 172.25.250.10/index.html   #访问servera的网页
+发现可以访问到网页内容，证明上下文一致，不被限制，可以访问
+
+-servera
+chcon -t default_t /var/www/html/index.html   #更改了file3的上下文
+ll -Z  #发现index.html上下文类型字段变成default_t
+
+
+-foundation0 
+打开浏览器，网址位置输入 172.25.250.10/index.html   #访问servera的网页
+发现不可以访问到网页内容，证明上下文不一致，被限制，不可访问
+
+-servera
+ll -dZ /var/www/html/  #查看到httpd相关上下文
+chcon -t httpd_sys_content_t /var/www/html/index.html #更改上下文改为httpd_sys_content_t
+
+-foundation0 
+打开浏览器，网址位置输入 172.25.250.10/index.html   #访问servera的网页
+发现可以访问到网页内容，证明上下文一致，不被限制，可以访问<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-更改SElinux强制模式"><a href="#4-2-更改SElinux强制模式" class="headerlink" title="4.2 更改SElinux强制模式"></a><strong>4.2 更改SElinux强制模式</strong></h2><h3 id="4-2-1-临时开启或关闭selinux"><a href="#4-2-1-临时开启或关闭selinux" class="headerlink" title="4.2.1 临时开启或关闭selinux"></a>4.2.1 <strong>临时开启或关闭selinux</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#临时修改意思是重启失效
+[root@clear /]# getenforce 
+Enforcing
+[root@clear /]# setenforce 
+usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]    # 强制 1|宽容 0
+[root@clear /]# setenforce 0
+[root@clear /]# getenforce 
+Permissive
+[root@clear /]# setenforce Permissive
+[root@clear /]# getenforce 
+Permissive
+[root@clear /]# setenforce 1
+[root@clear /]# getenforce 
+Enforcing<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-2-永久开启或关闭selinux"><a href="#4-2-2-永久开启或关闭selinux" class="headerlink" title="4.2.2 永久开启或关闭selinux"></a>4.2.2 <strong>永久开启或关闭selinux</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">-RHEL&lt;=9
+[root@servera ~]# vim /etc/selinux/config
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=enforcing
+
+修改后，重启操作系统生效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-3-继承特性"><a href="#4-2-3-继承特性" class="headerlink" title="4.2.3 继承特性"></a>4.2.3 <strong>继承特性</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">继承：
+1、在父目录下创建文件会继承selinux上下文touch
+2、cp时不继承，即cp时不保留原来的父目录上下文关系
+   创建了文件并且移动(mv)会保留原来的父目录上下文关系
+   cp -a(rp)复制时会保留之前的上下文关系
+【servera】 
+[root@servera /]# cd /var/www/html/
+[root@servera html]# ll -dZ .
+drwxr-xr-x. 2 root root system_u:object_r:httpd_sys_content_t:s0 23 May 21 09:13 .
+[root@servera html]# touch haha.txt
+[root@servera html]# ll -Z haha.txt 
+-rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0 0 May 21 10:06 haha.txt
+
+[root@servera ~]# cd /tmp/
+[root@servera tmp]# touch file{1..3}
+[root@servera tmp]# ls -Z /tmp/file*
+unconfined_u:object_r:user_tmp_t:s0 /tmp/file1 
+unconfined_u:object_r:user_tmp_t:s0 /tmp/file2 
+unconfined_u:object_r:user_tmp_t:s0 /tmp/file3
+[root@servera tmp]# cp /tmp/file1 /var/www/html/
+[root@servera tmp]# cp -a /tmp/file2 /var/www/html/
+[root@servera tmp]# mv /tmp/file3 /var/www/html/
+[root@servera tmp]# cd /var/www/html/
+[root@servera html]# ls -Z *
+unconfined_u:object_r:httpd_sys_content_t:s0 file1           unconfined_u:object_r:user_tmp_t:s0 file3
+         unconfined_u:object_r:user_tmp_t:s0 file2
+[root@servera html]# touch /var/www/html/file0
+[root@servera html]# ll -Z /var/www/html/file0
+-rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0 0 Apr 10 05:08 /var/www/html/file0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-3-selinux文件上下文规则"><a href="#4-3-selinux文件上下文规则" class="headerlink" title="4.3 selinux文件上下文规则"></a><strong>4.3 selinux文件上下文规则</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">方法1：永久设置，但不记录至数据库
+      chcon 设置上下文关系
+方法2：永久设置，记录至数据库
+      semanage fcontext  添加、修改、查看、删除默认上下文
+      restorecon 恢复默认上下文 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-3-1-chcon"><a href="#4-3-1-chcon" class="headerlink" title="4.3.1 chcon"></a>4.3.1 <strong>chcon</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">chcon 选项 上下文类型  文件
+
+[root@servera html]# ll -Z 
+total 0
+-rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0 0 Dec 11 05:36 file1
+-rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0 0 Dec 11 05:38 file2
+-rw-r--r--. 1 root root unconfined_u:object_r:user_tmp_t:s0          0 Dec 11 05:37 file3
+-rw-r--r--. 1 root root unconfined_u:object_r:user_tmp_t:s0          0 Dec 11 05:37 file4
+[root@servera html]# man chcon
+[root@servera html]# chcon -t httpd_sys_content_t file3
+[root@servera html]# ll -Z 
+total 0
+-rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0 0 Dec 11 05:36 file1
+-rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0 0 Dec 11 05:38 file2
+-rw-r--r--. 1 root root unconfined_u:object_r:httpd_sys_content_t:s0 0 Dec 11 05:37 file3
+-rw-r--r--. 1 root root unconfined_u:object_r:usexr_tmp_t:s0         0 Dec 11 05:37 file4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-3-2-semanage-fcontext"><a href="#4-3-2-semanage-fcontext" class="headerlink" title="4.3.2 semanage fcontext"></a>4.3.2 <strong>semanage fcontext</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">帮助中查看示例：
+man semanage
+man semanage fcontext
+选项：
+semanage fcontext 
+-a  添加   添加至数据库
+-d  删除
+-l  查看
+-t  指定上下文
+-m  修改
+
+修改流程：
+1、查看selinux上下文类型数据库是否有记录？有就恢复I(restorecon)，没有就添加(semanage fcontext -a)
+2、man semanage fcontext添加文件标签类型至数据库. 添加后，文件并不会更改标签类型
+3、使用restorecon命令同步和数据库一致
+
+【servera】
+-l
+[root@clear /]# man semanage fcontext | grep \#
+root@servera ~]# yum provides sesearch
+Last metadata expiration check: 2:54:21 ago on Sat Mar  1 00:44:02 2025.
+setools-console-4.4.3-1.el9.x86_64 : Policy analysis command-line tools for SELinux
+Repo        : rhel-9.3-for-x86_64-baseos-rpms
+Matched from:
+Filename    : /usr/bin/sesearch
+
+[root@clear /]# semanage  fcontext -l | grep /var/www  看第一行即可
+[root@clear /]# semanage  fcontext -l | grep /var/www/html/file3
+/var/www/html/file3                                all files          system_u:object_r:default_t:s0 
+[root@clear /]# semanage fcontext -a -t httpd_sys_content_t /var/www/html/file3 #数据库没有上下文记录，用-a添加，如已存在则用-m修改数据库中错误的上下文
+[root@clear /]# semanage  fcontext -l | grep /var/www/html/file3
+/var/www/html/file1                                all files          system_u:object_r:httpd_sys_content_t:s0 
+
+restorecon  恢复文件上下文和数据库一致
+-v  显示修改标签内容
+-R  递归
+[root@clear /]# restorecon -R -v /var/www/html/file3
+Relabeled /var/www/html/file3 from system_u:object_r:default_t:s0 to system_u:object_r:httpd_sys_content_t:s0
+
+[root@clear /]# ll -Z /var/www/html/file3
+-chcon 
+chcont -t httpd_sys_content_t /var/www/html/index.html
+man semanage fcontext -l | grep \#
+
+-semanage fcontext
+man semanage fcontext -l | grep \#    
+semanage fcontext -a -t httpd_sys_content_t /var/www/html/index.html 
+semanage fcontext -m -t httpd_sys_content_t /var/www/html/index.html
+semanage fcontext -d -t httpd_sys_content_t /var/www/html/index.html
+semanage fcontext -l  /var/www/html/index.html
+restorecon -R -v /var/www/html/index.html
+课上练习：
+1.servera上安装httpd软件
+2.在/var/www/html目录创建3个文件file0、file1、file2、对应内容test0、test1、test2
+3.修改file0上下文为default_t
+4.开启httpd服务。关闭防火墙 systemctl stop firewalld
+5.在f0上用浏览器访问三个网页文件，测试发现，file0访问不到内容，而file1、file2可以
+6.回到servera上修改file0上下文为httpd_sys_content_t
+7.再测试<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-4-管理布尔值"><a href="#4-4-管理布尔值" class="headerlink" title="4.4 管理布尔值"></a>4.4 管理布尔值</h2><h3 id="4-4-1-管理布尔值"><a href="#4-4-1-管理布尔值" class="headerlink" title="4.4.1 管理布尔值"></a>4.4.1 <strong>管理布尔值</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">布尔值主要对应的是应用的功能的开启或关闭
+
+getsebool       列出布尔值状态  user
+setsebool       设置布尔值开启或关闭on 开，off 关
+-P              更改布尔值永久生效 setsebool -p
+semanage boolean -l 查看布尔值是否永久
+
+[root@servera /]# yum install -y selinux-policy-doc
+[root@servera /]# mandb
+[root@servera /]# man -k '_selinux' | grep httpd
+[root@servera /]# man 8 httpd_selinux
+[root@servera /]# man 8 httpd_selinux |  grep -B 1 homedir
+[root@servera /]# getsebool -a  
+[root@servera /]# getsebool -a |  grep httpd | grep homedir
+
+修改布尔值状态
+[root@servera /]# setsebool httpd_enable_homedirs on
+[root@servera /]# semanage boolean -l  | grep httpd_enable_home
+httpd_enable_homedirs          (off  ,  off)  Allow httpd to enable homedirs
+[root@servera /]# setsebool -P httpd_enable_homedirs on  永久生效
+[root@servera /]# semanage boolean -l  | grep httpd_enable_home
+httpd_enable_homedirs          (on   ,   on)  Allow httpd to enable homedirs
+[root@servera /]# setsebool -P httpd_enable_homedirs off<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-4-2-使用布尔值调整"><a href="#4-4-2-使用布尔值调整" class="headerlink" title="4.4.2 使用布尔值调整"></a>4.4.2 <strong>使用布尔值调整</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.关闭selinux正常使用  apache发布页面托管在用户主页上的web内容功能
+1.关闭selinux
+[root@clear /]# setenforce 0;systemctl stop firewalld   
+
+2.编辑配置文件
+[root@clear /]# vim /etc/httpd/conf.d/userdir.conf 
+#UserDir disabled   #注释该行
+UserDir public_html  #解除该行注释，启用该功能
+
+
+3.切换student用户，制作发布目录和网页
+[root@clear /]# su - student
+[student@clear ~]$ mkdir public_html  #创建发布目录
+[student@clear ~]$ echo  test_web_page &gt; public_html/index.html #制作网页
+[student@clear ~]$ logout  #退出
+[root@clear /]# chmod 711 /home/student/  #root用户身份，修改用户家目录权限为711，目的是为了让其他人有权限访问子目录及文件
+[root@clear /]# systemctl restart httpd
+
+4.在foundation上做访问测试
+firefox  http://172.25.250.10/~student/index.html
+test_web_page
+
+5.开启selinux再次访问
+【172.25.250.10】
+[root@clear /]# setenforce 1
+【foundation】
+firefox  http://172.25.250.10/~student/index.html
+Forbidden
+You don't have permission to access /~student/index.html on this server.
+
+6.开启对应布尔值，允许该功能
+[root@clear /]# yum install -y selinux-policy-doc
+[root@clear /]# mandb
+[root@clear /]# man -k 'http'
+[root@clear /]# man 8 httpd_selinux    #文档里搜索homedirs，复制该命令，开启该功能
+[root@clear /]# setsebool -P httpd_enable_homedirs 1
+[root@clear /]# getsebool
+[root@clear /]# getsebool -a
+[root@clear /]# getsebool -a | grep http | grep homedir  #第一种查询方式
+root@clear /]# semanage boolean -l | grep homedirs   #第二种查询方式，查布尔值数据库
+httpd_enable_homedirs          (on   ,   on)  Allow httpd to enable homedirs
+                              （功能打开，永久生效）
+
+7.在foundation上做访问测试
+firefox  http://172.25.250.10/~student/index.html
+test_web_page<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-5-安全端口"><a href="#4-5-安全端口" class="headerlink" title="4.5 安全端口"></a><strong>4.5 安全端口</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">实验目标：当apache服务发布端口从80修改为82时，保证服务可以启动并开机自启动。
+
+【servera】
+[root@servera html]# systemctl stop firewalld
+[root@servera html]# yum install -y httpd
+[root@servera html]# setenforce 1
+[root@servera html]# systemctl enable --now httpd   #服务正常启动
+【f0】
+curl http://servera/file1 #正常可以访问
+
+【servera】
+[root@servera html]# rpm -qc httpd   #倒数第四行
+[root@servera html]# vim /etc/httpd/conf/httpd.conf  
+Listen 82      #47行 练习时可以从80改为82
+[root@servera html]# systemctl restart httpd      #服务起不来
+[root@servera html]# cat /var/log/messages  #看日志文件最后的部分
+*[root@servera html]# man semanage port | grep \#
+       # semanage port -l
+       # semanage port -a -t http_port_t -p tcp 81
+       # semanage port -a -t ssh_port_t -p tcp 8991
+[root@servera html]# semanage port -l | grep http_port_t   
+http_port_t                    tcp      80, 81, 443, 488, 8008, 8009, 8443, 9000
+*[root@servera html]# semanage port -a -t http_port_t -p tcp 82  #添加安全端口
+*[root@servera html]# semanage port -l | grep http_port_t   #并查看是否有82
+http_port_t                    tcp      82, 80, 81, 443, 488, 8008, 8009, 8443, 9000
+pegasus_http_port_t            tcp      5988
+[root@servera html]# echo haha &gt; /var/www/html/index.html  #手动制作一个测试页
+[root@servera html]# systemctl restart httpd  #可以启动服务
+[root@servera html]# systemctl enable httpd #开机自启动
+[root@servera html]# netstat -ntlp | grep 82
+[root@servera html]# localhost:82/index.html  #本机测试82端口访问index.html网页文件
+【f0】
+# curl http://servera:82/index.html  #再次访问<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-6-SElinux日志"><a href="#4-6-SElinux日志" class="headerlink" title="4.6 SElinux日志"></a><strong>4.6 SElinux日志</strong></h2><p>  SELinux 会使用被称为 AVC（Access VectorCache，访问矢量缓存）的缓存，如果访问被拒绝（也被称为 AVC拒绝），则会在一个日志文件中记录下拒绝消息</p>
+<p>  这些被拒绝的消息可以帮助诊断和解决常规的SELinux策略违规行为，至于这些拒绝消息到底被记录在什么位置，则取决于 auditd 和<br>rsyslogd 守护进程的状态： 若auditd守护进程正在运行，则拒绝消息将被记录与 /var/log/audit/audit.log 中</p>
+<p>  若 auditd 守护进程没有运行，但 rsyslogd守护进程正在运行，则拒绝消息会记录到 /var/log/messages中</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">-a：分析指定的日志文件
+sealert -a /var/log/audit/audit.log  回显比较慢多等一会<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="5-管理基本存储"><a href="#5-管理基本存储" class="headerlink" title="5 管理基本存储"></a><strong>5 管理基本存储</strong></h1><h2 id="5-1-添加分区"><a href="#5-1-添加分区" class="headerlink" title="5.1 添加分区"></a><strong>5.1 添加分区</strong></h2><h3 id="5-1-1-分区方案-MBR-GPT"><a href="#5-1-1-分区方案-MBR-GPT" class="headerlink" title="5.1.1 分区方案-MBR&amp;GPT"></a>5.1.1 <strong>分区方案-MBR&amp;GPT</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">MBR分区方案:
+MBR叫做主引导记录，存在于磁盘的0柱面0磁道0扇区中，是磁盘的第一个扇区内，大小为512字节，446字节初始化程序加载器，64字节分区表，2字节校验码，每个分区16字节，所以最多4个分区，最大磁盘空间支持2T。主分区和扩展分区编号用1-4，逻辑分区编号5以上
+
+GPT分区方案:
+GPT是GUID Partition Table，全局唯一标识磁盘分区表。它由UEFI启动硬盘，这样就有了UEFI取代传动BIOS，而GPT则取代传统的MBR，windows支持最多128个GPT分区
+MBR分区方案
+分区表=64字节
+1个分区=16字节
+4x16=64 最多只能记录4个分区 主分区
+4个分区不够用？比如5个以上？
+
+1.主分区最多4个，占分区编号1-4，可以格式化(可使用存放数据)
+2.扩展分区最多可以有1个，牺牲一个主分区来做扩展分区，它不能格式化（不能使用，不能存放数据），它的作用是装载逻辑分区用的，也就是用扩展分区的空间再划分多个逻辑分区
+3.逻辑分区-由扩展分区的空间划分而来的，约可以分15个左右。可以格式化（可以使用，可以存放数据），逻辑分区必定从5号开始
+
+分区方案:4P、3P+1E  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-2-分区工具-fdisk-parted"><a href="#5-1-2-分区工具-fdisk-parted" class="headerlink" title="5.1.2 分区工具:fdisk&amp;parted"></a>5.1.2 分区工具:fdisk&amp;parted</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">使用新磁盘流程规划：
+1.分区（可选）fdisk   parted
+2.格式化     mkfs
+3.挂载       mount
+4.使用      
+
+fdisk是一个分区工具，既可以查看磁盘状况，也可以对磁盘进行分区:
+语法：fdisk  选项  设备名
+选项：-l 查看所有磁盘状态
+例：
+fdisk  -l            #查所有磁盘信息
+fdisk  -l /dev/vdb   #查某一个磁盘信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-3-分区方案练习"><a href="#5-1-3-分区方案练习" class="headerlink" title="5.1.3 分区方案练习"></a><strong>5.1.3 分区方案练习</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1 MBR分区方案：
+5G磁盘，每个分区1G
+3P+1E ， 1E（L5、L6）
+
+[root@clear /]# fdisk -l
+[root@clear /]# fdisk -l /dev/vdb
+[root@clear /]# fdisk /dev/vdb
+n   #创建分区
+p   #选择p主  或  e扩展
+1   #分区编号
+回车，不通过扇区范围分配        
++1G:设置一个1G大小分区   p:查看分区状态    d:删除    w:保存退出
+
+-删除分区
+Command (m for help): d
+Partition number (1-6, default 6): 6
+Partition 6 has been deleted.
+
+#partprobe    磁盘分区正常结束后，此命令可以正常执行，不返回任何信息，主要做刷新分表信息通知内核
+[root@clear /]# fdisk -l /dev/vdb
+[root@servera ~]# lsblk
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+vda    252:0    0   10G  0 disk 
+├─vda1 252:1    0    1M  0 part 
+├─vda2 252:2    0  200M  0 part /boot/efi
+├─vda3 252:3    0  600M  0 part /boot
+└─vda4 252:4    0  9.2G  0 part /
+vdb    252:16   0    5G  0 disk 
+├─vdb1 252:17   0    1G  0 part 
+├─vdb2 252:18   0    1G  0 part 
+├─vdb3 252:19   0    1G  0 part 
+├─vdb4 252:20   0    1K  0 part 
+├─vdb5 252:21   0    1G  0 part 
+└─vdb6 252:22   0 1021M  0 part 
+vdc    252:32   0    5G  0 disk 
+vdd    252:48   0    5G  0 disk 
+
+
+
+2 GPT分区方案
+Command (m for help): g
+Created a new GPT disklabel (GUID: 1BA96F11-6DA0-204D-82D6-0CD15E42851E).
+The old dos signature will be removed by a write command.
+
+Command (m for help): n
+Partition number (1-128, default 1):  回车
+First sector (2048-10485726, default 2048): 回车 
+Last sector, +sectors or +size{K,M,G,T,P} (2048-10485726, default 10485726): +1G
+
+Created a new partition 1 of type 'Linux filesystem' and of size 1 GiB.
+
+Command (m for help): n
+Partition number (2-128, default 2): 
+First sector (2099200-10485726, default 2099200): 
+Last sector, +sectors or +size{K,M,G,T,P} (2099200-10485726, default 10485726): +2G
+
+Created a new partition 2 of type 'Linux filesystem' and of size 2 GiB.
+
+Command (m for help): l   #列出分区标识类型
+
+Command (m for help): t   #改变分区标识类型
+Partition number (1,2, default 2): 2
+Partition type (type L to list all types): 19
+
+Changed type of partition 'Linux filesystem' to 'Linux swap'.
+
+Command (m for help): p
+Disk /dev/vdb: 5 GiB, 5368709120 bytes, 10485760 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 1BA96F11-6DA0-204D-82D6-0CD15E42851E
+
+Device       Start     End Sectors Size Type
+/dev/vdb1     2048 2099199 2097152   1G Linux filesystem
+/dev/vdb2  2099200 6293503 4194304   2G Linux swap
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+# partprobe  同步数据至内核<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-4-parted使用MBR分区方案"><a href="#5-1-4-parted使用MBR分区方案" class="headerlink" title="5.1.4 parted使用MBR分区方案"></a>5.1.4 parted使用MBR分区方案</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.mbr方式
+定义分区方案
+分区
+分3个区 主、扩展 、逻辑。再用非交互式创建第二个逻辑
+[root@servera /]# parted /dev/vdc     #直接指定设备，而不是分区
+(parted) mklabel        #按回车键  定义分区方案                                                    
+New disk label type? msdos     #两一下tab键，填写                                             
+Number  Start  End  Size  Type  File system  Flags
+(parted) mkpart #分区                                                          
+Partition type?  primary/extended? p  #主/扩展/逻辑                                    
+File system type?  [ext2]? ext4   #无用，不生效
+Start? 2048s#第一个分区，一定从1M或2048s开始                                                          
+End? 1000MB #分1G分区，1000M、1G、（10G磁盘，可以写10%，完全使用就是100%）                                                              
+(parted) p          #查看                                                      
+
+Number  Start   End     Size   Type     File system  Flags
+ 1      1049kB  1000MB  999MB  primary  ext4         lba
+(parted) quit        #退出                                                    
+Information: You may need to update /etc/fstab.
+[root@servera ~]#udevadm  settle (更新通知内核，建议敲上，不是必要)
+
+非交互式方式
+命令：
+[root@servera /]# parted /dev/vdc mkpart p ext4 1000MB 2000MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-5-parted使用GPT方案"><a href="#5-1-5-parted使用GPT方案" class="headerlink" title="5.1.5 parted使用GPT方案"></a>5.1.5 <strong>parted使用GPT方案</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@clear /]# parted  /dev/vdc  #使用了上一个实验的同样的分区，重复使用了vdc
+(parted) mklabel                                                          
+New disk label type? gpt  #再更改分区方案时会抹掉之前的分区数据
+Warning: The existing disk label on /dev/vdc will be destroyed and all data on this disk will be lost. Do
+you want to continue?
+Yes/No? yes    #yes                                                            
+(parted) p                                                                 B
+Partition Table: gpt  #此处显示gpt分区方案
+(parted) mkpart                                                           
+Partition name?  []? part1   #分区名字                                               
+File system type?  [ext2]?     #直接回车                                           
+Start? 1M                                                                 
+End? 10%                                                                  
+(parted) p                                                                
+Number  Start   End     Size    File system  Name   Flags
+ 1      1049kB  1074MB  1073MB  ext2         part1        #注意Number和Name
+(parted) mkpart
+Partition name?  []? part2                                                
+File system type?  [ext2]?                                                
+Start? 10%                                                                
+End? 20%
+(parted) p
+Number  Start   End     Size    File system  Name   Flags
+ 1      1049kB  1074MB  1073MB  ext2         part1
+ 2      1074MB  2147MB  1074MB  ext2         part2   #第二个分区完成
+(parted) rm                                                               
+Partition number? 2               #选择第二个分区的Number                                      
+(parted) p                                                                
+Number  Start   End     Size    File system  Name   Flags
+ 1      1049kB  1074MB  1073MB  ext2         part1
+(parted) q                                                                
+#非交互式方式重新分第二个分区
+[root@clear /]# parted /dev/vdc mkpart  part2 ext2 10% 20%                
+[root@clear /]# parted /dev/vdc p
+Number  Start   End     Size    File system  Name   Flags
+ 1      1049kB  1074MB  1073MB               part1
+ 2      1074MB  2147MB  1074MB               part2   #成功分配
+lsblk 
+lsblk /dev/vdc
+blkid <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-2-文件系统"><a href="#5-2-文件系统" class="headerlink" title="5.2 文件系统"></a><strong>5.2 文件系统</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.分区后，会给分区定义文件系统类型
+windos: fat32 ntfs exfat 
+linux : exfat 有ext2 ext3 ext4 xfs vfat 
+MacOS : exfat 
+2.为什么定义文件系统？给磁盘定义一种存储数据的方法，这样块存储设备才可以记录文件数据。
+3.每个分区都可以定义一个独立的文件系统，定义的方法就是格式化。设备有了文件系统后才可以存储数据。
+4.操作系统里分区很多，每个分区可能会有相同或不同的文件系统类型，彼此独立
+5.VFS  虚拟文件系统：作用，将用户发送的指令给任何文件系统做翻译，对于用户来说，我不必学习不同文件系统的操作方法，而是使用常用shell管理指令，就可以通过VFS传递给不同的文件系统了。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-1-格式化"><a href="#5-2-1-格式化" class="headerlink" title="5.2.1 格式化"></a>5.2.1 <strong>格式化</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：
+mkfs  选项  文件系统类型  设备名
+mkfs  -t    ext4      /dev/vdb1
+选项：
+-t： 指定文件系统  -t ext4
+例：
+[root@servera /]# mkfs -t ext4 /dev/vdc1    
+例2：使用.点代替-t
+[root@servera /]# mkfs.ext4 /dev/vdc2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-2-lsblk"><a href="#5-2-2-lsblk" class="headerlink" title="5.2.2 lsblk"></a><strong>5.2.2 lsblk</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera /]# lsblk --fs /dev/vdc   #-f  --fs
+NAME   FSTYPE LABEL UUID                                 MOUNTPOINT
+vdc                                                      
+├─vdc1 ext4         af656cc6-80e3-4b05-abcf-a162907c2f0a 
+└─vdc2 xfs          64237913-4937-48ff-8afa-28c6fc05124d 
+[root@servera /]# parted /dev/vdc p
+Model: Virtio Block Device (virtblk)
+Disk /dev/vdc: 5369MB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size   Type     File system  Flags
+ 1      1049kB  1000MB  999MB  primary  ext4
+ 2      1000MB  2000MB  999MB  primary  xfs
+ 
+查看文件系统
+lsblk  --fs /dev/vdc
+
+blkid 超级管理员可用 也可查文件系统类型
+[root@servera ~]# lsblk -f /dev/vdb1
+NAME FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+vdb1 xfs                e36c91a4-83a0-4dba-a015-3f62bdc32b60                
+[root@servera ~]# blkid /dev/vdb1
+/dev/vdb1: UUID="e36c91a4-83a0-4dba-a015-3f62bdc32b60" TYPE="xfs" PARTUUID="bd4097dc-01"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-3-挂载与永久挂载"><a href="#5-3-挂载与永久挂载" class="headerlink" title="5.3 挂载与永久挂载"></a><strong>5.3 挂载与永久挂载</strong></h2><h3 id="5-3-1-mount"><a href="#5-3-1-mount" class="headerlink" title="5.3.1 mount"></a>5.3.1 <strong>mount</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mount挂载也称为手动挂载，或临时挂载，重启失效
+语法：
+mount 文件系统 挂载点      #源设备需要格式化后，成为文件系统才可挂载   #挂载点需要是空目录
+例1：mount /dev/vdb1 /mnt/disk_vdb1
+
+选项：
+-t 指定文件系统类型（默认自动识别） mount  -t ext4 /dev/vdb1    /mnt/disk_vdb1
+-o 指定挂载权限卸载--》再指定权限  mount  -o ro /dev/vdb1    /mnt/disk_vdb1
+例2：
+remount 重新挂载 （不卸载的基础上重新挂载）
+mount -o remount,ro /dev/vdc2
+
+卸载：
+umount 文件系统/挂载点
+例：
+umount /dev/vdb1  #或者 umount /mnt/disk_vdb1  #卸载时要退出/mnt/disk_vdb1目录
+1.临时挂载 
+[root@clear dev]# mkdir /mnt/disk1   #创建挂载点
+[root@clear dev]# mount /dev/vdc1 /mnt/disk1   #挂载
+[root@clear dev]# df -Th
+Filesystem     Type      Size  Used Avail Use% Mounted on
+/dev/vdc1      ext4      991M  2.6M  922M   1% /mnt/disk1
+[root@clear dev]# cd /mnt/disk1  #进入目录  
+[root@clear disk1]# touch haha   #使用
+[root@clear disk1]# ls
+haha  lost+found
+[root@clear disk1]# cd /
+卸载
+[root@clear /]# umount /dev/vdc1
+[root@clear /]# df -Th  #查看发现已经没有/dev/vdc1的挂载信息，就算成功了 。
+
+2.使用UUID方式挂载
+[root@clear /]# lsblk -f #也可以查看UUID
+[root@clear /]# blkid
+[root@clear /]# blkid /dev/vdc1
+/dev/vdc1: UUID="9bdeba87-5ad0-4c52-b577-0234115df2e1" TYPE="ext4" PARTLABEL="part1" PARTUUID="28f6e868-cd04-434c-9fd3-618f17382797"
+[root@clear /]# mount UUID="9bdeba87-5ad0-4c52-b577-0234115df2e1" /mnt/disk1 #鼠标左键选定后按滑轮中间。
+[root@clear /]# df -Th
+/dev/vdc1      ext4      991M  2.6M  922M   1% /mnt/disk1
+
+mount方式挂载，重启失效
+[root@clear /]# df -Th
+[root@clear /]# reboot  #重启后再查看挂载<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-3-2-etc-fstab"><a href="#5-3-2-etc-fstab" class="headerlink" title="5.3.2 /etc/fstab"></a>5.3.2 <strong>/etc/fstab</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mount临时挂载:
+mount /dev/vdb1 /mnt/disk1
+mount -t ext4 -o rw /dev/vdb1 /mnt/disk1    //指定参数以只读方式挂载
+
+2.开机自动挂载   永久
+[root@clear /]# df -h
+/dev/vdc1       991M  2.6M  922M   1% /mnt/disk1
+[root@clear /]# umount /dev/vdc1
+[root@clear /]# df -h
+[root@clear /]# vim /etc/fstab 
+/dev/vdc1       /mnt/disk1      ext4    defaults    0     0
+设备ID或设备名称    挂载点    文件系统类型   选项（权限，认证设定，其他）   内核日志检测机制0不检测，1、2检测，1比2优先级高  磁盘检测机制0不检测、1、2检测，1比2优先级高
+
+[root@clear /]# mount -a #挂载/etc/fstab中所有未挂载的设备
+[root@clear /]# df -Th
+/dev/vdc1      ext4      991M  2.6M  922M   1% /mnt/disk1
+
+#reboot   #模拟考试环境，没做完selinux安全端口别重启，会起不来
+
+`注意`
+如果/etc/fstab中配置错误导致不能启动系统，重启时会自动进入紧急模式.
+解决方案流程：
+1 此时输入管理员root密码
+2 编辑挂载权限 #mount -o remount,rw / 
+3 vi /etc/fstab更改正内容或将其用  #井号注释挂载内容后，
+4 reboot即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-4-管理交换分区"><a href="#5-4-管理交换分区" class="headerlink" title="5.4 管理交换分区"></a><strong>5.4 管理交换分区</strong></h2><h3 id="5-4-1-创建交换分区swap"><a href="#5-4-1-创建交换分区swap" class="headerlink" title="5.4.1 创建交换分区swap"></a><strong>5.4.1 创建交换分区swap</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">创建swap 
+流程：
+1. 分区---1G
+[root@clear /]# parted  /dev/vdc mkpart part3 ext2 20% 30% 
+Information: You may need to update /etc/fstab.
+[root@clear /]# parted  /dev/vdc p
+Number  Start   End     Size    File system  Name   Flags
+ 1      1049kB  1074MB  1073MB  ext4         part1
+ 2      1074MB  2147MB  1074MB  xfs          part2
+ 3      2147MB  3221MB  1074MB               part3
+
+2. 查询系统中swap空间，使用free命令
+[root@servera ~]# free -m
+               total        used        free      shared  buff/cache   available
+Mem:            1763         371        1398          13         144        1391
+Swap:              0           0           0
+[root@servera ~]# free -h
+               total        used        free      shared  buff/cache   available
+Mem:           1.7Gi       371Mi       1.4Gi        13Mi       144Mi       1.4Gi
+Swap:             0B          0B          0B
+
+3. 格式化为swap
+[root@servera ~]# mkswap /dev/vdb2
+Setting up swapspace version 1, size = 1024 MiB (1073737728 bytes)
+no label, UUID=2cc08ea9-26ea-4e28-9ff5-070c84366f91
+
+4. 给系统加载swap空间
+     4.1 临时加载与卸载，重启失效 
+[root@servera ~]# swapon /dev/vdb2
+[root@servera ~]# free -m
+               total        used        free      shared  buff/cache   available
+Mem:            1763         372        1398          13         144        1391
+Swap:           1023           0        1023
+[root@servera ~]# swapoff /dev/vdb2
+[root@servera ~]# free -m
+               total        used        free      shared  buff/cache   available
+Mem:            1763         372        1396          13         148        1391
+Swap:              0           0           0
+
+     4.2 写入/etc/fstab文件永久生效
+[root@servera ~]# vim /etc/fstab
+/dev/vdb2       swap            swap    defaults  0   0
+[root@servera ~]# swapon -a    #swap空间用swapon -a挂载
+[root@servera ~]# free -m
+               total        used        free      shared  buff/cache   available
+Mem:            1763         377        1390          13         149        1385
+Swap:           1023           0        1023<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-4-2-使用本地存储创建swap"><a href="#5-4-2-使用本地存储创建swap" class="headerlink" title="5.4.2 使用本地存储创建swap"></a><strong>5.4.2 使用本地存储创建swap</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">swap-file
+# df -h
+# dd if=/dev/zero of=/pagefile.sys bs=512M count=1
+# mkswap /pagefile.sys 
+# chmod 0600 /pagefile.sys 
+# vim /etc/fstab 
+...
+/pagefile.sys swap swap defaults 0 0 
+# swapon -a
+# free -h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="6-逻辑卷管理LVM"><a href="#6-逻辑卷管理LVM" class="headerlink" title="6 逻辑卷管理LVM"></a><strong>6 逻辑卷管理LVM</strong></h1><h2 id="6-1-创建和扩展逻辑卷"><a href="#6-1-创建和扩展逻辑卷" class="headerlink" title="6.1 创建和扩展逻辑卷"></a><strong>6.1 创建和扩展逻辑卷</strong></h2><h3 id="6-1-1-逻辑卷管理概述"><a href="#6-1-1-逻辑卷管理概述" class="headerlink" title="6.1.1 逻辑卷管理概述"></a><strong>6.1.1 逻辑卷管理概述</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">逻辑卷(LVM):基于内核的一种逻辑卷管理器，LVM适合于管理大存储设备，并允许用户动态调整文件系统的大小
+物理卷(PV)：LVM的最底层概念，是LVM的逻辑存储块，物理卷与磁盘分区是逻辑的对应关系
+卷组(VG)：LVM逻辑概念上的磁盘设备，通过将单个或多个物理卷组合后生成卷组。卷组的大小取决于物理卷的容量以及个数
+物理长度(PE)：物理长度是将物理卷组合为卷组后，所划分的最小存储单位，即逻辑意义上磁盘的最小存储单元。LVM默认PE大小为4MB
+逻辑卷(LV):LVM逻辑意义上的分区，可以指定从卷组中提取多少容量来创建逻辑卷，最后对逻辑卷格式化并挂载使用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-1-2-构建LVM存储"><a href="#6-1-2-构建LVM存储" class="headerlink" title="6.1.2 构建LVM存储"></a><strong>6.1.2 构建LVM存储</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.分区或者添加物理硬盘               fdisk,parted (mbr,gpt)
+2.pv让物理磁盘或分区变成lvm可用的卷   pvcreate 
+3.创建vg同时指定pe块大小             vgcreate -s 
+4.在vg中划分lv空间                   lvcreate -L | -l  -n vgname
+5.格式化lv空间
+6.挂载或者永久挂载
+
+PV语法：pvcreate  /dev/vdb1  /dev/vdb   #分区名称或磁盘名
+VG语法：vgcreate -s 16M vgname pvname   #-s不写默认4M，扩大的话可以是2的次方，比如4、8、16、32...，vgname是vg名称自定义，pvname就是创建pv时的物理分区名，就是pv名称
+LV语法：lvcreate -L 容量 -n lvname vgname #指定容量可以使用-L 容量 或 -l 块数
+1.分区     至少分3个分区，模拟物理磁盘，作为pv的底层物理块设备
+[root@clear ~]# fdisk -l /dev/vdb
+Device     Boot   Start      End  Sectors Size Id Type
+/dev/vdb1          2048  2099199  2097152   1G 83 Linux
+/dev/vdb2       2099200  4196351  2097152   1G 83 Linux
+/dev/vdb3       4196352  6293503  2097152   1G 83 Linux
+/dev/vdb4       6293504 20971519 14678016   7G  5 Extended
+/dev/vdb5       6295552  8392703  2097152   1G 83 Linux
+
+2.PV阶段
+[root@clear ~]# man pvcreate ,搜索/EXAMPLES
+[root@servera ~]# pvcreate /dev/vdb{1,3,5}
+  Physical volume "/dev/vdb1" successfully created.
+  Physical volume "/dev/vdb3" successfully created.
+  Physical volume "/dev/vdb5" successfully created.
+[root@clear ~]# pvs 或者 pvscan 或者 pvdisplay进行查询
+[root@servera ~]# pvscan
+  PV /dev/vdb1                      lvm2 [1.00 GiB]
+  PV /dev/vdb3                      lvm2 [1.00 GiB]
+  PV /dev/vdb5                      lvm2 [1.00 GiB]
+  Total: 3 [3.00 GiB] / in use: 0 [0   ] / in no VG: 3 [3.00 GiB]
+
+3.VG阶段
+[root@clear ~]# man vgcreate ,搜索/myvg
+[root@clear ~]# man vgcreate | grep myvg
+[root@clear ~]# vgcreate -s 16M vg100 /dev/vdb{1..3}    # -s指定物理扩展块16M一个
+Physical volume "/dev/vdb2" successfully created.
+  Volume group "vg100" successfully created
+
+[root@clear ~]# vgs         #主要查看下vg的大小，拥有的pv和lv数量
+VG    #PV #LV #SN Attr   VSize VFree
+  vg100   3   0   0 wz--n- 2.95g 2.95g
+
+[root@clear ~]# vgdisplay   #vg名，容量，块大小，块的使用量
+--- Volume group ---
+  VG Name               vg100
+  System ID             
+  Format                lvm2
+  Metadata Areas        3
+  Metadata Sequence No  1
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                0
+  Open LV               0
+  Max PV                0
+  Cur PV                3
+  Act PV                3
+  VG Size               2.95 GiB
+  PE Size               16.00 MiB
+  Total PE              189
+  Alloc PE / Size       0 / 0   
+  Free  PE / Size       189 / 2.95 GiB
+  VG UUID               mA8syS-SLSn-VO3X-VReN-Awik-2eVW-Geqqv2
+
+pv vg  pe 65535 固定 16M  x 65535 = 270G  2^2  
+
+4.LV阶段
+[root@clear ~]# man lvcreate ,搜索/64m
+[root@clear ~]# man lvcreate | grep 64m
+lvcreate -L 64m -n mylv vg00 /dev/sda:0-7 /dev/sdb:0-7
+
+[root@clear ~]# lvcreate -L 1G -n lv100 vg100　　　　//(-L:指定具体容量、-n:指定逻辑卷名称)
+Logical volume "lv100" created.
+
+[root@clear ~]# lvs
+LV    VG    Attr       LSize Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  lv100 vg100 -wi-a----- 1.00g 
+
+[root@clear ~]# lvdisplay 
+--- Logical volume ---
+  LV Path                /dev/vg100/lv100
+  LV Name                lv100
+  VG Name                vg100
+  LV UUID                zxJzck-SgUJ-1kBV-5rfo-aG2I-OHZ9-5KOLPt
+  LV Write Access        read/write
+  LV Creation host, time servera.lab.example.com, 2025-03-02 00:14:49 -0500
+  LV Status              available
+  # open                 0
+  LV Size                1.00 GiB
+  Current LE             64
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+
+5.格式化
+[root@servera ~]# mkfs.xfs /dev/vg100/lv100
+meta-data=/dev/vg100/lv100       isize=512    agcount=4, agsize=65536 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1    bigtime=1 inobtcount=1 nrext64=0
+data     =                       bsize=4096   blocks=262144, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=16384, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+Discarding blocks...Done.              
+[root@servera ~]# lsblk -f /dev/vg100/lv100
+NAME        FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+vg100-lv100 xfs                e665f339-9faf-4fc9-8cbd-d29468bed812
+
+
+6.创建挂载点与临时挂载
+# mkdir /mnt/lvm1
+# mount /dev/vg100/lv100 /mnt/lvm1
+# df -h
+# cd /mnt/lvm/
+
+7.永久挂载
+[root@clear ~]# cd /
+[root@clear /]# echo "/dev/vg100/lv100 /mnt/lvm1 xfs defaults 0 0" &gt;&gt; /etc/fstab    // "&gt;&gt;"表示追加
+[root@clear /]# mount -a
+[root@servera ~]# df -Th
+/dev/mapper/vg100-lv100 xfs       960M   39M  922M   5% /mnt/lvm1
+
+[root@servera ~]# ll /dev/mapper/vg100-lv100 /dev/vg100/lv100
+lrwxrwxrwx. 1 root root 7 Mar  2 00:24 /dev/mapper/vg100-lv100 -&gt; ../dm-0
+lrwxrwxrwx. 1 root root 7 Mar  2 00:24 /dev/vg100/lv100 -&gt; ../dm-0
+
+8.reboot重启验证
+
+9.删除逻辑卷思路：
+  创建顺序---分区--lv（pv-vg-lv）--格式化---挂载
+  卸载顺序---卸载--删lv--删vg--删pv--删分区
+  vgremove vg100<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-1-3-扩展逻辑卷"><a href="#6-1-3-扩展逻辑卷" class="headerlink" title="6.1.3 扩展逻辑卷"></a><strong>6.1.3 扩展逻辑卷</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">扩展流程：
+1、扩展lv大小增加容量
+2、重新定义文件系统大小
+1 扩展语法：
+lvextend 【-L| -l】【size|PE】 lv_name
+
+选项：
+-L：指定容量   直接指定最终大小 -L 1500M ，或者在原有基础上增加多少容量 -L2
+-l：指定块数   -l 60     ， -l +30
+[root@servera ~]# lvextend -L 1500M /dev/vg100/lv100
+  Rounding size to boundary between physical extents: &lt;1.47 GiB.
+  Size of logical volume vg100/lv100 changed from 1.00 GiB (64 extents) to &lt;1.47 GiB (94 extents).
+  Logical volume vg100/lv100 successfully resized.
+
+[root@servera ~]# lvdisplay 
+  --- Logical volume ---
+  LV Path                /dev/vg100/lv100
+  LV Name                lv100
+  VG Name                vg100
+  LV UUID                zxJzck-SgUJ-1kBV-5rfo-aG2I-OHZ9-5KOLPt
+  LV Write Access        read/write
+  LV Creation host, time servera.lab.example.com, 2025-03-02 00:14:49 -0500
+  LV Status              available
+  # open                 1
+  LV Size                &lt;1.47 GiB
+  Current LE             94
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+
+$ lvextend -l 60 /dev/vg100/lv100
+2 重新定义文件系统大小
+
+ext 文件系统 ”resize2fs  设备名/挂载点“   resize2fs /dev/vg100/lv100
+xfs 文件系统 “xfs_growfs 设备名/挂载点”   xfs_growfs /dev/vg100/lv100 或 xfs_growfs 挂载点
+    
+例：
+如果是xfs文件系统使用：
+[root@servera /]# xfs_growfs /mnt/lvm (挂载点)
+[root@servera ~]# df -Th
+/dev/mapper/vg100-lv100 xfs       1.5G   43M  1.4G   3% /mnt/lvm1
+
+如果是ext4文件系统使用：
+[root@servera /]# resize2fs /dev/myvg/mylv （lv设备名）
+创建的lv名称为myly，属于myvg卷组，lv需要30个pe，每个pe16M，需要开机自动挂载到/mnt/mylvdir. 并且使用xfs文件系统<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-1-4-缩小逻辑卷"><a href="#6-1-4-缩小逻辑卷" class="headerlink" title="6.1.4 缩小逻辑卷"></a><strong>6.1.4 缩小逻辑卷</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">格式化:
+[root@servera ~]# mkfs.ext4 /dev/vg200/lv200
+mke2fs 1.46.5 (30-Dec-2021)
+Discarding device blocks: done                            
+Creating filesystem with 385024 4k blocks and 96384 inodes
+Filesystem UUID: acc0ec9f-90af-4373-8daa-c9525954aeef
+Superblock backups stored on blocks: 
+    32768, 98304, 163840, 229376, 294912
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+永久挂载:
+[root@servera ~]# mkdir /mnt/lvm2
+[root@servera ~]# echo "/dev/vg200/lv200 /mnt/lvm2 ext4 defaults 0 0" &gt;&gt; /etc/fstab
+[root@servera ~]# mount -a
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+[root@servera ~]# systemctl daemon-reload
+[root@servera ~]# mount -a
+[root@servera ~]# df -Th
+Filesystem              Type      Size  Used Avail Use% Mounted on
+/dev/mapper/vg100-lv100 xfs       1.5G   43M  1.4G   3% /mnt/lvm1
+/dev/mapper/vg200-lv200 ext4      1.5G   24K  1.4G   1% /mnt/lvm2
+
+ext文件系统可以缩小，xfs不支持:
+流程：
+1. 卸载
+[root@servera ~]# umount /mnt/lvm2
+
+2. resize2fs 定义缩小后的大小
+[root@servera ~]# resize2fs /dev/vg200/lv200 1G
+resize2fs 1.46.5 (30-Dec-2021)
+Please run 'e2fsck -f /dev/vg200/lv200' first.
+
+3. 磁盘检测
+[root@servera ~]# e2fsck -f /dev/vg200/lv200
+e2fsck 1.46.5 (30-Dec-2021)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/vg200/lv200: 11/96384 files (0.0% non-contiguous), 15380/385024 blocks
+
+4. 重新执行resize2fs命令
+[root@servera ~]# resize2fs /dev/vg200/lv200 1G
+resize2fs 1.46.5 (30-Dec-2021)
+Resizing the filesystem on /dev/vg200/lv200 to 262144 (4k) blocks.
+The filesystem on /dev/vg200/lv200 is now 262144 (4k) blocks long.
+
+5.重新挂载并查看
+[root@servera ~]# mount -a
+[root@servera ~]# df -Th
+Filesystem              Type      Size  Used Avail Use% Mounted on
+/dev/mapper/vg100-lv100 xfs       1.5G   43M  1.4G   3% /mnt/lvm1
+/dev/mapper/vg200-lv200 ext4      973M   24K  906M   1% /mnt/lvm2
+
+5. lvresize -L 1G 逻辑卷名
+[root@servera ~]# lvresize -L 1G /dev/vg200/lv200
+[root@servera ~]# lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/vg200/lv200
+  LV Name                lv200
+  VG Name                vg200
+  LV UUID                0jTstG-VDnH-8IAu-ixXm-blym-tenp-d6t4Jt
+  LV Write Access        read/write
+  LV Creation host, time servera.lab.example.com, 2025-03-02 00:49:11 -0500
+  LV Status              available
+  # open                 1
+  LV Size                1.00 GiB
+  Current LE             64
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-2-管理分层存储"><a href="#6-2-管理分层存储" class="headerlink" title="6.2 管理分层存储"></a><strong>6.2 管理分层存储</strong></h2><h3 id="6-2-1-stratis"><a href="#6-2-1-stratis" class="headerlink" title="6.2.1 stratis"></a><strong>6.2.1 stratis</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.1 安装
+
+$ yum install -y stratis-cli stratisd
+$ systemctl enable --now stratisd
+```
+1.2 部署存储池
+
+1.为磁盘分区(可选用磁盘或分区)，模拟块设备（磁盘）         
+[root@servera ~]# stratis pool create pool1 /dev/vdb    #创建池名为pool1
+[root@servera ~]# stratis pool list    #列出池信息包括大小
+[root@servera ~]# stratis blockdev list  #列出池有哪些物理块设备组成
+[root@servera ~]# stratis pool add-data pool1 /dev/vdc #添加额外存储
+[root@servera ~]# stratis pool list
+[root@servera ~]# stratis blockdev list 
+ool Name   Device Node   Physical Size   Tier
+pool1       /dev/vdb              5 GiB   Data
+pool1       /dev/vdc              5 GiB   Data
+
+1.3 创建文件系统
+
+[root@servera ~]# man stratis   #搜/example
+[root@servera ~]# stratis filesystem create pool1 fs1   #在pool1中创建文件系统fs1
+[root@servera ~]# stratis filesystem list  #列出文件系统信息
+Pool Name   Name   Used      Created             Device                   UUID                                
+pool1       fs1    546 MiB   Sep 16 2023 21:30   /dev/stratis/pool1/fs1   0e40b338-6178-4bee-87b3-6e13b8be5ad0
+ 6d1ed6e714a6428eb374549b4fdd8d2b  
+[root@servera ~]# mkdir /mnt/stratisdisk   #创建挂载点
+如何查看uuid
+[root@servera ~]# lsblk --output=UUID  /dev/stratis/pool1/fs1
+[root@servera ~]# mount /dev/stratis/pool1/fs1 /mnt/stratisdisk/   #临时挂载
+```
+1.4 备份
+-创建测试文件
+[root@servera ~]# touch /mnt/stratisdisk/haha.txt
+
+-备份
+[root@servera ~]# stratis filesystem snapshot pool1 fs1 fs1.bak
+[root@servera ~]# rm -f /mnt/stratisdisk/haha.txt 
+[root@servera ~]# umount /mnt/stratisdisk 
+
+[root@servera ~]# mount /dev/stratis/pool1/fs1.bak /mnt/stratisdisk
+[root@servera ~]# ls /mnt/stratisdisk
+haha.txt
+
+1.5 开机自动挂载
+
+```bash
+vim /etc/fstab
+/dev/stratis/pool1/fs1.bak /mnt/stratisdisk xfs _netdev 0 0 #_netdev 延迟挂载，先连接网络再挂载文件系统
+mount -a
+
+[root@clear ~]# systemctl start stratis
+[root@clear ~]# stratis pool create mypool /dev/vdb1
+[root@clear ~]# stratis pool add-cache mypool /dev/vdb2
+[root@clear ~]# stratis blockdev list mypool 
+Pool Name  Device Node  Physical Size   Tier
+mypool     /dev/vdb1            1 GiB   Data
+mypool     /dev/vdb2            1 GiB  Cache<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-2-2-VDO"><a href="#6-2-2-VDO" class="headerlink" title="6.2.2 VDO"></a><strong>6.2.2 VDO</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">## 2 VDO
+
+### 1.1安装
+
+```bash
+该实验需要在普通环境上做，恢复init快照，默认是294，要切换至rh134课程
+切换方法：
+【foundation】
+[kiosk@foundation0 ~]$ rht-clearcourse 0
+[kiosk@foundation0 ~]$ rht-setcourse rh134
+[kiosk@foundation0 ~]$ cat /etc/rht | grep RHT_COURSE   
+RHT_COURSE=rh134        #必须保证课程是rh134才可以
+[kiosk@foundation0 ~]$ for i in classroom bastion workstation servera;do rht-vmctl start $i;done  #开这4台虚拟机，打开时稍等3分钟左右，让其保证都开启，然后ping一下测试连通性
+[kiosk@foundation0 ~]$ for i in classroom bastion workstation servera;do ping -c 4  $i;done  
+结果都是以下结果即可，应出现icmp_seq=1 ttl=64 time=1.13 ms字样：
+PING bastion.lab.example.com (172.25.250.254) 56(84) bytes of data.
+64 bytes from bastion.lab.example.com (172.25.250.254): icmp_seq=1 ttl=64 time=1.13 ms
+64 bytes from bastion.lab.example.com (172.25.250.254): icmp_seq=2 ttl=64 time=0.180 ms
+64 bytes from bastion.lab.example.com (172.25.250.254): icmp_seq=3 ttl=64 time=0.234 ms
+64 bytes from bastion.lab.example.com (172.25.250.254): icmp_seq=4 ttl=64 time=0.265 m
+
+【foundation】
+ssh student@workstation
+【workstation】
+lab advstorage-vdo start   #运行脚本，运行前，保证servera已打开
+ssh student@servera
+【servera】
+[root@servera ~]# sudo -i
+[root@servera ~]# yum search vdo
+[root@servera ~]# yum install -y vdo.x86_64 kmod-kvdo.x86_64
+[root@servera ~]# systemctl enable --now vdo
+```
+
+### 1.2 部署vdo
+
+```bash
+[root@servera ~]# man vdo   #/EXAMPLE
+*[root@servera ~]# vdo create --name=vdo1 --device=/dev/vdd --vdoLogicalSize=50G
+[root@servera ~]# vdo list
+[root@servera ~]# vdo status --name=vdo1
+[root@servera ~]# vdo status --name=vdo1 | grep Dedu
+[root@servera ~]# vdo status --name=vdo1 | grep Comp
+```
+
+### 1.3 格式化及临时挂载测试
+
+```bash
+格式化
+*[root@servera ~]#  mkfs.xfs -K /dev/mapper/vdo1      #-K让命令可以快速返回，效果类似快速格式化 ，如果已有文件系统 可以使用 -f强制执行 
+
+挂载
+*[root@servera ~]# mkdir /mnt/vdo1
+[root@servera ~]# mount /dev/mapper/vdo1 /mnt/vdo1
+[root@servera ~]# df -Th
+[root@servera ~]# vdostats --human-readable
+[root@servera ~]# cp /root/install.img /mnt/vdo1/install.img.1
+[root@servera ~]# vdostats --human-readable
+[root@servera ~]# vdostats --human-readable
+[root@servera ~]# cp /root/install.img /mnt/vdo1/install.img.2
+[root@servera ~]# vdostats --human-readable vdostats --human-readable
+ls /mnt/vdo1/
+lab advstorage-vdo finish
+```
+
+### 1.4 开机自动挂载
+
+```bash
+开机自动挂载方法：教材推荐
+*[root@servera ~]# man vdo- | grep x-systemd
+/dev/mapper/vdo1 /mnt/vdo1 xfs defaults,x-systemd.requires=vdo.service 0 0
+
+mount -a
+
+方法二：
+/dev/mapper/vdo1 /mnt/vdo1 xfs defaults,_netdev 0 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="7-访问网络存储"><a href="#7-访问网络存储" class="headerlink" title="7 访问网络存储"></a><strong>7 访问网络存储</strong></h1><h2 id="7-1-NFS挂载网络附加存储"><a href="#7-1-NFS挂载网络附加存储" class="headerlink" title="7.1 NFS挂载网络附加存储"></a><strong>7.1 NFS挂载网络附加存储</strong></h2><h3 id="7-1-1-查看NFS共享"><a href="#7-1-1-查看NFS共享" class="headerlink" title="7.1.1 查看NFS共享"></a><strong>7.1.1 查看NFS共享</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">普通环境
+[root@servera ~]# showmount -e 172.25.254.250  #后面IP地址是NFS服务器的地址，环境默认已经部署好
+Export list for 172.25.254.250:     #来自250的共享
+/content 172.25.0.0/255.255.0.0     #服务器共享的目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="7-1-2-客户端挂载-mount"><a href="#7-1-2-客户端挂载-mount" class="headerlink" title="7.1.2 客户端挂载 mount"></a><strong>7.1.2 客户端挂载 mount</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：
+mount -t nfs  ip/域名:共享目录  本地挂载点
+练习：
+[root@servera ~]# mkdir /mnt/nfs1
+#mount -t nfs -o ro 172.25.254.250:/content  /mnt/nfs1  #-t nfs指定文件系统为nfs，-o ro指定挂载权限为只读，这两个选项是可选的。
+[root@servera ~]# mount 172.25.254.250:/content  /mnt/nfs1
+[root@servera ~]# df -Th
+Filesystem              Type      Size  Used Avail Use% Mounted on
+172.25.254.250:/content nfs4      244G  102G  142G  42% /mnt/nfs1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="7-1-3-开机自动挂载-etc-fstab"><a href="#7-1-3-开机自动挂载-etc-fstab" class="headerlink" title="7.1.3 开机自动挂载 /etc/fstab"></a><strong>7.1.3 开机自动挂载 /etc/fstab</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# umount /mnt/nfs1
+[root@servera ~]# vim /etc/fstab
+172.25.254.250:/content /mnt/nfs1 nfs defaults 0 0
+[root@servera ~]# mount -a
+[root@servera ~]# df -Th
+Filesystem              Type      Size  Used Avail Use% Mounted on
+172.25.254.250:/content nfs4      244G  102G  142G  42% /mnt/nfs1
+[root@servera ~]# reboot  (重启后使用df -Th查看挂载状态)模拟考试环境没做selinux题，先别重启，起不来<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-2-自动挂载网络附加存储autofs"><a href="#7-2-自动挂载网络附加存储autofs" class="headerlink" title="7.2 自动挂载网络附加存储autofs"></a><strong>7.2 自动挂载网络附加存储autofs</strong></h2><h3 id="7-2-1-自动挂载示例"><a href="#7-2-1-自动挂载示例" class="headerlink" title="7.2.1 自动挂载示例"></a><strong>7.2.1 自动挂载示例</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">servera上做该练习，挂载f0，172.25.254.250上的/content到servera上的/mnt/nfs10，读写权限
+-mount
+mkdir /mnt/nfs10
+mount 172.25.254.250:/content /mnt/nfs10
+
+-fstab
+mkdir /mnt/nfs10
+vim  /etc/fstab
+172.25.254.250:/content /mnt/nfs10  nfs4  defaults 0 0
+
+-autofs
+1.[root@clear home]# yum search autofs
+  [root@clear home]# yum install -y autofs
+
+2.[root@servera ~]# rpm -qc autofs
+  /etc/auto.master   # 主配置文件
+  /etc/auto.misc     # 映射文件
+  /etc/auto.net
+  /etc/auto.smb
+  /etc/autofs.conf
+  /etc/autofs_ldap_auth.conf
+  /etc/sysconfig/autofs
+  /usr/lib/systemd/system/autofs.service
+
+3.[root@servera ~]# vim /etc/auto.master
+   基础挂载点     映射文件
+   /data         /etc/auto.misc         # /data是基础挂载点，表示挂载是从这里开始的，系统自动创建/data
+
+4.[root@servera ~]# vim /etc/auto.misc
+   映射挂载点         文件系统类型 权限          共享目录
+   nfs10             -fstype=nfs,rw         172.25.250.250:/content   # auto.misc是映射文件，内容为映射挂载点、挂载权限、共享目录路径等
+
+
+5.[root@servera ~]# systemctl restart autofs   # 重启让以上配置生效
+
+6.验证
+[root@servera ~]# ls /data/nfs10   # ls是使用挂载点目录
+boot  courses  ebook  ks  manifests  rhel7.0  rhel9.0  rhel9.3  rhtops  slides  ucf
+[root@servera ~]# df -h | tail -1
+172.25.254.250:/content  244G  102G  142G  42% /data/nfs10  # 才会出现挂载项
+
+注明:autofs共享服务只有在访问时才会看到挂载信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="7-2-2-autofs-直接映射"><a href="#7-2-2-autofs-直接映射" class="headerlink" title="7.2.2 autofs 直接映射"></a><strong>7.2.2 autofs 直接映射</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@clear /]# umount /mnt/nfs10
+1.主配置文件
+[root@clear /]# vim /etc/auto.master.d/nfs.autofs  #nfs.autofs 名称规则和上个实验一样
+/- /etc/auto.nfs     #所有直接映射条目使用/-作为基础目录
+2.映射文件
+[root@clear /]# vim /etc/auto.nfs   #固定文件名
+/mnt/nfs10  -rw 172.25.254.250:/content
+3.重启服务
+[root@clear /]# systemctl restart autofs
+4.测试
+[root@clear /]# ll /mnt/nfs1   #cd或ll方式都可以访问共享目录内容，即可挂载
+[root@servera /]# df -h
+Filesystem               Size  Used Avail Use% Mounted on
+172.25.254.250:/content  491G   66G  426G  14% /mnt/nfs1  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="7-2-3-autofs-间接映射"><a href="#7-2-3-autofs-间接映射" class="headerlink" title="7.2.3 autofs 间接映射"></a><strong>7.2.3 autofs 间接映射</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.主配置文件
+[root@clear /]# vim /etc/auto.master.d/nfs.autofs 
+/mnt /etc/auto.nfs
+
+2.映射文件
+[root@clear /]# vim /etc/auto.nfs 
+*   -rw  172.25.254.250:/&amp;   #如果共享导出了多个子目录可以用&amp;代替子目录的名称，而星*号会自动匹配共享的目录名称
+*   -rw  172.25.254.250:/&amp;  /content /public  /share      
+
+3.重启服务
+[root@clear /]# systemctl restart autofs
+4.测试
+[root@clear /]# cd /mnt/content;ls
+[root@clear remoteuser1]# df -h  #应该能看到挂载信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="8-启动流程"><a href="#8-启动流程" class="headerlink" title="8 启动流程"></a><strong>8 启动流程</strong></h1><h2 id="8-1-选择启动目标"><a href="#8-1-选择启动目标" class="headerlink" title="8.1 选择启动目标"></a><strong>8.1 选择启动目标</strong></h2><h3 id="8-1-2-Linux-9启动过程"><a href="#8-1-2-Linux-9启动过程" class="headerlink" title="8.1.2 Linux 9启动过程"></a><strong>8.1.2 Linux 9启动过程</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1、计算机接通电源。系统固件（现代UEFI或更旧的BIOS）运行开机自检（POST），并开始初始化部分硬件
+    使用系统BIOS或UEFI配置屏幕(早期按F2可进入设置)
+2、系统固件会搜索可启动设备，可能是在UEFI启动固件中配置的，也可能按照BIOS中配置的顺序搜索所有磁盘上的主引导记录（MBR）
+   使用系统BIOS或UEFI配置屏幕（早期按F2可进入设置）
+3、系统固件会从磁盘读取启动加载器，然后将系统控制权交给启动加载器。红帽企业版Linux8中，启动加载器为GRand Unified Bootloader version2（GRUB2）
+   使用grub2-install命令进行配置，它将安装GRUB2作为磁盘上的启动加载器。
+4、GRUB2将从/boot/grub2/grub.cfg文件加载配置并显示一个菜单，从中可以选择要启动的内核。
+   使用/etc/grub.d/目录、/etc/default/grub文件和grub2-mkconfig命令进行配置，以生成/boot/grub2/grub.cfg文件。
+5、选择内核超时到期后，启动加载器从磁盘中加载内核和initramfs，并将他们放入内存中。initramfs是一个存档，其中包含启动时所有必要硬件的内核模块、初始化脚本等等。在redhat8中，initramfs包含自身可用的整个系统。
+     使用/etc/dracut.conf.d/目录、dracut命令和lsinitrd命令进行配置，以检查initramfs文件。
+6、启动加载器将控制权交给内核，从而传递启动加载器的内核命令行中指定的任何选项，以及initramfs在内存中的位置
+7、对于内核可在initramfs中找到驱动程序的所有硬件，内核会初始化这些硬件，然后作为PID1从initramfs执行/sbin/init。在redhat8中/sbin/init是一个指向systemd的链接。
+8、initramfs中的systemd进程会执行initrd.target目标的所有单元。这包括将磁盘上的root文件系统挂载于/sysroot目录。
+    使用/etc/fstab进行配置
+9、内核将root文件系统从initramfs切换回/sysroot中的root文件系统。随后，systemd会使磁盘中安装的systemd副本来重新执行。
+10、systemd会查找从内核命令行传递或系统中配置的默认目标，然后启动或停止单元，以符合该目标的配置，从而自动解决单元之间依赖关系。本质上，systemd进程是一组系统应激活以达到所需状态的单元。这些进程通常启动一个基于文本的登录或图形登录屏幕
+     可使用/etc/systemd/system/default.target和/etc/systemd/system/进行配置。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-1-3-重启和关机"><a href="#8-1-3-重启和关机" class="headerlink" title="8.1.3 重启和关机"></a>8.1.3 <strong>重启和关机</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">-RHEL9&lt;=
+关机：
+systemctl poweroff    
+init 0                
+重启：
+systemctl reboot     
+init 6
+reboot<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-1-4-选择SYSTEND-TERGET"><a href="#8-1-4-选择SYSTEND-TERGET" class="headerlink" title="8.1.4 选择SYSTEND TERGET"></a><strong>8.1.4 选择SYSTEND TERGET</strong></h3><p>  下表列出了systemd启动达到的systemd单元:</p>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>graphical.target</td>
+<td>多用户、图形、文本登录</td>
+</tr>
+<tr>
+<td>multi-user.target</td>
+<td>多用户、文本登录</td>
+</tr>
+<tr>
+<td>rescue.target</td>
+<td>救援</td>
+</tr>
+<tr>
+<td>emergency.target</td>
+<td>紧急，进入initramfs环境，root只读形式挂载于/上</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl list-units --type=target --all
+systemctl list-unit-files --state=enabled
+systemctl list-dependencies graphical.target | grep target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-1-5-运行时选择target"><a href="#8-1-5-运行时选择target" class="headerlink" title="8.1.5 运行时选择target"></a><strong>8.1.5 运行时选择target</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">切换图形或字符
+[root@workstation ~]# systemctl isolate multi-user.target  或   init 3 
+[root@workstation ~]# systemctl isolate graphical.target   或   init 5  
+[root@workstation ~]# grep AllowIsolate /usr/lib/systemd/system/multi-user.target
+AllowIsolate=yes    单元文件中包含AllowIsolate=yes才可以进行切换<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-1-6-设置默认target"><a href="#8-1-6-设置默认target" class="headerlink" title="8.1.6 设置默认target"></a><strong>8.1.6 设置默认target</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">设置默认的启动目标
+[root@servera ~]# systemctl get-default 
+[root@servera ~]# syetemctl set-default  multi-user.target
+[root@servera ~]# ll /etc/systemd/system/default.target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-1-7-启动时选择其他目标"><a href="#8-1-7-启动时选择其他目标" class="headerlink" title="8.1.7 启动时选择其他目标"></a><strong>8.1.7 启动时选择其他目标</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">【f0】
+grub 账号：root
+grub 密码： Asimov
+
+reboot
+选择内核的位置按e
+linux.....&lt;按键end或者ctrl+e&gt; systemd.unit=emergency.target  #multi-user.target 或graphical.target 
+ctrl+x 
+如果进入了紧急模式，需要输入root密码
+mount -o remount,rw /
+vim /etc/fstab
+exit 或 reboot<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-2-重置root密码"><a href="#8-2-重置root密码" class="headerlink" title="8.2 重置root密码"></a><strong>8.2 重置root密码</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">切换模拟考试环境，serverb
+
+-serverb
+#打开serverb的视图模式，-Activites-所有应用-Virtaul Machine Manager-双击serverb-点击左上角三个小方块-ctrl+alt+del
+1.重新启动系统。
+$ reboot（Send key 选择ctrl+alt+del）
+2.按任意键(Enter除外)中断启动加载器倒计时。
+$ 按方向键 ↓ 下
+3.将光标移到要引导的救援内核条目 (名称中带有rescue一词的条目)。
+$ 光标停留第二个内核rescue位置
+4.按e编辑选定的条目。
+$ e
+5.将光标移到内核命令行 (以inux开头的行)。
+$ linux... 按ctrl+e移动光标至最后
+6.附加rd.break。利用该选项，就在系统从initramfs 向实际系统移交控制权前，系统将会中断。
+$ rd.break console=tty0
+7.按ctrl+x使用这些更改来启动。
+$ ctrl+x
+8.提示时，按Enter执行维护。
+$ 救援模式下回车
+9.给根目录设置rw权限
+$ mount -o remount,rw /sysroot/
+10.进入根目录
+$ chroot /sysroot/      #cd / ,ls -a /
+11.修改密码
+$ echo redhat | passwd --stdin root
+12.添加/.autorelabel文件，刷新selinux标记
+$ touch /.autorelabel   #[root@servera ~]# systemctl status selinux-autorelabel
+13.退出当前shell，会自动重启
+$ exit
+$ exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-3-诊断和修复文件系统"><a href="#8-3-诊断和修复文件系统" class="headerlink" title="8.3 诊断和修复文件系统"></a>8.3 诊断和修复文件系统</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">当/etc/fstab中挂载信息写错可能会导致系统起不来，会自动进入紧急模式
+下表为常见错误：
+ 问题                          结果
+----------------------------- ---------------------------------------------------------------
+ 文件系统损坏                  systemd尝试修复，无法修复进入紧急(emergency)模式
+ /etc/fstab                    systemd等待一定时间，等设备变得可用。如不可用，则进入紧急模式
+ 引用的设备/UUID不存在         
+ /etc/fstab 挂载点不存在       直接进入紧急模式
+ /etc/fstab挂载点错误          直接进入紧急模<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-4-进入紧急模式"><a href="#8-4-进入紧急模式" class="headerlink" title="8.4 进入紧急模式"></a>8.4 进入紧急模式</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">版本建议：编辑/etc/fstab后使用systemd daemon-reload加载。否则systemd可能会继续使用用旧版本。
+解决方法：
+#当进入紧急模式后
+Give root password for maintenance
+(or pressControl-D to continue): redhat     #输入root密码后按回车进入系统
+1 输入root密码
+2 mount -o remount,rw /                     #RHEL9中/根目录权限是可写的，所以无需敲该指令
+3 vim /etc/fstab                            #可将错误字段需改，或在挂载行前，直接添加#井号注释掉该行。然后reboot重启
+或者将之前编写的挂载项注释掉，让系统先正常启动，然后再修改调试。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="9-firewalld"><a href="#9-firewalld" class="headerlink" title="9 firewalld"></a>9 firewalld</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">firewalld、iptables   策略限制MAC、IP、PORT、APP
+selinux                  上下文、布尔值，端口
+软件权限                  读写执行等
+文件系统                  rwx，隐藏权限，acl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="9-1-防火墙架构概念"><a href="#9-1-防火墙架构概念" class="headerlink" title="9.1 防火墙架构概念"></a><strong>9.1 防火墙架构概念</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1 现代的计算机环境不仅需要流畅的网络连通，更需要具备安全性的网络，所以我们除了及时更新系统补丁以外事件，可以针对自己的计算机环境设置接收哪些数据和不接收哪些数据。我们可以使用软件来实现这一目的，这种软件就叫做防火墙。防火墙这种软件会制定一些规则，我们也叫做策略，管理数据包的通过。
+
+ 
+2 firewalld优点  iptables
+在于可使用zone、service简化配置任务，易于管理。而且属于动态管理（修改规则后不必重启整个防火墙服务）。
+
+3.zone区域
+firewalld预先提供了多个区域，不同区域拥有不同设置好的规则，类似不同的管理方案。系统默认区域为public。
+所有区域默认在系统中会同时开启但是 如何判断我们的数据包在哪个区域中实现了数据限制，通过以下三种方法来判断：
+- source，源地址
+- interface，接收请求的网卡（ 一个网卡，只能绑定一个区域。多个网卡，可以绑定同一区域）
+- firewalld.conf中配置的默认zone
+三个优先级按次序降低。匹配后不再向下匹配。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-1-nftables增强了netfilter"><a href="#9-1-nftables增强了netfilter" class="headerlink" title="9.1 nftables增强了netfilter"></a><strong>9.1 nftables增强了netfilter</strong></h2><p>  nftables—&gt;替代—&gt;netfilter</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># firewalld简介
+rhel7之前---iptables（静态）
+rhel7之后---firewalld（动态）
+
+# 预定义区域
+[root@foundation0 ~]# firewall-cmd --get-zones
+block dmz drop external home internal libvirt public trusted work
+
+# 预定义服务
+[root@foundation0 ~]# firewall-cmd --get-service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-3-配置防火墙"><a href="#9-3-配置防火墙" class="headerlink" title="9.3 配置防火墙"></a><strong>9.3 配置防火墙</strong></h2><table>
+<thead>
+<tr>
+<th>管理方法</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/etc/firewalld</td>
+<td>直接修改配置文件</td>
+</tr>
+<tr>
+<td>Web控制台图形界面</td>
+<td>通过cockpit</td>
+</tr>
+<tr>
+<td>firewalld-cmd命令行</td>
+<td>shell命令行直接执行</td>
+</tr>
+<tr>
+<td>firewall-config</td>
+<td>图形</td>
+</tr>
+</tbody></table>
+<h3 id="9-3-1-Web控制台配置防火墙"><a href="#9-3-1-Web控制台配置防火墙" class="headerlink" title="9.3.1 Web控制台配置防火墙"></a><strong>9.3.1 Web控制台配置防火墙</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">【servera】
+[root@servera ~]# systemctl start cockpit  #开启cockpit功能
+[root@servera ~]# netstat -ntlp            #查看是否开启了9090端口
+[root@servera ~]# firewall-cmd --list-all  #查看防火墙策略
+services: cockpit dhcpv6-client http ssh   #策略中包含了cockpit，表示允许访问cockpit
+
+
+【f0】
+firefox https://172.25.250.10:9090         #可以访问
+
+【servera】
+[root@servera ~]# firewall-cmd --permanent --remove-service=cockpit
+success
+[root@servera ~]# firewall-cmd --reload
+success
+[root@servera ~]# firewall-cmd --list-all
+
+【f0】
+firefox https://172.25.250.10:9090         #不可以访问
+
+【servera】
+[root@servera ~]# firewall-cmd --permanent --add-service=cockpit  #添加cockpit服务，客户端再次访问即可
+success
+[root@servera ~]# firewall-cmd --reload
+success
+[root@servera ~]# firewall-cmd --list-all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="9-3-2-命令行配置防火墙"><a href="#9-3-2-命令行配置防火墙" class="headerlink" title="9.3.2 命令行配置防火墙"></a><strong>9.3.2 命令行配置防火墙</strong></h3><table>
+<thead>
+<tr>
+<th>防火墙命令</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–get-default-zone</td>
+<td>查看默认区域</td>
+</tr>
+<tr>
+<td>–set-default-zone=public</td>
+<td>设置默认区域为public，永久设置</td>
+</tr>
+<tr>
+<td>–get-zones</td>
+<td>列出所有可用区域</td>
+</tr>
+<tr>
+<td>–get-active-zones</td>
+<td>列出当前正在使用所有区域</td>
+</tr>
+<tr>
+<td>–add-source=CIDR [–zone=ZONE]</td>
+<td>将IP或网络到指定区域，如果未提供–zone=选项，则使用默认区域</td>
+</tr>
+<tr>
+<td>–remove-source=CIDR</td>
+<td>删除IP或网络…..，如果未提供–zone=选项，…则删除默认区域</td>
+</tr>
+<tr>
+<td>[–zone=ZONE]</td>
+<td></td>
+</tr>
+<tr>
+<td>–add-interface=</td>
+<td>在某个区域中添加端口</td>
+</tr>
+<tr>
+<td>–change-interface=</td>
+<td>改变端口至某个区域</td>
+</tr>
+<tr>
+<td>–list-all [–zone=ZONE]</td>
+<td>查看区域所有策略</td>
+</tr>
+<tr>
+<td>–add-service= [–zone=ZONE]</td>
+<td>允许一个服务</td>
+</tr>
+<tr>
+<td>–add-port= [–zone=ZONE]</td>
+<td>允许一个端口</td>
+</tr>
+<tr>
+<td>–remove-service= [–zone=ZONE]</td>
+<td>移除一个服务</td>
+</tr>
+<tr>
+<td>–remove-port= [–zone=ZONE]</td>
+<td>移除一个端口</td>
+</tr>
+<tr>
+<td>–permanent</td>
+<td>永久生效</td>
+</tr>
+<tr>
+<td>–reload</td>
+<td>立即加载</td>
+</tr>
+</tbody></table>
+<h3 id="9-3-3-配置防火墙练习"><a href="#9-3-3-配置防火墙练习" class="headerlink" title="9.3.3 配置防火墙练习"></a><strong>9.3.3 配置防火墙练习</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1、管理防火墙服务状态
+systemctl status firewalld 
+systemctl start firewalld 
+systemctl stop firewalld 
+systemctl restart firewalld 
+systemctl enable --now firewalld 
+2、查看与设置默认区域
+man firewall-cmd #/Ex
+firewall-cmd --get-service
+firewall-cmd --get-zones
+firewall-cmd --get-default-zone 
+firewall-cmd --set-default-zone=home     设置默认区域，了解就可以，不是必须要设置
+firewall-cmd --list-all
+man 5 firewalld.zones
+3.配置防火墙（考）
+允许服务
+[root@servera ~]# firewall-cmd --list-all  #查看区域所有配置
+[root@servera ~]# firewall-cmd --permanent --add-service=http #允许http服务永久生效，要结合reload
+[root@servera ~]# firewall-cmd --reload
+[root@servera ~]# firewall-cmd --list-all
+移除服务
+[root@servera ~]# firewall-cmd --permanent --remove-service=http
+[root@servera ~]# firewall-cmd --reload
+[root@servera ~]# firewall-cmd --list-all
+允许端口
+[root@servera ~]# firewall-cmd --permanent --add-port=8000/tcp
+[root@servera ~]# firewall-cmd --reload
+[root@servera ~]# firewall-cmd --list-all
+移除端口
+[root@servera ~]# firewall-cmd --permanent --remove-port=8000/tcp
+[root@servera ~]# firewall-cmd --reload
+[root@servera ~]# firewall-cmd --list-all
+允许源地址到某个区域（了解）
+firewall-cmd --add-source=172.25.250.100 --zone=trusted --permanent
+firewall-cmd --reload
+  
+firewall-cmd --add-interface=enp2s0 --zone=trusted --permanent
+firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="9-3-4-典型举例"><a href="#9-3-4-典型举例" class="headerlink" title="9.3.4 典型举例"></a><strong>9.3.4 典型举例</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">允许apache服务
+foundation-----访问-----servera的web服务
+思路
+
+【servera】
+$ firewall-cmd --permanent --remove-service=http  
+$ firewall-cmd --reload  #立即生效
+$ firewall-cmd --list-all
+
+$ yum install -y httpd
+$ echo test_page &gt; /var/www/html/index.html
+$ systemctl enable --now httpd
+
+$ curl localhost     访问成功后，证明本地可以正常访问
+test_page
+
+【foundation】
+$ curl http://servera  发现不能访问
+
+【servera】
+systemctl enable --now firewalld
+systemctl status firewalld
+
+firewall-cmd --permanent --add-service=http    #--permanent 永久生效，必须添加
+firewall-cmd --reload  #立即生效
+firewall-cmd --list-all
+
+【foundation】
+curl http://servera  发现可以访问
+
+
+练习：允许ftp服务
+servera端：
+yum install -y vsftpd    #安装vsftpd软件
+systemctl enable --now vsftpd
+
+vim /etc/vsftpd/vsftpd.conf   #进入配置文件 
+anonymou_enable=NO  改为YES    #开启匿名访问
+
+systemctl restart vsftpd
+
+yum install -y ftp     #安装ftp可客户端
+
+$ ftp localhost     #访问本机ftp服务器
+Trying ::1...
+Connected to localhost (::1).
+220 (vsFTPd 3.0.3)
+Name (localhost:root): ftp          #ftp表示匿名用户登录
+331 Please specify the password.
+Password: 直接回车
+
+f0充当client端测试：
+yum install -y ftp
+ftp localhost   发现不能登录，需要在server端允许ftp服务。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-4-SElinux安全端口"><a href="#9-4-SElinux安全端口" class="headerlink" title="9.4 SElinux安全端口"></a><strong>9.4 SElinux安全端口</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">【servera】
+[root@servera ~]# setenforce 1
+[root@servera ~]# vim /etc/httpd/conf/httpd.conf 
+Listen 80 改成了Listen 82
+[root@servera ~]# systemctl restart httpd   重启不了，因为selinux
+[root@servera ~]# man semanage port    #/EX
+[root@servera ~]# semanage port -a -t http_port_t -p tcp 82  #数据库没有标签内容则-a，有则-m
+[root@servera ~]# semanage port -l | grep http
+重启web服务
+[root@servera ~]# systemctl restart httpd
+[root@servera ~]# systemctl enable --now httpd
+[root@servera ~]# firewall-cmd --permanent --add-port=82/tcp   #本地访问无须配置，远端主机访问需要配置
+[root@servera ~]# firewall-cmd --reload
+[root@servera ~]# firewall-cmd --list-all
+
+测试
+[serverb curl http://servea:82] 
+富规则参考
+[root@servera ~]# man 5 firewalld.richlanguage<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="10-kickstart"><a href="#10-kickstart" class="headerlink" title="10 kickstart"></a><strong>10 kickstart</strong></h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">  安装方式    简介
+----------- --------------------------------
+  DVD 光盘    物理系统光盘
+  ISO镜像     光盘制作成为的镜像.iso文件
+  QCOW2镜像   云环境或虚拟环境中部署为虚拟机<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-1-KICKSTART自动安装系统"><a href="#10-1-KICKSTART自动安装系统" class="headerlink" title="10.1 KICKSTART自动安装系统"></a>10.1 KICKSTART自动安装系统</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">P293 Kickstart练习
+[kiosk@foundation0 ~]$ ssh workstation
+[student@workstation ~]$ lab start installing kickstart
+....
+[student@workstation ~]$ ssh servera
+[student@workstation ~]$ sudo -i 
+redhat
+
+1.后面按照教材要求进行配置
+[root@servera ks-config]# vim /var/www/html/ks-config/kickstart.cfg
+bootloader --append="console=ttyS0 console=ttyS0,115200n8 no_timer_check net.ifnames=0  crashkernel=auto" --location=mbr --timeout=1 --boot-drive=vda
+graphical
+keyboard --vckeymap=us
+lang en_US.UTF-8
+repo --name="BaseOS" --baseurl="http://classroom.example.com/content/rhel9.0/x86_64/dvd/BaseOS/"
+repo --name="Appstream" --baseurl="http://classroom.example.com/content/rhel9.0/x86_64/dvd/AppStream"
+url --url="http://classroom.example.com/content/rhel9.0/x86_64/dvd/"
+rootpw --plaintext redhat
+authselect select sssd
+selinux --enforcing
+services --disabled="kdump,rhsmcertd" --enabled="sshd,rngd,chronyd"
+timezone America/New_York --utc
+ignoredisk --only-use=vda
+autopart
+%pre --erroronfail 
+echo "Kickstarted on $(date)" &gt;&gt; /etc/issue
+%end
+%post --erroronfail
+echo -n "Setting default runlevel to multiuser text mode"
+rm -f /etc/systemd/system/default.target
+ln -s /lib/systemd/system/multi-user.target /etc/systemd/system/default.target
+echo .
+echo "Removing linux-firmware package."
+dnf -C -y remove linux-firmware
+echo "virtual-guest" &gt; /etc/tuned/active_profile
+cat &gt; /etc/hosts &lt;&lt; EOF
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+EOF
+%end
+%packages
+@core 
+chrony
+dracut-config-generic
+dracut-norescue
+firewalld
+grub2
+kernel
+rsync
+tar 
+httpd
+-plymouth
+%end
+
+2.重启httpd服务，并开机自启动。
+3.关闭防火墙，selinux。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-1-1-dhcp设置"><a href="#10-1-1-dhcp设置" class="headerlink" title="10.1.1 dhcp设置"></a><strong>10.1.1 dhcp设置</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">【root@servera】
+[root@servera ~]# systemctl stop firewalld;setenforce 0
+
+一、dhcp
+1 安装
+[root@servera ~]# yum install -y dhcp-server
+2 建立配置文件
+[root@servera ~]# cp /usr/share/doc/dhcp-server/dhcpd.conf.example /etc/dhcp/dhcpd.conf
+cp: overwrite '/etc/dhcp/dhcpd.conf'? y
+[root@servera ~]# vim /etc/dhcp/dhcpd.conf   #man 5 dhcpd.conf   /next-server
+3 配置服务
+[root@servera ~]# vim /etc/dhcp/dhcpd.conf
+allow bootp;
+allow booting;
+subnet 172.25.250.0 netmask 255.255.255.0 {
+  range 172.25.250.100 172.25.250.200;
+  option routers 172.25.250.254;
+  default-lease-time 600;
+  max-lease-time 7200;
+  filename "/pxelinux.0";
+  next-server 172.25.250.10;
+}
+4 启动并测试
+[root@servera ~]# systemctl enable --now dhcpd
+
+5 测试dhcp功能：设置serverb开机启动为网卡启动，当做客户端，测试能够获取ip即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-1-2-tftp-and-syslinux"><a href="#10-1-2-tftp-and-syslinux" class="headerlink" title="10.1.2 tftp and syslinux"></a><strong>10.1.2 tftp and syslinux</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1、安装tftp服务
+[root@servera ~]# yum install -y tftp-server tftp
+[root@servera ~]# rpm -ql tftp-server
+
+2、安装syslinux-tftpboot该软件后提供了/tftpboot目录其中包含了一些引导文件、内核文件及pxelinux.0文件等，建立pxelinux.cfg目录，准备存放default文件。
+[root@servera ~]# yum install -y syslinux-tftpboot.noarch
+[root@servera ~]# rpm -ql syslinux-tftpboot
+[root@servera ~]# mkdir /tftpboot/pxelinux.cfg/
+
+3、将254.250上的光盘镜像相关文件挂载至本机
+[root@servera ~]# mkdir /content
+[root@servera ~]# mount 172.25.254.250:/content /content/
+[root@servera ~]# df -h
+[root@serveran ~]# cp /content/rhel9.0/x86_64/dvd/images/pxeboot/{initrd.img,vmlinuz} /tftpboot/
+[root@servera ~]# cp /content/rhel9.0/x86_64/dvd/isolinux/boot.msg /tftpboot/
+[root@servera ~]# cp /content/rhel9.0/x86_64/dvd/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default
+[root@servera ~]# vim /tftpboot/pxelinux.cfg/default 
+default vesamenu.c32 
+timeout 60  可以改为60，就是6秒
+display boot.msg
+
+label linux
+  menu label ^Install Red Hat Enterprise Linux 9.0.0
+  menu default
+  kernel vmlinuz
+  append initrd=initrd.img inst.stage2=ftp://172.25.250.10/dvd  inst.ks=http://172.25.250.10/ks-config/kickstart.cfg quiet
+
+4、修改tftp发布目录，并启动服务及测试
+[root@servera ~]# vim /usr/lib/systemd/system/tftp.service 
+[Service]
+ExecStart=/usr/sbin/in.tftpd -s /tftpboot  (将-s /var/lib/tftpboot，更成-s /tftpboot)
+
+[root@servera ~]# systemctl enable --now tftp
+测试：
+登录servera，yum install -y tftp ,tftp 172.25.250.10,get ls.c32 quit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="101-3-ftp"><a href="#101-3-ftp" class="headerlink" title="101.3 ftp"></a><strong>101.3 ftp</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1、安装
+[root@servera ~]# yum install -y vsftpd.x86_64 ftp
+[root@servera ~]# rpm -qc vsftpd
+
+2、配置服务
+[root@servera ~]# vim /etc/vsftpd/vsftpd.conf 
+anonymous_enable=YES
+
+[root@servera ~]# mkdir /var/ftp/dvd
+[root@servera ~]# mount /content/rhel9.0/x86_64/isos/rhel-baseos-9.0-x86_64-dvd.iso /var/ftp/dvd/
+
+3、启动及测试
+df -h
+[root@servera ~]# systemctl enable --now vsftpd
+
+4 从serverb上测试一下tftp功能是否正常（可选）
+【serverb】cleint
+以网卡方式启动--安装1、指定ftp路径172.25.250.9/dvd 2 最小化 3 设置lvm分区
+进度条走完-重启，添加硬盘启动 ， 从本地硬盘启动。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-1-4-保证所有服务测试正常"><a href="#10-1-4-保证所有服务测试正常" class="headerlink" title="10.1.4 保证所有服务测试正常"></a><strong>10.1.4 保证所有服务测试正常</strong></h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.dhcpd   分配IP，指导访问tftp
+2.tftp    分配启动所需文件及pxelinux安装程序
+3.vsftpd  共享光盘镜像
+4.httpd   共享ks文件
+
+其实vsftpd和httpd可以二选一，例如只用httpd服务共享光盘镜像、ks文件。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-2-cockpit安装虚拟机"><a href="#10-2-cockpit安装虚拟机" class="headerlink" title="10.2 cockpit安装虚拟机"></a><strong>10.2 cockpit安装虚拟机</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# yum install -y cockpit-machines
+
+以服务的形式启动http，一旦启动就会长期运行，在内存中产生相应的进程systemct start httpd
+
+容器以进程的方式运行http，一旦运行完毕容器就会自动关闭，自动退出，结束运行。当再想运行http的时候需要新开启一个容器
+
+rhel8查看一个文件，
+容器
+
+容器：1个应用  -- 好管理    apache   php   mysql +linux= lamp -- 支持php网站
+容器：多个应用 -- 不好管理   （apache   php   mysql）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
             </div>
             <hr/>
@@ -964,7 +3495,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">50.6k</span>&nbsp;字
+                class="white-color">90.1k</span>&nbsp;字
             
             
             
