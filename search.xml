@@ -54,6 +54,31 @@
     
     
     <entry>
+      <title>Linux服务</title>
+      <link href="/2024/07/28/linux/linux-fu-wu/"/>
+      <url>/2024/07/28/linux/linux-fu-wu/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux服务 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>数据库基础</title>
       <link href="/2024/05/14/shu-ju-ku/shu-ju-ku-ji-chu/"/>
       <url>/2024/05/14/shu-ju-ku/shu-ju-ku-ji-chu/</url>
@@ -146,6 +171,31 @@
         <tags>
             
             <tag> Linux的基本使用 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux命令</title>
+      <link href="/2022/04/28/linux/linux-ming-ling/"/>
+      <url>/2022/04/28/linux/linux-ming-ling/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux命令 </tag>
             
         </tags>
       
