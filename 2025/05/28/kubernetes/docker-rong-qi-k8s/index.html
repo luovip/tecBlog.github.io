@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-06-01
+                    2025-06-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    24.5k
+                    26.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    116 分
+                    126 分
                 </div>
                 
 
@@ -3439,7 +3439,184 @@ root@k8s-master:~# curl http://www.luovip.com
 
 root@k8s-master:~# kubectl delete -f ingress.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="11-11-Gateway-API"><a href="#11-11-Gateway-API" class="headerlink" title="11.11 Gateway API"></a>11.11 Gateway API</h2><h3 id="11-11-1-Gateway-API-基本介绍"><a href="#11-11-1-Gateway-API-基本介绍" class="headerlink" title="11.11.1 Gateway API 基本介绍"></a>11.11.1 Gateway API 基本介绍</h3>
+<h2 id="11-11-Gateway-API"><a href="#11-11-Gateway-API" class="headerlink" title="11.11 Gateway API"></a>11.11 Gateway API</h2><h3 id="11-11-1-Gateway-API-基本介绍"><a href="#11-11-1-Gateway-API-基本介绍" class="headerlink" title="11.11.1 Gateway API 基本介绍"></a>11.11.1 Gateway API 基本介绍</h3><p>  Kubernetes Gateway API 是一种新的 API 规范，旨在提供一种在 Kubernetes 中管理网关和负载均衡器的标准方法。它被设计为 Ingress API 的替代方案，提供更丰富的功能和更好的扩展性,Gateway API 的核心思想是通过使用可扩展的、角色导向的、协议感知的配置机制来提供网络服务。</p>
+<p>  Gateway API 包括几个核心组件：</p>
+<p>  1.<strong>GatewayClass</strong>：定义一组具有配置相同的网关，由实现该类的控制器管理。</p>
+<p>  2.<strong>Gateway</strong>：定义流量处理基础设施（例如云负载均衡器）的一个实例。</p>
+<p>  3.<strong>Route</strong>：描述了特定协议的规则，用于将请求从 Gateway 映射到 Kubernetes 服务。目前，HTTPRoute 是比较稳定的版本，而 TCPRoute、UDPRoute、GRPCRoute、TLSRoute 等也在开发中。</p>
+<p><strong>GatewayClass</strong></p>
+<p>  <strong>定义</strong>：类似于Ingress 中的 IngressClass，定义了一组共享通用配置和行为的 Gateway 集合，类似于选择一种负载均衡的实现类型</p>
+<p>  <strong>作用</strong>：每个 GatewayClass 必须关联一个控制器（Controller），控制器负责处理 GatewayClass 和 Gateway 对象的变动，并创建或更新对应的网关和路由配置</p>
+<p>  <strong>特点</strong>：一般由第三方网关组件安装时自动创建，不需要人工手动创建</p>
+<p>  类似于阿里云负载均衡中的<strong>负载均衡实例类型选择</strong>。在阿里云中，用户可以选择应用型负载均衡（ALB）、网络型负载均衡（NLB）或传统型负载均衡（CLB），每种类型都有其特定的配置和功能</p>
+<p><strong>Gateway</strong></p>
+<p>  <strong>定义</strong>：描述了流量被分配到集群中服务的方式，是 GatewayClass 的具体实现。</p>
+<p>  <strong>作用</strong>：负责流量接入以及往后转发。创建 Gateway 资源时，会根据 GatewayClass 生成对应的 Pod</p>
+<p>  <strong>特点</strong>：可以由管理员直接创建，也可以由控制 GatewayClass 的 Controller 创建</p>
+<p>  类似于阿里云负载均衡中的<strong>具体负载均衡实例</strong>。在阿里云中，用户创建一个负载均衡实例后，可以配置监听端口、协议等</p>
+<p><strong>Route</strong></p>
+<p>  <strong>定义</strong>：描述了通过网关的流量如何映射到服务，例如 HTTPRoute 可以基于请求路径、主机名等条件将流量转发到不同的后端服务</p>
+<p>  <strong>作用</strong>：定义了流量的路由规则，将流量根据特定条件（如路径、请求头等）转发到不同的后端服务</p>
+<p>  <strong>类型</strong>：目前 Gateway API 提供了五种不同协议的 Route，分别是 HTTPRoute、TLSRoute、TCPRoute、UDPRoute 和 GRPCRoute</p>
+<p>  类似于阿里云负载均衡中的<strong>转发规则</strong>。在阿里云中，用户可以配置基于域名、路径、HTTP Header 等条件的转发规则</p>
+<p>以下是使用 Gateway 和 HTTPRoute 将 HTTP 流量路由到服务的简单示例：</p>
+<p><img src="/images/gateway-request-flow.png"></p>
+<p>在此示例中，实现为反向代理的 Gateway 的请求数据流如下：</p>
+<p>  1.客户端开始准备 URL 为 <a target="_blank" rel="noopener" href="http://test.lixiaohui.com/">http://test.lixiaohui.com</a> 的 HTTP 请求</p>
+<p>  2.客户端的 DNS 解析器查询目标名称并了解与 Gateway 关联的一个或多个 IP 地址的映射。</p>
+<p>  3.客户端向 Gateway IP 地址发送请求；反向代理接收 HTTP 请求并使用 Host: 标头来匹配基于 Gateway 和附加的 HTTPRoute 所获得的配置。</p>
+<p>  4.可选的，反向代理可以根据 HTTPRoute 的匹配规则进行请求头和（或）路径匹配。</p>
+<p>  5.可选地，反向代理可以修改请求；例如，根据 HTTPRoute 的过滤规则添加或删除标头。</p>
+<p>  6.最后，反向代理将请求转发到一个或多个后端。</p>
+<p>安装网址：<a target="_blank" rel="noopener" href="https://docs.nginx.com/nginx-gateway-fabric/installation/installing-ngf/manifests/">https://docs.nginx.com/nginx-gateway-fabric/installation/installing-ngf/manifests/</a></p>
+<h3 id="11-1-2-Gateway-API实验"><a href="#11-1-2-Gateway-API实验" class="headerlink" title="11.1.2 Gateway API实验"></a>11.1.2 Gateway API实验</h3><p>  <strong>实验步骤</strong>：</p>
+<p>  1.需要先做metallb，由metalb给service提供外部负载均衡IP</p>
+<p>  2.部署nginx Fabric，为GatewayAPI做后端流量处理组件</p>
+<p>  3.创建一个基于Fabric的gatewayClass</p>
+<p>  4.创建一个gateway，并监听在80端口，并关联刚创建的gatewayClass</p>
+<p>  5.创建一个httpRoute，此处定义客户端访问的域名和路径</p>
+<p>  <strong>实验效果</strong>：外部客户端可以用浏览器打开<code>http://test.luovip.com</code> 并返回我们的nginx业务网站内容</p>
+<p><strong>1.部署 Gateway API CRD</strong></p>
+<p>  这一步用于扩展K8S功能，以便于支持Gateway API</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 方法1：
+root@k8s-master:~# kubectl apply -f https://www.linuxcenter.cn/files/cka/gatewayapi/experimental-install.yaml
+
+# 方法2：
+root@k8s-master:~# wget https://www.linuxcenter.cn/files/cka/gatewayapi/experimental-install.yaml
+root@k8s-master:~# kubectl apply -f experimental-install.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>2.<strong>部署Fabric自定义资源</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 方法1：
+root@k8s-master:~# kubectl apply -f https://www.linuxcenter.cn/files/cka/gatewayapi/nginx-fabric-crds.yaml
+
+# 方法2：
+root@k8s-master:~# wget https://www.linuxcenter.cn/files/cka/gatewayapi/nginx-fabric-crds.yaml
+root@k8s-master:~# kubectl apply -f nginx-fabric-crds.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>3.<strong>部署Fabric</strong></p>
+<p>  这一步部署的Fabric用于处理后端流量处理</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 方法1：
+root@k8s-master:~# kubectl apply -f https://www.linuxcenter.cn/files/cka/gatewayapi/nginx-fabric-deploy.yaml
+# 方法2：
+root@k8s-master:~# wget https://www.linuxcenter.cn/files/cka/gatewayapi/nginx-fabric-deploy.yaml
+root@k8s-master:~# kubectl apply -f nginx-fabric-deploy.yaml
+
+# 镜像使用：
+ghcr.io/nginx/nginx-gateway-fabric:1.6.2
+ghcr.io/nginx/nginx-gateway-fabric/nginx:1.6.2
+可以使用国内南京大学的加速站点进行（在此感谢南京大学镜像站点团队提供的帮助），具体为将上述镜像替换为下面：
+ghcr.nju.edu.cn/nginx/nginx-gateway-fabric:1.6.2
+ghcr.nju.edu.cn/nginx/nginx-gateway-fabric/nginx:1.6.2
+# 参考：
+NGINX Gateway Fabric离线部署笔记
+https://blog.51cto.com/huanghai/13946410
+
+#等它部署好之后，看看pod起来没
+root@k8s-master:~# kubectl get pod -n nginx-gateway -o wide
+root@k8s-master:~# kubectl get pods -n nginx-gateway
+NAME                            READY   STATUS    RESTARTS      AGE
+nginx-gateway-9cbb9b466-85ktc   2/2     Running   1 (56s ago)   72s
+
+# 这里将会自动创建基于nginx的GatewayClass
+root@k8s-master:~# kubectl get gatewayclasses.gateway.networking.k8s.io
+NAME    CONTROLLER                                   ACCEPTED   AGE
+nginx   gateway.nginx.org/nginx-gateway-controller   True       17m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>4.<strong>部署应用</strong></p>
+<p>  这里的应用是模拟公司的常规业务，稍后用于对外提供服务</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; deployment-service.yml &lt;&lt;EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8sgateway-luoviptest
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>5.<strong>为了稳定pod的访问，用service的方式做了一个内部暴露</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl create -f deployment-service.yml
+deployment.apps/k8sgateway-luoviptest created
+root@k8s-master:~# kubectl expose deployment k8sgateway-lxhtest --port=9000 --name=lxhservice --target-port=80
+service/lxhservice exposed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>6.<strong>业务应用</strong></p>
+<p>  1.创建一个名为luovip-gateway的gateway并关联了一个名为nginx的gatewayClass，这个gateway提供了一个监听在80端口的http协议的监听器，这个监听器接收来自任何namespace以luovip.com为后缀的所有请求<br><strong>  2</strong>.创建一个名为luovip-http的httpRoute，并关联我们的gateway，本次httpRoute提供了test.luovip.com的域名根目录的请求入口，并将流量导入到一个名为luovipservice的9000端口</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; gatewayandhttproute.yml &lt;&lt;-EOF
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: luovip-gateway
+spec:
+  gatewayClassName: nginx
+  listeners:
+  - name: default
+    hostname: "*.luovip.com"
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: All
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: luovip-http
+spec:
+  parentRefs:
+  - name: luovip-gateway
+  hostnames: ["test.luovip.com"]
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: lxhservice
+      port: 9000
+EOF
+
+root@k8s-master:~# kubectl apply -f gatewayandhttproute.yml
+
+# gateway已经从负载均衡中，拿到了外部IP地址---192.168.8.10
+root@k8s-master:~# kubectl get service -n nginx-gateway
+NAME            TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)                      AGE
+nginx-gateway   LoadBalancer   10.108.91.177   192.168.8.10   80:31093/TCP,443:30287/TCP   35m
+
+# 服务后端也有endpoint
+root@k8s-master:~# kubectl get endpoints -n nginx-gateway
+NAME            ENDPOINTS                          AGE
+nginx-gateway   172.16.126.3:443,172.16.126.3:80   37m
+
+# 查看gateway和httproute
+root@k8s-master:~# kubectl get gateways
+NAME             CLASS   ADDRESS        PROGRAMMED   AGE
+luovip-gateway   nginx   192.168.8.10   True         9m14s
+root@k8s-master:~# kubectl get httproute
+NAME          HOSTNAMES             AGE
+luovip-http   ["test.luovip.com"]   9m29s
+
+# 访问测试
+root@k8s-master:~# echo 192.168.8.10 test.luovip.com &gt;&gt; /etc/hosts
+root@k8s-master:~# curl http://test.luovip.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="12-健康检查"><a href="#12-健康检查" class="headerlink" title="12 健康检查"></a>12 健康检查</h1><h2 id="12-1-探测器概述"><a href="#12-1-探测器概述" class="headerlink" title="12.1 探测器概述"></a>12.1 探测器概述</h2><p>  kubelet使用<strong>存活探测器</strong>(liveness probes)来知道什么时候要重启容器。 例如，存活探测器可以捕捉到死锁（应用程序在运行，但是无法继续执行后面的步骤）。 这样的情况下重启容器有助于让应用程序在有问题的情况下更可用。<br>  kubelet使用<strong>就绪探测器</strong>(readiness  probes)可以知道容器什么时候准备好了并可以开始接受请求流量， 当一个 Pod 内的所有容器都准备好了，才能把这个 Pod 看作就绪了。 在 Pod 还没有准备好的时候，会从 Service 的负载均衡器中被剔除的。<br>  kubelet 使用<strong>启动探测器</strong>(startup  probes)可以知道应用程序容器什么时候启动了。 可以控制容器在启动成功后再进行存活性和就绪检查， 确保这些存活、就绪探测器不会影响应用程序的启动。 这可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。</p>
+
                 
             </div>
             <hr/>
@@ -3600,30 +3777,30 @@ root@k8s-master:~# kubectl delete -f ingress.yml<span aria-hidden="true" class="
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/08/28/zi-dong-hua-yun-wei/shell-jiao-ben/">
+                <a href="/2025/03/01/linux/nginx-de-shi-yong/">
                     <div class="card-image">
                         
-                        <img src="/img/shell.jpg" class="responsive-img" alt="Shell脚本">
+                        <img src="/img/nginx_logo.jpeg" class="responsive-img" alt="NGINX">
                         
-                        <span class="card-title">Shell脚本</span>
+                        <span class="card-title">NGINX</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Shell脚本是一种编程语言脚本，用于在Unix/Linux操作系统上执行命令。它是一系列命令的集合，通常保存在一个文件中，可以通过运行脚本文件来执行这些命令。
+                            NGINX是一个高性能的开源Web服务器、反向代理服务器、负载均衡器和邮件代理服务器
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" class="post-category">
-                                    自动化运维
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
                                 </a>
                             
                             
@@ -3633,8 +3810,8 @@ root@k8s-master:~# kubectl delete -f ingress.yml<span aria-hidden="true" class="
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Shell%E8%84%9A%E6%9C%AC/">
-                        <span class="chip bg-color">Shell脚本</span>
+                    <a href="/tags/NGINX/">
+                        <span class="chip bg-color">NGINX</span>
                     </a>
                     
                 </div>
@@ -3843,7 +4020,7 @@ root@k8s-master:~# kubectl delete -f ingress.yml<span aria-hidden="true" class="
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">90.1k</span>&nbsp;字
+                class="white-color">99k</span>&nbsp;字
             
             
             

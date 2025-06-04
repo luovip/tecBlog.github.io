@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-06-01T04:47:40.198Z</updated>
+  <updated>2025-06-03T15:07:50.090Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>containerd容器原理与实战</title>
+    <link href="https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi-yuan-li-yu-shi-zhan/"/>
+    <id>https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi-yuan-li-yu-shi-zhan/</id>
+    <published>2025-06-03T13:48:00.000Z</published>
+    <updated>2025-06-03T15:07:50.090Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-云原生与容器运行时&quot;&gt;&lt;a href=&quot;#1-云原生与容器运行时&quot; class=&quot;headerlink&quot; title=&quot;1 云原生与容器运行时&quot;&gt;&lt;/a&gt;1 云原生与容器运行时&lt;/h1&gt;&lt;h2 id=&quot;1-1-云原生概述&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="containerd容器原理与实战" scheme="https://linuxcenter.icu/tags/containerd%E5%AE%B9%E5%99%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubernetes企业级运维</title>
@@ -71,7 +96,7 @@
     <link href="https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/"/>
     <id>https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/</id>
     <published>2025-05-28T13:12:00.000Z</published>
-    <updated>2025-05-31T13:47:36.871Z</updated>
+    <updated>2025-06-02T12:09:09.856Z</updated>
     
     
       
@@ -96,7 +121,7 @@
     <link href="https://linuxcenter.icu/2025/05/28/kubernetes/docker-rong-qi-k8s/"/>
     <id>https://linuxcenter.icu/2025/05/28/kubernetes/docker-rong-qi-k8s/</id>
     <published>2025-05-28T04:34:00.000Z</published>
-    <updated>2025-06-01T05:54:21.454Z</updated>
+    <updated>2025-06-04T06:03:13.486Z</updated>
     
     
       
@@ -113,6 +138,31 @@
     
     
     <category term="Docker容器&amp;Kubernetes" scheme="https://linuxcenter.icu/tags/Docker%E5%AE%B9%E5%99%A8-Kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NGINX</title>
+    <link href="https://linuxcenter.icu/2025/03/01/linux/nginx-de-shi-yong/"/>
+    <id>https://linuxcenter.icu/2025/03/01/linux/nginx-de-shi-yong/</id>
+    <published>2025-03-01T04:34:00.000Z</published>
+    <updated>2025-06-04T13:54:53.386Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-NGINX介绍&quot;&gt;&lt;a href=&quot;#1-NGINX介绍&quot; class=&quot;headerlink&quot; title=&quot;1 NGINX介绍&quot;&gt;&lt;/a&gt;1 NGINX介绍&lt;/h1&gt;&lt;h2 id=&quot;1-1-基本概念&quot;&gt;&lt;a href=&quot;#1-1-基本概念&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="https://linuxcenter.icu/categories/Linux/"/>
+    
+    
+    <category term="NGINX" scheme="https://linuxcenter.icu/tags/NGINX/"/>
     
   </entry>
   
