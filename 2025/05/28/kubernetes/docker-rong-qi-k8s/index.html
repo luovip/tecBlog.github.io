@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-06-04
+                    2025-06-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    26.7k
+                    4.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    126 分
+                    20 分
                 </div>
                 
 
@@ -551,9 +551,6 @@
         </div>
         <hr class="clearfix">
 
-        
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.css">
         
 
         
@@ -685,24 +682,24 @@
 <p>  容器工具：Rkt、Containerd、Docker、Podman</p>
 <h2 id="2-2-部署Docker"><a href="#2-2-部署Docker" class="headerlink" title="2.2 部署Docker"></a>2.2 部署Docker</h2><p>  从南京大学开源镜像站在Ubuntu上安装docker</p>
 <p><img src="/images/docker%E5%AE%89%E8%A3%85.png"></p>
-<h3 id="2-2-1-安装依赖"><a href="#2-2-1-安装依赖" class="headerlink" title="2.2.1 安装依赖"></a>2.2.1 安装依赖</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 检测系统是否安装了docker
+<h3 id="2-2-1-安装依赖"><a href="#2-2-1-安装依赖" class="headerlink" title="2.2.1 安装依赖"></a>2.2.1 安装依赖</h3><pre class=" language-language-bash"><code class="language-language-bash"># 检测系统是否安装了docker
 root@k8s-master:~# for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
 # 安装依赖
 root@k8s-master:~# sudo apt-get update
-root@k8s-master:~# sudo apt-get install ca-certificates curl gnupg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-2-2-安装GPG公钥"><a href="#2-2-2-安装GPG公钥" class="headerlink" title="2.2.2 安装GPG公钥"></a>2.2.2 安装GPG公钥</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# sudo install -m 0755 -d /etc/apt/keyrings
+root@k8s-master:~# sudo apt-get install ca-certificates curl gnupg
+</code></pre>
+<h3 id="2-2-2-安装GPG公钥"><a href="#2-2-2-安装GPG公钥" class="headerlink" title="2.2.2 安装GPG公钥"></a>2.2.2 安装GPG公钥</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# sudo install -m 0755 -d /etc/apt/keyrings
 root@k8s-master:~# curl -fsSL https://mirror.nju.edu.cn/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-root@k8s-master:~# sudo chmod a+r /etc/apt/keyrings/docker.gpg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-2-3-添加Docker仓库"><a href="#2-2-3-添加Docker仓库" class="headerlink" title="2.2.3 添加Docker仓库"></a>2.2.3 添加Docker仓库</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# echo \
+root@k8s-master:~# sudo chmod a+r /etc/apt/keyrings/docker.gpg
+</code></pre>
+<h3 id="2-2-3-添加Docker仓库"><a href="#2-2-3-添加Docker仓库" class="headerlink" title="2.2.3 添加Docker仓库"></a>2.2.3 添加Docker仓库</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://mirror.nju.edu.cn/docker-ce/linux/ubuntu \
-  "$(. /etc/os-release &amp;&amp; echo "$VERSION_CODENAME")" stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-2-4-安装Docker"><a href="#2-2-4-安装Docker" class="headerlink" title="2.2.4 安装Docker"></a>2.2.4 安装Docker</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# sudo apt-get update
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+</code></pre>
+<h3 id="2-2-4-安装Docker"><a href="#2-2-4-安装Docker" class="headerlink" title="2.2.4 安装Docker"></a>2.2.4 安装Docker</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# sudo apt-get update
 root@k8s-master:~# sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # 拉取失败，因此在中国需要加速器
@@ -710,9 +707,9 @@ root@k8s-master:~# sudo docker run hello-world
 Unable to find image 'hello-world:latest' locally
 docker: Error response from daemon: Get "https://registry-1.docker.io/v2/": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
 
-Run 'docker run --help' for more information<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-2-5-Docker镜像加速器"><a href="#2-2-5-Docker镜像加速器" class="headerlink" title="2.2.5 Docker镜像加速器"></a>2.2.5 Docker镜像加速器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# mkdir -p /etc/docker
+Run 'docker run --help' for more information
+</code></pre>
+<h3 id="2-2-5-Docker镜像加速器"><a href="#2-2-5-Docker镜像加速器" class="headerlink" title="2.2.5 Docker镜像加速器"></a>2.2.5 Docker镜像加速器</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# mkdir -p /etc/docker
 root@k8s-master:~# cd /etc/docker
 root@k8s-master:/etc/docker# vim daemon.json
 {
@@ -746,9 +743,9 @@ docker.io/library/hello-world:latest
 
 root@k8s-master:~# docker images
 REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
-hello-world   latest    74cc54e27dc4   3 months ago   10.1kB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-2-6-重启Docker服务"><a href="#2-2-6-重启Docker服务" class="headerlink" title="2.2.6 重启Docker服务"></a>2.2.6 重启Docker服务</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# systemctl restart docker
+hello-world   latest    74cc54e27dc4   3 months ago   10.1kB
+</code></pre>
+<h3 id="2-2-6-重启Docker服务"><a href="#2-2-6-重启Docker服务" class="headerlink" title="2.2.6 重启Docker服务"></a>2.2.6 重启Docker服务</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# systemctl restart docker
 root@k8s-master:~# docker info
 Client: Docker Engine - Community
  Version:    28.1.1
@@ -822,9 +819,9 @@ Server:
   https://docker.jsdelivr.fyi/
   https://dockertest.jsdelivr.fyi/
   https://mirror.aliyuncs.com/
-  https://dockerproxy.com/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2-3-操作容器"><a href="#2-3-操作容器" class="headerlink" title="2.3 操作容器"></a>2.3 操作容器</h2><h3 id="2-3-1-创建持续运行的容器"><a href="#2-3-1-创建持续运行的容器" class="headerlink" title="2.3.1 创建持续运行的容器"></a>2.3.1 创建持续运行的容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# docker run -d --name nginxtest nginx
+  https://dockerproxy.com/
+</code></pre>
+<h2 id="2-3-操作容器"><a href="#2-3-操作容器" class="headerlink" title="2.3 操作容器"></a>2.3 操作容器</h2><h3 id="2-3-1-创建持续运行的容器"><a href="#2-3-1-创建持续运行的容器" class="headerlink" title="2.3.1 创建持续运行的容器"></a>2.3.1 创建持续运行的容器</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# docker run -d --name nginxtest nginx
 root@k8s-master:~# docker ps
 CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS     NAMES
 b68184fd3b9b   nginx     "/docker-entrypoint.…"   About a minute ago   Up About a minute   80/tcp  nginxtest
@@ -832,27 +829,27 @@ b68184fd3b9b   nginx     "/docker-entrypoint.…"   About a minute ago   Up Abou
 root@k8s-master:~# docker ps -a
 CONTAINER ID   IMAGE    COMMAND                  CREATED              STATUS               PORTS     NAMES
 b68184fd3b9b   nginx    "/docker-entrypoint.…"   About a minute ago   Up About a minute     80/tcp  nginxtest
-8ea8394296ac   hello-world   "/hello"            22 minutes ago    Exited (0) 22 minutes ago   goofy_brattain<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-3-2-进入容器"><a href="#2-3-2-进入容器" class="headerlink" title="2.3.2 进入容器"></a>2.3.2 进入容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# docker exec -it nginxtest /bin/bash
+8ea8394296ac   hello-world   "/hello"            22 minutes ago    Exited (0) 22 minutes ago   goofy_brattain
+</code></pre>
+<h3 id="2-3-2-进入容器"><a href="#2-3-2-进入容器" class="headerlink" title="2.3.2 进入容器"></a>2.3.2 进入容器</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# docker exec -it nginxtest /bin/bash
 root@b68184fd3b9b:/# cat /etc/nginx/nginx.conf
 root@b68184fd3b9b:/# exit
 exit
 root@k8s-master:~#
 
-# @后的主机名在exec后发生了变化，这就是进入容器内的标志<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-3-3-删除容器"><a href="#2-3-3-删除容器" class="headerlink" title="2.3.3 删除容器"></a>2.3.3 删除容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# docker ps
+# @后的主机名在exec后发生了变化，这就是进入容器内的标志
+</code></pre>
+<h3 id="2-3-3-删除容器"><a href="#2-3-3-删除容器" class="headerlink" title="2.3.3 删除容器"></a>2.3.3 删除容器</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# docker ps
 CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS        PORTS       NAMES
-260028d6b4a2   httpd:v1   "httpd-foreground"       5 seconds ago   Up 4 seconds   0.0.0.0:4000-&gt;80/tcp, [::]:4000-&gt;80/tcp   luoyudockerfile
+260028d6b4a2   httpd:v1   "httpd-foreground"       5 seconds ago   Up 4 seconds   0.0.0.0:4000->80/tcp, [::]:4000->80/tcp   luoyudockerfile
 b68184fd3b9b   nginx      "/docker-entrypoint.…"   12 hours ago    Up 12 hours    80/tcp    nginxtest
 
 root@k8s-master:~# docker rm -f nginxtest luoyudockerfile
 nginxtest
 luoyudockerfile
 root@k8s-master:~# docker ps
-CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+</code></pre>
 <h2 id="2-4-构建-使用镜像"><a href="#2-4-构建-使用镜像" class="headerlink" title="2.4 构建&amp;使用镜像"></a>2.4 构建&amp;使用镜像</h2><h3 id="2-4-1-镜像概述"><a href="#2-4-1-镜像概述" class="headerlink" title="2.4.1 镜像概述"></a>2.4.1 镜像概述</h3><p>  镜像是一个用于创建容器的只读模板，通常来讲，包含一些额外的自定义，比如说，可以构建一个基于centos的镜像，在镜像构建时，直接包含一些应用程序，比如Apache或者其他程序，构建完成后，可以直接基于这个镜像启动容器，快速获得期望的业务</p>
 <p>  镜像可以来自公共的仓库，也可通过Dockerfile等定义文件来构建，并且把自己的镜像推送到仓库中，以备在任何地方任何时间下载使用</p>
 <h3 id="2-4-2-公共镜像仓库"><a href="#2-4-2-公共镜像仓库" class="headerlink" title="2.4.2 公共镜像仓库"></a>2.4.2 公共镜像仓库</h3><p>  Docker公共镜像仓库：<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com</a></p>
@@ -873,11 +870,11 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<span aria
 <p>  4.避免容器有过多的层</p>
 <p>  5.多行排序</p>
 <p>  6.建立缓存</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 创建dockerfile文件
-root@k8s-master:~# cat &gt; dockerfile &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 创建dockerfile文件
+root@k8s-master:~# cat > dockerfile <<EOF
 FROM httpd
 MAINTAINER luovipyu@163.com
-RUN echo hello luoyu dockerfile container &gt; /usr/local/apache2/htdocs/index.html
+RUN echo hello luoyu dockerfile container > /usr/local/apache2/htdocs/index.html
 EXPOSE 80
 WORKDIR /usr/local/apache2/htdocs/
 EOF
@@ -897,15 +894,15 @@ docker build -t web:v1 .
 
 # 如果用的是containerd，dockerfile方式构建容器镜像的命令就是下面这样的
 nerdctl build  -t httpd:v1 -f dockerfile .
-nerdctl images<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-4-6-使用Dockerfile镜像"><a href="#2-4-6-使用Dockerfile镜像" class="headerlink" title="2.4.6 使用Dockerfile镜像"></a>2.4.6 使用Dockerfile镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 用httpd:v1的镜像在本机4000端口上提供一个名为luoyudockerfile的容器
+nerdctl images
+</code></pre>
+<h3 id="2-4-6-使用Dockerfile镜像"><a href="#2-4-6-使用Dockerfile镜像" class="headerlink" title="2.4.6 使用Dockerfile镜像"></a>2.4.6 使用Dockerfile镜像</h3><pre class=" language-language-bash"><code class="language-language-bash"># 用httpd:v1的镜像在本机4000端口上提供一个名为luoyudockerfile的容器
 root@k8s-master:~# docker run -d -p 4000:80 --name luoyudockerfile httpd:v1
 260028d6b4a2b11cd2cfca9ab6ae9d406cc8fa9afd33131db03c880cc235e68f
 
 root@k8s-master:~# docker ps
 CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS        PORTS       NAMES
-260028d6b4a2   httpd:v1   "httpd-foreground"       5 seconds ago   Up 4 seconds   0.0.0.0:4000-&gt;80/tcp, [::]:4000-&gt;80/tcp   luoyudockerfile
+260028d6b4a2   httpd:v1   "httpd-foreground"       5 seconds ago   Up 4 seconds   0.0.0.0:4000->80/tcp, [::]:4000->80/tcp   luoyudockerfile
 b68184fd3b9b   nginx      "/docker-entrypoint.…"   12 hours ago    Up 12 hours    80/tcp    nginxtest
 
 root@k8s-master:~# curl http://127.0.0.1:4000
@@ -913,27 +910,27 @@ hello luoyu dockerfile container
 
 # 如果用的是containerd，dockerfile方式构建容器镜像的使用命令就是下面这样的
 nerdctl run -d -p 4000:80 --name luoyudockerfile httpd:v1
-nerdctl ps<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+nerdctl ps
+</code></pre>
 <h3 id="2-4-7-关于镜像命名"><a href="#2-4-7-关于镜像命名" class="headerlink" title="2.4.7 关于镜像命名"></a>2.4.7 关于镜像命名</h3><p>  1.镜像命名格式：REPOSITORY+TAG，使用版本号作为命名</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# docker images
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# docker images
 REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
 httpd         v1        d6d24a446dd4   11 hours ago   148MB
 nginx         latest    a830707172e8   3 weeks ago    192MB
-hello-world   latest    74cc54e27dc4   3 months ago   10.1kB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+hello-world   latest    74cc54e27dc4   3 months ago   10.1kB
+</code></pre>
 <p>  2.关于latest tag的说明</p>
 <p>  如果在建立镜像时没有指定Tag，会使用默认值latest，所以，当看到一个镜像的Tag处显示latest的时候，并不一定意味着此版本是最新版，而只意味着在建立镜像的时候，没有指定Tag</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# docker build -t web .
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# docker build -t web .
 root@k8s-master:~# docker images
 REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
 httpd         v1        d6d24a446dd4   11 hours ago   148MB
 web           latest    d6d24a446dd4   11 hours ago   148MB
 nginx         latest    a830707172e8   3 weeks ago    192MB
-hello-world   latest    74cc54e27dc4   3 months ago   10.1kB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+hello-world   latest    74cc54e27dc4   3 months ago   10.1kB
+</code></pre>
 <h3 id="2-4-8-删除镜像"><a href="#2-4-8-删除镜像" class="headerlink" title="2.4.8 删除镜像"></a>2.4.8 删除镜像</h3><p>  删除一个特定的镜像，需要知道该镜像的ID或者标签(repository:tag)。或者，如果只记得镜像的部分ID，可以使用这个ID来删除镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# docker images
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# docker images
 REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
 httpd         v1        d6d24a446dd4   11 hours ago   148MB
 web           latest    d6d24a446dd4   11 hours ago   148MB
@@ -954,8 +951,8 @@ root@k8s-master:~# docker rmi 74cc54e27dc4
 root@k8s-master:~# docker images
 \REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
 httpd        v1        d6d24a446dd4   11 hours ago   148MB
-nginx        latest    a830707172e8   3 weeks ago    192MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+nginx        latest    a830707172e8   3 weeks ago    192MB
+</code></pre>
 <h3 id="2-4-9-私有镜像仓库"><a href="#2-4-9-私有镜像仓库" class="headerlink" title="2.4.9 私有镜像仓库"></a>2.4.9 私有镜像仓库</h3><p>  构建私有镜像存储考虑：</p>
 <p>  1.交付时效，例如，下载并运行镜像，需要消耗带宽和时间</p>
 <p>  2.机房是否允许接入外网</p>
@@ -997,7 +994,7 @@ nginx        latest    a830707172e8   3 weeks ago    192MB<span aria-hidden="tru
 <td>RHEL-9.5</td>
 </tr>
 </tbody></table>
-<h2 id="3-1-RedHat9镜像源配置"><a href="#3-1-RedHat9镜像源配置" class="headerlink" title="3.1 RedHat9镜像源配置"></a>3.1 RedHat9镜像源配置</h2><h3 id="3-1-1-国内镜像源"><a href="#3-1-1-国内镜像源" class="headerlink" title="3.1.1 国内镜像源"></a>3.1.1 国内镜像源</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@harbor ~]# cd /etc/yum.repos.d
+<h2 id="3-1-RedHat9镜像源配置"><a href="#3-1-RedHat9镜像源配置" class="headerlink" title="3.1 RedHat9镜像源配置"></a>3.1 RedHat9镜像源配置</h2><h3 id="3-1-1-国内镜像源"><a href="#3-1-1-国内镜像源" class="headerlink" title="3.1.1 国内镜像源"></a>3.1.1 国内镜像源</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@harbor ~]# cd /etc/yum.repos.d
 [root@harbor yum.repos.d]# ll
 -rw-r--r--. 1 root root 358 May 14 11:25 redhat.repo
 
@@ -1015,10 +1012,10 @@ gpgcheck=0
 [root@harbor yum.repos.d]# yum makecache
 
 # 根据需要选择是否更新yum源
-[root@harbor yum.repos.d]# yum -y update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@harbor yum.repos.d]# yum -y update
+</code></pre>
 <h3 id="3-1-2-本地yum源配置"><a href="#3-1-2-本地yum源配置" class="headerlink" title="3.1.2 本地yum源配置"></a>3.1.2 本地yum源配置</h3><p>  配置本地yum源可以创建一个本地的软件包存储库，以便更快地安装、更新和管理软件包</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 创建文件夹并将光盘挂载到新建的文件中
+<pre class=" language-language-bash"><code class="language-language-bash"># 创建文件夹并将光盘挂载到新建的文件中
 [root@harbor ~]# mkdir -p /GuaZai/Iso
 [root@harbor ~]# mount /dev/sr0 /GuaZai/Iso
 mount: /GuaZai/Iso: WARNING: source write-protected, mounted read-only.
@@ -1042,13 +1039,13 @@ gpgcheck=0
 [root@harbor ~]# yum repolist
 
 # 生成yum缓存
-[root@harbor ~]# yum makecache<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@harbor ~]# yum makecache
+</code></pre>
 <h2 id="3-2-主机名和IP地址映射"><a href="#3-2-主机名和IP地址映射" class="headerlink" title="3.2 主机名和IP地址映射"></a>3.2 主机名和IP地址映射</h2><p>  配置Harbor主机的主机名和IP地址映射，映射文件“/etc/hosts”加入如下内容</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@harbor ~]# vim /etc/hosts
-192.168.8.52 registry.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="3-3-部署Docker-CE"><a href="#3-3-部署Docker-CE" class="headerlink" title="3.3 部署Docker CE"></a>3.3 部署Docker CE</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 检测系统是否安装了docker并卸载旧版本的容器
+<pre class=" language-language-bash"><code class="language-language-bash">[root@harbor ~]# vim /etc/hosts
+192.168.8.52 registry.luovip.cn
+</code></pre>
+<h2 id="3-3-部署Docker-CE"><a href="#3-3-部署Docker-CE" class="headerlink" title="3.3 部署Docker CE"></a>3.3 部署Docker CE</h2><pre class=" language-language-bash"><code class="language-language-bash"># 检测系统是否安装了docker并卸载旧版本的容器
 [root@harbor ~]# sudo dnf remove docker \
                   docker-client \
                   docker-client-latest \
@@ -1072,9 +1069,9 @@ gpgcheck=0
 [root@harbor ~]# sudo systemctl enable --now docker
 Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /usr/lib/systemd/system/docker.service.
 [root@harbor ~]# sudo systemctl status docker
-[root@harbor ~]# docker info                         <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="3-4-Docker镜像加速器"><a href="#3-4-Docker镜像加速器" class="headerlink" title="3.4 Docker镜像加速器"></a>3.4 Docker镜像加速器</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@harbor ~]# mkdir -p /etc/docker
+[root@harbor ~]# docker info                         
+</code></pre>
+<h2 id="3-4-Docker镜像加速器"><a href="#3-4-Docker镜像加速器" class="headerlink" title="3.4 Docker镜像加速器"></a>3.4 Docker镜像加速器</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@harbor ~]# mkdir -p /etc/docker
 [root@harbor ~]# cd /etc/docker
 [root@harbor docker]# vim /etc/docker/daemon.json
 {
@@ -1109,10 +1106,10 @@ Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /
 [root@harbor ~]# docker pull nginx
 [root@harbor ~]# docker images
 REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
-nginx        latest    a830707172e8   3 weeks ago   192MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+nginx        latest    a830707172e8   3 weeks ago   192MB
+</code></pre>
 <h2 id="3-5-Compose支持"><a href="#3-5-Compose支持" class="headerlink" title="3.5 Compose支持"></a>3.5 Compose支持</h2><p>  添加Compose支持，并启动Docker服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 下载docker-compose并放在/usr/local/bin下
+<pre class=" language-language-bash"><code class="language-language-bash"># 下载docker-compose并放在/usr/local/bin下
 curl -L "https://github.com/docker/compose/releases/download/v2.36.0/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
 
 chmod +x /usr/local/bin/docker-compose
@@ -1122,9 +1119,9 @@ systemctl restart docker
 Docker Compose version v2.36.0
 
 # 注明：github可能会访问不了，故先从github下载到本地，再上传到服务器
-https://github.com/docker/compose/releases<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="3-6-下载Harbor"><a href="#3-6-下载Harbor" class="headerlink" title="3.6 下载Harbor"></a>3.6 下载Harbor</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@harbor ~]# wget https://github.com/goharbor/harbor/releases/download/v2.13.0/harbor-offline-installer-v2.13.0.tgz
+https://github.com/docker/compose/releases
+</code></pre>
+<h2 id="3-6-下载Harbor"><a href="#3-6-下载Harbor" class="headerlink" title="3.6 下载Harbor"></a>3.6 下载Harbor</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@harbor ~]# wget https://github.com/goharbor/harbor/releases/download/v2.13.0/harbor-offline-installer-v2.13.0.tgz
 
 [root@harbor ~]# tar xf harbor-offline-installer-v2.13.0.tgz -C /usr/local/bin
 
@@ -1135,9 +1132,9 @@ total 72004
 -rwxr-xr-x. 1 root root 73731911 May 14 14:25 docker-compose
 drwxr-xr-x. 2 root root      123 May 14 16:33 harbor
 [root@harbor bin]# cd harbor
-[root@harbor harbor]# docker load -i harbor.v2.13.0.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="3-7-修改harbor-yml文件"><a href="#3-7-修改harbor-yml文件" class="headerlink" title="3.7 修改harbor.yml文件"></a>3.7 修改harbor.yml文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mv harbor.yml.tmpl harbor.yml
+[root@harbor harbor]# docker load -i harbor.v2.13.0.tar.gz
+</code></pre>
+<h2 id="3-7-修改harbor-yml文件"><a href="#3-7-修改harbor-yml文件" class="headerlink" title="3.7 修改harbor.yml文件"></a>3.7 修改harbor.yml文件</h2><pre class=" language-language-bash"><code class="language-language-bash">mv harbor.yml.tmpl harbor.yml
 
 # 备份harbor.yml文件
 cp harbor.yml harbor.yml.bak
@@ -1146,9 +1143,9 @@ cp harbor.yml harbor.yml.bak
 1.修改hostname为192.168.8.52
 2.修改http的端口为82
 3.修改harbor_admin_password为admin
-# 如果不启用https就注释掉12行-20行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="3-8-安装Harbor"><a href="#3-8-安装Harbor" class="headerlink" title="3.8 安装Harbor"></a>3.8 安装Harbor</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 加载配置并安装
+# 如果不启用https就注释掉12行-20行
+</code></pre>
+<h2 id="3-8-安装Harbor"><a href="#3-8-安装Harbor" class="headerlink" title="3.8 安装Harbor"></a>3.8 安装Harbor</h2><pre class=" language-language-bash"><code class="language-language-bash"># 加载配置并安装
 [root@harbor harbor]# ./prepare
 [root@harbor harbor]# ./install.sh
 ...
@@ -1164,15 +1161,15 @@ cp harbor.yml harbor.yml.bak
  ✔ Container harbor-core        Started    1.4s                                              
  ✔ Container harbor-jobservice  Started    2.0s                                               
  ✔ Container nginx              Started    2.0s                                           
-✔ ----Harbor has been installed and started successfully.----<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="3-9-重启Harbor"><a href="#3-9-重启Harbor" class="headerlink" title="3.9 重启Harbor"></a>3.9 重启Harbor</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@harbor harbor]# docker-compose down
+✔ ----Harbor has been installed and started successfully.----
+</code></pre>
+<h2 id="3-9-重启Harbor"><a href="#3-9-重启Harbor" class="headerlink" title="3.9 重启Harbor"></a>3.9 重启Harbor</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@harbor harbor]# docker-compose down
 [root@harbor harbor]# ./prepare
 [root@harbor harbor]# docker-compose up -d
 
-# 浏览器访问Harbor   http://192.168.8.52:82  用户名/密码:admin/admin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="3-10-生成服务文件"><a href="#3-10-生成服务文件" class="headerlink" title="3.10 生成服务文件"></a>3.10 生成服务文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; /etc/systemd/system/harbor.service &lt;&lt;EOF
+# 浏览器访问Harbor   http://192.168.8.52:82  用户名/密码:admin/admin
+</code></pre>
+<h2 id="3-10-生成服务文件"><a href="#3-10-生成服务文件" class="headerlink" title="3.10 生成服务文件"></a>3.10 生成服务文件</h2><pre class=" language-language-bash"><code class="language-language-bash">cat > /etc/systemd/system/harbor.service <<EOF
 [Unit]
 Description=Harbor
 After=docker.service systemd-networkd.service systemd-resolved.service
@@ -1193,27 +1190,27 @@ EOF
 [root@harbor ~]# systemctl stop harbor
 [root@harbor ~]# systemctl status harbor
 [root@harbor ~]# systemctl start harbor
-[root@harbor ~]# systemctl restart harbor<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@harbor ~]# systemctl restart harbor
+</code></pre>
 <h2 id="3-11-推送镜像到Harbor"><a href="#3-11-推送镜像到Harbor" class="headerlink" title="3.11 推送镜像到Harbor"></a>3.11 推送镜像到Harbor</h2><p>  将registry.luovip.cn以及其对应的IP添加到/etc/hosts，然后将上述实验中的httpd:v1镜像，改名为带上IP:PORT形式，上传的镜像到本地仓库</p>
 <p>  1.添加域名解析</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@docker ~]# vim /etc/hosts
-192.168.8.52 registry.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash">[root@docker ~]# vim /etc/hosts
+192.168.8.52 registry.luovip.cn
+</code></pre>
 <p>  2.编辑文件“/usr/lib/systemd/system/docker.service”，输入以下内容。其中，my.harbor.com是Harbor主机的主机名</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@docker ~]# vim /usr/lib/systemd/system/docker.service
-ExecStart=/usr/bin/dockerd --insecure-registry registry.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash">[root@docker ~]# vim /usr/lib/systemd/system/docker.service
+ExecStart=/usr/bin/dockerd --insecure-registry registry.luovip.cn
+</code></pre>
 <p>  3.编辑“/etc/docker/daemon.json”文件，在该文件中指定私有镜像仓库地址</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@docker ~]# vim /etc/docker/daemon.json
+<pre class=" language-language-bash"><code class="language-language-bash">[root@docker ~]# vim /etc/docker/daemon.json
 "insecure-registries": [
         "192.168.8.52:82"
   ]
 [root@docker ~]# systemctl daemon-reload
-[root@docker ~]# systemctl restart docker.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@docker ~]# systemctl restart docker.service
+</code></pre>
 <p>  4.推送的命令</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># Docker推送命令:
+<pre class=" language-language-bash"><code class="language-language-bash"># Docker推送命令:
 1.在项目中标记镜像:
 docker tag SOURCE_IMAGE[:TAG] 192.168.8.52:82/library/REPOSITORY[:TAG]
 2.推送镜像到当前项目：
@@ -1221,10 +1218,10 @@ docker push 192.168.8.52:82/library/REPOSITORY[:TAG]
 
 Podman推送命令：
 1.推送镜像到当前项目：
-podman push IMAGE_ID 192.168.8.52:82/library/REPOSITORY[:TAG]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+podman push IMAGE_ID 192.168.8.52:82/library/REPOSITORY[:TAG]
+</code></pre>
 <p>  5.推送镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@docker ~]# docker images
+<pre class=" language-language-bash"><code class="language-language-bash">[root@docker ~]# docker images
 REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
 tomcat       latest    c6c6349a7df2   47 hours ago   468MB
 nginx        latest    a830707172e8   4 weeks ago    192MB
@@ -1242,9 +1239,9 @@ nginx                            latest    a830707172e8   4 weeks ago    192MB
 
 [root@docker ~]# docker push 192.168.8.52:82/library/tomcat:v2
 
-[root@docker ~]# docker pull 192.168.8.52:82/library/tomcat:v2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h1 id="4-管理容器的资源"><a href="#4-管理容器的资源" class="headerlink" title="4 管理容器的资源"></a>4 管理容器的资源</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 创建容器并观察内存量
+[root@docker ~]# docker pull 192.168.8.52:82/library/tomcat:v2
+</code></pre>
+<h1 id="4-管理容器的资源"><a href="#4-管理容器的资源" class="headerlink" title="4 管理容器的资源"></a>4 管理容器的资源</h1><pre class=" language-language-bash"><code class="language-language-bash"># 创建容器并观察内存量
 [root@docker ~]# docker run -d --name=httpd_server httpd
 [root@docker ~]# docker run -d --name=httpd_tomcat tomcat
 
@@ -1256,8 +1253,8 @@ b025ca41d951   httpd     "httpd-foreground"   3 minutes ago   Up 3 minutes   80/
 [root@docker ~]# docker exec -it httpd_server grep MemTotal /proc/meminfo
 MemTotal:        3974748 kB
 [root@docker ~]# docker exec -it httpd_tomcat grep MemTotal /proc/meminfo
-MemTotal:        3974748 kB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+MemTotal:        3974748 kB
+</code></pre>
 <h2 id="4-1-容器的内存配额"><a href="#4-1-容器的内存配额" class="headerlink" title="4.1 容器的内存配额"></a>4.1 容器的内存配额</h2><p>  根据以上得出结论，每个容器的内存量，全部等于物理宿主机的内存总量，这意味这更好的性能，但同时也意味着一旦业务需求上升，将有可能发生资源争用，这通常在运维规划时，应当极力避免</p>
 <p>  容器可使用的内存：物理内存和交换空间(Swap)</p>
 <p>  Docker默认没有设置内存限制。可以通过相关选项限制设置：</p>
@@ -1266,35 +1263,35 @@ MemTotal:        3974748 kB<span aria-hidden="true" class="line-numbers-rows"><s
 <h3 id="4-1-1-用户内存限制"><a href="#4-1-1-用户内存限制" class="headerlink" title="4.1.1 用户内存限制"></a>4.1.1 用户内存限制</h3><p>  Docker提供4种方式设置容器的用户内存使用:</p>
 <p>  1.对容器内存使用无限制（两个选项都不使用）</p>
 <p>  2.设置内存限制并取消<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4&amp;spm=1001.2101.3001.7020">交换空间</a>内存限制</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#使用300内存和尽可能多的交换空间
-[root@docker ~]# docker run -it -m 300M --memory-swap -1 ubuntu /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash">#使用300内存和尽可能多的交换空间
+[root@docker ~]# docker run -it -m 300M --memory-swap -1 ubuntu /bin/bash
+</code></pre>
 <p>  3.只设置内存限制</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"> # 300MB的内存和300MB的交换空间
+<pre class=" language-language-bash"><code class="language-language-bash"> # 300MB的内存和300MB的交换空间
  # 默认情况下虚拟内存总量将设置为内存大小的两倍，因此容器能使用300M的交换空间
-[root@docker ~]# docker run -it -m 300M ubuntu /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
+[root@docker ~]# docker run -it -m 300M ubuntu /bin/bash
+</code></pre>
 <p>  4.同时设置内存和交换空间</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 300MB的内存和700MB的交换空间
-[root@docker ~]# docker run -it -m 300M --memory-swap 700m ubuntu /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash"># 300MB的内存和700MB的交换空间
+[root@docker ~]# docker run -it -m 300M --memory-swap 700m ubuntu /bin/bash
+</code></pre>
 <h3 id="4-1-2-内核内存限制"><a href="#4-1-2-内核内存限制" class="headerlink" title="4.1.2 内核内存限制"></a>4.1.2 内核内存限制</h3><p>  内核内存不能交换到磁盘中，无法使用交换空间，消耗过多可能导致其阻塞系统服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 在500MB的内存中，可以使用最高50MB的内核内存
+<pre class=" language-language-bash"><code class="language-language-bash"># 在500MB的内存中，可以使用最高50MB的内核内存
 [root@docker ~]# docker run -it -m 500M --kernel-memory 50M ubuntu /bin/bash
 
 # 只可以使用50MB的内核内存
-[root@docker ~]# docker run -it --kernel-memory 50M ubuntu /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@docker ~]# docker run -it --kernel-memory 50M ubuntu /bin/bash
+</code></pre>
 <h3 id="4-1-3-内存预留实现软限制"><a href="#4-1-3-内存预留实现软限制" class="headerlink" title="4.1.3 内存预留实现软限制"></a>4.1.3 内存预留实现软限制</h3><p>  使用–memory-reservation选项设置内存预留，它是一种内存软限制，允许更多的内存共享。设置后，Docker将检测内存争用或内存不足，并强制容器将其内存消耗限制为预留值</p>
 <p>  内存预留值应当始终低于硬限制，作为一个软限制功能，内存预留并不能保证不会超过限制</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 限制内存为500MB，内存预留值(软限制)为200MB。
+<pre class=" language-language-bash"><code class="language-language-bash"># 限制内存为500MB，内存预留值(软限制)为200MB。
 # 当容器消耗内存大于200MB、小于500MB时，下一次系统内存回收将尝试将容器内存缩减到200MB以下
 [root@docker ~]# docker run -it -m 500M --memory-reservation 200M ubuntu /bin/bash
 docker run –it –m 500M --memory-reservation 200M ubuntu /bin/bash
 
 # 设置内存软限制为1GB
-[root@docker ~]# docker run -it —-memory-reservation 1G ubuntu /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@docker ~]# docker run -it —-memory-reservation 1G ubuntu /bin/bash
+</code></pre>
 <h2 id="4-2-容器的CPU配额"><a href="#4-2-容器的CPU配额" class="headerlink" title="4.2 容器的CPU配额"></a>4.2 容器的CPU配额</h2><p>  默认情况下，所有容器都可以使用相同的CPU资源，并且没有任何限制，这和内存问题一样，一旦CPU需求业务上升，同样会引起CPU资源的争用，但是和内存指定绝对量的不同，CPU是通过指定相对权重值来进行的配额</p>
 <p>  使用–cpu-shares参数对CPU来进行配额分配，默认情况下，这个值为1024</p>
 <p>  当前容器中的业务空闲时，其他的容器有权利使用其空闲的CPU周期，这将确保业务的性能</p>
@@ -1304,7 +1301,7 @@ docker run –it –m 500M --memory-reservation 200M ubuntu /bin/bash
 <h3 id="4-2-2-CPU周期限制"><a href="#4-2-2-CPU周期限制" class="headerlink" title="4.2.2 CPU周期限制"></a>4.2.2 CPU周期限制</h3><p>  –cpu-period选项(以μs为单位)设置CPU周期以限制容器CPU资源的使用</p>
 <p>  默认的CFS(完全公平调度器)周期为100ms(100000μs)</p>
 <p>  通常将–cpu-period与–cpu-quota这两个选项配合使用：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 如果只有1个CPU，则容器可以每50ms(50000μs)获得50%(25000/50000)的CPU运行时间
+<pre class=" language-language-bash"><code class="language-language-bash"># 如果只有1个CPU，则容器可以每50ms(50000μs)获得50%(25000/50000)的CPU运行时间
 [root@docker ~]# docker run -it --cpu-period=50000 --cpu-quota=25000 ubuntu /bin/bash
 
 # 可用--cpus选项指定容器的可用CPU资源来达到同样的目的
@@ -1312,22 +1309,22 @@ docker run –it –m 500M --memory-reservation 200M ubuntu /bin/bash
 # 上述可改为
 [root@docker ~]# docker run -it --cpus=0.5 ubuntu /bin/bash
 
-# --cpu-period和--cpu-quota选项都是以1个CPU为基准<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+# --cpu-period和--cpu-quota选项都是以1个CPU为基准
+</code></pre>
 <h3 id="4-2-3-CPU放置限制"><a href="#4-2-3-CPU放置限制" class="headerlink" title="4.2.3 CPU放置限制"></a>4.2.3 CPU放置限制</h3><p>  –cpuset-cpus选项限制容器进程在指定的CPU上执行</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 容器中的进程可以在cpu1和cpu3上执行
+<pre class=" language-language-bash"><code class="language-language-bash"># 容器中的进程可以在cpu1和cpu3上执行
 [root@docker ~]# docker run -it --cpuset-cpus="1,3" ubuntu:14.04 /bin/bash
 
 # 容器中的进程可以在cpu0、cpu1和cpu 2上执行
-[root@docker ~]# docker run -it --cpuset-cpus="0-2" ubuntu:14.04 /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@docker ~]# docker run -it --cpuset-cpus="0-2" ubuntu:14.04 /bin/bash
+</code></pre>
 <h3 id="4-2-4-CPU配额限制"><a href="#4-2-4-CPU配额限制" class="headerlink" title="4.2.4 CPU配额限制"></a>4.2.4 CPU配额限制</h3><p>  –cpu-quota选项限制容器的CPU配额，默认值为0表示容器占用100%的CPU资源个CPU</p>
 <p>  CFS用于处理进程执行的资源分配，是由内核使用的默认Linux调度程序。将此值设置50000意味着限制容器至多使用CPU资源的50%，对于多个CPU而言，调整–cpu-quota选项必要的</p>
 <h2 id="4-3-容器的I-O配额"><a href="#4-3-容器的I-O配额" class="headerlink" title="4.3 容器的I/O配额"></a>4.3 容器的I/O配额</h2><p>  默认情况下，所有容器都可以使用相同的I/O资源(500权重)，并且没有任何限制，这和内存、 CPU问题一样，一旦I/O需求业务上升，硬盘读写会变得非常迟缓，所以为了更好的提供服务，也应该对容器使用硬盘方面进行调整</p>
 <p>  块I/O带宽(Block I/O Bandwidth，Blkio)是另一种可以限制容器使用的资源</p>
 <p>  块I/O指磁盘的写，Docker可通过设置权重限制每秒字节数(B/s)和每秒I/O次数(IO/s)的方式控制容器读写盘的带宽</p>
 <h3 id="4-3-1-设置块I-O权重"><a href="#4-3-1-设置块I-O权重" class="headerlink" title="4.3.1 设置块I/O权重"></a>4.3.1 设置块I/O权重</h3><p>  –blkio-weight选项更改比例(原默认为500)，设置相对于所有其他正在运行的容器的块I/O带宽权重</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 创建两个有不同块I/O带宽权重的容器
+<pre class=" language-language-bash"><code class="language-language-bash"># 创建两个有不同块I/O带宽权重的容器
 [root@docker ~]# docker run -it --name c1 --blkio-weight 300 ubuntu /bin/bash
 
 [root@docker ~]# docker run -it --name c2 --blkio-weight 600 ubuntu /bin/bash
@@ -1348,37 +1345,37 @@ real    0m4.055s
 user    0m0.000s
 sys     0m4.036s
 
-注：此设定在I/O争用时，才会体现<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+注：此设定在I/O争用时，才会体现
+</code></pre>
 <h3 id="4-3-2-限制设备读写速率"><a href="#4-3-2-限制设备读写速率" class="headerlink" title="4.3.2 限制设备读写速率"></a>4.3.2 限制设备读写速率</h3><p>  Docker根据两类指标限制容器的设备读写速率：一类是每秒字节数，另一类是每秒I/O次数</p>
 <p>  1.限制每秒字节数</p>
 <p>  –device-read-bps选项限制指定设备的读取速率，即每秒读取的字节数</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 创建一个容器，并限制对/dev/mapper/rhel-swap设备的读取速率为每秒1MB
+<pre class=" language-language-bash"><code class="language-language-bash"># 创建一个容器，并限制对/dev/mapper/rhel-swap设备的读取速率为每秒1MB
 [root@docker ~]# docker run -it --device-read-bps /dev/mapper/rhel-swap:1mb ubuntu
 docker run -it --device-read-bps /dev/sda:1mb ubuntu
 
-# 类似地，可使用--device-write-bps选项限制指定设备的写入速率。格式： &lt;设备&gt;:&lt;速率值&gt;[单位]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+# 类似地，可使用--device-write-bps选项限制指定设备的写入速率。格式： <设备>:<速率值>[单位]
+</code></pre>
 <p>  2.限制每秒I/O次数</p>
 <p>  –device-read-iops和–device-write-iops选项制指定设备的读取和写入速率，用每秒I/O次数表示</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 创建一个容器，限制它对/dev/mapper/rhel-swap设备的读取速率为每秒1000次
-[root@docker ~]# docker run -it --device-read-iops /dev/mapper/rhel-swap:1000 ubuntu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash"># 创建一个容器，限制它对/dev/mapper/rhel-swap设备的读取速率为每秒1000次
+[root@docker ~]# docker run -it --device-read-iops /dev/mapper/rhel-swap:1000 ubuntu
+</code></pre>
 <h2 id="4-4-容器底层技术实现"><a href="#4-4-容器底层技术实现" class="headerlink" title="4.4 容器底层技术实现"></a>4.4 容器底层技术实现</h2><p>  对容器使用的内存、CPU和块I/O带宽资源的限制具体是由控制组(Cgroup)的相应子系统来实现的</p>
 <p>  1.memory子系统设置控制组中的住务所使用的内存限制</p>
 <p>  2.cpu子系统通过调度程序提供对CPU的控制组任务的访问</p>
 <p>  3.blkio子系统为块设备(如磁盘、固态硬盘、USB等)设置输入和输出限制</p>
 <p>  在docker run命令中使用–cpu-shares、–memory、–device-read-bps等选项实际上就是在配置控制组，相关的配置文件保存在/sys/fs/cgroup目录中</p>
 <h3 id="4-4-1-资源限制的底层实现"><a href="#4-4-1-资源限制的底层实现" class="headerlink" title="4.4.1 资源限制的底层实现"></a>4.4.1 资源限制的底层实现</h3><p>  Linux通过cgroup来分配进程使用的CPU、memory、I/O资源的配额，可以通过/sys/fs/cgroup/下面的设定来查看容器的配额部分</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 启动一个容器，设置内存限额为300MB，CPU权重为512
+<pre class=" language-language-bash"><code class="language-language-bash"># 启动一个容器，设置内存限额为300MB，CPU权重为512
 [root@docker ~]# docker run --rm -d -p 8080:80 -m 300M --cpu-shares=512 httpd
 1dc9a3907b6b82521addd810d52d2514c6ab5fed1e274f03a90e5a1454d16a49
 
 # 动态更改容器的资源限制
 # docker update命令可以动态地更新容器配置，其语法：docker update [选项] 容器 [容器...]
 [root@docker ~]# docker update -m 500M --cpu-shares=10245 1dc9a3907b6b82521addd810d52d2514c6ab5fed1e274f03a90e5a1454d16a49
-1dc9a3907b6b82521addd810d52d2514c6ab5fed1e274f03a90e5a1454d16a49<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+1dc9a3907b6b82521addd810d52d2514c6ab5fed1e274f03a90e5a1454d16a49
+</code></pre>
 <h3 id="4-4-2-容器的隔离底层实现"><a href="#4-4-2-容器的隔离底层实现" class="headerlink" title="4.4.2 容器的隔离底层实现"></a>4.4.2 容器的隔离底层实现</h3><p>  每个容器貌似都有自己独立的根目录以及/etc、/var等目录，而且貌似都有自己的独立网卡，但事实上物理宿主机只有一个网卡，那么容器之间是怎么实现的“独立性”的呢？</p>
 <p>  Linux使用namespace技术来实现了容器间的资源隔离，namespace管理着宿主机中的全局唯一资源，并且可以让每个容器都会认为自己拥有且只有自己在使用资源，namespace一共有6种，分别为：mount、UTS、IPC、PID、Network、User</p>
 <h3 id="4-4-3-namespace"><a href="#4-4-3-namespace" class="headerlink" title="4.4.3 namespace"></a>4.4.3 namespace</h3><p>  Mount namespace让容器看上去拥有整个文件系统，容器有自己的根目录</p>
@@ -1388,12 +1385,12 @@ docker run -it --device-read-bps /dev/sda:1mb ubuntu
 <p>  Network namespace可以让容器拥有自己独立的网卡、IP、路由等资源</p>
 <p>  User namespace 让容器能够管理自己的用户，而不是和宿主机公用/etc/passwd</p>
 <h1 id="5-容器原生网络与存储"><a href="#5-容器原生网络与存储" class="headerlink" title="5 容器原生网络与存储"></a>5 容器原生网络与存储</h1><h2 id="5-1-容器原生网络"><a href="#5-1-容器原生网络" class="headerlink" title="5.1 容器原生网络"></a>5.1 容器原生网络</h2><p>  docker原生提供了以下几种网络，如果对原生网络不满意，还可以创建自定义网络<br>  原生网络分为：none、bridge、host，这些网络在docker安装的时候会自动创建，可以通过以下命令来查看</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@docker ~]# docker network ls
+<pre class=" language-language-bash"><code class="language-language-bash">[root@docker ~]# docker network ls
 NETWORK ID     NAME      DRIVER    SCOPE
 f85881372579   bridge    bridge    local
 668aba04b5b0   host      host      local
-3fa8ef65ab94   none      null      local<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+3fa8ef65ab94   none      null      local
+</code></pre>
 <p>  如果容器使用的是none网络，那么此容器将不具备常规理解上的网卡，只具备lo网络，如果要使用这个网络，在创建容器时，指定–network=none即可</p>
 <p>  None网络是比较封闭的网络，对一些安全要求比较高并且不需要联网的场景，可以用none网络，比如手机上接收的验证码、随机数生成等场景，就可以放在none网络中以避免被窃取</p>
 <p>  Host网络是一个共享宿主机网络栈的一个容器共享网络，可以通过–network=host在创建容器 的时候指定host网络，处于host网络模式的容器，网络配置和宿主机是完全一样的，也就是说，在容器中可以看到宿主机的所有网卡，并且主机名也是宿主机的，这最大的好处就是性能很高，传输速率特别好，但是宿主机上已经使用的端口，容器就不可以使用</p>
@@ -1581,16 +1578,16 @@ f85881372579   bridge    bridge    local
 </tbody></table>
 <p>准备DNS解析：</p>
 <p>  这一步需要在所有机器上完成</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 这一步需要在所有机器上完成
-cat &gt;&gt; /etc/hosts &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 这一步需要在所有机器上完成
+cat >> /etc/hosts <<EOF
 192.168.8.3 k8s-master
 192.168.8.4 k8s-worker1
 192.168.8.5 k8s-worker2
 192.168.30.133 registry.xiaohui.cn
-EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+EOF
+</code></pre>
 <h2 id="7-2-Docker-CE-部署"><a href="#7-2-Docker-CE-部署" class="headerlink" title="7.2 Docker CE 部署"></a>7.2 Docker CE 部署</h2><h3 id="7-2-1-添加Docker仓库"><a href="#7-2-1-添加Docker仓库" class="headerlink" title="7.2.1 添加Docker仓库"></a>7.2.1 添加Docker仓库</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 安装依赖
+<pre class=" language-language-bash"><code class="language-language-bash"># 安装依赖
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl gnupg lsb-release
 
@@ -1599,24 +1596,24 @@ sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://mirrors.nju.edu.cn/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # 添加仓库到系统
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://mirrors.nju.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://mirrors.nju.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # 判断仓库是否已做好
-sudo apt-get update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+sudo apt-get update
+</code></pre>
 <h3 id="7-2-2-安装Docker-CE"><a href="#7-2-2-安装Docker-CE" class="headerlink" title="7.2.2 安装Docker CE"></a>7.2.2 安装Docker CE</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-# 部署完Docker CE之后，还需要cri-docker shim才可以和Kubernetes集成<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash">sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+# 部署完Docker CE之后，还需要cri-docker shim才可以和Kubernetes集成
+</code></pre>
 <h3 id="7-2-3-CRI-Docker部署"><a href="#7-2-3-CRI-Docker部署" class="headerlink" title="7.2.3 CRI-Docker部署"></a>7.2.3 CRI-Docker部署</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 下载cri-docker
+<pre class=" language-language-bash"><code class="language-language-bash"># 下载cri-docker
 wget http://hub.gitmirror.com/https://github.com/Mirantis/cri-dockerd/releases/download/v0.3.17/cri-dockerd_0.3.17.3-0.ubuntu-jammy_amd64.deb
 
 # 安装cri-docker
-dpkg -i cri-dockerd_0.3.17.3-0.ubuntu-jammy_amd64.deb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+dpkg -i cri-dockerd_0.3.17.3-0.ubuntu-jammy_amd64.deb
+</code></pre>
 <h3 id="7-2-4-Docker镜像加速器"><a href="#7-2-4-Docker镜像加速器" class="headerlink" title="7.2.4 Docker镜像加速器"></a>7.2.4 Docker镜像加速器</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">vim /etc/docker/daemon.json
+<pre class=" language-language-bash"><code class="language-language-bash">vim /etc/docker/daemon.json
 {
   "registry-mirrors": [
         "https://docker.mirrors.ustc.edu.cn",
@@ -1637,42 +1634,42 @@ dpkg -i cri-dockerd_0.3.17.3-0.ubuntu-jammy_amd64.deb<span aria-hidden="true" cl
   "exec-opts": ["native.cgroupdriver=systemd"]
 }
 systemctl daemon-reload
-systemctl restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+systemctl restart docker
+</code></pre>
 <h3 id="7-2-5-将镜像指引到国内"><a href="#7-2-5-将镜像指引到国内" class="headerlink" title="7.2.5 将镜像指引到国内"></a>7.2.5 将镜像指引到国内</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cp /lib/systemd/system/cri-docker.service /etc/systemd/system/cri-docker.service
+<pre class=" language-language-bash"><code class="language-language-bash">cp /lib/systemd/system/cri-docker.service /etc/systemd/system/cri-docker.service
 
 sed -i 's/ExecStart=.*/ExecStart=\/usr\/bin\/cri-dockerd --container-runtime-endpoint fd:\/\/ --network-plugin=cni --pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com\/google_containers\/pause:3.10/' /etc/systemd/system/cri-docker.service
 
 systemctl daemon-reload
 systemctl restart cri-docker.service
-systemctl enable cri-docker.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+systemctl enable cri-docker.service
+</code></pre>
 <h2 id="7-3-Kubernetes部署"><a href="#7-3-Kubernetes部署" class="headerlink" title="7.3 Kubernetes部署"></a>7.3 Kubernetes部署</h2><h3 id="7-3-1-关闭swap分区"><a href="#7-3-1-关闭swap分区" class="headerlink" title="7.3.1 关闭swap分区"></a>7.3.1 关闭swap分区</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 实时关闭
+<pre class=" language-language-bash"><code class="language-language-bash"># 实时关闭
 swapoff -a
 # 永久关闭
-sed -i 's/.*swap.*/#&amp;/' /etc/fstab<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+sed -i 's/.*swap.*/#&/' /etc/fstab
+</code></pre>
 <h3 id="7-3-2-允许iptables检查桥接流量"><a href="#7-3-2-允许iptables检查桥接流量" class="headerlink" title="7.3.2 允许iptables检查桥接流量"></a>7.3.2 允许iptables检查桥接流量</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+<pre class=" language-language-bash"><code class="language-language-bash">cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
 EOF
 modprobe br_netfilter
-cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
 EOF
 
-sudo sysctl --system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+sudo sysctl --system
+</code></pre>
 <h3 id="7-3-3-安装kubeadm"><a href="#7-3-3-安装kubeadm" class="headerlink" title="7.3.3 安装kubeadm"></a>7.3.3 安装kubeadm</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 安装依赖
-apt-get update &amp;&amp; apt-get install -y apt-transport-https curl
+<pre class=" language-language-bash"><code class="language-language-bash"># 安装依赖
+apt-get update && apt-get install -y apt-transport-https curl
 
 # 安装K8S软件包仓库-阿里云
-cat &gt; /etc/apt/sources.list.d/k8s.list &lt;&lt;EOF
+cat > /etc/apt/sources.list.d/k8s.list <<EOF
 deb https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.32/deb /
 EOF
 
@@ -1686,22 +1683,22 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl
 
 # 操作系统所有软件包升级时将忽略kubelet、kubeadm、kubectl
-apt-mark hold kubelet kubeadm kubectl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+apt-mark hold kubelet kubeadm kubectl
+</code></pre>
 <h3 id="7-3-4-添加命令自动补齐"><a href="#7-3-4-添加命令自动补齐" class="headerlink" title="7.3.4 添加命令自动补齐"></a>7.3.4 添加命令自动补齐</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl completion bash &gt; /etc/bash_completion.d/kubectl
-kubeadm completion bash &gt; /etc/bash_completion.d/kubeadm
+<pre class=" language-language-bash"><code class="language-language-bash">kubectl completion bash > /etc/bash_completion.d/kubectl
+kubeadm completion bash > /etc/bash_completion.d/kubeadm
 source /etc/bash_completion.d/kubectl
-source /etc/bash_completion.d/kubeadm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+source /etc/bash_completion.d/kubeadm
+</code></pre>
 <h3 id="7-3-5-集成CRI-Docker"><a href="#7-3-5-集成CRI-Docker" class="headerlink" title="7.3.5 集成CRI-Docker"></a>7.3.5 集成CRI-Docker</h3><p>  这一步要在所有机器上完成：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">crictl config --set runtime-endpoint unix:///run/cri-dockerd.sock
-crictl images<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash">crictl config --set runtime-endpoint unix:///run/cri-dockerd.sock
+crictl images
+</code></pre>
 <h3 id="7-3-6-集群部署"><a href="#7-3-6-集群部署" class="headerlink" title="7.3.6 集群部署"></a>7.3.6 集群部署</h3><p>  kubeadm.yaml中name字段必须在网络中可被解析，也可以将解析记录添加到集群中所有机器的/etc/hosts中</p>
 <p>  初始化集群部署的操作只能在k8s-master上执行</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 初始化配置
-kubeadm config print init-defaults &gt; kubeadm.yaml
+<pre class=" language-language-bash"><code class="language-language-bash"># 初始化配置
+kubeadm config print init-defaults > kubeadm.yaml
 sed -i 's/.*advert.*/  advertiseAddress: 192.168.8.3/g' kubeadm.yaml
 sed -i 's/.*name.*/  name: k8s-master/g' kubeadm.yaml
 sed -i 's|imageRepo.*|imageRepository: registry.cn-hangzhou.aliyuncs.com/google_containers|g' kubeadm.yaml
@@ -1729,10 +1726,10 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # 查看集群状态
 root@k8s-master:~# kubectl get nodes
 NAME         STATUS     ROLES           AGE   VERSION
-k8s-master   NotReady   control-plane   62m   v1.32.5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+k8s-master   NotReady   control-plane   62m   v1.32.5
+</code></pre>
 <h3 id="7-3-7-部署Calico网络插件"><a href="#7-3-7-部署Calico网络插件" class="headerlink" title="7.3.7 部署Calico网络插件"></a>7.3.7 部署Calico网络插件</h3><p>  Calico网络插件部署的操作在所有节点上执行</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 使用operator安装calico组件-可能会失败
+<pre class=" language-language-bash"><code class="language-language-bash"># 使用operator安装calico组件-可能会失败
 # 以下为github的地址，可能会失败
 root@k8s-master:~# kubectl create -f https://raw.gitmirror.com/projectcalico/calico/refs/tags/v3.29.3/manifests/tigera-operator.yaml
 
@@ -1752,19 +1749,19 @@ kube-system       kube-apiserver-k8s-master            1/1     Running   0      
 kube-system       kube-controller-manager-k8s-master   1/1     Running   0          163m
 kube-system       kube-proxy-mcwv7                     1/1     Running   0          163m
 kube-system       kube-scheduler-k8s-master            1/1     Running   0          163m
-tigera-operator   tigera-operator-75b4cd596c-9hjml     1/1     Running   0          7m5s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+tigera-operator   tigera-operator-75b4cd596c-9hjml     1/1     Running   0          7m5s
+</code></pre>
 <h3 id="7-3-8-设置calico在集群的网段"><a href="#7-3-8-设置calico在集群的网段" class="headerlink" title="7.3.8 设置calico在集群的网段"></a>7.3.8 设置calico在集群的网段</h3><p>  这一步在k8s-master上执行</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 使用下面的自定义资源设置一下calico在集群中的网段
+<pre class=" language-language-bash"><code class="language-language-bash"># 使用下面的自定义资源设置一下calico在集群中的网段
 # 以下为github的地址，可能会失败
 root@k8s-master:~# wget https://raw.gitmirror.com/projectcalico/calico/refs/tags/v3.29.3/manifests/custom-resources.yaml
 
 # 3.使用下面的地址执行
 root@k8s-master:~# wget https://www.linuxcenter.cn/files/cka/cka-yaml/custom-resources-calico-3.29.3.yaml
-root@k8s-master:~# mv custom-resources-calico-3.29.3.yaml custom-resources.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# mv custom-resources-calico-3.29.3.yaml custom-resources.yaml
+</code></pre>
 <h3 id="7-3-9-确认资源的地址"><a href="#7-3-9-确认资源的地址" class="headerlink" title="7.3.9 确认资源的地址"></a>7.3.9 确认资源的地址</h3><p>  这一步在k8s-master上执行</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# vim custom-resources.yaml
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# vim custom-resources.yaml
 # This section includes base Calico installation configuration.
 # For more information, see: https://docs.tigera.io/calico/latest/reference/installation/api#operator.tigera.io/v1.Installation
 apiVersion: operator.tigera.io/v1
@@ -1790,9 +1787,9 @@ apiVersion: operator.tigera.io/v1
 kind: APIServer
 metadata:
   name: default
-spec: {}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="7-3-10-自定义资源发布到集群"><a href="#7-3-10-自定义资源发布到集群" class="headerlink" title="7.3.10 自定义资源发布到集群"></a>7.3.10 自定义资源发布到集群</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl apply -f custom-resources.yaml
+spec: {}
+</code></pre>
+<h3 id="7-3-10-自定义资源发布到集群"><a href="#7-3-10-自定义资源发布到集群" class="headerlink" title="7.3.10 自定义资源发布到集群"></a>7.3.10 自定义资源发布到集群</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl apply -f custom-resources.yaml
 root@k8s-master:~# kubectl get nodes
 NAME         STATUS   ROLES           AGE    VERSION
 k8s-master   Ready    control-plane   173m   v1.32.5
@@ -1812,8 +1809,8 @@ kube-system        kube-apiserver-k8s-master                  1/1     Running   
 kube-system        kube-controller-manager-k8s-master         1/1     Running   0          172m
 kube-system        kube-proxy-mcwv7                           1/1     Running   0          172m
 kube-system        kube-scheduler-k8s-master                  1/1     Running   0          172m
-tigera-operator    tigera-operator-75b4cd596c-9hjml           1/1     Running   0          16m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+tigera-operator    tigera-operator-75b4cd596c-9hjml           1/1     Running   0          16m
+</code></pre>
 <h3 id="7-3-11-加入Worker节点"><a href="#7-3-11-加入Worker节点" class="headerlink" title="7.3.11 加入Worker节点"></a>7.3.11 加入Worker节点</h3><p>  加入节点操作需在所有的worker节点完成，这里要注意，Worker节点需要完成以下先决条件才能执行kubeadm join</p>
 <p>   1.Docker、CRI-Docker 部署</p>
 <p>   2.Swap分区关闭</p>
@@ -1822,11 +1819,11 @@ tigera-operator    tigera-operator-75b4cd596c-9hjml           1/1     Running   
 <p>   5.集成CRI-Docker</p>
 <p>   6.所有节点的/etc/hosts中互相添加对方的解析</p>
 <p>  如果时间长忘记了join参数，可以在master节点上用以下方法重新生成</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubeadm token create --print-join-command
-kubeadm join 192.168.8.3:6443 --token 5mffg7.lq7ujh6vot0jzrci --discovery-token-ca-cert-hash sha256:c2546a856290440a8ccaf9223c14fd1c2098ac74f4a584acf5f3c5a373005207<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubeadm token create --print-join-command
+kubeadm join 192.168.8.3:6443 --token 5mffg7.lq7ujh6vot0jzrci --discovery-token-ca-cert-hash sha256:c2546a856290440a8ccaf9223c14fd1c2098ac74f4a584acf5f3c5a373005207
+</code></pre>
 <p>  如果有多个CRI对象，在worker节点上执行以下命令加入节点时，指定CRI对象，案例如下：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-worker1:~# kubeadm token create --print-join-command
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-worker1:~# kubeadm token create --print-join-command
 kubeadm join 192.168.8.3:6443 --token 5mffg7.lq7ujh6vot0jzrci --discovery-token-ca-cert-hash sha256:c2546a856290440a8ccaf9223c14fd1c2098ac74f4a584acf5f3c5a373005207
 failed to load admin kubeconfig: open /root/.kube/config: no such file or directory
 To see the stack trace of this error execute with --v=5 or higher
@@ -1844,8 +1841,8 @@ root@k8s-worker2:~#  kubeadm join 192.168.8.3:6443 --token 5mffg7.lq7ujh6vot0jzr
 root@k8s-master:~# kubectl get nodes
 NAME          STATUS   ROLES           AGE     VERSION
 k8s-master    Ready    control-plane   3h28m   v1.32.5
-k8s-worker1   Ready    &lt;none&gt;          2m2s    v1.32.5
-k8s-worker2   Ready    &lt;none&gt;          2m2s    v1.32.5
+k8s-worker1   Ready    <none>          2m2s    v1.32.5
+k8s-worker2   Ready    <none>          2m2s    v1.32.5
 
 4.查看pod信息
 root@k8s-master:~# kubectl get pod -A
@@ -1870,11 +1867,11 @@ kube-system        kube-proxy-8n6x5                           1/1     Running   
 kube-system        kube-proxy-mcwv7                           1/1     Running   0          3h29m
 kube-system        kube-proxy-xk4h4                           1/1     Running   0          3m37s
 kube-system        kube-scheduler-k8s-master                  1/1     Running   0          3h29m
-tigera-operator    tigera-operator-75b4cd596c-9hjml           1/1     Running   0          52m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+tigera-operator    tigera-operator-75b4cd596c-9hjml           1/1     Running   0          52m
+</code></pre>
 <p>  注意上描述命令最后的–cri-socket参数，在系统中部署了docker和cri-docker时，必须明确指明此参数，并将此参数指向我们的cri-docker，不然命令会报告有两个重复的CRI的错误</p>
 <p>  在k8s-master机器上执行以下内容给节点打上角色标签，k8s-worker1和k8s-worker2分别打上了worker1和worker2的标签</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl label nodes k8s-worker1 node-role.kubernetes.io/worker1=
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl label nodes k8s-worker1 node-role.kubernetes.io/worker1=
 node/k8s-worker1 labeled
 
 root@k8s-master:~# kubectl label nodes k8s-worker2 node-role.kubernetes.io/worker2=
@@ -1884,20 +1881,20 @@ root@k8s-master:~# kubectl get nodes
 NAME          STATUS   ROLES           AGE     VERSION
 k8s-master    Ready    control-plane   3h33m   v1.32.5
 k8s-worker1   Ready    worker1         7m37s   v1.32.5
-k8s-worker2   Ready    worker2         7m37s   v1.32.5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+k8s-worker2   Ready    worker2         7m37s   v1.32.5
+</code></pre>
 <h3 id="7-3-12-重置集群"><a href="#7-3-12-重置集群" class="headerlink" title="7.3.12 重置集群"></a>7.3.12 重置集群</h3><p>  如果在安装好集群的情况下，想重复练习初始化集群，或者包括初始化集群报错在内的任何原因，想重新初始化集群时，可以用下面的方法重置集群，重置后，集群就会被删除，可以用于重新部署，一般来说，这个命令仅用于k8s-master这个节点</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubeadm reset --cri-socket=unix:///var/run/cri-dockerd.sock
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubeadm reset --cri-socket=unix:///var/run/cri-dockerd.sock
 
 # 根据提示，手工完成文件和规则的清理   清理后就可以重新部署集群了
 root@k8s-master:~# rm -rf /etc/cni/net.d
 root@k8s-master:~# iptables -F
-root@k8s-master:~# rm -rf $HOME/.kube/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# rm -rf $HOME/.kube/config
+</code></pre>
 <h3 id="7-3-13-标签和注解"><a href="#7-3-13-标签和注解" class="headerlink" title="7.3.13 标签和注解"></a>7.3.13 标签和注解</h3><p>  标签(Labels)和注解(Annotations)是附加到Kubernetes 对象(比如Pods)上的键值对</p>
 <p>  标签旨在用于指定对用户有意义的标识属性，但不直接对核心系统有语义含义。可以用来选择对象和查找满足某些条件的对象集合</p>
 <p>  注解不用于标识和选择对象。有效的注解键分为两部分： 可选的前缀和名称，以斜杠（/）分隔。 名称段是必需项，并且必须在63个字符以内</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl get node --show-labels
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl get node --show-labels
 NAME          STATUS   ROLES           AGE     VERSION   LABELS
 k8s-master    Ready    control-plane   4h11m   v1.32.5   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-master,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node.kubernetes.io/exclude-from-external-load-balancers=
 k8s-worker1   Ready    worker1         45m     v1.32.5   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-worker1,kubernetes.io/os=linux,node-role.kubernetes.io/worker1=
@@ -1907,21 +1904,21 @@ root@k8s-master:~# kubectl get nodes
 NAME          STATUS   ROLES           AGE     VERSION
 k8s-master    Ready    control-plane   4h11m   v1.32.5
 k8s-worker1   Ready    worker1         45m     v1.32.5
-k8s-worker2   Ready    worker2         45m     v1.32.5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+k8s-worker2   Ready    worker2         45m     v1.32.5
+</code></pre>
 <h1 id="8-Kubernetes的语法"><a href="#8-Kubernetes的语法" class="headerlink" title="8 Kubernetes的语法"></a>8 Kubernetes的语法</h1><p>  kubectl [command] [TYPE] [NAME] [flags]<br>  command：指定要对一个或多个资源执行的操作，例如create、get、describe、delete<br>  TYPE：指定资源类型，资源类型不区分大小写，可以指定单数、复数或缩写形式<br>  NAME：指定资源的名称，名称区分大小写<br>  fags：指定可选的参数。例如，可以使用-s或-server参数指定Kubernetes API服务器的地址和端口</p>
 <p><img src="/images/k8s%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B.png"></p>
 <h2 id="8-1-Yaml语法"><a href="#8-1-Yaml语法" class="headerlink" title="8.1 Yaml语法"></a>8.1 Yaml语法</h2><p><img src="/images/yaml%E8%AF%AD%E6%B3%95.png"></p>
 <p>  注意每个层级之间的点（.），在YAML文件中，每个层级之间一般用两个空格来表</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl explain Pod.metadata
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl explain Pod.metadata
 KIND:       Pod
 VERSION:    v1
 
-FIELD: metadata &lt;ObjectMeta&gt;
-...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+FIELD: metadata <ObjectMeta>
+...
+</code></pre>
 <h3 id="8-1-1-生成YAML文件框架"><a href="#8-1-1-生成YAML文件框架" class="headerlink" title="8.1.1 生成YAML文件框架"></a>8.1.1 生成YAML文件框架</h3><p>  通过在创建资源时加上—dry-run=client –o yaml来生成YAML文件框架，可以用重定向到文件的方式生成文件，只需要稍作修改即可</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl create deployment --image httpd deployname --dry-run=client -o yaml
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl create deployment --image httpd deployname --dry-run=client -o yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1948,8 +1945,8 @@ spec:
 status: {}
 
 # 重定向到文件
-root@k8s-master:~# kubectl create deployment --image httpd deployname --dry-run=client -o yaml &gt; k8s.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# kubectl create deployment --image httpd deployname --dry-run=client -o yaml > k8s.yml
+</code></pre>
 <h3 id="8-1-2-apiVersion"><a href="#8-1-2-apiVersion" class="headerlink" title="8.1.2 apiVersion"></a>8.1.2 apiVersion</h3><p>Alpha:</p>
 <p>  1.版本名称包含了alpha</p>
 <p>  2.可能是有缺陷的。启用该功能可能会带来问题，默认是关闭的</p>
@@ -1966,7 +1963,7 @@ root@k8s-master:~# kubectl create deployment --image httpd deployname --dry-run=
 <p>  1.版本名称是 vX，其中X是整数</p>
 <p>  2.功能的稳定版本将出现在许多后续版本的发行软件中</p>
 <p>  3.有时候也会被称为GA或者毕业等词汇</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl api-resources
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl api-resources
 NAME                 SHORTNAMES    APIVERSION                   NAMESPACED      KIND
 bindings                           v1                           true            Binding
 componentstatuses    cs            v1                           false           ComponentStatus
@@ -1987,13 +1984,13 @@ NAME               DATA   AGE
 kube-root-ca.crt   1      5h17m
 root@k8s-master:~# kubectl get configmap
 NAME               DATA   AGE
-kube-root-ca.crt   1      5h17m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+kube-root-ca.crt   1      5h17m
+</code></pre>
 <h2 id="8-2-Namespace"><a href="#8-2-Namespace" class="headerlink" title="8.2 Namespace"></a>8.2 Namespace</h2><p>  Kubernetes支持多个虚拟集群，它们底层依赖于同一个物理集群。 这些虚拟集群被称为命名空间，它适用于存在很多跨多个团队或项目的用户的场景，命名空间为名称提供了一个范围</p>
 <p>  资源的名称需要在名字空间内是唯一的，但不能跨名字空间</p>
 <p>  名字空间不能相互嵌套，每个Kubernetes资源只能在一个名字空间中</p>
 <p>  命名空间是在多个用户之间通过资源配额划分集群资源的一种方法</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl get namespace
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl get namespace
 NAME               STATUS   AGE
 calico-apiserver   Active   3h18m
 calico-system      Active   3h18m
@@ -2016,9 +2013,9 @@ kube-controller-manager-k8s-master   1/1     Running   0          6h15m
 kube-proxy-8n6x5                     1/1     Running   0          169m
 kube-proxy-mcwv7                     1/1     Running   0          6h14m
 kube-proxy-xk4h4                     1/1     Running   0          169m
-kube-scheduler-k8s-master            1/1     Running   0          6h15m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="8-2-1-命令行创建"><a href="#8-2-1-命令行创建" class="headerlink" title="8.2.1 命令行创建"></a>8.2.1 命令行创建</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl create namespace luovip
+kube-scheduler-k8s-master            1/1     Running   0          6h15m
+</code></pre>
+<h3 id="8-2-1-命令行创建"><a href="#8-2-1-命令行创建" class="headerlink" title="8.2.1 命令行创建"></a>8.2.1 命令行创建</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl create namespace luovip
 namespace/luovip created
 
 root@k8s-master:~# kubectl get namespace
@@ -2030,9 +2027,9 @@ kube-node-lease    Active   6h18m
 kube-public        Active   6h18m
 kube-system        Active   6h18m
 luovip             Active   7s
-tigera-operator    Active   3h41m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="8-2-2-YAML文件创建"><a href="#8-2-2-YAML文件创建" class="headerlink" title="8.2.2 YAML文件创建"></a>8.2.2 YAML文件创建</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; namespace.yml &lt;&lt;EOF
+tigera-operator    Active   3h41m
+</code></pre>
+<h3 id="8-2-2-YAML文件创建"><a href="#8-2-2-YAML文件创建" class="headerlink" title="8.2.2 YAML文件创建"></a>8.2.2 YAML文件创建</h3><pre class=" language-language-bash"><code class="language-language-bash">cat > namespace.yml <<EOF
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -2052,9 +2049,9 @@ kube-public        Active   6h25m
 kube-system        Active   6h25m
 luovip             Active   6m54s
 luovipyu           Active   26s
-tigera-operator    Active   3h48m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="8-2-3-删除namespace"><a href="#8-2-3-删除namespace" class="headerlink" title="8.2.3 删除namespace"></a>8.2.3 删除namespace</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl delete namespace luovipyu   # 会删除名字空间下的所有内容
+tigera-operator    Active   3h48m
+</code></pre>
+<h3 id="8-2-3-删除namespace"><a href="#8-2-3-删除namespace" class="headerlink" title="8.2.3 删除namespace"></a>8.2.3 删除namespace</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl delete namespace luovipyu   # 会删除名字空间下的所有内容
 namespace "luovipyu" deleted
 
 root@k8s-master:~# kubectl create -f namespace.yml
@@ -2074,9 +2071,9 @@ kube-public        Active   6h30m
 kube-system        Active   6h30m
 luovip             Active   12m
 luovipyu           Active   13s
-tigera-operator    Active   3h54m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="8-2-4-创建带有namespace属性的资源"><a href="#8-2-4-创建带有namespace属性的资源" class="headerlink" title="8.2.4 创建带有namespace属性的资源"></a>8.2.4 创建带有namespace属性的资源</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl run httpd --image=httpd --namespace=luovipyu
+tigera-operator    Active   3h54m
+</code></pre>
+<h3 id="8-2-4-创建带有namespace属性的资源"><a href="#8-2-4-创建带有namespace属性的资源" class="headerlink" title="8.2.4 创建带有namespace属性的资源"></a>8.2.4 创建带有namespace属性的资源</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl run httpd --image=httpd --namespace=luovipyu
 pod/httpd created
 
 root@k8s-master:~# kubectl get pod -n luovipyu
@@ -2110,8 +2107,8 @@ default            Active   6h41m
 kube-node-lease    Active   6h41m
 kube-public        Active   6h41m
 kube-system        Active   6h41m
-tigera-operator    Active   4h4m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+tigera-operator    Active   4h4m
+</code></pre>
 <h2 id="8-3-CRD自定义资源"><a href="#8-3-CRD自定义资源" class="headerlink" title="8.3 CRD自定义资源"></a>8.3 CRD自定义资源</h2><p>  CRD（Custom Resource Definition，自定义资源定义）是Kubernetes提供的一种扩展机制，允许用户通过YAML文件定义自定义资源类型，并将其注册到Kubernetes API中，使其与内置资源（如Pod、 Deployment）一样被管理</p>
 <p>  本质：CRD是对自定义资源的元数据描述，定义了资源的名称、结构、版本、作用域等<br>  作用：扩展Kubernetes API，支持用户自定义资源的管理和自动化操作</p>
 <p>CRD核心字段：</p>
@@ -2171,7 +2168,7 @@ tigera-operator    Active   4h4m<span aria-hidden="true" class="line-numbers-row
 <p>  集成 Kubernetes 生态系统：CRD 可以与 Kubernetes 的其他组件（如控制器、操作符等）集成，实现更复杂的业务逻辑</p>
 <p>  在Kubernetes 的自定义资源定义（CRD）中，CRD 本身只定义了资源的结构和 API，但它不会直接执行任何创建、更新或删除操作。这些操作需要通过一个控制器（Controller）来实现。控制器是一个独立的程序，它监听 CRD 的变化，并根据这些变化执行实际的操作</p>
 <h3 id="8-3-2-查询CRD以及API资源"><a href="#8-3-2-查询CRD以及API资源" class="headerlink" title="8.3.2 查询CRD以及API资源"></a>8.3.2 查询CRD以及API资源</h3><p>  1.先看看系统中的api资源都有哪些，然后创建一个</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl api-resources
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl api-resources
 NAME                 SHORTNAMES    APIVERSION                   NAMESPACED      KIND
 bindings                           v1                           true            Binding
 componentstatuses    cs            v1                           false           ComponentStatus
@@ -2181,10 +2178,10 @@ events               ev            v1                           true            
 limitranges          limits        v1                           true            LimitRange
 namespaces           ns            v1                           false           Namespace
 nodes                no            v1                           false           Node
-...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+...
+</code></pre>
 <p>  2.查看现在都有哪些自定义资源</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 以下资源不属于K8s，但是k8s是有的
+<pre class=" language-language-bash"><code class="language-language-bash"># 以下资源不属于K8s，但是k8s是有的
 root@k8s-master:~# kubectl get crd
 NAME                                                  CREATED AT
 adminnetworkpolicies.policy.networking.k8s.io         2025-05-17T03:05:26Z
@@ -2210,17 +2207,17 @@ kubecontrollersconfigurations.crd.projectcalico.org   2025-05-17T03:05:26Z
 networkpolicies.crd.projectcalico.org                 2025-05-17T03:05:26Z
 networksets.crd.projectcalico.org                     2025-05-17T03:05:26Z
 tiers.crd.projectcalico.org                           2025-05-17T03:05:26Z
-tigerastatuses.operator.tigera.io                     2025-05-17T03:05:26Z<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+tigerastatuses.operator.tigera.io                     2025-05-17T03:05:26Z
+</code></pre>
 <h3 id="8-3-3-创建CRD以及API资源"><a href="#8-3-3-创建CRD以及API资源" class="headerlink" title="8.3.3 创建CRD以及API资源"></a>8.3.3 创建CRD以及API资源</h3><p>  1.创建一个自己的crd，crd将注册为api资源</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; crd.yaml &lt;&lt;-'EOF'
+<pre class=" language-language-bash"><code class="language-language-bash">cat > crd.yaml <<-'EOF'
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  # 名字必需与下面的 spec 字段匹配，并且格式为 '&lt;名称的复数形式&gt;.&lt;组名&gt;'
+  # 名字必需与下面的 spec 字段匹配，并且格式为 '<名称的复数形式>.<组名>'
   name: crontabs.stable.example.com
 spec:
-  # 组名称，用于 REST API：/apis/&lt;组&gt;/&lt;版本&gt;
+  # 组名称，用于 REST API：/apis/<组>/<版本>
   group: stable.example.com
   # 列举此 CustomResourceDefinition 所支持的版本
   versions:
@@ -2245,7 +2242,7 @@ spec:
   # 可以是 Namespaced 或 Cluster
   scope: Namespaced
   names:
-    # 名称的复数形式，用于 URL：/apis/&lt;组&gt;/&lt;版本&gt;/&lt;名称的复数形式&gt;
+    # 名称的复数形式，用于 URL：/apis/<组>/<版本>/<名称的复数形式>
     plural: crontabs
     # 名称的单数形式，作为命令行使用时和显示时的别名
     singular: crontab
@@ -2257,10 +2254,10 @@ spec:
 EOF
 
 root@k8s-master:~# kubectl apply -f crd.yaml
-customresourcedefinition.apiextensions.k8s.io/crontabs.stable.example.com created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+customresourcedefinition.apiextensions.k8s.io/crontabs.stable.example.com created
+</code></pre>
 <p>  2.再看就会有自己的crd资源和api资源了</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl get crd
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl get crd
 NAME                                                  CREATED AT
 ...
 crontabs.stable.example.com                           2025-05-17T06:16:04Z
@@ -2270,21 +2267,21 @@ root@k8s-master:~# kubectl api-resources | grep crontabs
 NAME          SHORTNAMES                      APIVERSION                          NAMESPACED   KIND
 crontabs      ct                              stable.example.com/v1               true         CronTab
 
-root@k8s-master:~# kubectl describe crd crontabs.stable.example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# kubectl describe crd crontabs.stable.example.com
+</code></pre>
 <h3 id="8-3-4-查询API资源结构与参数"><a href="#8-3-4-查询API资源结构与参数" class="headerlink" title="8.3.4 查询API资源结构与参数"></a>8.3.4 查询API资源结构与参数</h3><p>  既然已经注册为api资源，来看看能否explain字段？</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl explain crontabs
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl explain crontabs
 GROUP:      stable.example.com
 KIND:       CronTab
 VERSION:    v1
 
 DESCRIPTION:
-    &lt;empty&gt;
+    <empty>
 FIELDS:
-  apiVersion    &lt;string&gt;
-  kind  &lt;string&gt;
-  metadata      &lt;ObjectMeta&gt;
-  spec  &lt;Object&gt;
+  apiVersion    <string>
+  kind  <string>
+  metadata      <ObjectMeta>
+  spec  <Object>
 ...
 
 # 查看有哪些spec
@@ -2293,30 +2290,30 @@ GROUP:      stable.example.com
 KIND:       CronTab
 VERSION:    v1
 
-FIELD: spec &lt;Object&gt;
+FIELD: spec <Object>
 
 
 DESCRIPTION:
-    &lt;empty&gt;
+    <empty>
 FIELDS:
-  cronSpec      &lt;string&gt;
-    &lt;no description&gt;
+  cronSpec      <string>
+    <no description>
 
-  image &lt;string&gt;
-    &lt;no description&gt;
+  image <string>
+    <no description>
 
-  replicas      &lt;integer&gt;
-    &lt;no description&gt;
-# 一切正常，看来已经创建了自定义资源，接下来就是等开发人员通过编程等方式创建operator等控制器，来使用我们的资源了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+  replicas      <integer>
+    <no description>
+# 一切正常，看来已经创建了自定义资源，接下来就是等开发人员通过编程等方式创建operator等控制器，来使用我们的资源了
+</code></pre>
 <h1 id="9-Pod"><a href="#9-Pod" class="headerlink" title="9 Pod"></a>9 Pod</h1><h2 id="9-1-关于pod"><a href="#9-1-关于pod" class="headerlink" title="9.1 关于pod"></a>9.1 关于pod</h2><p>  Pod由一个或多个紧密耦合的容器组成</p>
 <p>  它们之间共享网络、存储等资源</p>
 <p>  pod是Kubernetes中最小的工作单元</p>
 <p>  Pod中的容器会一起启动和停止</p>
 <h2 id="9-2-Pod生命周期"><a href="#9-2-Pod生命周期" class="headerlink" title="9.2 Pod生命周期"></a>9.2 Pod生命周期</h2><p>  Pod遵循一个预定义的生命周期，起始于Pending阶段，如果至少其中有一个主要容器正常启动，则进入Running，之后取决于Pod中是否有容器以失败状态结束而进入Succeeded或者Failed阶段。但有时集群节点之间出现网络故障，无法获取Pod状态时，就会出现Unknown状态</p>
 <h2 id="9-3-创建Pod"><a href="#9-3-创建Pod" class="headerlink" title="9.3 创建Pod"></a>9.3 创建Pod</h2><p>  1.一个Pod中只有一个业务容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 1.yml文件创建pod
-cat &gt; pod.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 1.yml文件创建pod
+cat > pod.yml <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2326,7 +2323,7 @@ spec:
   - name: hello
     image: httpd
     imagePullPolicy: IfNotPresent
-    command: ['sh', '-c', 'echo "Hello, China!" &amp;&amp; sleep 3600']
+    command: ['sh', '-c', 'echo "Hello, China!" && sleep 3600']
   restartPolicy: OnFailure
 EOF
 
@@ -2349,11 +2346,11 @@ luovippod   1/1     Running   0          7m56s
 luoyupod    1/1     Running   0          3m38s
 root@k8s-master:~# kubectl get pod -o wide
 NAME        READY   STATUS    RESTARTS   AGE     IP              NODE          NOMINATED NODE   READINESS GATES
-luovippod   1/1     Running   0          8m6s    172.16.194.71   k8s-worker1   &lt;none&gt;           &lt;none&gt;
-luoyupod    1/1     Running   0          3m48s   172.16.194.72   k8s-worker1   &lt;none&gt;           &lt;none&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+luovippod   1/1     Running   0          8m6s    172.16.194.71   k8s-worker1   <none>           <none>
+luoyupod    1/1     Running   0          3m48s   172.16.194.72   k8s-worker1   <none>           <none>
+</code></pre>
 <p>  2.一个Pod中有多个业务容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; multicontainer.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > multicontainer.yml <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2363,7 +2360,7 @@ spec:
   - name: nginx
     image: nginx
     imagePullPolicy: IfNotPresent
-    command: ['sh', '-c', 'echo "Hello, luoyu!" &amp;&amp; sleep 3600']
+    command: ['sh', '-c', 'echo "Hello, luoyu!" && sleep 3600']
   - name: httpd
     image: httpd
     imagePullPolicy: IfNotPresent
@@ -2384,11 +2381,11 @@ pod         2/2     Running   0          9s
 
 root@k8s-master:~# kubectl get -f multicontainer.yml -o wide
 NAME   READY   STATUS    RESTARTS   AGE   IP             NODE          NOMINATED NODE   READINESS GATES
-pod    2/2     Running   0          68s   172.16.126.3   k8s-worker2   &lt;none&gt;           &lt;none&gt;
+pod    2/2     Running   0          68s   172.16.126.3   k8s-worker2   <none>           <none>
 
-root@k8s-master:~# curl 172.16.126.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="9-4-修改Pod"><a href="#9-4-修改Pod" class="headerlink" title="9.4 修改Pod"></a>9.4 修改Pod</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 直接修改yaml文件，然后执行以下命令
+root@k8s-master:~# curl 172.16.126.3
+</code></pre>
+<h2 id="9-4-修改Pod"><a href="#9-4-修改Pod" class="headerlink" title="9.4 修改Pod"></a>9.4 修改Pod</h2><pre class=" language-language-bash"><code class="language-language-bash"># 直接修改yaml文件，然后执行以下命令
 kubectl apply -f pod.yml
 
 # 编辑Etcd数据
@@ -2398,16 +2395,16 @@ kubectl edit pod luovippod
 kubectl get pod luovippod -o json
 kubectl get pod luovippod -o json | grep cnlxh
 
-注明：工作中的修改pod一般时k8s会创建新的pod并删除旧的pod<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="9-5-进入pod中的容器"><a href="#9-5-进入pod中的容器" class="headerlink" title="9.5 进入pod中的容器"></a>9.5 进入pod中的容器</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl get pod -o wide
+注明：工作中的修改pod一般时k8s会创建新的pod并删除旧的pod
+</code></pre>
+<h2 id="9-5-进入pod中的容器"><a href="#9-5-进入pod中的容器" class="headerlink" title="9.5 进入pod中的容器"></a>9.5 进入pod中的容器</h2><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl get pod -o wide
 NAME        READY   STATUS    RESTARTS   AGE   IP              NODE          NOMINATED NODE   READINESS GATES
-luovippod   1/1     Running   0          37m   172.16.194.71   k8s-worker1   &lt;none&gt;           &lt;none&gt;
-luoyupod    1/1     Running   0          33m   172.16.194.72   k8s-worker1   &lt;none&gt;           &lt;none&gt;
-pod         2/2     Running   0          19m   172.16.126.3    k8s-worker2   &lt;none&gt;           &lt;none&gt;
+luovippod   1/1     Running   0          37m   172.16.194.71   k8s-worker1   <none>           <none>
+luoyupod    1/1     Running   0          33m   172.16.194.72   k8s-worker1   <none>           <none>
+pod         2/2     Running   0          19m   172.16.126.3    k8s-worker2   <none>           <none>
 
 root@k8s-master:~# kubectl exec -it pod -c httpd  -- /bin/bash
-root@pod:/usr/local/apache2# echo MyCity is ChengDu! &gt; htdocs/index.html
+root@pod:/usr/local/apache2# echo MyCity is ChengDu! > htdocs/index.html
 root@pod:/usr/local/apache2# exit
 exit
 root@k8s-master:~# curl http://172.16.126.3
@@ -2417,14 +2414,14 @@ MyCity is ChengDu!
  1、-c 参数可以指定需要进入pod中的哪个容器
  2、-- 是K8S命令和预期容器内部执行命令的连接符
  3、/bin/sh是指进入容器中执行什么命令 
- 4、退出执行exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+ 4、退出执行exit
+</code></pre>
 <h2 id="9-6-Init类型容器"><a href="#9-6-Init类型容器" class="headerlink" title="9.6 Init类型容器"></a>9.6 Init类型容器</h2><p>  Init容器是一种特殊容器，在Pod内的应用容器启动之前运行，如果Pod的Init容器失败，kubelet会不断地重启该 Init 容器直到该容器成功为止。 然而，如果 Pod 对应的 restartPolicy 值为 “Never”，并且 Pod的 Init 容器失败， 则 Kubernetes 会将整个 Pod 状态设置为失败</p>
 <p>  Init容器与普通的容器非常像，除了如下两点：</p>
 <p>   1.正常情况下，它们最终都会处于completed状态</p>
 <p>   2.每个都必须在下一个启动之前成功完成</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 根据安排，myapp-container的容器将等待两个init结束之后才会启动，也就是40秒之后才会启动
-cat &gt; init.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 根据安排，myapp-container的容器将等待两个init结束之后才会启动，也就是40秒之后才会启动
+cat > init.yml <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2436,7 +2433,7 @@ spec:
   - name: myapp-container
     image: busybox
     imagePullPolicy: IfNotPresent
-    command: ['sh', '-c', 'echo The app is running! &amp;&amp; sleep 3600']
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
   initContainers:
   - name: init-myservice
     image: busybox
@@ -2473,8 +2470,8 @@ NAME        READY   STATUS    RESTARTS   AGE
 initpd      1/1     Running   0          104s
 luovippod   1/1     Running   0          57m
 luoyupod    1/1     Running   0          52m
-pod         2/2     Running   0          39m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+pod         2/2     Running   0          39m
+</code></pre>
 <h2 id="9-7-Sidecar类型容器"><a href="#9-7-Sidecar类型容器" class="headerlink" title="9.7 Sidecar类型容器"></a>9.7 Sidecar类型容器</h2><p>  一般来讲，Sidecar容器可以：</p>
 <p>   1.日志代理/转发，例如 fluentd</p>
 <p>   2.Service Mesh，比如 Istio，Linkerd</p>
@@ -2482,8 +2479,8 @@ pod         2/2     Running   0          39m<span aria-hidden="true" class="line
 <p>   4.探活：检查某些组件是不是正常工作</p>
 <p>   5.其他辅助性的工作，比如拷贝文件，下载文件等</p>
 <p><img src="/images/Sidecar.png"></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 两个容器挂载了同一个目录，一个容器负责写入数据，一个容器负责对外展示
-cat &gt; sidecar.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 两个容器挂载了同一个目录，一个容器负责写入数据，一个容器负责对外展示
+cat > sidecar.yml <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2499,7 +2496,7 @@ spec:
   - name: busybox
     image: busybox
     imagePullPolicy: IfNotPresent
-    command: ['sh', '-c', 'echo "Hello sidecar" &gt; /usr/local/apache2/htdocs/index.html &amp;&amp; sleep 3600']
+    command: ['sh', '-c', 'echo "Hello sidecar" > /usr/local/apache2/htdocs/index.html && sleep 3600']
     volumeMounts:
       - mountPath: /usr/local/apache2/htdocs/
         name: luoyuvolume
@@ -2514,17 +2511,17 @@ pod/sidecarpod created
 
 root@k8s-master:~# kubectl get -f sidecar.yml -o wide
 NAME         READY   STATUS    RESTARTS   AGE   IP              NODE       NOMINATED NODE   READINESS GATES
-sidecarpod   2/2     Running   0          9s    172.16.194.74   k8s-worker1   &lt;none&gt;           &lt;none&gt;
+sidecarpod   2/2     Running   0          9s    172.16.194.74   k8s-worker1   <none>           <none>
 
 root@k8s-master:~# curl http://172.16.194.74
-Hello sidecar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+Hello sidecar
+</code></pre>
 <h2 id="9-8-静态Pod"><a href="#9-8-静态Pod" class="headerlink" title="9.8 静态Pod"></a>9.8 静态Pod</h2><p>  静态 Pod 在指定的节点上由 kubelet 守护进程直接管理，不需要 API 服务器监管。 与由控制面管理的Pod（例如，Deployment） 不同；kubelet 监视每个静态 Pod（在它崩溃之后重新启动）</p>
 <p>  静态 Pod 永远都会绑定到一个指定节点上的 Kubelet</p>
 <p>  kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建一个 mirror Pod。 这意味着节点上运行的静态 Pod 对 API 服务来说是可见的，但是不能通过 API 服务器来控制。 Pod 名称将把以连字符开头的节点主机名作为后缀</p>
 <p>  运行中的 kubelet 会定期扫描配置的目录中的变化， 并且根据文件中出现/消失的 Pod 来添加/删除Pod</p>
 <p>1.查找静态pod的编写路径</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# systemctl status kubelet
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# systemctl status kubelet
 ...
     Drop-In: /usr/lib/systemd/system/kubelet.service.d
              └─10-kubeadm.conf
@@ -2537,10 +2534,10 @@ Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 ...
 
 root@k8s-master:~# grep -i static /var/lib/kubelet/config.yaml
-staticPodPath: /etc/kubernetes/manifests<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+staticPodPath: /etc/kubernetes/manifests
+</code></pre>
 <p>2.编写静态pod</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; static.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > static.yml <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -2550,7 +2547,7 @@ spec:
   - name: hello
     image: busybox
     imagePullPolicy: IfNotPresent
-    command: ['sh', '-c', 'echo "Hello, lixiaohui!" &amp;&amp; sleep 3600']
+    command: ['sh', '-c', 'echo "Hello, lixiaohui!" && sleep 3600']
   restartPolicy: OnFailure
 EOF
 
@@ -2577,11 +2574,11 @@ sidecarpod   2/2     Running     0          32m
 
 # 维持集群运行的文件如下：
 root@k8s-master:/etc/kubernetes/manifests# ls
-etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml  kube-scheduler.yaml  static.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml  kube-scheduler.yaml  static.yml
+</code></pre>
 <h2 id="9-9-Pod删除"><a href="#9-9-Pod删除" class="headerlink" title="9.9 Pod删除"></a>9.9 Pod删除</h2><p>  kubectl delete pod –all会删除所有pod</p>
 <p>  kubectl delete pod pod名称—删除指定的pod</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl get pods
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl get pods
 NAME                   READY   STATUS    RESTARTS   AGE
 initpd                 1/1     Running   0          13m
 luovippod              1/1     Running   0          9m23s
@@ -2606,8 +2603,8 @@ kube-controller-manager-k8s-master   1/1     Running   0          35h
 kube-proxy-8n6x5                     1/1     Running   0          32h
 kube-proxy-mcwv7                     1/1     Running   0          35h
 kube-proxy-xk4h4                     1/1     Running   0          32h
-kube-scheduler-k8s-master            1/1     Running   0          35h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+kube-scheduler-k8s-master            1/1     Running   0          35h
+</code></pre>
 <h1 id="10-Kubernetes控制器"><a href="#10-Kubernetes控制器" class="headerlink" title="10 Kubernetes控制器"></a>10 Kubernetes控制器</h1><h2 id="10-1-什么是控制器"><a href="#10-1-什么是控制器" class="headerlink" title="10.1 什么是控制器"></a>10.1 什么是控制器</h2><p>  当你设置了温度，告诉了空调遥控器你的期望状态（Desired State）。 房间的实际温度是当前状态（Current State）。 通过对遥控器的开关控制，遥控器让其当前状态接近期望状态<br>  在 Kubernetes 中，控制器通过监控集群的公共状态，并致力于将当前状态转变为期望的状态</p>
 <p>  作为设计原则之一，Kubernetes 使用了很多控制器，每个控制器管理集群状态的一个特定方面。 最常见的一个特定的控制器使用一种类型的资源作为它的期望状态， 控制器管理控制另外一种类型的资源向它的期望状态演化</p>
 <h2 id="10-2-Replica-Set概念"><a href="#10-2-Replica-Set概念" class="headerlink" title="10.2 Replica Set概念"></a>10.2 Replica Set概念</h2><p>  ReplicationController确保在任何时候都有特定数量的Pod副本处于运行状态。 换句话说，ReplicationController 确保一个 Pod 或一组同类的 Pod 总是可用的<br>  ReplicaSet的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。 因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。</p>
@@ -2617,7 +2614,7 @@ kube-scheduler-k8s-master            1/1     Running   0          35h<span aria-
 <p>  2.Pod 选择算符：.spec.selector 字段是一个标签选择算符。在 ReplicaSet 中，.spec.template.metadata.labels 的值必须与 spec.selector 值 相匹配，否则该配置会被API拒绝</p>
 <p>  3.可以通过设置 .spec.replicas 来指定要同时运行的 Pod个数。 ReplicaSet 创建、删除 Pods 以与此值匹配</p>
 <h2 id="10-4-ReplicaSet使用"><a href="#10-4-ReplicaSet使用" class="headerlink" title="10.4 ReplicaSet使用"></a>10.4 ReplicaSet使用</h2><p>  使用nginx镜像创建具有3个pod的RS,并分配合适的标签</p>
-<h3 id="10-4-1-创建yml文件"><a href="#10-4-1-创建yml文件" class="headerlink" title="10.4.1 创建yml文件"></a>10.4.1 创建yml文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; rs.yml &lt;&lt;EOF
+<h3 id="10-4-1-创建yml文件"><a href="#10-4-1-创建yml文件" class="headerlink" title="10.4.1 创建yml文件"></a>10.4.1 创建yml文件</h3><pre class=" language-language-bash"><code class="language-language-bash">cat > rs.yml <<EOF
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -2642,9 +2639,9 @@ spec:
           - name: http
             containerPort: 80
         imagePullPolicy: IfNotPresent
-EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="10-4-2-操作ReplicaSet"><a href="#10-4-2-操作ReplicaSet" class="headerlink" title="10.4.2 操作ReplicaSet"></a>10.4.2 操作ReplicaSet</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl create -f rs.yml
+EOF
+</code></pre>
+<h3 id="10-4-2-操作ReplicaSet"><a href="#10-4-2-操作ReplicaSet" class="headerlink" title="10.4.2 操作ReplicaSet"></a>10.4.2 操作ReplicaSet</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl create -f rs.yml
 root@k8s-master:~# kubectl get rs
 NAME          DESIRED   CURRENT   READY   AGE
 nginxrstest   3         3         3       3m45s
@@ -2683,11 +2680,11 @@ root@k8s-master:~# kubectl get replicasets.apps,pods -o wide
 root@k8s-master:~# kubectl delete replicasets.apps nginxrstest
 replicaset.apps "nginxrstest" deleted
 root@k8s-master:~# kubectl get pod
-No resources found in default namespace.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+No resources found in default namespace.
+</code></pre>
 <h2 id="10-5-Deployment"><a href="#10-5-Deployment" class="headerlink" title="10.5 Deployment"></a>10.5 Deployment</h2><p>  ReplicaSet确保任何时间都有指定数量的Pod副本在运行。 然而，Deployment是一个更高级的概念，它管理ReplicaSet，并向Pod提供声明式的更新以及许多其他有用的功能。 因此，建议使用 Deployment 而不是直接使用 ReplicaSet，除非需要自定义更新业务流程或根本不需要更新<br>  这实际上意味着，可能永远不需要操作ReplicaSet对象：而是使用Deployment，并在spec部分定义应用</p>
 <p><img src="/images/Deployment.png"></p>
-<h3 id="10-5-1-创建yml文件"><a href="#10-5-1-创建yml文件" class="headerlink" title="10.5.1 创建yml文件"></a>10.5.1 创建yml文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; deployment.yml &lt;&lt;EOF
+<h3 id="10-5-1-创建yml文件"><a href="#10-5-1-创建yml文件" class="headerlink" title="10.5.1 创建yml文件"></a>10.5.1 创建yml文件</h3><pre class=" language-language-bash"><code class="language-language-bash">cat > deployment.yml <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -2710,9 +2707,9 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="10-5-2-创建Deployment"><a href="#10-5-2-创建Deployment" class="headerlink" title="10.5.2 创建Deployment"></a>10.5.2 创建Deployment</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 使用nginx镜像创建具有3个副本的Deployment，并分配合适的属性
+EOF
+</code></pre>
+<h3 id="10-5-2-创建Deployment"><a href="#10-5-2-创建Deployment" class="headerlink" title="10.5.2 创建Deployment"></a>10.5.2 创建Deployment</h3><pre class=" language-language-bash"><code class="language-language-bash"># 使用nginx镜像创建具有3个副本的Deployment，并分配合适的属性
 # 发现deployment管理了一个RS，而RS又实现了3个pod
 root@k8s-master:~# kubectl create -f deployment.yml
 deployment.apps/nginx-deployment created
@@ -2739,10 +2736,10 @@ replicaset.apps/nginx-deployment-8d94c585f   3         3         3       2m20s
 NAME                                   READY   STATUS    RESTARTS   AGE
 pod/nginx-deployment-8d94c585f-ngm9d   1/1     Running   0          2m20s
 pod/nginx-deployment-8d94c585f-wf4mc   1/1     Running   0          2m20s
-pod/nginx-deployment-8d94c585f-wjzkw   1/1     Running   0          2m20s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+pod/nginx-deployment-8d94c585f-wjzkw   1/1     Running   0          2m20s
+</code></pre>
 <h3 id="10-5-3-更新Deployment"><a href="#10-5-3-更新Deployment" class="headerlink" title="10.5.3 更新Deployment"></a>10.5.3 更新Deployment</h3><p>  1.将deployment的镜像更改一次</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># Deployment的更新策略
+<pre class=" language-language-bash"><code class="language-language-bash"># Deployment的更新策略
 root@k8s-master:~# kubectl get deployments.apps nginx-deployment -o yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -2782,16 +2779,16 @@ replicaset.apps/nginx-deployment-8d94c585f    0         0         0       5m43s
 NAME                                    READY   STATUS    RESTARTS   AGE
 pod/nginx-deployment-5d457cdfc8-7whnx   1/1     Running   0          66s
 pod/nginx-deployment-5d457cdfc8-b7njk   1/1     Running   0          84s
-pod/nginx-deployment-5d457cdfc8-x4zv8   1/1     Running   0          55s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+pod/nginx-deployment-5d457cdfc8-x4zv8   1/1     Running   0          55s
+</code></pre>
 <p>  2.更新的策略</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 首先创建了一个新的Pod，然后删除了一些旧的Pods， 并创建了新的Pods。不会杀死老Pods，直到有足够的数量新的Pods已经出现
+<pre class=" language-language-bash"><code class="language-language-bash"># 首先创建了一个新的Pod，然后删除了一些旧的Pods， 并创建了新的Pods。不会杀死老Pods，直到有足够的数量新的Pods已经出现
 # 在足够数量的旧Pods被杀死前并没有创建新Pods。确保至少2个Pod可用，同时最多总共4个pod可用
 # Deployment可确保在更新时仅关闭一定数量的Pod。默认情况下确保至少所需Pods 75%处于运行状态（最大不可用比例为 25%）
-root@k8s-master:~# kubectl describe deployments.apps nginx-deployment<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# kubectl describe deployments.apps nginx-deployment
+</code></pre>
 <h3 id="10-5-4-回滚Deployment"><a href="#10-5-4-回滚Deployment" class="headerlink" title="10.5.4 回滚Deployment"></a>10.5.4 回滚Deployment</h3><p>  假设在更新时犯错误了，将镜像名称命名设置为nginx:1.172，而不是nginx:1.17.2，发现永远无法更新成功，此时就需要回退</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl set image deployments/nginx-deployment nginx=nginx:1.172 --record
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl set image deployments/nginx-deployment nginx=nginx:1.172 --record
 Flag --record has been deprecated, --record will be removed in the future
 deployment.apps/nginx-deployment image updated
 
@@ -2811,7 +2808,7 @@ nginx-deployment-6b7d6c469c-zcjps   0/1     ImagePullBackOff   0          92s
 root@k8s-master:~# kubectl rollout history deployments/nginx-deployment
 deployment.apps/nginx-deployment
 REVISION  CHANGE-CAUSE
-1         &lt;none&gt;
+1         <none>
 2         kubectl set image deployments/nginx-deployment nginx=nginx:1.17.1 --record=true
 3         kubectl set image deployments/nginx-deployment nginx=nginx:1.172 --record=true
 
@@ -2827,11 +2824,11 @@ Pod Template:
     Image:      nginx:1.17.1
     Port:       80/TCP
     Host Port:  0/TCP
-    Environment:        &lt;none&gt;
-    Mounts:     &lt;none&gt;
-  Volumes:      &lt;none&gt;
-  Node-Selectors:       &lt;none&gt;
-  Tolerations:  &lt;none&gt;
+    Environment:        <none>
+    Mounts:     <none>
+  Volumes:      <none>
+  Node-Selectors:       <none>
+  Tolerations:  <none>
 
 
 3.回滚到某个版本
@@ -2843,10 +2840,10 @@ deployment "nginx-deployment" successfully rolled out
 
 root@k8s-master:~# kubectl get deployment.apps
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-nginx-deployment   3/3     3            3           23m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+nginx-deployment   3/3     3            3           23m
+</code></pre>
 <h3 id="10-5-5-伸缩Deployment"><a href="#10-5-5-伸缩Deployment" class="headerlink" title="10.5.5 伸缩Deployment"></a>10.5.5 伸缩Deployment</h3><p>  将指定的deployment副本更改为10</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl scale deployments/nginx-deployment --replicas=10
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl scale deployments/nginx-deployment --replicas=10
 deployment.apps/nginx-deployment scaled
 
 root@k8s-master:~# kubectl get deployments.apps,replicasets.apps -l app=nginx
@@ -2858,8 +2855,8 @@ replicaset.apps/nginx-deployment-5d457cdfc8   10        10        10      21m
 replicaset.apps/nginx-deployment-6b7d6c469c   0         0         0       14m
 replicaset.apps/nginx-deployment-8d94c585f    0         0         0       25m
 
-root@k8s-master:~# kubectl delete deployments.apps nginx-deployment<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# kubectl delete deployments.apps nginx-deployment
+</code></pre>
 <h2 id="10-6-DaemonSet"><a href="#10-6-DaemonSet" class="headerlink" title="10.6 DaemonSet"></a>10.6 DaemonSet</h2><p>  DaemonSet确保全部（或某些）节点上运行一个 Pod 的副本。 当有节点加入集群时， 也会为他们新增一个 Pod 。 当有节点从集群移除时，这些 Pod 也会被回收。删除DaemonSet将会删除它创建的所有Pod</p>
 <p>  DaemonSet 的一些典型用法：</p>
 <p>  1.在每个节点上运行集群守护进程</p>
@@ -2867,7 +2864,7 @@ root@k8s-master:~# kubectl delete deployments.apps nginx-deployment<span aria-hi
 <p>  3.在每个节点上运行监控守护进程</p>
 <p><img src="/images/DaemonSet.png"></p>
 <p>使用busybox镜像，在每一个节点上都运行一个pod：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; daemonset.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > daemonset.yml <<EOF
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -2894,16 +2891,16 @@ root@k8s-master:~# kubectl create -f daemonset.yml
 daemonset.apps/luovip created
 root@k8s-master:~# kubectl get daemonsets.apps
 NAME     DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
-luovip   2         2         2       2            2           &lt;none&gt;          19s
+luovip   2         2         2       2            2           <none>          19s
 
 root@k8s-master:~# kubectl get pod -o wide
 NAME      READY   STATUS    RESTARTS   AGE   IP               NODE          NOMINATED NODE   READINESS GATES
-luovip-bxkmh      1/1     Running   0          95s   172.16.126.33    k8s-worker2   &lt;none&gt;           &lt;none&gt;
-luovip-fj5mz      1/1     Running   0          95s   172.16.194.105   k8s-worker1   &lt;none&gt;           &lt;none&gt;
+luovip-bxkmh      1/1     Running   0          95s   172.16.126.33    k8s-worker2   <none>           <none>
+luovip-fj5mz      1/1     Running   0          95s   172.16.194.105   k8s-worker1   <none>           <none>
 ...
 
-root@k8s-master:~# kubectl delete -f daemonset.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# kubectl delete -f daemonset.yml
+</code></pre>
 <p>  DaemonSet总结：</p>
 <p>  1.默认情况下， DaemonSet会在所有Node上创建一个Pod</p>
 <p>  2.如果将运行的pod删除，DaemonSet会自动启动一个新的</p>
@@ -2916,7 +2913,7 @@ root@k8s-master:~# kubectl delete -f daemonset.yml<span aria-hidden="true" class
 <p>  4.有序的、自动的滚动更新</p>
 <p><img src="/images/StatefulSet.png"></p>
 <h3 id="10-7-1-创建yml文件"><a href="#10-7-1-创建yml文件" class="headerlink" title="10.7.1 创建yml文件"></a>10.7.1 创建yml文件</h3><p>  使用nginx镜像，创建一个副本数为3的有状态应用，并挂载本地目录到容器中</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; statefulset.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > statefulset.yml <<EOF
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -2945,9 +2942,9 @@ spec:
       volumes:
          - name: www
            emptyDir: {}
-EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="10-7-2-操作StatefulSet"><a href="#10-7-2-操作StatefulSet" class="headerlink" title="10.7.2 操作StatefulSet"></a>10.7.2 操作StatefulSet</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 发现创建的过程是有次序的，这也验证了有状态应用的启动顺序
+EOF
+</code></pre>
+<h3 id="10-7-2-操作StatefulSet"><a href="#10-7-2-操作StatefulSet" class="headerlink" title="10.7.2 操作StatefulSet"></a>10.7.2 操作StatefulSet</h3><pre class=" language-language-bash"><code class="language-language-bash"># 发现创建的过程是有次序的，这也验证了有状态应用的启动顺序
 root@k8s-master:~# kubectl create -f statefulset.yml
 statefulset.apps/web created
 
@@ -2978,10 +2975,10 @@ web-1                               1/1     Running   0          108s
 web-2                               1/1     Running   0          97s
 
 root@k8s-master:~# kubectl delete -f statefulset.yml
-statefulset.apps "web" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+statefulset.apps "web" deleted
+</code></pre>
 <h2 id="10-8-Job"><a href="#10-8-Job" class="headerlink" title="10.8 Job"></a>10.8 Job</h2><p>  不断打印CKA JOB字符串，失败最多重试4次</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; job.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > job.yml <<EOF
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -3014,10 +3011,10 @@ CKA JOB
 ...
 
 root@k8s-master:~# kubectl delete -f job.yml
-job.batch "pi" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+job.batch "pi" deleted
+</code></pre>
 <h2 id="10-9-CronJob"><a href="#10-9-CronJob" class="headerlink" title="10.9 CronJob"></a>10.9 CronJob</h2><p>  每分钟打印一次指定字符串</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; cronjob.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > cronjob.yml <<EOF
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -3044,7 +3041,7 @@ cronjob.batch/cronjobtest created
 
 root@k8s-master:~# kubectl get cronjobs,pod
 NAME                        SCHEDULE      TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
-cronjob.batch/cronjobtest   */1 * * * *   &lt;none&gt;     False     0        34s             35s
+cronjob.batch/cronjobtest   */1 * * * *   <none>     False     0        34s             35s
 
 NAME                             READY   STATUS      RESTARTS   AGE
 pod/cronjobtest-29127403-mb9qx   0/1     Completed   0          34s
@@ -3055,7 +3052,7 @@ Hello from the Kubernetes cluster
 
 root@k8s-master:~# kubectl get cronjobs,pod
 NAME                        SCHEDULE      TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
-cronjob.batch/cronjobtest   */1 * * * *   &lt;none&gt;     False     0        9s              2m10s
+cronjob.batch/cronjobtest   */1 * * * *   <none>     False     0        9s              2m10s
 
 NAME                             READY   STATUS      RESTARTS   AGE
 pod/cronjobtest-29127403-mb9qx   0/1     Completed   0          2m9s
@@ -3067,8 +3064,8 @@ pod/cronjobtest-29127405-h5cc7   0/1     Completed   0          9s
 root@k8s-master:~# kubectl explain cronjob.spec
 
 root@k8s-master:~# kubectl delete -f cronjob.yml
-cronjob.batch "cronjobtest" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+cronjob.batch "cronjobtest" deleted
+</code></pre>
 <h1 id="11-Service-服务发现"><a href="#11-Service-服务发现" class="headerlink" title="11 Service 服务发现"></a>11 Service 服务发现</h1><h2 id="11-1-Service"><a href="#11-1-Service" class="headerlink" title="11.1 Service"></a>11.1 Service</h2><p>  Pod是非永久性资源，每个Pod都有自己的IP地址</p>
 <p>  如果一组Pod（称为“后端”）为集群内的其他Pod（称为“前端”）提供功能， 那么前端如何找出并跟踪要连接的IP地址，以便前端可以使用提供工作负载的后端部分</p>
 <p><img src="/images/Service.png"></p>
@@ -3077,7 +3074,7 @@ cronjob.batch "cronjobtest" deleted<span aria-hidden="true" class="line-numbers-
 <h2 id="11-3-iptables代理模式的Service"><a href="#11-3-iptables代理模式的Service" class="headerlink" title="11.3 iptables代理模式的Service"></a>11.3 iptables代理模式的Service</h2><p>  kube-proxy会监视Kubernetes 控制节点对Service对象和Endpoints对象的添加和移除。 对每个Service，它会配置iptables规则，从而捕获到达该Service的clusterIP和端口的请求，进而将请求重定向到 Service 的一组后端中的某个Pod上面。 对于每个Endpoints对象，它也会配置iptables规则，这个规则会选择一个后端组合<br>  默认的策略是，kube-proxy在iptables模式下随机选择一个后端<br>  使用iptables处理流量具有较低的系统开销，因为流量由Linux netfilter处理， 而无需在用户空间和内核空间之间切换。 这种方法也可能更可靠</p>
 <h2 id="11-4-IPVS代理模式的Service"><a href="#11-4-IPVS代理模式的Service" class="headerlink" title="11.4 IPVS代理模式的Service"></a>11.4 IPVS代理模式的Service</h2><p>  在ipvs模式下，kube-proxy监视Kubernetes服务和端点，调用netlink接口相应地创建IPVS规则， 并定期将IPVS规则与Kubernetes服务和端点同步。 该控制循环可确保IPVS 状态与所需状态匹配。访问服务时，IPVS将流量定向到后端Pod之一<br>  IPVS代理模式基于类似于iptables模式的netfilter挂钩函数， 但是使用哈希表作为基础数据结构，并且在内核空间中工作。 这意味着，与 iptables模式下的kube-proxy相比，IPVS模式下的kube-proxy重定向通信的延迟要短，并且在同步代理规则时具有更好的性能。 与其他代理模式相比，IPVS模式还支持更高的网络流量吞吐量</p>
 <h2 id="11-5-生成Service"><a href="#11-5-生成Service" class="headerlink" title="11.5 生成Service"></a>11.5 生成Service</h2><h3 id="11-5-1-准备后端Pod"><a href="#11-5-1-准备后端Pod" class="headerlink" title="11.5.1 准备后端Pod"></a>11.5.1 准备后端Pod</h3><p>  用nginx镜像准备一个3副本的deployment作为后端，并开放80端口</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; deployment-service.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > deployment-service.yml <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -3106,19 +3103,19 @@ root@k8s-master:~# kubectl create -f deployment-service.yml
 deployment.apps/nginx-deployment-servicetest created
 root@k8s-master:~# kubectl get pods -o wide
 NAME      READY   STATUS    RESTARTS   AGE   IP        NODE          NOMINATED NODE   READINESS GATES
-nginx-deployment-servicetest-8d94c585f-6ktj9 1/1  Running 0 13s 172.16.126.35 k8s-worker2 &lt;none&gt;   &lt;none&gt;
-nginx-deployment-servicetest-8d94c585f-jclrr 1/1  Running 0 13s 172.16.194.117 k8s-worker1 &lt;none&gt;     &lt;none&gt;
-nginx-deployment-servicetest-8d94c585f-wgztv 1/1  Running 0 13s 172.16.194.116 k8s-worker1   &lt;none&gt;  &lt;none&gt;
-root@k8s-master:~# curl 172.16.126.35<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-5-2-命令行生成Service"><a href="#11-5-2-命令行生成Service" class="headerlink" title="11.5.2 命令行生成Service"></a>11.5.2 命令行生成Service</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 用kubectl expose的命令创建一个针对deployment的服务，并查询endpoint是否准备就绪
+nginx-deployment-servicetest-8d94c585f-6ktj9 1/1  Running 0 13s 172.16.126.35 k8s-worker2 <none>   <none>
+nginx-deployment-servicetest-8d94c585f-jclrr 1/1  Running 0 13s 172.16.194.117 k8s-worker1 <none>     <none>
+nginx-deployment-servicetest-8d94c585f-wgztv 1/1  Running 0 13s 172.16.194.116 k8s-worker1   <none>  <none>
+root@k8s-master:~# curl 172.16.126.35
+</code></pre>
+<h3 id="11-5-2-命令行生成Service"><a href="#11-5-2-命令行生成Service" class="headerlink" title="11.5.2 命令行生成Service"></a>11.5.2 命令行生成Service</h3><pre class=" language-language-bash"><code class="language-language-bash"># 用kubectl expose的命令创建一个针对deployment的服务，并查询endpoint是否准备就绪
 root@k8s-master:~# kubectl expose deployment nginx-deployment-servicetest --port=9000 --name=luoyuservice --target-port=80 --type=NodePort
 service/luoyuservice exposed
 
 root@k8s-master:~# kubectl get service,endpoints
 NAME                   TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
-service/kubernetes     ClusterIP   10.96.0.1      &lt;none&gt;        443/TCP          2d13h
-service/luoyuservice   NodePort    10.105.8.223   &lt;none&gt;        9000:32646/TCP   26s
+service/kubernetes     ClusterIP   10.96.0.1      <none>        443/TCP          2d13h
+service/luoyuservice   NodePort    10.105.8.223   <none>        9000:32646/TCP   26s
 
 NAME                     ENDPOINTS                                              AGE
 endpoints/kubernetes     192.168.8.3:6443                                       2d13h
@@ -3126,13 +3123,13 @@ endpoints/luoyuservice   172.16.126.35:80,172.16.194.116:80,172.16.194.117:80   
 
 root@k8s-master:~# curl http://192.168.8.3:32646
 ...
-&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+<title>Welcome to nginx!</title>
 
 root@k8s-master:~# kubectl delete service luoyuservice
-service "luoyuservice" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+service "luoyuservice" deleted
+</code></pre>
 <h2 id="11-6-ClusterIP类型的Service"><a href="#11-6-ClusterIP类型的Service" class="headerlink" title="11.6 ClusterIP类型的Service"></a>11.6 ClusterIP类型的Service</h2><p>  ClusterIP是默认的Service类型，对外提供8000端口，并把流量引流到具有app: nginx的后端80端口上</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; clusterip.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > clusterip.yml <<EOF
 apiVersion: v1
 kind: Service
 metadata:
@@ -3151,8 +3148,8 @@ service/my-service created
 
 root@k8s-master:~# kubectl get service,endpoints
 NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-service/kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP    3d2h
-service/my-service   ClusterIP   10.101.56.206   &lt;none&gt;        8000/TCP   2m35s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP    3d2h
+service/my-service   ClusterIP   10.101.56.206   <none>        8000/TCP   2m35s
 
 NAME                   ENDPOINTS                                              AGE
 endpoints/kubernetes   192.168.8.3:6443                                       3d2h
@@ -3160,13 +3157,13 @@ endpoints/my-service   172.16.126.35:80,172.16.194.116:80,172.16.194.117:80   2m
 
 root@k8s-master:~# curl 10.101.56.206:8000
 ...
-&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+<title>Welcome to nginx!</title>
 
 root@k8s-master:~# kubectl delete -f clusterip.yml
-service "my-service" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+service "my-service" deleted
+</code></pre>
 <h2 id="11-7-NodePort类型的Service"><a href="#11-7-NodePort类型的Service" class="headerlink" title="11.7 NodePort类型的Service"></a>11.7 NodePort类型的Service</h2><p>  Type: NodePort将会在节点的特定端口上开通服务，指定了端口为31788</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; nodeport.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > nodeport.yml <<EOF
 apiVersion: v1
 kind: Service
 metadata:
@@ -3188,8 +3185,8 @@ service/nodeservice created
 
 root@k8s-master:~# kubectl get service,endpoints
 NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-service/kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP          3d3h
-service/nodeservice   NodePort    10.102.124.139   &lt;none&gt;        8000:31788/TCP   27s
+service/kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP          3d3h
+service/nodeservice   NodePort    10.102.124.139   <none>        8000:31788/TCP   27s
 
 NAME                    ENDPOINTS                                              AGE
 endpoints/kubernetes    192.168.8.3:6443                                       3d3h
@@ -3198,13 +3195,13 @@ endpoints/nodeservice   172.16.126.35:80,172.16.194.116:80,172.16.194.117:80   2
 # 因为是nodeport，所以用节点IP
 root@k8s-master:~# curl 192.168.8.4:31788
 ...
-&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+<title>Welcome to nginx!</title>
 
 root@k8s-master:~# kubectl delete -f nodeport.yml
-service "nodeservice" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+service "nodeservice" deleted
+</code></pre>
 <h2 id="11-8-Headless类型的Service"><a href="#11-8-Headless类型的Service" class="headerlink" title="11.8 Headless类型的Service"></a>11.8 Headless类型的Service</h2><h3 id="11-8-1-服务实现"><a href="#11-8-1-服务实现" class="headerlink" title="11.8.1 服务实现"></a>11.8.1 服务实现</h3><p>  在此类型的Service中，将不会只返回Service IP，会直接返回众多Pod 的IP地址，所以需要进入pod中用集群内DNS进行测试</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; headless.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > headless.yml <<EOF
 apiVersion: v1
 kind: Service
 metadata:
@@ -3224,14 +3221,14 @@ service/headless created
 
 root@k8s-master:~# kubectl get service,endpoints
 NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-service/headless     ClusterIP   None         &lt;none&gt;        8000/TCP   25s
-service/kubernetes   ClusterIP   10.96.0.1    &lt;none&gt;        443/TCP    3d3h
+service/headless     ClusterIP   None         <none>        8000/TCP   25s
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP    3d3h
 
 NAME                   ENDPOINTS                                              AGE
 endpoints/headless     172.16.126.35:80,172.16.194.116:80,172.16.194.117:80   25s
-endpoints/kubernetes   192.168.8.3:6443                                       3d3h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-8-2-测试Headless服务发现"><a href="#11-8-2-测试Headless服务发现" class="headerlink" title="11.8.2 测试Headless服务发现"></a>11.8.2 测试Headless服务发现</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl run --rm --image=busybox:1.28 -it testpod
+endpoints/kubernetes   192.168.8.3:6443                                       3d3h
+</code></pre>
+<h3 id="11-8-2-测试Headless服务发现"><a href="#11-8-2-测试Headless服务发现" class="headerlink" title="11.8.2 测试Headless服务发现"></a>11.8.2 测试Headless服务发现</h3><pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl run --rm --image=busybox:1.28 -it testpod
 If you don't see a command prompt, try pressing enter.
 / # nslookup headless
 Server:    10.96.0.10
@@ -3246,8 +3243,8 @@ Session ended, resume using 'kubectl attach testpod -c testpod -i -t' command wh
 pod "testpod" deleted
 
 root@k8s-master:~# kubectl delete -f headless.yml
-service "headless" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+service "headless" deleted
+</code></pre>
 <p>服务的DNS记录名称为：</p>
 <p>  servicename.namespace.svc.cluster.local</p>
 <p>deployment中Pod的DNS记录名称为：</p>
@@ -3256,10 +3253,10 @@ service "headless" deleted<span aria-hidden="true" class="line-numbers-rows"><sp
 <h2 id="11-9-LoadBalancer类型的Service"><a href="#11-9-LoadBalancer类型的Service" class="headerlink" title="11.9 LoadBalancer类型的Service"></a>11.9 LoadBalancer类型的Service</h2><h3 id="11-9-1-部署metallb负载均衡"><a href="#11-9-1-部署metallb负载均衡" class="headerlink" title="11.9.1 部署metallb负载均衡"></a>11.9.1 部署metallb负载均衡</h3><p>1.先部署一个metallb controller和Speaker：</p>
 <p>  1.metallb controller用于负责监听Kubernetes Service的变化，当服务类型被设置为LoadBalancer时，Controller会从一个预先配置的IP地址池中分配一个 IP地址给该服务，并管理这个IP地址的生命周期</p>
 <p>  2.Speaker负责将服务的 IP 地址通过标准的路由协议广播到网络中，确保外部流量能够正确路由到集群中的服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl apply -f https://www.linuxcenter.cn/files/cka/cka-yaml/metallb-native.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl apply -f https://www.linuxcenter.cn/files/cka/cka-yaml/metallb-native.yaml
+</code></pre>
 <p>2.定义一组由负载均衡对外分配的IP地址范围</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; ippool.yml &lt;&lt;-EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > ippool.yml <<-EOF
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -3271,10 +3268,10 @@ spec:
 EOF
 
 root@k8s-master:~# kubectl apply -f ippool.yml
-ipaddresspool.metallb.io/lxh-ip-pool-192-168-8-10-100 created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+ipaddresspool.metallb.io/lxh-ip-pool-192-168-8-10-100 created
+</code></pre>
 <p>3.在 Layer 2 模式下用于控制如何通过 ARP（Address Resolution Protocol）或 NDP（Neighbor Discovery Protocol）协议宣告服务的 IP 地址，使得这些 IP 地址在本地网络中可解析</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; l2Advertisement.yml &lt;&lt;-EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > l2Advertisement.yml <<-EOF
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
@@ -3286,10 +3283,10 @@ spec:
 EOF
 
 root@k8s-master:~# kubectl apply -f l2Advertisement.yml
-l2advertisement.metallb.io/l2-myippool created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+l2advertisement.metallb.io/l2-myippool created
+</code></pre>
 <h3 id="11-9-2-部署LoadBalancer服务"><a href="#11-9-2-部署LoadBalancer服务" class="headerlink" title="11.9.2 部署LoadBalancer服务"></a>11.9.2 部署LoadBalancer服务</h3><p>  负载均衡准备好之后，创建LoadBalancer类型的服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; loadbalancer.yml &lt;&lt;-EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > loadbalancer.yml <<-EOF
 apiVersion: v1
 kind: Service
 metadata:
@@ -3310,24 +3307,24 @@ service/loadbalance-service created
 # 获取服务看看是否分配到了负载均衡IP  从输出上看，分配到了192.168.8.10
 root@k8s-master:~# kubectl get service
 NAME                  TYPE           CLUSTER-IP     EXTERNAL-IP    PORT(S)        AGE
-kubernetes            ClusterIP      10.96.0.1      &lt;none&gt;         443/TCP        3d4h
+kubernetes            ClusterIP      10.96.0.1      <none>         443/TCP        3d4h
 loadbalance-service   LoadBalancer   10.99.147.16   192.168.8.10   80:30972/TCP   10s
 
 # 用负载均衡IP访问
 root@k8s-master:~# curl 192.168.8.10
 ...
-&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+<title>Welcome to nginx!</title>
 
 # 删除service资源
 root@k8s-master:~# kubectl delete -f loadbalancer.yml
-service "loadbalance-service" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+service "loadbalance-service" deleted
+</code></pre>
 <h2 id="11-10-Ingress"><a href="#11-10-Ingress" class="headerlink" title="11.10 Ingress"></a>11.10 Ingress</h2><p>  Ingress公开了从集群外部到集群内服务的HTTP和HTTPS路由</p>
 <p>  流量路由由Ingress资源上定义的规则控制</p>
 <p>  Ingress可以提供负载均衡、SSL卸载和基于名称的虚拟托管，为了让Ingress资源工作，集群必须有一个正在运行的Ingress控制器</p>
 <p><img src="/images/Ingress.png"></p>
 <h3 id="11-10-1-Ingress控制器部署"><a href="#11-10-1-Ingress控制器部署" class="headerlink" title="11.10.1 Ingress控制器部署"></a>11.10.1 Ingress控制器部署</h3><p>  Ingress需要Ingress控制器支持，先部署控制器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 拉取v1.1.0版本的yaml文件
+<pre class=" language-language-bash"><code class="language-language-bash"># 拉取v1.1.0版本的yaml文件
 # 使用如下路径下载-可能会失败
 wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/baremetal/deploy.yaml
 
@@ -3352,14 +3349,14 @@ ingress-nginx-admission-patch-46hk7    0/1     Completed   2          17m
 ingress-nginx-controller-47nzv         1/1     Running     0          17m
 ingress-nginx-controller-svcpx         1/1     Running     0          17m
 
-# admission相关pod状态为Completed为正常<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+# admission相关pod状态为Completed为正常
+</code></pre>
 <h3 id="11-10-2-Ingress路径类型"><a href="#11-10-2-Ingress路径类型" class="headerlink" title="11.10.2 Ingress路径类型"></a>11.10.2 Ingress路径类型</h3><p>  Ingress中的每个路径都需要有对应的路径类型，未明确设置pathType的路径无法通过合法性检查。当前支持的路径类型有三种：</p>
 <p>  1.ImplementationSpecific：对于这种路径类型，匹配方法取决于IngressClass。 具体实现可以将其作为单独的pathType处理或者与Prefix或 Exact类型作相同处理</p>
 <p>  2.Exact：精确匹配URL路径，且区分大小写</p>
 <p>  3.Prefix：基于以 / 分隔的URL路径前缀匹配。匹配区分大小写，并且对路径中的元素逐个完成。 路径元素指的是由/分隔符分隔的路径中的标签列表。 如果每个p都是请求路径p的元素前缀，则请求与路径p匹配</p>
 <h3 id="11-10-3-Ingress的使用"><a href="#11-10-3-Ingress的使用" class="headerlink" title="11.10.3 Ingress的使用"></a>11.10.3 Ingress的使用</h3><p>  用nginx镜像生成一个3副本的Pod，并通过Service提供服务，然后再用ingress，以特定域名的方式对外暴露</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; ingress.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > ingress.yml <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -3426,19 +3423,19 @@ deployment.apps/nginx-deployment-ingress       3/3     3            3           
 deployment.apps/nginx-deployment-servicetest   3/3     3            3           24h
 
 NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-service/ingressservice   ClusterIP   10.98.162.124   &lt;none&gt;        80/TCP    38s
-service/kubernetes       ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   3d13h
+service/ingressservice   ClusterIP   10.98.162.124   <none>        80/TCP    38s
+service/kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP   3d13h
 
 NAME                               CLASS   HOSTS            ADDRESS                   PORTS   AGE
 ingress.networking.k8s.io/luovip   nginx   www.luovip.com   192.168.8.4,192.168.8.5   80      38s
 
 
 # 把上述ADDRESS部分的IP和域名绑定解析
-root@k8s-master:~# echo 192.168.8.4 www.luovip.com &gt;&gt; /etc/hosts
+root@k8s-master:~# echo 192.168.8.4 www.luovip.com >> /etc/hosts
 root@k8s-master:~# curl http://www.luovip.com
 
-root@k8s-master:~# kubectl delete -f ingress.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# kubectl delete -f ingress.yml
+</code></pre>
 <h2 id="11-11-Gateway-API"><a href="#11-11-Gateway-API" class="headerlink" title="11.11 Gateway API"></a>11.11 Gateway API</h2><h3 id="11-11-1-Gateway-API-基本介绍"><a href="#11-11-1-Gateway-API-基本介绍" class="headerlink" title="11.11.1 Gateway API 基本介绍"></a>11.11.1 Gateway API 基本介绍</h3><p>  Kubernetes Gateway API 是一种新的 API 规范，旨在提供一种在 Kubernetes 中管理网关和负载均衡器的标准方法。它被设计为 Ingress API 的替代方案，提供更丰富的功能和更好的扩展性,Gateway API 的核心思想是通过使用可扩展的、角色导向的、协议感知的配置机制来提供网络服务。</p>
 <p>  Gateway API 包括几个核心组件：</p>
 <p>  1.<strong>GatewayClass</strong>：定义一组具有配置相同的网关，由实现该类的控制器管理。</p>
@@ -3478,24 +3475,24 @@ root@k8s-master:~# kubectl delete -f ingress.yml<span aria-hidden="true" class="
 <p>  <strong>实验效果</strong>：外部客户端可以用浏览器打开<code>http://test.luovip.com</code> 并返回我们的nginx业务网站内容</p>
 <p><strong>1.部署 Gateway API CRD</strong></p>
 <p>  这一步用于扩展K8S功能，以便于支持Gateway API</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 方法1：
+<pre class=" language-language-bash"><code class="language-language-bash"># 方法1：
 root@k8s-master:~# kubectl apply -f https://www.linuxcenter.cn/files/cka/gatewayapi/experimental-install.yaml
 
 # 方法2：
 root@k8s-master:~# wget https://www.linuxcenter.cn/files/cka/gatewayapi/experimental-install.yaml
-root@k8s-master:~# kubectl apply -f experimental-install.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# kubectl apply -f experimental-install.yaml
+</code></pre>
 <p>2.<strong>部署Fabric自定义资源</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 方法1：
+<pre class=" language-language-bash"><code class="language-language-bash"># 方法1：
 root@k8s-master:~# kubectl apply -f https://www.linuxcenter.cn/files/cka/gatewayapi/nginx-fabric-crds.yaml
 
 # 方法2：
 root@k8s-master:~# wget https://www.linuxcenter.cn/files/cka/gatewayapi/nginx-fabric-crds.yaml
-root@k8s-master:~# kubectl apply -f nginx-fabric-crds.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# kubectl apply -f nginx-fabric-crds.yaml
+</code></pre>
 <p>3.<strong>部署Fabric</strong></p>
 <p>  这一步部署的Fabric用于处理后端流量处理</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 方法1：
+<pre class=" language-language-bash"><code class="language-language-bash"># 方法1：
 root@k8s-master:~# kubectl apply -f https://www.linuxcenter.cn/files/cka/gatewayapi/nginx-fabric-deploy.yaml
 # 方法2：
 root@k8s-master:~# wget https://www.linuxcenter.cn/files/cka/gatewayapi/nginx-fabric-deploy.yaml
@@ -3520,11 +3517,11 @@ nginx-gateway-9cbb9b466-85ktc   2/2     Running   1 (56s ago)   72s
 # 这里将会自动创建基于nginx的GatewayClass
 root@k8s-master:~# kubectl get gatewayclasses.gateway.networking.k8s.io
 NAME    CONTROLLER                                   ACCEPTED   AGE
-nginx   gateway.nginx.org/nginx-gateway-controller   True       17m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+nginx   gateway.nginx.org/nginx-gateway-controller   True       17m
+</code></pre>
 <p>4.<strong>部署应用</strong></p>
 <p>  这里的应用是模拟公司的常规业务，稍后用于对外提供服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; deployment-service.yml &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > deployment-service.yml <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -3547,17 +3544,17 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+EOF
+</code></pre>
 <p>5.<strong>为了稳定pod的访问，用service的方式做了一个内部暴露</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~# kubectl create -f deployment-service.yml
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl create -f deployment-service.yml
 deployment.apps/k8sgateway-luoviptest created
 root@k8s-master:~# kubectl expose deployment k8sgateway-lxhtest --port=9000 --name=lxhservice --target-port=80
-service/lxhservice exposed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+service/lxhservice exposed
+</code></pre>
 <p>6.<strong>业务应用</strong></p>
 <p>  1.创建一个名为luovip-gateway的gateway并关联了一个名为nginx的gatewayClass，这个gateway提供了一个监听在80端口的http协议的监听器，这个监听器接收来自任何namespace以luovip.com为后缀的所有请求<br><strong>  2</strong>.创建一个名为luovip-http的httpRoute，并关联我们的gateway，本次httpRoute提供了test.luovip.com的域名根目录的请求入口，并将流量导入到一个名为luovipservice的9000端口</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; gatewayandhttproute.yml &lt;&lt;-EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > gatewayandhttproute.yml <<-EOF
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
@@ -3612,10 +3609,321 @@ NAME          HOSTNAMES             AGE
 luovip-http   ["test.luovip.com"]   9m29s
 
 # 访问测试
-root@k8s-master:~# echo 192.168.8.10 test.luovip.com &gt;&gt; /etc/hosts
-root@k8s-master:~# curl http://test.luovip.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+root@k8s-master:~# echo 192.168.8.10 test.luovip.com >> /etc/hosts
+root@k8s-master:~# curl http://test.luovip.com
+</code></pre>
 <h1 id="12-健康检查"><a href="#12-健康检查" class="headerlink" title="12 健康检查"></a>12 健康检查</h1><h2 id="12-1-探测器概述"><a href="#12-1-探测器概述" class="headerlink" title="12.1 探测器概述"></a>12.1 探测器概述</h2><p>  kubelet使用<strong>存活探测器</strong>(liveness probes)来知道什么时候要重启容器。 例如，存活探测器可以捕捉到死锁（应用程序在运行，但是无法继续执行后面的步骤）。 这样的情况下重启容器有助于让应用程序在有问题的情况下更可用。<br>  kubelet使用<strong>就绪探测器</strong>(readiness  probes)可以知道容器什么时候准备好了并可以开始接受请求流量， 当一个 Pod 内的所有容器都准备好了，才能把这个 Pod 看作就绪了。 在 Pod 还没有准备好的时候，会从 Service 的负载均衡器中被剔除的。<br>  kubelet 使用<strong>启动探测器</strong>(startup  probes)可以知道应用程序容器什么时候启动了。 可以控制容器在启动成功后再进行存活性和就绪检查， 确保这些存活、就绪探测器不会影响应用程序的启动。 这可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。</p>
+<p>顺序：1.启动探针工作完成—如果启动探针没完成，存活和就绪是不会开始的</p>
+<p>​            2.存活、就绪探针开始工作</p>
+<h2 id="12-2-Liveness-Probes"><a href="#12-2-Liveness-Probes" class="headerlink" title="12.2  Liveness Probes"></a>12.2  Liveness Probes</h2><h3 id="12-2-1-文件存活检测"><a href="#12-2-1-文件存活检测" class="headerlink" title="12.2.1 文件存活检测"></a>12.2.1 文件存活检测</h3><p>  创建一个名为liveness的容器，并在其中执行文件的创建，休眠，然后再删除文件的操作，然后用livenessProbe来检测</p>
+<pre class=" language-language-bash"><code class="language-language-bash">cat > liveness.yml <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+EOF
+</code></pre>
+<p>参数解释：</p>
+<p>  1.periodSeconds 字段指定了 kubelet 应该每 5 秒执行一次存活探测。</p>
+<p>  2.initialDelaySeconds 字段告诉 kubelet 在执行第一次探测前应该等待 5 秒。</p>
+<p>  3.kubelet 在容器内执行命令 cat /tmp/healthy 来进行探测。</p>
+<p>  4.如果命令执行成功并且返回值为 0，kubelet 就会认为这个容器是健康存活的。</p>
+<p>  5.如果这个命令返回非 0 值，kubelet 会杀死这个容器并重新启动它。</p>
+<p>  这个容器生命周期的前 30 秒， /tmp/healthy 文件是存在的。 所以在这最开始的 30 秒内，执行命令 cat /tmp/healthy 会返回成功代码。 30 秒之后，执行命令 cat /tmp/healthy 就会返回失败代码。</p>
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl create -f liveness.yml
+pod/liveness-exec created
+
+# 每30秒在pod事件中就会显示存活探测器失败了，下方信息显示这个容器被杀死并且被重建了5次
+root@k8s-master:~# kubectl get -f liveness.yml -o wide
+NAME            READY   STATUS    RESTARTS      AGE     IP  NODE          NOMINATED NODE   READINESS GATES
+liveness-exec   1/1     Running   5 (26s ago)   6m41s   172.16.194.68   k8s-worker1   <none>     <none>
+
+root@k8s-master:~# kubectl describe pod liveness-exec
+...
+Events:
+  Type     Reason     Age                     From               Message
+  ----     ------     ----                    ----               -------
+  Normal   Scheduled  9m10s                   default-scheduler  Successfully assigned default/liveness-exec to k8s-worker1
+  Normal   Pulling    9m9s                    kubelet            Pulling image "busybox"
+  Normal   Pulled     9m6s                    kubelet            Successfully pulled image "busybox" in 3.226s (3.226s including waiting). Image size: 4277910 bytes.
+  Normal   Created    2m55s (x6 over 9m6s)    kubelet            Created container: liveness
+  Normal   Started    2m55s (x6 over 9m6s)    kubelet            Started container liveness
+  Warning  Unhealthy  2m10s (x18 over 8m35s)  kubelet            Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
+  Normal   Killing    2m10s (x6 over 8m25s)   kubelet            Container liveness failed liveness probe, will be restarted
+  Warning  BackOff    21s (x8 over 100s)      kubelet            Back-off restarting failed container liveness in pod liveness-exec_default(b092160d-80d5-4edb-a593-726922c425e4)
+  Normal   Pulled     6s (x6 over 7m55s)      kubelet            Container image "busybox" already present on machine
+
+root@k8s-master:~# kubectl delete -f liveness.yml
+</code></pre>
+<h3 id="12-2-2-HTTP存活检测"><a href="#12-2-2-HTTP存活检测" class="headerlink" title="12.2.2 HTTP存活检测"></a>12.2.2 HTTP存活检测</h3><p>  以httpget的形式访问容器中的/luovip页面，根据返回代码来判断是否正常</p>
+<pre class=" language-language-bash"><code class="language-language-bash">cat > httpget.yml <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: http
+spec:
+  containers:
+  - name: httpd
+    image: httpd:2.2
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      httpGet:
+        path: /luovip
+        port: 80
+        httpHeaders:
+        - name: Custom-Header
+          value: Awesome
+      initialDelaySeconds: 3
+      periodSeconds: 3
+  restartPolicy: OnFailure
+EOF
+</code></pre>
+<p>参数解释：</p>
+<p>  1.periodSeconds 字段指定了 kubelet 每隔 3 秒执行一次存活探测。</p>
+<p>  2.initialDelaySeconds 字段告诉 kubelet 在执行第一次探测前应该等待 3 秒。</p>
+<p>  3.kubelet 会向容器内运行的服务发送一个 HTTP GET 请求来执行探测。 如果服务器上 /PATH 路径下的处理程序返回成功代码，则 kubelet 认为容器是健康存活的。</p>
+<p>  4.如果处理程序返回失败代码，则 kubelet 会杀死这个容器并且重新启动它。</p>
+<p>  5.任何大于或等于 200 并且小于 400 的返回代码标示成功，其它返回代码都标示失败。</p>
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl create -f httpget.yml
+pod/http created
+
+root@k8s-master:~# kubectl get -f httpget.yml
+NAME   READY   STATUS    RESTARTS   AGE
+http   1/1     Running   0          17s
+
+root@k8s-master:~# kubectl get pods
+NAME   READY   STATUS      RESTARTS   AGE
+http   0/1     Completed   2          4m40s
+
+root@k8s-master:~# kubectl describe pod http
+...
+Events:
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  2m22s                default-scheduler  Successfully assigned default/http to k8s-worker1
+  Normal   Pulling    2m22s                kubelet            Pulling image "httpd:2.2"
+  Normal   Pulled     2m7s                 kubelet            Successfully pulled image "httpd:2.2" in 14.839s (14.839s including waiting). Image size: 171293537 bytes.
+  Normal   Created    109s (x3 over 2m7s)  kubelet            Created container: httpd
+  Normal   Started    109s (x3 over 2m7s)  kubelet            Started container httpd
+  Normal   Pulled     109s (x2 over 118s)  kubelet            Container image "httpd:2.2" already present on machine
+  Warning  Unhealthy  100s (x9 over 2m4s)  kubelet            Liveness probe failed: HTTP probe failed with statuscode: 404
+  Normal   Killing    100s (x3 over 118s)  kubelet            Container httpd failed liveness probe, will be restarted
+  Warning  BackOff    100s                 kubelet            Back-off restarting failed container httpd in pod http_default(8d1f374c-ba01-4a4b-a8b1-dbba11736ccf)
+
+root@k8s-master:~# kubectl delete -f httpget.yml
+</code></pre>
+<h2 id="12-3-ReadinessProbe"><a href="#12-3-ReadinessProbe" class="headerlink" title="12.3 ReadinessProbe"></a>12.3 ReadinessProbe</h2><h3 id="12-3-1-TCP存活检测"><a href="#12-3-1-TCP存活检测" class="headerlink" title="12.3.1 TCP存活检测"></a>12.3.1 TCP存活检测</h3><p>  1.TCP 检测的配置和 HTTP 检测非常相似，同时使用就绪和存活探测器。</p>
+<p>  2.kubelet 会在容器启动 5 秒后发送第一个就绪探测。 这会尝试连接容器的800端口。如果探测成功，这个Pod会被标记为就绪状态，kubelet将继续每隔 10 秒运行一次检测。</p>
+<p>  3.除了就绪探测，这个配置包括了一个存活探测。 kubelet 会在容器启动 15 秒后进行第一次存活探测。 与就绪探测类似，会尝试连接器的800端口。 如果存活探测失败，这个容器会被重新启动。</p>
+<pre class=" language-language-bash"><code class="language-language-bash">cat > readiness.yml <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tcpcheck
+spec:
+  containers:
+  - name: httpd
+    image: httpd:2.2
+    imagePullPolicy: IfNotPresent
+    ports:
+      - name: webport
+        protocol: TCP
+        containerPort: 80
+    readinessProbe:
+      tcpSocket:
+        port: 800
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      tcpSocket:
+        port: 800
+      initialDelaySeconds: 15
+      periodSeconds: 20
+  restartPolicy: OnFailure
+EOF
+
+root@k8s-master:~# kubectl create -f readiness.yml
+
+root@k8s-master:~# kubectl get pods
+NAME       READY   STATUS    RESTARTS     AGE
+tcpcheck   0/1     Running   1 (3s ago)   64s
+
+root@k8s-master:~# kubectl describe pod tcpcheck
+...
+Events:
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  2m23s                default-scheduler  Successfully assigned default/tcpcheck to k8s-worker1
+  Normal   Pulled     22s (x3 over 2m22s)  kubelet            Container image "httpd:2.2" already present on machine
+  Normal   Created    22s (x3 over 2m22s)  kubelet            Created container: httpd
+  Normal   Started    22s (x3 over 2m22s)  kubelet            Started container httpd
+  Normal   Killing    22s (x2 over 82s)    kubelet            Container httpd failed liveness probe, will be restarted
+  Warning  Unhealthy  2s (x7 over 2m2s)    kubelet            Liveness probe failed: dial tcp 172.16.194.70:800: connect: connection refused
+  Warning  Unhealthy  1s (x14 over 2m10s)  kubelet            Readiness probe failed: dial tcp 172.16.194.70:800: connect: connection refused
+
+# 可以看到，pod对外提供了80端口，但是我们一直在检测800端口，所以这个pod的检测是失败的
+
+root@k8s-master:~# kubectl delete -f readiness.yml
+pod "tcpcheck" deleted
+</code></pre>
+<h2 id="12-4-StartupProbe"><a href="#12-4-StartupProbe" class="headerlink" title="12.4 StartupProbe"></a>12.4 StartupProbe</h2><p>  1.有时候，会有一些现有的应用程序在启动时需要较多的初始化时间。 要不影响对引起探测死锁的快速响应，这种情况下，设置存活探测参数是要技巧的。 技巧就是使用一个命令来设置启动探测，针对HTTP 或者 TCP 检测，可以通过设置 failureThreshold * periodSeconds 参数来保证有足够长的时间应对糟糕情况下的启动时间。<br>  2.应用程序将会有最多 30秒(3 * 10 = 30s) 的时间来完成它的启动。 一旦启动探测成功一次，存活探测任务就会接管对容器的探测，对容器死锁可以快速响应。 如果启动探测一直没有成功，容器会在 30 秒后被杀死，并且根据 restartPolicy 来设置 Pod 状态。</p>
+<pre class=" language-language-bash"><code class="language-language-bash">cat > startup.yml <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: startprobe
+spec:
+  containers:
+  - name: httpd
+    image: httpd:2.2
+    imagePullPolicy: IfNotPresent
+    ports:
+      - name: webport
+        protocol: TCP
+        containerPort: 80
+    readinessProbe:
+      tcpSocket:
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    startupProbe:
+      httpGet:
+        path: /
+        port: 800
+      initialDelaySeconds: 5
+      failureThreshold: 3
+      periodSeconds: 10
+  restartPolicy: OnFailure
+EOF
+</code></pre>
+<p>Probe参数:</p>
+<p>Probe 有很多配置字段，可以使用这些字段精确的控制存活和就绪检测的行为：</p>
+<p>  1.initialDelaySeconds：容器启动后要等待多少秒后存活和就绪探测器才被初始化，默认是 0 秒，最小值是 0</p>
+<p>  2.periodSeconds：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1</p>
+<p>  3.timeoutSeconds：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1</p>
+<p>  4.successThreshold：探测器在失败后，被视为成功的最小连续成功数。默认值是 1。 存活和启动探测的这个值必须是 1。最小值是 1</p>
+<p>  5.failureThreshold：当探测失败时，Kubernetes 的重试次数。 存活探测情况下的放弃就意味着重新启动容器。 就绪探测情况下的放弃 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1</p>
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl create -f startup.yml
+pod/startprobe created
+
+root@k8s-master:~# kubectl get -f startup.yml
+NAME         READY   STATUS    RESTARTS   AGE
+startprobe   0/1     Running   0          7s
+
+root@k8s-master:~# kubectl describe -f startup.yml
+...
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  52s                default-scheduler  Successfully assigned default/startprobe to k8s-worker1
+  Normal   Pulled     22s (x2 over 52s)  kubelet            Container image "httpd:2.2" already present on machine
+  Normal   Created    22s (x2 over 52s)  kubelet            Created container: httpd
+  Normal   Started    22s (x2 over 52s)  kubelet            Started container httpd
+  Normal   Killing    22s                kubelet            Container httpd failed startup probe, will be restarted
+  Warning  Unhealthy  2s (x5 over 42s)   kubelet            Startup probe failed: Get "http://172.16.194.71:800/": dial tcp 172.16.194.71:800: connect: connection refused
+
+# 可以发现由于故意写成了800端口，检测失败，容器一直无法就绪
+root@k8s-master:~# kubectl delete -f startup.yml
+</code></pre>
+<h2 id="12-5-探针检测顺序与优先级"><a href="#12-5-探针检测顺序与优先级" class="headerlink" title="12.5 探针检测顺序与优先级"></a>12.5 探针检测顺序与优先级</h2><p>  在 Kubernetes 中，<strong>startupProbe</strong>、<strong>livenessProbe</strong> 和 <strong>readinessProbe</strong>是用于监控和管理容器健康状况的探针，每种探针在容器生命周期中的不同阶段发挥不同的作用。以下是这三种探针的检测顺序和优先级：</p>
+<h3 id="12-5-1-startupProbe"><a href="#12-5-1-startupProbe" class="headerlink" title="12.5.1 startupProbe"></a>12.5.1 startupProbe</h3><p>  <strong>检测顺序</strong>：startupProbe是在容器启动时首先执行的探针。它用于判断应用是否已成功启动，并且只在启动期间运行。</p>
+<p>  <strong>优先级</strong>：如果配置了 startupProbe，Kubernetes会忽略 livenessProbe和readinessProbe直到 startupProbe成功。startupProbe成功</p>
+<p>​                       后，livenessProbe和 readinessProbe才会开始运行。</p>
+<p>  <strong>目的</strong>：用于处理启动时间较长的应用程序，确保应用在完全启动之前不会因 livenessProbe 的失败而被重启。</p>
+<h3 id="12-5-2-livenessProbe"><a href="#12-5-2-livenessProbe" class="headerlink" title="12.5.2 livenessProbe"></a>12.5.2 livenessProbe</h3><p>  <strong>检测顺序</strong>：在 startupProbe成功之后，livenessProbe 开始执行。它定期检查容器是否处于健康状态。</p>
+<p>  <strong>优先级</strong>：如果配置了 startupProbe，livenessProbe只有在startupProbe成功之后才开始运行。如果未配置 startupProbe， </p>
+<p>​                       livenessProbe在容器启动后立即开始运行。</p>
+<p>  <strong>目的</strong>：用于检测容器是否仍然处于健康状态。如果 livenessProbe失败，Kubernetes 会重启该容器。</p>
+<h3 id="12-5-3-readinessProbe"><a href="#12-5-3-readinessProbe" class="headerlink" title="12.5.3 readinessProbe"></a>12.5.3 readinessProbe</h3><p>  <strong>检测顺序</strong>：在 startupProbe成readinessProbe开始执行。它定期检查容器是否已准备好接收流量。</p>
+<p>  <strong>优先级</strong>：如果配置了startupProbe，readinessProbe只有在 startupProbe成功之后才开始运行。如果未配置 startupProbe，</p>
+<p>​                       readinessProbe在容器启动后立即开始运行。</p>
+<p>  <strong>目的</strong>：用于判断容器是否可以接收请求。如果 readinessProbe 失败，容器将从服务的端点列表中移除，不再接收新的流量。</p>
+<h3 id="12-5-4-总结"><a href="#12-5-4-总结" class="headerlink" title="12.5.4 总结"></a>12.5.4 总结</h3><p>  <strong>顺序</strong>：startupProbe-&gt; livenessProbe-&gt; readinessProbe</p>
+<p>  <strong>优先级</strong>：</p>
+<p>  startupProbe优先于其他两个探针。如果配置了 startupProbe，必须先通过 startupProbe检测，livenessProbe和 readinessProbe才会启动。</p>
+<p>  livenessProbe和readinessProbe在startupProbe成功后同时开始运行，没有严格的优先级区分，但它们的作用不同，livenessProbe用于重启失败的容器，readinessProbe 用于控制流量。</p>
+<h2 id="12-6-优雅关闭"><a href="#12-6-优雅关闭" class="headerlink" title="12.6 优雅关闭"></a>12.6 优雅关闭</h2><p>  从 Kubernetes 1.22 开始，terminationGracePeriodSeconds 特性被开启，在杀死容器时，Pod停止获得新的流量。但在Pod中运行的容器不会受到影响。直到超时发生。可以在Pod级别或者容器下具体的探针级别设定，探针会优先和覆盖Pod级别</p>
+<p>  下面的例子中，容器将在收到结束需求是沉睡2分钟来代表业务的正常关闭，然后整个pod最多等待200秒，超过200秒，就会强制删除</p>
+<pre class=" language-language-yml"><code class="language-language-yml">cat > grace.yml <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpgrace
+spec:
+  terminationGracePeriodSeconds: 200
+  containers:
+  - name: httpd
+    image: httpd:2.2
+    imagePullPolicy: IfNotPresent
+    ports:
+      - name: webport
+        protocol: TCP
+        containerPort: 80
+    lifecycle:
+      preStop:
+        exec:
+          command: ["/bin/sh","-c","sleep 2m"]
+  restartPolicy: OnFailure
+EOF
+</code></pre>
+<pre class=" language-language-bash"><code class="language-language-bash">root@k8s-master:~# kubectl create -f grace.yml
+
+root@k8s-master:~# kubectl get -f grace.yml
+NAME        READY   STATUS    RESTARTS   AGE
+httpgrace   1/1     Running   0          9s
+
+root@k8s-master:~# kubectl delete pod httpgrace &
+[1] 34690
+root@k8s-master:~# pod "httpgrace" deleted
+root@k8s-master:~# jobs
+[1]+  Running                 kubectl delete pod httpgrace &
+
+# Terminating表示终结中
+root@k8s-master:~# kubectl get pod
+NAME        READY   STATUS        RESTARTS   AGE
+httpgrace   1/1     Terminating   0          2m21s
+
+root@k8s-master:~# kubectl describe pod httpgrace
+...
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  2m51s  default-scheduler  Successfully assigned default/httpgrace to k8s-worker1
+  Normal  Pulled     2m50s  kubelet            Container image "httpd:2.2" already present on machine
+  Normal  Created    2m50s  kubelet            Created container: httpd
+  Normal  Started    2m50s  kubelet            Started container httpd
+  Normal  Killing    81s    kubelet            Stopping container httpd
+  
+root@k8s-master:~# kubectl get pod
+No resources found in default namespace.
+</code></pre>
+<h1 id="13-Kubernetes持久存储"><a href="#13-Kubernetes持久存储" class="headerlink" title="13 Kubernetes持久存储"></a>13 Kubernetes持久存储</h1><p>  Container 中的文件在磁盘上是临时存放的，这给 Container 中运行的较重要的应用 程序带来一些问题：</p>
+<p>  1.当容器崩溃时文件丢失。kubelet 会重新启动容器， 但容器会以干净的状态重启</p>
+<p>  2.会在同一 Pod中运行多个容器并共享文件时出现</p>
+<p>  <strong>Kubernetes 卷（Volume） 这一抽象概念能够解决这两个问题</strong></p>
+<h2 id="13-1-数据卷"><a href="#13-1-数据卷" class="headerlink" title="13.1 数据卷"></a>13.1 数据卷</h2><p>  Kubernetes 支持很多类型的卷</p>
+<p>  Pod 可以同时使用任意数目的卷类型</p>
+<p>  临时卷类型的生命周期与 Pod 相同，但持久卷可以比 Pod 的存活期长</p>
+<p>  当 Pod 不再存在时，Kubernetes 也会销毁临时卷；不过 Kubernetes 不会销毁 持久卷。对于给定 Pod 中任何类型的卷，在容器重启期间数据都不会丢失。<br>  使用卷时, 在 .spec.volumes 字段中设置为 Pod 提供的卷，并在 .spec.containers[*].volumeMounts 字段中声明卷在容器中的挂载位置</p>
+<h2 id="13-2-emptyDir"><a href="#13-2-emptyDir" class="headerlink" title="13.2 emptyDir"></a>13.2 emptyDir</h2><p>  当 Pod 分派到某个 Node 上时，emptyDir 卷会被创建，并且在 Pod 在该节点上运行期间，卷一直存在。 就像其名称表示的那样，卷最初是空的。 尽管 Pod 中的容器挂载 emptyDir 卷的路径可能相同也可能不同，这些容器都可以读写 emptyDir 卷中相同的文件。 当 Pod 因为某些原因被从节点上删除时，emptyDir 卷中的数据也会被永久删除。<br>  容器崩溃并不会导致 Pod 被从节点上移除，因此容器崩溃期间 emptyDir 卷中的数据是安全的</p>
 
                 
             </div>
@@ -4020,7 +4328,7 @@ root@k8s-master:~# curl http://test.luovip.com<span aria-hidden="true" class="li
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99k</span>&nbsp;字
+                class="white-color">63.9k</span>&nbsp;字
             
             
             

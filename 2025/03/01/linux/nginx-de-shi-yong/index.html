@@ -530,14 +530,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.2k
+                    3.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    25 分
+                    11 分
                 </div>
                 
 
@@ -551,9 +551,6 @@
         </div>
         <hr class="clearfix">
 
-        
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.css">
         
 
         
@@ -648,7 +645,7 @@
 <td>1.28.0</td>
 </tr>
 </tbody></table>
-<h2 id="2-2-RedHat9的有关配置"><a href="#2-2-RedHat9的有关配置" class="headerlink" title="2.2 RedHat9的有关配置"></a>2.2 RedHat9的有关配置</h2><h3 id="2-2-1-网络设置"><a href="#2-2-1-网络设置" class="headerlink" title="2.2.1 网络设置"></a>2.2.1 网络设置</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 查看虚拟机网路适配器设置
+<h2 id="2-2-RedHat9的有关配置"><a href="#2-2-RedHat9的有关配置" class="headerlink" title="2.2 RedHat9的有关配置"></a>2.2 RedHat9的有关配置</h2><h3 id="2-2-1-网络设置"><a href="#2-2-1-网络设置" class="headerlink" title="2.2.1 网络设置"></a>2.2.1 网络设置</h3><pre class=" language-language-bash"><code class="language-language-bash"># 查看虚拟机网路适配器设置
 [root@RhelHost1 ~]# vim /etc/NetworkManager/system-connections/ens160.nmconnection
 
 # 添加DNS
@@ -659,9 +656,9 @@ nameserver 8.8.4.4
 
 # 重启网卡
 [root@RhelHost1 ~]# nmcli connection down ens160
-[root@RhelHost1 ~]# nmcli connection up ens160<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-2-1-国内镜像源"><a href="#2-2-1-国内镜像源" class="headerlink" title="2.2.1 国内镜像源"></a>2.2.1 国内镜像源</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@RhelHost1 ~]# cd /etc/yum.repos.d
+[root@RhelHost1 ~]# nmcli connection up ens160
+</code></pre>
+<h3 id="2-2-1-国内镜像源"><a href="#2-2-1-国内镜像源" class="headerlink" title="2.2.1 国内镜像源"></a>2.2.1 国内镜像源</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@RhelHost1 ~]# cd /etc/yum.repos.d
 [root@RhelHost1 yum.repos.d]# vim aliyun_yum.repo
 [ali_baseos]
 name=ali_baseos
@@ -676,10 +673,10 @@ gpgcheck=0
 [root@RhelHost1 ~]# yum makecache
 
 # 根据需要选择是否更新yum源
-[root@RhelHost1 ~]# yum -y update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@RhelHost1 ~]# yum -y update
+</code></pre>
 <h3 id="2-2-2-本地yum源配置"><a href="#2-2-2-本地yum源配置" class="headerlink" title="2.2.2 本地yum源配置"></a>2.2.2 本地yum源配置</h3><p>  配置本地yum源可以创建一个本地的软件包存储库，以便更快地安装、更新和管理软件包</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 创建文件夹并将光盘挂载到新建的文件中
+<pre class=" language-language-bash"><code class="language-language-bash"># 创建文件夹并将光盘挂载到新建的文件中
 [root@RhelHost1 ~]# mkdir -p /GuaZai/Iso
 [root@RhelHost1 ~]# mount /dev/sr0 /GuaZai/Iso
 mount: /GuaZai/Iso: WARNING: source write-protected, mounted read-only.
@@ -702,11 +699,11 @@ gpgcheck=0
 [root@RhelHost1 ~]# yum repolist
 
 # 生成yum缓存
-[root@RhelHost1 ~]# yum makecache<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@RhelHost1 ~]# yum makecache
+</code></pre>
 <h2 id="2-3-准备软件包仓库"><a href="#2-3-准备软件包仓库" class="headerlink" title="2.3 准备软件包仓库"></a>2.3 准备软件包仓库</h2><p>  向系统添加了一个名为<strong>nginx</strong>的仓库</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 仓库地址 https://nginx.org/packages
-cat &gt; /etc/yum.repos.d/nginx.repo &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 仓库地址 https://nginx.org/packages
+cat > /etc/yum.repos.d/nginx.repo <<EOF
 [nginx]
 name=nginx repo
 baseurl=https://nginx.org/packages/rhel/9/x86_64/
@@ -720,9 +717,9 @@ ali_baseos                                                         12 kB/s | 3.9
 ali_appstream                                                      32 kB/s | 4.4 kB     00:00
 nginx repo                                                         21 kB/s | 52 kB      00:02
 rhel9-BaseOS                                                       2.7 MB/s| 2.7 kB     00:00
-rhel9-Appstream                                                    3.1 MB/s| 3.2 kB     00:00<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2-4-安装NGINX软件"><a href="#2-4-安装NGINX软件" class="headerlink" title="2.4 安装NGINX软件"></a>2.4 安装NGINX软件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 从输出看，已经从nginx仓库中，安装了1.28.0
+rhel9-Appstream                                                    3.1 MB/s| 3.2 kB     00:00
+</code></pre>
+<h2 id="2-4-安装NGINX软件"><a href="#2-4-安装NGINX软件" class="headerlink" title="2.4 安装NGINX软件"></a>2.4 安装NGINX软件</h2><pre class=" language-language-bash"><code class="language-language-bash"># 从输出看，已经从nginx仓库中，安装了1.28.0
 [root@RhelHost1 ~]# dnf install nginx -y
 ...
  Verifying        : nginx-2:1.28.0-1.el9.ngx.x86_64                                                                                              1/1
@@ -731,31 +728,31 @@ Installed products updated.
 Installed:
   nginx-2:1.28.0-1.el9.ngx.x86_64
 
-Complete!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+Complete!
+</code></pre>
 <h2 id="2-5-准备测试页面"><a href="#2-5-准备测试页面" class="headerlink" title="2.5 准备测试页面"></a>2.5 准备测试页面</h2><p>  nginx的服务默认需要将网页放到**/usr/share/nginx/html<strong>目录中，首页需要以</strong>index.html<strong>或者</strong>index.htm**命名</p>
 <p>  准备一个内容为<strong>Hello nginx, I’m China</strong>的网页作为其首页</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@RhelHost1 ~]# echo "Hello nginx, I'm China" &gt; /usr/share/nginx/html/index.html
+<pre class=" language-language-bash"><code class="language-language-bash">[root@RhelHost1 ~]# echo "Hello nginx, I'm China" > /usr/share/nginx/html/index.html
 [root@RhelHost1 ~]# cat /usr/share/nginx/html/index.html
-Hello nginx, I'm China<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
+Hello nginx, I'm China
+</code></pre>
 <h2 id="2-6-启用并启动服务"><a href="#2-6-启用并启动服务" class="headerlink" title="2.6 启用并启动服务"></a>2.6 启用并启动服务</h2><p>  用<strong>enable –now</strong>的语法，将nginx的服务执行enable和start操作，以便于马上启动nginx服务，并通知服务器，将nginx服务在开机时自动启动</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@RhelHost1 ~]# systemctl enable nginx --now
+<pre class=" language-language-bash"><code class="language-language-bash">[root@RhelHost1 ~]# systemctl enable nginx --now
 Created symlink /etc/systemd/system/multi-user.target.wants/nginx.service → /usr/lib/systemd/system/nginx.service.
-[root@RhelHost1 ~]# systemctl status nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2-7-开通防火墙"><a href="#2-7-开通防火墙" class="headerlink" title="2.7 开通防火墙"></a>2.7 开通防火墙</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@RhelHost1 ~]# firewall-cmd --add-service=http --permanent
+[root@RhelHost1 ~]# systemctl status nginx
+</code></pre>
+<h2 id="2-7-开通防火墙"><a href="#2-7-开通防火墙" class="headerlink" title="2.7 开通防火墙"></a>2.7 开通防火墙</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@RhelHost1 ~]# firewall-cmd --add-service=http --permanent
 success
 [root@RhelHost1 ~]# firewall-cmd --reload
-success<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2-8-访问测试网页"><a href="#2-8-访问测试网页" class="headerlink" title="2.8 访问测试网页"></a>2.8 访问测试网页</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@RhelHost1 ~]# curl http://192.168.8.53
-Hello nginx, I'm China<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+success
+</code></pre>
+<h2 id="2-8-访问测试网页"><a href="#2-8-访问测试网页" class="headerlink" title="2.8 访问测试网页"></a>2.8 访问测试网页</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@RhelHost1 ~]# curl http://192.168.8.53
+Hello nginx, I'm China
+</code></pre>
 <h2 id="2-9-优雅重载NGINX"><a href="#2-9-优雅重载NGINX" class="headerlink" title="2.9 优雅重载NGINX"></a>2.9 优雅重载NGINX</h2><p>  如果后续修改了配置文件，可用下面的方法优雅重载nginx，比如下面告诉nginx来重新加载配置文件，而不中断服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 给nginx发送reload信号，可在不中断nginx进程的情况下重载配置文件
-[root@RhelHost1 ~]# nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<pre class=" language-language-bash"><code class="language-language-bash"># 给nginx发送reload信号，可在不中断nginx进程的情况下重载配置文件
+[root@RhelHost1 ~]# nginx -s reload
+</code></pre>
 <h1 id="3-NGINX实现负载均衡"><a href="#3-NGINX实现负载均衡" class="headerlink" title="3 NGINX实现负载均衡"></a>3 NGINX实现负载均衡</h1><h2 id="3-1-环境介绍"><a href="#3-1-环境介绍" class="headerlink" title="3.1 环境介绍"></a>3.1 环境介绍</h2><table>
 <thead>
 <tr>
@@ -789,7 +786,7 @@ Hello nginx, I'm China<span aria-hidden="true" class="line-numbers-rows"><span><
 </tr>
 </tbody></table>
 <h2 id="3-2-环境架构图"><a href="#3-2-环境架构图" class="headerlink" title="3.2 环境架构图"></a>3.2 环境架构图</h2><p>  在这个架构中，NGINX负载均衡器loadbalance.luovip.cn（IP地址192.168.8.53）负责将请求分发到两台普通业务服务器web1.luovip.cn（IP地址192.168.8.54）和web2.luovip.cn（IP地址192.168.8.55）</p>
-<pre class="line-numbers language-none"><code class="language-none">                              +------------------------+
+<pre><code>                              +------------------------+
                               | loadbalance.luovip.cn  |
                               |      192.168.8.53      |
                               |        (NGINX)         |
@@ -803,20 +800,20 @@ Hello nginx, I'm China<span aria-hidden="true" class="line-numbers-rows"><span><
 |     web1.luovip.cn     |                           |     web2.luovip.cn     |
 |      192.168.8.54       |                           |      192.168.8.55       |
 |      (业务服务器)       |                           |      (业务服务器)       |
-+------------------------+                           +------------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
++------------------------+                           +------------------------+
+</code></pre>
 <h2 id="3-3-实验先决条件"><a href="#3-3-实验先决条件" class="headerlink" title="3.3 实验先决条件"></a>3.3 实验先决条件</h2><h3 id="3-3-1-准备hosts文件"><a href="#3-3-1-准备hosts文件" class="headerlink" title="3.3.1 准备hosts文件"></a>3.3.1 准备hosts文件</h3><p>  需要在所有机器上完成准备，以便能用名称互相解析和访问</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 以下命令在架构中的三台主机中执行
-cat &gt; /etc/hosts &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 以下命令在架构中的三台主机中执行
+cat > /etc/hosts <<EOF
 192.168.8.53 loadbalance.luovip.cn loadbalance
 192.168.8.54 web1.luovip.cn web1
 192.168.8.55 web2.luovip.cn web2
-EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+EOF
+</code></pre>
 <h3 id="3-3-2-部署业务服务器"><a href="#3-3-2-部署业务服务器" class="headerlink" title="3.3.2 部署业务服务器"></a>3.3.2 部署业务服务器</h3><p>  在两台业务服务器上部署Nginx，需要让每个服务器上的页面显示不同的内容以区分主机，每个主机需开通防火墙</p>
 <p>1.部署web1.luovip.cn这台主机，IP为：192.168.8.54</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 准备软件包仓库
-cat &gt; /etc/yum.repos.d/nginx.repo &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 准备软件包仓库
+cat > /etc/yum.repos.d/nginx.repo <<EOF
 [nginx]
 name=nginx repo
 baseurl=https://nginx.org/packages/rhel/9/x86_64/
@@ -830,7 +827,7 @@ EOF
 [root@RhelHost2 ~]# dnf install nginx -y
 
 # 准备测试页面
-[root@RhelHost2 ~]# echo "Hello nginx, I'm web1.luovip.cn" &gt; /usr/share/nginx/html/index.html
+[root@RhelHost2 ~]# echo "Hello nginx, I'm web1.luovip.cn" > /usr/share/nginx/html/index.html
 
 # 启用并启动服务
 [root@RhelHost2 ~]# systemctl enable nginx --now
@@ -844,11 +841,11 @@ success
 
 # 访问测试页
 [root@RhelHost2 ~]# curl http://192.168.8.54
-Hello nginx, I'm web1.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+Hello nginx, I'm web1.luovip.cn
+</code></pre>
 <p>2.部署web2.luovip.cn这台主机，IP为：192.168.8.55</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 准备软件包仓库
-cat &gt; /etc/yum.repos.d/nginx.repo &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 准备软件包仓库
+cat > /etc/yum.repos.d/nginx.repo <<EOF
 [nginx]
 name=nginx repo
 baseurl=https://nginx.org/packages/rhel/9/x86_64/
@@ -862,7 +859,7 @@ EOF
 [root@RhelHost3 ~]# dnf install nginx -y
 
 # 准备测试页面
-[root@RhelHost3 ~]# echo "Hello nginx, I'm web2.luovip.cn" &gt; /usr/share/nginx/html/index.html
+[root@RhelHost3 ~]# echo "Hello nginx, I'm web2.luovip.cn" > /usr/share/nginx/html/index.html
 
 # 启用并启动服务
 [root@RhelHost3 ~]# systemctl enable nginx --now
@@ -876,8 +873,8 @@ success
 
 # 访问测试页
 [root@RhelHost3 ~]# curl http://192.168.8.55
-Hello nginx, I'm web2.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+Hello nginx, I'm web2.luovip.cn
+</code></pre>
 <h2 id="3-4-基本概念"><a href="#3-4-基本概念" class="headerlink" title="3.4 基本概念"></a>3.4 基本概念</h2><p>  NGINX不仅是一个高性能的Web服务器，同时还提供了强大的负载均衡功能。它支持基于HTTP、HTTPS、TCP和UDP协议的负载均衡，为不同的应用场景提供了解决方案。在开源版本的NGINX中，提供了被动的健康检查，这有助于减少上游服务器的压力。而在NGINX Plus版本中，除了被动健康检查，还提供了主动健康检查功能。</p>
 <p>  主动健康检查每隔一段时间就会向上游服务器发起连接或请求，以确保服务器的健康状态。这虽然会带来一定的系统负载，但能够更及时地发现问题，并提供更高的服务可用性。</p>
 <h2 id="3-5-负载均衡的应用"><a href="#3-5-负载均衡的应用" class="headerlink" title="3.5 负载均衡的应用"></a>3.5 负载均衡的应用</h2><p>  以下所有关于负载均衡的例子，都在loadbalance服务器执行，192.168.8.56不需要准备，仅用于示意</p>
@@ -888,8 +885,8 @@ Hello nginx, I'm web2.luovip.cn<span aria-hidden="true" class="line-numbers-rows
 <p>  <strong>server 192.168.8.56:80 backup max_fails=3 fail_timeout=3s</strong>：定义了备份服务器，最大失败次数为3，超时时间为3秒。</p>
 <p>  <strong>server_name loadbalance.luovip.cn</strong>：设置了虚拟主机名。</p>
 <p>  <strong>proxy_pass <a target="_blank" rel="noopener" href="http://load/">http://load</a></strong>：将请求转发到上游服务器组。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 将以下代码在loadbalance服务器执行，让nginx重新加载配置文件生效
-cat &gt; /etc/nginx/conf.d/httpha.conf &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash"># 将以下代码在loadbalance服务器执行，让nginx重新加载配置文件生效
+cat > /etc/nginx/conf.d/httpha.conf <<EOF
 upstream load {
  server 192.168.8.54:80 weight=1 max_fails=3 fail_timeout=3s;
  server 192.168.8.55:80 weight=2 max_fails=3 fail_timeout=3s;
@@ -902,8 +899,8 @@ server {
  proxy_pass http://load;
  }
 }
-EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+EOF
+</code></pre>
 <p>第三个服务器后面的backup可以是以下的几种：</p>
 <table>
 <thead>
@@ -933,15 +930,15 @@ EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 <td>最大连接数</td>
 </tr>
 </tbody></table>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 让nginx重新加载配置文件生效 nginx -t表示检查配置
+<pre class=" language-language-bash"><code class="language-language-bash"># 让nginx重新加载配置文件生效 nginx -t表示检查配置
 [root@RhelHost1 ~]# nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 
-[root@RhelHost1 ~]# nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@RhelHost1 ~]# nginx -s reload
+</code></pre>
 <p>  测试负载均衡效果，需要将SELinux的布尔值打开，或者关闭SELinux，不然nginx将无法作为负载均衡工作</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 临时关闭SELinux
+<pre class=" language-language-bash"><code class="language-language-bash"># 临时关闭SELinux
 [root@RhelHost1 ~]# setenforce 0
 
 # 将SELinux的布尔值打开
@@ -952,10 +949,10 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 Hello nginx, I'm web2.luovip.cn
 
 [root@RhelHost1 ~]# curl http://loadbalance.luovip.cn
-Hello nginx, I'm web1.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+Hello nginx, I'm web1.luovip.cn
+</code></pre>
 <h3 id="3-5-2-TCP-负载均衡"><a href="#3-5-2-TCP-负载均衡" class="headerlink" title="3.5.2 TCP 负载均衡"></a>3.5.2 TCP 负载均衡</h3><p>  nginx 使用stream模块来完成TCP端口负载均衡，所以需要在主配置文件中打开stream功能，并将stream配置文件单独存储，方便管理</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@RhelHost1 ~]# vim /etc/nginx/nginx.conf
+<pre class=" language-language-bash"><code class="language-language-bash">[root@RhelHost1 ~]# vim /etc/nginx/nginx.conf
 user  nginx;
 worker_processes  auto;
 
@@ -988,8 +985,8 @@ upstream backend {
 server {
     listen 3000; # 将负载均衡器监听端口更改为3000
     proxy_pass backend;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+}
+</code></pre>
 <p>  以上配置文件主要是用于实现基于 TCP 协议的负载均衡，特别是针对 SSH 流量。NGINX 监听 3000 端口的连接请求，然后根据配置的权重和健康检查机制，将请求转发到后端的 SSH 服务器（<code>192.168.8.54</code>、<code>192.168.8.55</code> 和 <code>192.168.8.56</code>）</p>
 <p><strong>upstream backend</strong>：定义了一个名为 <strong>backend</strong>的上游服务器组。</p>
 <p><strong>server 192.168.8.4:22 weight=1 max_fails=3 fail_timeout=30s</strong>：</p>
@@ -1000,7 +997,7 @@ server {
 <p>其他服务器配置（<code>192.168.8.55</code> 和 <code>192.168.8.56</code>）类似，只是权重和角色（备份服务器）不同。</p>
 <p>listen 3000：NGINX 监听 3000 端口，所有进入 3000 端口的 TCP 请求都会被处理。</p>
 <p>proxy_pass backend<code>：将接收到的流量转发到上游服务器组 </code>backend</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@RhelHost1 ~]# nginx -t
+<pre class=" language-language-bash"><code class="language-language-bash">[root@RhelHost1 ~]# nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 
@@ -1011,10 +1008,9 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 Ncat: Version 7.92 ( https://nmap.org/ncat )
 Ncat: Connected to 192.168.8.53:3000.
 Ncat: 0 bytes sent, 0 bytes received in 0.01 seconds.
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+</code></pre>
 <h3 id="3-5-3-UDP负载均衡"><a href="#3-5-3-UDP负载均衡" class="headerlink" title="3.5.3 UDP负载均衡"></a>3.5.3 UDP负载均衡</h3><p>  listen 的端口号之后指明为UDP即可，基本配置和上面的TCP很像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat &gt; /etc/nginx/stream.conf.d/udp-dns.conf &lt;&lt;EOF
+<pre class=" language-language-bash"><code class="language-language-bash">cat > /etc/nginx/stream.conf.d/udp-dns.conf <<EOF
 upstream dns_servers {
     server 192.168.8.54:53 weight=1 max_fails=3 fail_timeout=30s; # 业务服务器1，DNS端口53
     server 192.168.8.55:53 weight=2 max_fails=3 fail_timeout=30s; # 业务服务器2，DNS端口53
@@ -1025,71 +1021,71 @@ server {
     listen 53 udp; # 监听 UDP 53 端口
     proxy_pass dns_servers;
 }
-EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+EOF
+</code></pre>
 <p><strong>upstream dns_servers</strong>：定义一个名为 dns_servers的上游服务器组，其中包含了三个后端服务器。每个服务器配置了 IP 地址、端口、权重、最大失败次数和失败超时时间。</p>
 <p><strong>server</strong>：</p>
 <p>  listen 53 udp：NGINX 监听 UDP 53 端口（通常用于 DNS 服务）</p>
 <p>  proxy_pass dns_servers：将接收到的 UDP 流量转发到上游服务器组 dns_servers</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@RhelHost1 ~]# nginx -t
+<pre class=" language-language-bash"><code class="language-language-bash">[root@RhelHost1 ~]# nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
-[root@RhelHost1 ~]# nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+[root@RhelHost1 ~]# nginx -s reload
+</code></pre>
 <h2 id="3-6-不同负载均衡类型配置示意"><a href="#3-6-不同负载均衡类型配置示意" class="headerlink" title="3.6 不同负载均衡类型配置示意"></a>3.6 不同负载均衡类型配置示意</h2><p>  NGINX的负载均衡类型：最少连接、最少时间、轮询调度、通用哈希、随机调度、IP哈希</p>
 <p>  1.<strong>最少连接（Least Connections）</strong>：</p>
 <p>  将新请求分配给当前活动连接数最少的后端服务器。适用于请求处理时间较长的场景。</p>
 <p>  配置示例：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend {
+<pre class=" language-language-bash"><code class="language-language-bash">upstream backend {
     least_conn;
     server backend1.example.com;
     server backend2.example.com;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+}
+</code></pre>
 <p>  2.<strong>最少时间（Least Time）</strong>：</p>
 <p>  根据请求处理时间，将新请求分配给响应时间最短且当前活动连接数最少的后端服务器。适用于需要快速响应的场景。</p>
 <p>  配置示例（需要 NGINX Plus）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend {
+<pre class=" language-language-bash"><code class="language-language-bash">upstream backend {
     least_time header;
     server backend1.example.com;
     server backend2.example.com;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+}
+</code></pre>
 <p>  3.<strong>轮询调度（Round Robin）</strong>：</p>
 <p>  将新请求按照循环顺序分配给后端服务器。适用于大多数场景。</p>
 <p>  配置示例（默认配置）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend {
+<pre class=" language-language-bash"><code class="language-language-bash">upstream backend {
     server backend1.example.com;
     server backend2.example.com;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+}
+</code></pre>
 <p>  4.<strong>通用哈希（Generic Hash）</strong>：</p>
 <p>  基于用户定义的哈希方法，将请求分配给特定的后端服务器。适用于需要特定规则进行流量分配的场景。</p>
 <p>  配置示例：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend {
+<pre class=" language-language-bash"><code class="language-language-bash">upstream backend {
     hash $request_uri;
     server backend1.example.com;
     server backend2.example.com;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+}
+</code></pre>
 <p>  5.<strong>随机调度（Random with Two Choices）</strong>：</p>
 <p>  随机选择两台后端服务器，然后将请求分配给其中负载较小的一台。适用于需要均匀分配负载的场景。</p>
 <p>  配置示例（需要 NGINX Plus）：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend {
+<pre class=" language-language-bash"><code class="language-language-bash">upstream backend {
     random two least_conn;
     server backend1.example.com;
     server backend2.example.com;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+}
+</code></pre>
 <p>  6.<strong>IP哈希（IP Hash）</strong>：</p>
 <p>  基于客户端 IP 地址的哈希值，将请求分配给特定的后端服务器。适用于需要保持会话一致性的场景。</p>
 <p>  配置示例：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend {
+<pre class=" language-language-bash"><code class="language-language-bash">upstream backend {
     ip_hash;
     server backend1.example.com;
     server backend2.example.com;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+}
+</code></pre>
 <h1 id="4-NGINX实现流量按比例分流"><a href="#4-NGINX实现流量按比例分流" class="headerlink" title="4 NGINX实现流量按比例分流"></a>4 NGINX实现流量按比例分流</h1>
                 
             </div>
@@ -1494,7 +1490,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99k</span>&nbsp;字
+                class="white-color">63.9k</span>&nbsp;字
             
             
             

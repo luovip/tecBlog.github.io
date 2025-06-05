@@ -537,7 +537,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    62 分
+                    61 分
                 </div>
                 
 
@@ -552,29 +552,26 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.css">
-        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-访问命令行"><a href="#1-访问命令行" class="headerlink" title="1 访问命令行"></a>1 访问命令行</h1><h2 id="1-1-登录Linux系统"><a href="#1-1-登录Linux系统" class="headerlink" title="1.1 登录Linux系统"></a>1.1 登录Linux系统</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">图形化：系统菜单-注销-或切换用户
+                <h1 id="1-访问命令行"><a href="#1-访问命令行" class="headerlink" title="1 访问命令行"></a>1 访问命令行</h1><h2 id="1-1-登录Linux系统"><a href="#1-1-登录Linux系统" class="headerlink" title="1.1 登录Linux系统"></a>1.1 登录Linux系统</h2><pre class=" language-language-bash"><code class="language-language-bash">图形化：系统菜单-注销-或切换用户
 字符界面：Ctrl+alt+F2-F6   
 在本机上切换用户：su - root
 退出登录：ctrl+d、exit、logout)
 网络登录：ssh ip、ssh 主机名
 [kiosk@foundation0 ~]$ ssh servera
 ssh 用户名@ip/主机名
-[kiosk@foundation0 ~]$ ssh student@servera<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="1-2-终端切换"><a href="#1-2-终端切换" class="headerlink" title="1.2 终端切换"></a>1.2 终端切换</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">CLI   Ctrl+alt+Fx   xin （2，6）
-GUI   Ctrl+alt+F1  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+[kiosk@foundation0 ~]$ ssh student@servera
+</code></pre>
+<h2 id="1-2-终端切换"><a href="#1-2-终端切换" class="headerlink" title="1.2 终端切换"></a>1.2 终端切换</h2><pre class=" language-language-bash"><code class="language-language-bash">CLI   Ctrl+alt+Fx   xin （2，6）
+GUI   Ctrl+alt+F1  
+</code></pre>
 <h2 id="1-3-Shell简介"><a href="#1-3-Shell简介" class="headerlink" title="1.3 Shell简介"></a>1.3 Shell简介</h2><p>  是一个解释器，可以帮助用户将指令信息传递内核</p>
 <p>  红帽企业Linux中为用户提供的默认shell是bash，bash是与UNIX类似的系统上使用的其中一个最成功的shell改进版本</p>
-<h2 id="1-4-基本组成"><a href="#1-4-基本组成" class="headerlink" title="1.4 基本组成"></a>1.4 基本组成</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[kiosk@foundation0 ~]$                    #$普通用户
+<h2 id="1-4-基本组成"><a href="#1-4-基本组成" class="headerlink" title="1.4 基本组成"></a>1.4 基本组成</h2><pre class=" language-language-bash"><code class="language-language-bash">[kiosk@foundation0 ~]$                    #$普通用户
 
 [kiosk@foundation0 ~]$ su - root          #切换用户：su - 用户名
 Password:                                 #输入用户登录密码
@@ -582,12 +579,12 @@ Last login: Sat Feb 22 15:11:13 CST 2020 on tty3
 
 [root@foundation0 ~]#                    #超级用户
 
-ctrl+d or exit                           退出登录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+ctrl+d or exit                           退出登录
+</code></pre>
 <p>注明：</p>
 <p>  1.bash shell在概念上与微软的cmd相似，但bash具有更加复杂的脚本语言</p>
 <p>  2.与win系统powershell类似、mac的管理终端使用工具也是使用的bash shell</p>
-<h2 id="1-5-GNOME-Shell"><a href="#1-5-GNOME-Shell" class="headerlink" title="1.5 GNOME Shell"></a>1.5 GNOME Shell</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ALT+F2  输入 gnome-terminal    # 启动终端
+<h2 id="1-5-GNOME-Shell"><a href="#1-5-GNOME-Shell" class="headerlink" title="1.5 GNOME Shell"></a>1.5 GNOME Shell</h2><pre class=" language-language-bash"><code class="language-language-bash">ALT+F2  输入 gnome-terminal    # 启动终端
 win+l  # 锁定
 #  关闭                 重启
   init 0               init 6
@@ -595,11 +592,11 @@ win+l  # 锁定
   systemctl poweroff   systemctl reboot
   shutdown -h 20：00   shutdown -r 0
 
-ctrl+alt 上\|下 箭头   # 工作区切换<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+ctrl+alt 上\|下 箭头   # 工作区切换
+</code></pre>
 <h2 id="1-6-Shell的特性"><a href="#1-6-Shell的特性" class="headerlink" title="1.6 Shell的特性"></a>1.6 Shell的特性</h2><h3 id="1-6-1-linux命令语法"><a href="#1-6-1-linux命令语法" class="headerlink" title="1.6.1 linux命令语法"></a>1.6.1 linux命令语法</h3><p>  完成具体功能的命令、扩展该命令功能的选项、命令要操作的对象</p>
 <p>  cmd 【-option】 【arg1】 【arg2】</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">简单的命令示例：
+<pre class=" language-language-bash"><code class="language-language-bash">简单的命令示例：
 whoami
 date
 touch file1；mkdir dir1
@@ -612,9 +609,9 @@ ls
 ls -a    
 ls -a    ~/.bashrc
 ls -a  -l  ~/.bashrc
-ls -al  ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="1-6-2-命令的基础分类"><a href="#1-6-2-命令的基础分类" class="headerlink" title="1.6.2 命令的基础分类"></a>1.6.2 命令的基础分类</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 回显式命令
+ls -al  ~/.bashrc
+</code></pre>
+<h3 id="1-6-2-命令的基础分类"><a href="#1-6-2-命令的基础分类" class="headerlink" title="1.6.2 命令的基础分类"></a>1.6.2 命令的基础分类</h3><pre class=" language-language-bash"><code class="language-language-bash"># 回显式命令
 date +%Y%m%d
 date +%Y-%m-%d
 
@@ -653,8 +650,8 @@ source /etc/profile
 history -w
 cat /root/.newfile
 
-ctrl+R 搜索历史命令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+ctrl+R 搜索历史命令
+</code></pre>
 <h2 id="1-7-命令行快捷键"><a href="#1-7-命令行快捷键" class="headerlink" title="1.7 命令行快捷键"></a>1.7 命令行快捷键</h2><table>
 <thead>
 <tr>
@@ -856,10 +853,10 @@ ctrl+R 搜索历史命令<span aria-hidden="true" class="line-numbers-rows"><spa
 <td align="left">symbolic</td>
 </tr>
 </tbody></table>
-<h2 id="2-3-文件名定位文件"><a href="#2-3-文件名定位文件" class="headerlink" title="2.3 文件名定位文件"></a>2.3 文件名定位文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@foundation0 home]# cd /
-[root@foundation0 /]# cd /etc/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="2-4-路径"><a href="#2-4-路径" class="headerlink" title="2.4 路径"></a>2.4 路径</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 路径的表示:
+<h2 id="2-3-文件名定位文件"><a href="#2-3-文件名定位文件" class="headerlink" title="2.3 文件名定位文件"></a>2.3 文件名定位文件</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@foundation0 home]# cd /
+[root@foundation0 /]# cd /etc/
+</code></pre>
+<h2 id="2-4-路径"><a href="#2-4-路径" class="headerlink" title="2.4 路径"></a>2.4 路径</h2><pre class=" language-language-bash"><code class="language-language-bash"># 路径的表示:
 1.绝对路径(通常以/开头)
   例如：根开头    cd /etc/sysconfig
 2.相对路径:
@@ -889,32 +886,32 @@ ls -al
 [root@foundation0 ~]# ls -al .viminfo
 -rw-------. 1 root root 2545 Mar 13 13:12 .viminfo
 [root@foundation0 /]# ls -l -d /home
-drwxr-xr-x. 4 root root 30 Mar 13 11:38 /home<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2-5-查看文件内容"><a href="#2-5-查看文件内容" class="headerlink" title="2.5 查看文件内容"></a>2.5 查看文件内容</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat    cat /etc/passwd             # 将文件内容打印到屏幕上
+drwxr-xr-x. 4 root root 30 Mar 13 11:38 /home
+</code></pre>
+<h2 id="2-5-查看文件内容"><a href="#2-5-查看文件内容" class="headerlink" title="2.5 查看文件内容"></a>2.5 查看文件内容</h2><pre class=" language-language-bash"><code class="language-language-bash">cat    cat /etc/passwd             # 将文件内容打印到屏幕上
 tail   tail /var/log/message       # 默认查看文件后10行。-F （追踪）指定文件不存在时再创建相同名称文件
        tail -n 5 或 tail -5 /var/log/message   
 head   head /var/log/message       # 默认查看文件头10行
        head -5 /var/log/message                
 less   less /var/log/message           
 more   more /var/log/message         
-vim    vim /etc/passwd             # 文本编辑器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2-6-命令行管理文件-目录"><a href="#2-6-命令行管理文件-目录" class="headerlink" title="2.6 命令行管理文件/目录"></a>2.6 命令行管理文件/目录</h2><h3 id="2-6-1-管理文件-目录的命令"><a href="#2-6-1-管理文件-目录的命令" class="headerlink" title="2.6.1 管理文件/目录的命令"></a>2.6.1 管理文件/目录的命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"> 创建   touch   mkdir -p
+vim    vim /etc/passwd             # 文本编辑器
+</code></pre>
+<h2 id="2-6-命令行管理文件-目录"><a href="#2-6-命令行管理文件-目录" class="headerlink" title="2.6 命令行管理文件/目录"></a>2.6 命令行管理文件/目录</h2><h3 id="2-6-1-管理文件-目录的命令"><a href="#2-6-1-管理文件-目录的命令" class="headerlink" title="2.6.1 管理文件/目录的命令"></a>2.6.1 管理文件/目录的命令</h3><pre class=" language-language-bash"><code class="language-language-bash"> 创建   touch   mkdir -p
  改名   mv      mv
  移动   mv      mv
  拷贝   cp      cp -r
  删除   rm      rm -r
-touch、mkdir、rm、cp、mv<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-6-2-touch命令-管理文件"><a href="#2-6-2-touch命令-管理文件" class="headerlink" title="2.6.2 touch命令(管理文件)"></a>2.6.2 touch命令(管理文件)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera opt]# man touch
+touch、mkdir、rm、cp、mv
+</code></pre>
+<h3 id="2-6-2-touch命令-管理文件"><a href="#2-6-2-touch命令-管理文件" class="headerlink" title="2.6.2 touch命令(管理文件)"></a>2.6.2 touch命令(管理文件)</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@servera opt]# man touch
 [root@servera opt]# touch /file4 /tmp/file5
 [root@servera opt]# ls /file4;ls /tmp/file5
 /file4
 /tmp/file5
-[root@servera opt]# touch file{10..20}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-6-3-mkdir命令-管理目录"><a href="#2-6-3-mkdir命令-管理目录" class="headerlink" title="2.6.3 mkdir命令(管理目录)"></a>2.6.3 mkdir命令(管理目录)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mkdir
+[root@servera opt]# touch file{10..20}
+</code></pre>
+<h3 id="2-6-3-mkdir命令-管理目录"><a href="#2-6-3-mkdir命令-管理目录" class="headerlink" title="2.6.3 mkdir命令(管理目录)"></a>2.6.3 mkdir命令(管理目录)</h3><pre class=" language-language-bash"><code class="language-language-bash">mkdir
 选项： -p：递归创建     -v：显示过程
 [root@servera opt]# ls
 dir1
@@ -939,9 +936,9 @@ drwxr-xr-x. 2 root root 6 Mar 13 22:23 dir4
 [root@servera opt]# ll  dir3/dir4/
 total 0
 [root@servera opt]# ll  dir3/dir4/ -d
-drwxr-xr-x. 2 root root 6 Mar 13 22:23 dir3/dir4/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-6-4-rm命令-删除"><a href="#2-6-4-rm命令-删除" class="headerlink" title="2.6.4 rm命令(删除)"></a>2.6.4 rm命令(删除)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera opt]# man rm
+drwxr-xr-x. 2 root root 6 Mar 13 22:23 dir3/dir4/
+</code></pre>
+<h3 id="2-6-4-rm命令-删除"><a href="#2-6-4-rm命令-删除" class="headerlink" title="2.6.4 rm命令(删除)"></a>2.6.4 rm命令(删除)</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@servera opt]# man rm
 [root@servera opt]# ls
 dir1  dir2  dir3  file1  file2  file3
 [root@servera opt]# rm file1
@@ -960,9 +957,9 @@ rm: cannot remove 'dir1': Is a directory
 rm: remove directory 'dir1'? y
 [root@servera opt]# rm -rf dir2
 [root@servera opt]# ls
-dir3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-6-5-copy命令-复制"><a href="#2-6-5-copy命令-复制" class="headerlink" title="2.6.5 copy命令(复制)"></a>2.6.5 copy命令(复制)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera opt]# ls
+dir3
+</code></pre>
+<h3 id="2-6-5-copy命令-复制"><a href="#2-6-5-copy命令-复制" class="headerlink" title="2.6.5 copy命令(复制)"></a>2.6.5 copy命令(复制)</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@servera opt]# ls
 dir1  dir2  file1  file2  file3
 [root@servera opt]# cp file1 /tmp/
 [root@servera opt]# ls /tmp/file1
@@ -972,9 +969,9 @@ dir1  dir2  file1  file2  file3
 /tmp/file10
 [root@servera opt]# cp /etc/man_db.conf .
 [root@servera opt]# ls
-dir1  dir2  file1  file2  file3  man_db.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-6-6-mv命令-移动文件-目录"><a href="#2-6-6-mv命令-移动文件-目录" class="headerlink" title="2.6.6 mv命令(移动文件/目录)"></a>2.6.6 mv命令(移动文件/目录)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera opt]# mv file1 /
+dir1  dir2  file1  file2  file3  man_db.conf
+</code></pre>
+<h3 id="2-6-6-mv命令-移动文件-目录"><a href="#2-6-6-mv命令-移动文件-目录" class="headerlink" title="2.6.6 mv命令(移动文件/目录)"></a>2.6.6 mv命令(移动文件/目录)</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@servera opt]# mv file1 /
 [root@servera opt]# ls
 dir1  dir2  file2  file3  man_db.conf
 [root@servera opt]# mv file2 /file20
@@ -988,8 +985,8 @@ dir1  dir2  file30  man_db.conf
 dir2  file30  man_db.conf
 [root@servera opt]# mv dir2 dir20
 [root@servera opt]# ls
-dir20  file30  man_db.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+dir20  file30  man_db.conf
+</code></pre>
 <h2 id="2-7-通配符规则"><a href="#2-7-通配符规则" class="headerlink" title="2.7 通配符规则"></a>2.7 通配符规则</h2><table>
 <thead>
 <tr>
@@ -1062,7 +1059,7 @@ dir20  file30  man_db.conf<span aria-hidden="true" class="line-numbers-rows"><sp
 <td align="left">系统命令</td>
 </tr>
 </tbody></table>
-<h2 id="3-2-获取帮助的方法"><a href="#3-2-获取帮助的方法" class="headerlink" title="3.2 获取帮助的方法"></a>3.2 获取帮助的方法</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># man命令
+<h2 id="3-2-获取帮助的方法"><a href="#3-2-获取帮助的方法" class="headerlink" title="3.2 获取帮助的方法"></a>3.2 获取帮助的方法</h2><pre class=" language-language-bash"><code class="language-language-bash"># man命令
 mandb
 man passwd
 man -k passwd 
@@ -1080,8 +1077,8 @@ pinfo  ls
 # rpm包中提供帮助
 rpm -qa | grep httpd
 rpm -ql 软件包名称
-rpm -qc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+rpm -qc
+</code></pre>
 <h1 id="4-创建、查看、编辑文本"><a href="#4-创建、查看、编辑文本" class="headerlink" title="4 创建、查看、编辑文本"></a>4 创建、查看、编辑文本</h1><h2 id="4-1-VIM的模式分类"><a href="#4-1-VIM的模式分类" class="headerlink" title="4.1 VIM的模式分类"></a>4.1 VIM的模式分类</h2><table>
 <thead>
 <tr>
@@ -1154,15 +1151,15 @@ rpm -qc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
 <td align="left">保存退出</td>
 </tr>
 </tbody></table>
-<h3 id="4-2-2-插入模式"><a href="#4-2-2-插入模式" class="headerlink" title="4.2.2 插入模式"></a>4.2.2 插入模式</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">a   字符后进入插入模式
+<h3 id="4-2-2-插入模式"><a href="#4-2-2-插入模式" class="headerlink" title="4.2.2 插入模式"></a>4.2.2 插入模式</h3><pre class=" language-language-bash"><code class="language-language-bash">a   字符后进入插入模式
 i   当前字符位置进入插入模式
 o   在下一行新创建一行进入插入模式
 A   在行尾进入插入模式
 I   在行首进入插入模式
 O   在上一行新创建一行进入插入模式
 s   删除光标位置字符并进入插入模式
-S   删除光标所在行并进入插入模式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+S   删除光标所在行并进入插入模式
+</code></pre>
 <h3 id="4-2-3-末行模式"><a href="#4-2-3-末行模式" class="headerlink" title="4.2.3 末行模式"></a>4.2.3 末行模式</h3><table>
 <thead>
 <tr>
@@ -1215,16 +1212,16 @@ S   删除光标所在行并进入插入模式<span aria-hidden="true" class="li
 <td align="left">重新读取文件</td>
 </tr>
 </tbody></table>
-<h3 id="4-2-4-其他模式"><a href="#4-2-4-其他模式" class="headerlink" title="4.2.4 其他模式"></a>4.2.4 其他模式</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">v、V或Ctrl+V    # 可视模式
+<h3 id="4-2-4-其他模式"><a href="#4-2-4-其他模式" class="headerlink" title="4.2.4 其他模式"></a>4.2.4 其他模式</h3><pre class=" language-language-bash"><code class="language-language-bash">v、V或Ctrl+V    # 可视模式
 R              # 替换模式
 /word，？word  # /向下查找，？向上查找
 n，N          # 定位到下一个匹配字符，定位到上一个匹配字符
 
 # 视图模式
 # 视图模式修改方法：
-ctrl+v ， jjj，I，  写入#号，esc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="4-3-VIM的缩进与保存"><a href="#4-3-VIM的缩进与保存" class="headerlink" title="4.3 VIM的缩进与保存"></a>4.3 VIM的缩进与保存</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">：set all         # 查看末行模式的帮助
+ctrl+v ， jjj，I，  写入#号，esc
+</code></pre>
+<h2 id="4-3-VIM的缩进与保存"><a href="#4-3-VIM的缩进与保存" class="headerlink" title="4.3 VIM的缩进与保存"></a>4.3 VIM的缩进与保存</h2><pre class=" language-language-bash"><code class="language-language-bash">：set all         # 查看末行模式的帮助
 ：set autoindent  # 保存上下缩进
 ：set tabstop=2   # 调整tab键缩进
 ：set nu          # 设置行号
@@ -1234,9 +1231,9 @@ set nu
 set tabstop=2
 
 [root@foundation0 ~]# vim /etc/vimrc  全局设置，每个用户使用vim工具都有行号
-set nu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="4-4-VIM的替换"><a href="#4-4-VIM的替换" class="headerlink" title="4.4 VIM的替换"></a>4.4 VIM的替换</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">:s///   @@@  AAA  ; ;;
+set nu
+</code></pre>
+<h2 id="4-4-VIM的替换"><a href="#4-4-VIM的替换" class="headerlink" title="4.4 VIM的替换"></a>4.4 VIM的替换</h2><pre class=" language-language-bash"><code class="language-language-bash">:s///   @@@  AAA  ; ;;
 :s/old/new/
 :s/old/new/g
 :#,#s/old/new/g     #井号代表一个数字比如：1,5s/old/new/g
@@ -1245,25 +1242,25 @@ set nu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></sp
 
 # 修改某一段ip地址: %s/192.168.1/172.25.250/g
 
-# 取消文本中某个字段：:%s/10.10.10.10//g<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="4-5-关于重定向"><a href="#4-5-关于重定向" class="headerlink" title="4.5 关于重定向"></a>4.5 关于重定向</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1=stand，2=error，&amp;=1+2
+# 取消文本中某个字段：:%s/10.10.10.10//g
+</code></pre>
+<h2 id="4-5-关于重定向"><a href="#4-5-关于重定向" class="headerlink" title="4.5 关于重定向"></a>4.5 关于重定向</h2><pre class=" language-language-bash"><code class="language-language-bash">1=stand，2=error，&=1+2
 echo $SHELL
-echo 123456 &gt; file1
-grep root /etc/passwd &gt; /opt/a.txt
-grep apache /etc/passwd &gt; /opt/a.txt
+echo 123456 > file1
+grep root /etc/passwd > /opt/a.txt
+grep apache /etc/passwd > /opt/a.txt
 
 grep -n ^$ /etc/resolv.conf
-grep na /etc/resolv.conf   &gt; /root/lines.txt
-tc/resolv.conf   &gt; /root/lines.txt                 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+grep na /etc/resolv.conf   > /root/lines.txt
+tc/resolv.conf   > /root/lines.txt                 
+</code></pre>
 <h1 id="5-管理本地用户和组"><a href="#5-管理本地用户和组" class="headerlink" title="5 管理本地用户和组"></a>5 管理本地用户和组</h1><h2 id="5-1-USER-用户"><a href="#5-1-USER-用户" class="headerlink" title="5.1 USER-用户"></a>5.1 USER-用户</h2><p>  基本概念：用户用于访问计算机资源</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">0          超级用户 
+<pre class=" language-language-bash"><code class="language-language-bash">0          超级用户 
 1000以下   系统用户
 1000以上   普通用户 
-组与用户ID对应(自然创建)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-1-1-useradd-添加用户"><a href="#5-1-1-useradd-添加用户" class="headerlink" title="5.1.1 useradd-添加用户"></a>5.1.1 useradd-添加用户</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法:useradd 选项 选项参数 用户名
+组与用户ID对应(自然创建)
+</code></pre>
+<h3 id="5-1-1-useradd-添加用户"><a href="#5-1-1-useradd-添加用户" class="headerlink" title="5.1.1 useradd-添加用户"></a>5.1.1 useradd-添加用户</h3><pre class=" language-language-bash"><code class="language-language-bash">语法:useradd 选项 选项参数 用户名
 
 option：
 -u：指定用户uid
@@ -1276,9 +1273,9 @@ option：
 例：
 useradd user1   创建user1
 passwd user1    为user1设置密码
-id user1        查询用户信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-1-2-用户配置文件"><a href="#5-1-2-用户配置文件" class="headerlink" title="5.1.2 用户配置文件"></a>5.1.2 用户配置文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 用户配置文件路径:/etc/passwd
+id user1        查询用户信息
+</code></pre>
+<h3 id="5-1-2-用户配置文件"><a href="#5-1-2-用户配置文件" class="headerlink" title="5.1.2 用户配置文件"></a>5.1.2 用户配置文件</h3><pre class=" language-language-bash"><code class="language-language-bash"># 用户配置文件路径:/etc/passwd
 [kiosk@foundation0 ~]$ vim /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 #用户名：密码占位符：UID：GID：描述：家目录：shell环境
@@ -1310,9 +1307,9 @@ root:x:0:0:root:/root:/bin/bash
 [root@servera /]# useradd -G root,tom user5   #将user5同时加入到组root和tom组中
 
 # 练习2：tom10，uid 3000 ，gid devops，shell环境为/bin/false,描述 student，家目录/tom10dir,附加组 root。
-useradd -u 3000 -g devops -s /bin/false -c student -d /tom10dir -G root  tom10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-1-3-usermod-修改用户"><a href="#5-1-3-usermod-修改用户" class="headerlink" title="5.1.3 usermod-修改用户"></a>5.1.3 usermod-修改用户</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：usermod 选项 选项参数 用户名
+useradd -u 3000 -g devops -s /bin/false -c student -d /tom10dir -G root  tom10
+</code></pre>
+<h3 id="5-1-3-usermod-修改用户"><a href="#5-1-3-usermod-修改用户" class="headerlink" title="5.1.3 usermod-修改用户"></a>5.1.3 usermod-修改用户</h3><pre class=" language-language-bash"><code class="language-language-bash">语法：usermod 选项 选项参数 用户名
 
 option：
 -u：指定用户uid
@@ -1334,23 +1331,23 @@ option：
 
 # 练习2：tom11的附加组，root。想额外添加一个附加组为devops
 [root@servera opt]# usermod -a -G root tom11
-[root@servera opt]# usermod -G root,devops tom11<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-1-4-userdel-删除用户"><a href="#5-1-4-userdel-删除用户" class="headerlink" title="5.1.4 userdel-删除用户"></a>5.1.4 userdel-删除用户</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：userdel 选项 选项参数  用户名
+[root@servera opt]# usermod -G root,devops tom11
+</code></pre>
+<h3 id="5-1-4-userdel-删除用户"><a href="#5-1-4-userdel-删除用户" class="headerlink" title="5.1.4 userdel-删除用户"></a>5.1.4 userdel-删除用户</h3><pre class=" language-language-bash"><code class="language-language-bash">语法：userdel 选项 选项参数  用户名
 
 option：
 -r：删除用户同时删除邮箱和家目录
-[root@servera /]# userdel -r user5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="5-2-PASSWORD-密码"><a href="#5-2-PASSWORD-密码" class="headerlink" title="5.2 PASSWORD-密码"></a>5.2 PASSWORD-密码</h2><h3 id="5-2-1-设置密码"><a href="#5-2-1-设置密码" class="headerlink" title="5.2.1 设置密码"></a>5.2.1 设置密码</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法:passwd 用户名
+[root@servera /]# userdel -r user5
+</code></pre>
+<h2 id="5-2-PASSWORD-密码"><a href="#5-2-PASSWORD-密码" class="headerlink" title="5.2 PASSWORD-密码"></a>5.2 PASSWORD-密码</h2><h3 id="5-2-1-设置密码"><a href="#5-2-1-设置密码" class="headerlink" title="5.2.1 设置密码"></a>5.2.1 设置密码</h3><pre class=" language-language-bash"><code class="language-language-bash">语法:passwd 用户名
 # 方法1：
 [root@foundation0 /]# echo 123456 | passwd --stdin zhangsan  非交互式
 Changing password for user zhangsan.
 passwd: all authentication tokens updated successfully.
 # 方法2：
-[root@foundation0 /]# passwd zhangsan  交互式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-2-2-密码配置文件"><a href="#5-2-2-密码配置文件" class="headerlink" title="5.2.2 密码配置文件"></a>5.2.2 密码配置文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">路径:/etc/shadow
+[root@foundation0 /]# passwd zhangsan  交互式
+</code></pre>
+<h3 id="5-2-2-密码配置文件"><a href="#5-2-2-密码配置文件" class="headerlink" title="5.2.2 密码配置文件"></a>5.2.2 密码配置文件</h3><pre class=" language-language-bash"><code class="language-language-bash">路径:/etc/shadow
 user2:$6$9R47OYVVaxga34EJ$Y3pGf5EnHpn6vfiBk5ZU1U89d7UiySOsnAs/fkFMuPRyhCZAvv0a6UXRVLGXqRUKwP34Sg0W/CYb1VQp7H08L0:20015:0:99999:7:::
 
 说明:
@@ -1362,25 +1359,25 @@ user2:$6$9R47OYVVaxga34EJ$Y3pGf5EnHpn6vfiBk5ZU1U89d7UiySOsnAs/fkFMuPRyhCZAvv0a6U
 第六列: 密码过期前警告时间（和第5列比，在过n天你的密码就过期了，需要重设密码。）
 第七列: 密码过期后帐号（宽限时间，第五列密码的最大时间到期后，还可以使用系统的宽限时间，该期间中可以继续使用系统，但是再次登入系统时强制修改密码，否则无法进入）
 第八列: 帐号有效期（账号失效后，无论密码是否过期都不能使用。）
-第九列: 保留列<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="5-3-GROUP-用户组"><a href="#5-3-GROUP-用户组" class="headerlink" title="5.3 GROUP-用户组"></a>5.3 GROUP-用户组</h2><h3 id="5-3-1-groupadd"><a href="#5-3-1-groupadd" class="headerlink" title="5.3.1 groupadd"></a>5.3.1 groupadd</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：
+第九列: 保留列
+</code></pre>
+<h2 id="5-3-GROUP-用户组"><a href="#5-3-GROUP-用户组" class="headerlink" title="5.3 GROUP-用户组"></a>5.3 GROUP-用户组</h2><h3 id="5-3-1-groupadd"><a href="#5-3-1-groupadd" class="headerlink" title="5.3.1 groupadd"></a>5.3.1 groupadd</h3><pre class=" language-language-bash"><code class="language-language-bash">语法：
 groupadd 选项 选项参数 组名
 -g：指定组ID
 [root@servera /]# groupadd group10
-[root@servera /]# groupadd -g 3000 group10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-3-2-groupmod"><a href="#5-3-2-groupmod" class="headerlink" title="5.3.2 groupmod"></a>5.3.2 groupmod</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">语法：
+[root@servera /]# groupadd -g 3000 group10
+</code></pre>
+<h3 id="5-3-2-groupmod"><a href="#5-3-2-groupmod" class="headerlink" title="5.3.2 groupmod"></a>5.3.2 groupmod</h3><pre class=" language-language-bash"><code class="language-language-bash">语法：
 groupmod 选项 选项参数 组名
 -n：更改组名 groupmod -n 新组名 旧组名
-[root@servera /]# groupmod -n group100 group10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-3-3-groupdel"><a href="#5-3-3-groupdel" class="headerlink" title="5.3.3 groupdel"></a>5.3.3 groupdel</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 删除组信息
+[root@servera /]# groupmod -n group100 group10
+</code></pre>
+<h3 id="5-3-3-groupdel"><a href="#5-3-3-groupdel" class="headerlink" title="5.3.3 groupdel"></a>5.3.3 groupdel</h3><pre class=" language-language-bash"><code class="language-language-bash"># 删除组信息
 groupdel groupname
-[root@foundation0 ~]# groupdel haha1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
+[root@foundation0 ~]# groupdel haha1
+</code></pre>
 <h3 id="5-3-4-gpasswd"><a href="#5-3-4-gpasswd" class="headerlink" title="5.3.4 gpasswd"></a>5.3.4 gpasswd</h3><p>  加入群组与清除群组成员</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpasswd
+<pre class=" language-language-bash"><code class="language-language-bash">gpasswd
 -a：添加用户到群组
 -d：从组中清除用户
 
@@ -1389,22 +1386,22 @@ groupdel groupname
 [root@foundation0 ~]# gpasswd -a user2 root
 Adding user user2 to group root
 [root@foundation0 ~]# gpasswd -d user2 root
-Removing user user2 from group root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-3-5-用户组配置文件"><a href="#5-3-5-用户组配置文件" class="headerlink" title="5.3.5 用户组配置文件"></a>5.3.5 用户组配置文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">路径:/etc/group
+Removing user user2 from group root
+</code></pre>
+<h3 id="5-3-5-用户组配置文件"><a href="#5-3-5-用户组配置文件" class="headerlink" title="5.3.5 用户组配置文件"></a>5.3.5 用户组配置文件</h3><pre class=" language-language-bash"><code class="language-language-bash">路径:/etc/group
 [root@localhost ~]# vim /etc/group
 upup:x:2006:
 第一段: 组名
 第二段: 组密码占位符号
 第三段: gid
-第四段: 用户列表<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h1 id="6-控制对文件的访问"><a href="#6-控制对文件的访问" class="headerlink" title="6 控制对文件的访问"></a>6 控制对文件的访问</h1><h2 id="6-1-系统安全的技术点对比"><a href="#6-1-系统安全的技术点对比" class="headerlink" title="6.1 系统安全的技术点对比"></a><strong>6.1 系统安全的技术点对比</strong></h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#Linux操作系统涉及的安全部分:           
+第四段: 用户列表
+</code></pre>
+<h1 id="6-控制对文件的访问"><a href="#6-控制对文件的访问" class="headerlink" title="6 控制对文件的访问"></a>6 控制对文件的访问</h1><h2 id="6-1-系统安全的技术点对比"><a href="#6-1-系统安全的技术点对比" class="headerlink" title="6.1 系统安全的技术点对比"></a><strong>6.1 系统安全的技术点对比</strong></h2><pre class=" language-language-bash"><code class="language-language-bash">#Linux操作系统涉及的安全部分:           
 防火墙                              semanage port ，
 selinux                            semanage ...
 软件app                             semanage boolean
-文件系统权限 特殊权限 facl 隐藏权限    semanage fcontext<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+文件系统权限 特殊权限 facl 隐藏权限    semanage fcontext
+</code></pre>
 <h2 id="6-2-文件权限说明"><a href="#6-2-文件权限说明" class="headerlink" title="6.2 文件权限说明"></a>6.2 文件权限说明</h2><table>
 <thead>
 <tr>
@@ -1425,12 +1422,12 @@ selinux                            semanage ...
 <td align="left">execute(执行)</td>
 </tr>
 </tbody></table>
-<h2 id="6-3-权限表示"><a href="#6-3-权限表示" class="headerlink" title="6.3 权限表示"></a>6.3 权限表示</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># ls -l test
+<h2 id="6-3-权限表示"><a href="#6-3-权限表示" class="headerlink" title="6.3 权限表示"></a>6.3 权限表示</h2><pre class=" language-language-bash"><code class="language-language-bash"># ls -l test
 -rw-r--r--. 1 stu1 class1 35 May 21 14:09 test
 rw-r--r--   #中间9位是权限，逻辑分三组，所有者 所属组 其他人权限
 stu1   所有者
-class1 所属组<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+class1 所属组
+</code></pre>
 <h2 id="6-4-系统权限的作用"><a href="#6-4-系统权限的作用" class="headerlink" title="6.4 系统权限的作用"></a>6.4 系统权限的作用</h2><table>
 <thead>
 <tr>
@@ -1508,16 +1505,16 @@ class1 所属组<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <td align="left">1</td>
 </tr>
 </tbody></table>
-<h2 id="6-7-文件权限设置-chmod"><a href="#6-7-文件权限设置-chmod" class="headerlink" title="6.7 文件权限设置-chmod"></a>6.7 文件权限设置-chmod</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法：chmod 权限 文件名
+<h2 id="6-7-文件权限设置-chmod"><a href="#6-7-文件权限设置-chmod" class="headerlink" title="6.7 文件权限设置-chmod"></a>6.7 文件权限设置-chmod</h2><pre class=" language-language-bash"><code class="language-language-bash">#语法：chmod 权限 文件名
 u g o a   + - =   r w x s t
 
 [root@node1 opt]# ll test 
 -rw-r--r--. 1 root root 0 Nov 24 04:55 test
 [root@node1 opt]# chmod u+x test 
 [root@node1 opt]# ll test 
--rwxr--r--. 1 root root 0 Nov 24 04:55 test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="6-8-文件属主和属组-chown"><a href="#6-8-文件属主和属组-chown" class="headerlink" title="6.8 文件属主和属组-chown"></a>6.8 文件属主和属组-chown</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法：
+-rwxr--r--. 1 root root 0 Nov 24 04:55 test
+</code></pre>
+<h2 id="6-8-文件属主和属组-chown"><a href="#6-8-文件属主和属组-chown" class="headerlink" title="6.8 文件属主和属组-chown"></a>6.8 文件属主和属组-chown</h2><pre class=" language-language-bash"><code class="language-language-bash">#语法：
 chown  所有者:所属组 文件名 
 chown  该命令可以作用于文件、目录，修改时保证所有者的用户及组都是存在的。
 例:chown user2:user2 newfile
@@ -1546,9 +1543,9 @@ drwxrwxr-x. 2 root root 19 Nov 24 05:15 dir1
 
 [root@node1 opt]# chown -R sally:sally dir1
 [root@node1 opt]# ll -d dir1
-drwxrwxr-x. 2 sally sally 19 Nov 24 05:15 dir1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="6-9-文件默认权限-umask"><a href="#6-9-文件默认权限-umask" class="headerlink" title="6.9 文件默认权限-umask"></a>6.9 文件默认权限-umask</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#系统默认定义权限对于文件是666、对于目录是777
+drwxrwxr-x. 2 sally sally 19 Nov 24 05:15 dir1
+</code></pre>
+<h2 id="6-9-文件默认权限-umask"><a href="#6-9-文件默认权限-umask" class="headerlink" title="6.9 文件默认权限-umask"></a>6.9 文件默认权限-umask</h2><pre class=" language-language-bash"><code class="language-language-bash">#系统默认定义权限对于文件是666、对于目录是777
 
 #查看umask值
 [root@servera /]# umask
@@ -1559,12 +1556,12 @@ drwxrwxr-x. 2 sally sally 19 Nov 24 05:15 dir1<span aria-hidden="true" class="li
 修改完后，可以去文件和目录查看权限，看是否和之前不一样，看完改回来
 
 #永久生效
-[root@servera /]# echo 'umask 0002' &gt;&gt; ~/.bash_profile
+[root@servera /]# echo 'umask 0002' >> ~/.bash_profile
 
 #将后面文件中的值加载到当前shell中。系统登录会读取~/.bash_profile文件自动加载
-[root@servera /]# source ~/.bash_profile  #source <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="6-10-umask的计算"><a href="#6-10-umask的计算" class="headerlink" title="6.10 umask的计算"></a>6.10 umask的计算</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#示例1：
+[root@servera /]# source ~/.bash_profile  #source 
+</code></pre>
+<h2 id="6-10-umask的计算"><a href="#6-10-umask的计算" class="headerlink" title="6.10 umask的计算"></a>6.10 umask的计算</h2><pre class=" language-language-bash"><code class="language-language-bash">#示例1：
 文件默认权限666
 umask后三位022
 快捷方法：变成权限后相减
@@ -1597,11 +1594,11 @@ rw-rw-rw-  =  666
 r-------   =  400
 
 参考umask计算方法：https://www.cnblogs.com/wyllearning/p/16482006.html
-如果减法时目录和文件权限不一致时，以目录的为准计算umask值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+如果减法时目录和文件权限不一致时，以目录的为准计算umask值
+</code></pre>
 <h2 id="6-10-特殊权限"><a href="#6-10-特殊权限" class="headerlink" title="6.10 特殊权限"></a>6.10 特殊权限</h2><p>  文件系统权限可以完成一些基本权限功能设置，但有些特殊要求是达不到的，可能需要特殊权限来完成</p>
 <p>  Linux系统中特殊权限有三个：SUID 4 、SGID 2 、SBIT 1</p>
-<h3 id="6-10-1-SUID-4"><a href="#6-10-1-SUID-4" class="headerlink" title="6.10.1 SUID 4"></a>6.10.1 SUID 4</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 通常设置在二进制可执行文件（命令）上，并具有执行权限的情况下
+<h3 id="6-10-1-SUID-4"><a href="#6-10-1-SUID-4" class="headerlink" title="6.10.1 SUID 4"></a>6.10.1 SUID 4</h3><pre class=" language-language-bash"><code class="language-language-bash"># 通常设置在二进制可执行文件（命令）上，并具有执行权限的情况下
 # 作用：设置了该权限的命令，被其他用户执行时，会临时获取文件所有者权限
 [student@clear ~]$ cat /etc/shadow   #普通用户无法查看/etc/shadow
 [student@clear ~]$ su - root         #切换root身份
@@ -1617,9 +1614,9 @@ r-------   =  400
 
 # 大S和小s区别，
   1.执行权限位大S是，没有x
-  2.执行权限位小s是该位，有x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="6-10-2-SGID-2"><a href="#6-10-2-SGID-2" class="headerlink" title="6.10.2 SGID 2"></a>6.10.2 SGID 2</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#该权限通常设置在`目录`上，设置了该权限的目录，在该目录中创建`子文件及目录`时会`继承`父目录所属组
+  2.执行权限位小s是该位，有x
+</code></pre>
+<h3 id="6-10-2-SGID-2"><a href="#6-10-2-SGID-2" class="headerlink" title="6.10.2 SGID 2"></a>6.10.2 SGID 2</h3><pre class=" language-language-bash"><code class="language-language-bash">#该权限通常设置在`目录`上，设置了该权限的目录，在该目录中创建`子文件及目录`时会`继承`父目录所属组
 [root@clear opt]# chmod g+s dir1
 [root@clear opt]# ll -d dir1
 drwxr-sr-x. 2 student student 22 Nov 19 04:51 dir1
@@ -1627,9 +1624,9 @@ drwxr-sr-x. 2 student student 22 Nov 19 04:51 dir1
 [root@clear opt]# ll dir1/root1.txt
 -rw-r--r--. 1 root student 0 Nov 19 04:52 dir1/root1.txt
 
-#数字修改法： chmod 2755 dir1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="6-10-3-SBIT-1"><a href="#6-10-3-SBIT-1" class="headerlink" title="6.10.3 SBIT 1"></a>6.10.3 SBIT 1</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#该权限通常设置在目录上，设置了该权限的目录，其他用户在该目录中只能删除所有者是自己的文件
+#数字修改法： chmod 2755 dir1
+</code></pre>
+<h3 id="6-10-3-SBIT-1"><a href="#6-10-3-SBIT-1" class="headerlink" title="6.10.3 SBIT 1"></a>6.10.3 SBIT 1</h3><pre class=" language-language-bash"><code class="language-language-bash">#该权限通常设置在目录上，设置了该权限的目录，其他用户在该目录中只能删除所有者是自己的文件
 [root@clear opt]# chmod 1777 /opt/share/
 [root@clear opt]# ll -d /opt/share/
 drwxrwxrwt. 2 root root 6 Nov 19 04:56 /opt/share/
@@ -1640,14 +1637,14 @@ Last login: Sat Nov 19 04:55:24 EST 2022 on pts/0
 [root@clear opt]# su - tom
 Last login: Sat Nov 19 04:55:38 EST 2022 on pts/0
 [tom@clear ~]$ rm -f /opt/share/student.txt.haha
-rm: cannot remove '/opt/share/student.txt.haha': Operation not permitted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h1 id="7-进程监控及管理"><a href="#7-进程监控及管理" class="headerlink" title="7 进程监控及管理"></a>7 进程监控及管理</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum install -y psmisc
+rm: cannot remove '/opt/share/student.txt.haha': Operation not permitted
+</code></pre>
+<h1 id="7-进程监控及管理"><a href="#7-进程监控及管理" class="headerlink" title="7 进程监控及管理"></a>7 进程监控及管理</h1><pre class=" language-language-bash"><code class="language-language-bash">yum install -y psmisc
 pstree -p
 # 程序被开启会产生一个或多个进程，他们都有对应父进程与子进程，每个进程都有进程号PID
-# systemd 1 不能被杀死，除非重启，关机<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="7-1-查看进程"><a href="#7-1-查看进程" class="headerlink" title="7.1 查看进程"></a>7.1 查看进程</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># ps以静态的方式查看系统进程
+# systemd 1 不能被杀死，除非重启，关机
+</code></pre>
+<h2 id="7-1-查看进程"><a href="#7-1-查看进程" class="headerlink" title="7.1 查看进程"></a>7.1 查看进程</h2><pre class=" language-language-bash"><code class="language-language-bash"># ps以静态的方式查看系统进程
 ps -l
 ps  aux  
 ps aux | grep http
@@ -1659,9 +1656,9 @@ ps aux |grep httpd
 
 
 # top以同态的形式查看进程
-top<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="7-2-终止进程"><a href="#7-2-终止进程" class="headerlink" title="7.2 终止进程"></a>7.2 终止进程</h2><h3 id="7-2-1-kill命令"><a href="#7-2-1-kill命令" class="headerlink" title="7.2.1 kill命令"></a>7.2.1 kill命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法 kill -s 信号名称 或-n 信号编号
+top
+</code></pre>
+<h2 id="7-2-终止进程"><a href="#7-2-终止进程" class="headerlink" title="7.2 终止进程"></a>7.2 终止进程</h2><h3 id="7-2-1-kill命令"><a href="#7-2-1-kill命令" class="headerlink" title="7.2.1 kill命令"></a>7.2.1 kill命令</h3><pre class=" language-language-bash"><code class="language-language-bash">#语法 kill -s 信号名称 或-n 信号编号
 
 #Options:
 -s sig  SIG is a signal name
@@ -1674,7 +1671,7 @@ kill -n 9 httpd   # 或 kill -9 httpd
  1) SIGHUP   2) SIGINT   3) SIGQUIT  4) SIGILL   5) SIGTRAP
  6) SIGABRT  7) SIGBUS   8) SIGFPE   9) SIGKILL 10) SIGUSR1
 
-[root@node1 /]# vim 1 &amp;
+[root@node1 /]# vim 1 &
 [1] 1372
 [root@node1 /]# ps -l
 [root@node1 /]# kill -n 9 1372
@@ -1682,9 +1679,9 @@ kill -n 9 httpd   # 或 kill -9 httpd
 F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 0 S     0    1313    1312  0  80   0 - 59084 -      pts/1    00:00:00 bash
 0 R     0    1374    1313  0  80   0 - 63799 -      pts/1    00:00:00 ps
-[1]+  Killed                  vim 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="7-2-2-killall命令"><a href="#7-2-2-killall命令" class="headerlink" title="7.2.2 killall命令"></a>7.2.2 killall命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法：killall 守护进程名称
+[1]+  Killed                  vim 1
+</code></pre>
+<h3 id="7-2-2-killall命令"><a href="#7-2-2-killall命令" class="headerlink" title="7.2.2 killall命令"></a>7.2.2 killall命令</h3><pre class=" language-language-bash"><code class="language-language-bash">#语法：killall 守护进程名称
 
 #yum install -y httpd
 systemctl start httpd
@@ -1693,25 +1690,25 @@ killall httpd
 yum provides killall
 yum install -y psmisc-23.1-3.el8.x86_64
 killall httpd
-ps aux | grep httpd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="7-3-作业控制jobs"><a href="#7-3-作业控制jobs" class="headerlink" title="7.3 作业控制jobs"></a>7.3 作业控制jobs</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# dd if=/dev/zero of=./bigfile bs=1M count=1000
+ps aux | grep httpd
+</code></pre>
+<h2 id="7-3-作业控制jobs"><a href="#7-3-作业控制jobs" class="headerlink" title="7.3 作业控制jobs"></a>7.3 作业控制jobs</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@servera ~]# dd if=/dev/zero of=./bigfile bs=1M count=1000
 ctrl + z 
 [root@servera ~]# jobs
 [1]+  Stopped                 dd if=/dev/zero of=./bigfile bs=1M count=1000
 [root@servera ~]# bg ％1
-[1]+ dd if=/dev/zero of=./bigfile bs=1M count=1000 &amp;
+[1]+ dd if=/dev/zero of=./bigfile bs=1M count=1000 &
 [root@servera ~]# jobs
-[1]+  Running                 dd if=/dev/zero of=./bigfile bs=1M count=1000 &amp;
+[1]+  Running                 dd if=/dev/zero of=./bigfile bs=1M count=1000 &
 [root@servera ~]# fg %1
 
 [root@servera ~]# kill -9 %2
 [2]-  Stopped                 vim file2
 [root@servera ~]# jobs
 [2]-  Killed                  vim file2
-[3]+  Stopped                 nice -n -10 vim file4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="7-4-进程优先级调整"><a href="#7-4-进程优先级调整" class="headerlink" title="7.4 进程优先级调整"></a>7.4 进程优先级调整</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#nice值
+[3]+  Stopped                 nice -n -10 vim file4
+</code></pre>
+<h2 id="7-4-进程优先级调整"><a href="#7-4-进程优先级调整" class="headerlink" title="7.4 进程优先级调整"></a>7.4 进程优先级调整</h2><pre class=" language-language-bash"><code class="language-language-bash">#nice值
 #超级用户root 可以修改nice值范围 -20~19
 #普通用户user 可以修改nice值范围  0-19
 
@@ -1722,12 +1719,12 @@ ctrl + z
 
 #两种方法：
 1.产生新进程时，设置nice值
-  nice  -n -5  vim file2 &amp;
+  nice  -n -5  vim file2 &
 2.修改现有进程nice值
   renice -n  10  PID
 # ps -l 查看需要更改的进程号
-  renice -n 10 28183<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+  renice -n 10 28183
+</code></pre>
 <h1 id="8-控制服务与守护进程"><a href="#8-控制服务与守护进程" class="headerlink" title="8 控制服务与守护进程"></a>8 控制服务与守护进程</h1><h2 id="8-1-服务状态关键字段"><a href="#8-1-服务状态关键字段" class="headerlink" title="8.1 服务状态关键字段"></a>8.1 服务状态关键字段</h2><table>
 <thead>
 <tr>
@@ -1752,7 +1749,7 @@ ctrl + z
 <td align="left">有关该服务的其他信息</td>
 </tr>
 </tbody></table>
-<h2 id="8-2-systemctl管理服务"><a href="#8-2-systemctl管理服务" class="headerlink" title="8.2 systemctl管理服务"></a>8.2 systemctl管理服务</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl -t help
+<h2 id="8-2-systemctl管理服务"><a href="#8-2-systemctl管理服务" class="headerlink" title="8.2 systemctl管理服务"></a>8.2 systemctl管理服务</h2><pre class=" language-language-bash"><code class="language-language-bash">systemctl -t help
 
 # 列入.service扩展名，代表服务，如web服务
 systemctl list-units --type service  列出当前服务器加载的服务单元
@@ -1779,8 +1776,8 @@ disabled
 3、查进程 ps aux | grep httpd , 每个服务有自己的守护进程/usr/sbin/httpd
 4、查端口 netstat -ntlp ，找到80端口，对应Listen监听状态 对应httpd服务
 
-# vim /etc/service  该文件记录了系统服务的端口和协议的对应关系<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+# vim /etc/service  该文件记录了系统服务的端口和协议的对应关系
+</code></pre>
 <h2 id="8-3-服务状态分类"><a href="#8-3-服务状态分类" class="headerlink" title="8.3 服务状态分类"></a>8.3 服务状态分类</h2><table>
 <thead>
 <tr>
@@ -1878,7 +1875,7 @@ disabled
 <td align="left">解除码</td>
 </tr>
 </tbody></table>
-<h1 id="9-OPENSSH服务"><a href="#9-OPENSSH服务" class="headerlink" title="9 OPENSSH服务"></a>9 OPENSSH服务</h1><h2 id="9-1-ssh常用功能"><a href="#9-1-ssh常用功能" class="headerlink" title="9.1 ssh常用功能"></a>9.1 ssh常用功能</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# vim /etc/hosts     系统是否做了dns,ip和域名及主机名的映射
+<h1 id="9-OPENSSH服务"><a href="#9-OPENSSH服务" class="headerlink" title="9 OPENSSH服务"></a>9 OPENSSH服务</h1><h2 id="9-1-ssh常用功能"><a href="#9-1-ssh常用功能" class="headerlink" title="9.1 ssh常用功能"></a>9.1 ssh常用功能</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@servera ~]# vim /etc/hosts     系统是否做了dns,ip和域名及主机名的映射
 [root@servera ~]# ssh root@172.25.250.11
 
 [root@serverb /]# scp root@172.25.250.10:/opt/newfile  .
@@ -1886,23 +1883,23 @@ root@172.25.250.10's password:
 newfile                                                  100%    0     0.0KB/s   00:00 
 
 [root@servera opt]# ssh root@172.25.250.11 'yum install -y httpd'
-ssh root@172.25.250.11 'yum install -y httpd'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="9-2-ssh免密登录"><a href="#9-2-ssh免密登录" class="headerlink" title="9.2 ssh免密登录"></a>9.2 ssh免密登录</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ssh]# ssh-keygen  后面三个回车
+ssh root@172.25.250.11 'yum install -y httpd'
+</code></pre>
+<h2 id="9-2-ssh免密登录"><a href="#9-2-ssh免密登录" class="headerlink" title="9.2 ssh免密登录"></a>9.2 ssh免密登录</h2><pre class=" language-language-bash"><code class="language-language-bash">[root@servera ssh]# ssh-keygen  后面三个回车
 [root@servera ssh]# ssh-copy-id  root@serverb
 [root@serverb /]# cd /root/.ssh/
 [root@serverb .ssh]# ls
 authorized_keys  known_hosts
 [root@servera ssh]# ssh root@serverb
 
-# a免密远程b，如果想b远程a免密，需要相同的配置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="9-3-ssh服务控制"><a href="#9-3-ssh服务控制" class="headerlink" title="9.3 ssh服务控制"></a>9.3 ssh服务控制</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 拒绝root登录
+# a免密远程b，如果想b远程a免密，需要相同的配置
+</code></pre>
+<h2 id="9-3-ssh服务控制"><a href="#9-3-ssh服务控制" class="headerlink" title="9.3 ssh服务控制"></a>9.3 ssh服务控制</h2><pre class=" language-language-bash"><code class="language-language-bash"># 拒绝root登录
 [root@serverb ~]# vim /etc/ssh/sshd_config
 PermitRootLogin no
-[root@serverb ~]# systemctl reload sshd（或restart）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="9-4-sudo命令"><a href="#9-4-sudo命令" class="headerlink" title="9.4 sudo命令"></a>9.4 sudo命令</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 将用户设置为特权用户
+[root@serverb ~]# systemctl reload sshd（或restart）
+</code></pre>
+<h2 id="9-4-sudo命令"><a href="#9-4-sudo命令" class="headerlink" title="9.4 sudo命令"></a>9.4 sudo命令</h2><pre class=" language-language-bash"><code class="language-language-bash"># 将用户设置为特权用户
 [student@servera ~]$ yum remove -y httpd
 Error: This command has to be run under the root user.
 
@@ -1926,8 +1923,8 @@ usermod -G wheel tom
 [root@serverb ~]# useradd -G admin harry
 [root@serverb ~]# su - harry
 [harry@serverb ~]$ sudo -i
-[sudo] password for harry: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+[sudo] password for harry: 
+</code></pre>
 <h1 id="10-日志分析与存储"><a href="#10-日志分析与存储" class="headerlink" title="10 日志分析与存储"></a>10 日志分析与存储</h1><h2 id="10-1-系统中的日志文件"><a href="#10-1-系统中的日志文件" class="headerlink" title="10.1 系统中的日志文件"></a>10.1 系统中的日志文件</h2><table>
 <thead>
 <tr>
@@ -1956,22 +1953,22 @@ usermod -G wheel tom
 <td align="left">与系统启动相关的消息</td>
 </tr>
 </tbody></table>
-<h3 id="10-1-1-rsyslog服务管理日志"><a href="#10-1-1-rsyslog服务管理日志" class="headerlink" title="10.1.1 rsyslog服务管理日志"></a>10.1.1 rsyslog服务管理日志</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@haha log]# yum provides /etc/rsyslog.conf  #查看文件是哪个软件包提供的
+<h3 id="10-1-1-rsyslog服务管理日志"><a href="#10-1-1-rsyslog服务管理日志" class="headerlink" title="10.1.1 rsyslog服务管理日志"></a>10.1.1 rsyslog服务管理日志</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@haha log]# yum provides /etc/rsyslog.conf  #查看文件是哪个软件包提供的
 [root@clear log]# rpm -qc rsyslog-8.1911.0-3.el8.x86_64 
 /etc/logrotate.d/syslog
 /etc/rsyslog.conf       #一般服务文件以.conf结尾，改文件是日志服务的配置文件
 /etc/sysconfig/rsyslog
-[root@clear log]# vim /etc/rsyslog.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="10-1-2-记录日志的规则"><a href="#10-1-2-记录日志的规则" class="headerlink" title="10.1.2 记录日志的规则"></a>10.1.2 记录日志的规则</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#日志文件配置格式:
+[root@clear log]# vim /etc/rsyslog.conf
+</code></pre>
+<h3 id="10-1-2-记录日志的规则"><a href="#10-1-2-记录日志的规则" class="headerlink" title="10.1.2 记录日志的规则"></a>10.1.2 记录日志的规则</h3><pre class=" language-language-bash"><code class="language-language-bash">#日志文件配置格式:
  mail.info  /var/log/vsftpd.log  #.点代表包含后面级别及以上级别
 
 AAAA.BBBB CCCC
 
 AAAA 产生日志的设备（类别）    #如何产生的日志
 BBBB 日志的级别              #日志有不同安全级别，类似轻重缓急的严重程度，发出警告
-CCCC 保存日志的位置          #在系统中保存日志文件的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+CCCC 保存日志的位置          #在系统中保存日志文件的路径
+</code></pre>
 <h3 id="10-1-3-rsyslog配置文件类别"><a href="#10-1-3-rsyslog配置文件类别" class="headerlink" title="10.1.3 rsyslog配置文件类别"></a>10.1.3 rsyslog配置文件类别</h3><table>
 <thead>
 <tr>
@@ -2064,12 +2061,12 @@ CCCC 保存日志的位置          #在系统中保存日志文件的路径<spa
 <td align="left">不记录日志</td>
 </tr>
 </tbody></table>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">*.info;mail.none;authpriv.none;cron.none                /var/log/messages
+<pre class=" language-language-bash"><code class="language-language-bash">*.info;mail.none;authpriv.none;cron.none                /var/log/messages
 *.info    # *代表所有级别    .点代表后面的等级及以上等级，也就是info以上的等级全记录
 ；分号是不同设备等级的分隔符号
--/var/log/maillog   # - 代表先记录缓存，再记录硬盘，减轻硬盘i/o读写压力<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="10-1-5-logger发送测试日志"><a href="#10-1-5-logger发送测试日志" class="headerlink" title="10.1.5 logger发送测试日志"></a>10.1.5 logger发送测试日志</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1 查看rsyslog服务是否开启 (默认系统已开启)
+-/var/log/maillog   # - 代表先记录缓存，再记录硬盘，减轻硬盘i/o读写压力
+</code></pre>
+<h3 id="10-1-5-logger发送测试日志"><a href="#10-1-5-logger发送测试日志" class="headerlink" title="10.1.5 logger发送测试日志"></a>10.1.5 logger发送测试日志</h3><pre class=" language-language-bash"><code class="language-language-bash">1 查看rsyslog服务是否开启 (默认系统已开启)
 [root@servera ~]# systemctl status rsyslog
 
 2 编辑rsyslog配置文件
@@ -2090,9 +2087,9 @@ local7.*                                                /var/log/boot.log
 
 6 在第4步的窗口中查看新生成日志信息
 [root@servera ~]# tail -n 0 -f /var/log/messages.debug
-Jun 18 14:45:31 servera root[29174]: messages haha<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="10-2-journalctl"><a href="#10-2-journalctl" class="headerlink" title="10.2 journalctl"></a>10.2 journalctl</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 传统的日志服务是rsyslog
+Jun 18 14:45:31 servera root[29174]: messages haha
+</code></pre>
+<h2 id="10-2-journalctl"><a href="#10-2-journalctl" class="headerlink" title="10.2 journalctl"></a>10.2 journalctl</h2><pre class=" language-language-bash"><code class="language-language-bash"># 传统的日志服务是rsyslog
 # 新的日志服务是systemd-journal，它也是一个日志管理服务，可以收集来自内核、系统早期启动阶段的日志，以及系统进程在启动和运行中的一些标准输出与错误输出
 # systemd-journal一旦重启既消失，因为保存在了/run/log/journal/*/*.journal结尾，该文件是一个二进制日志文件，需要用journalctl命令查看
 
@@ -2106,8 +2103,8 @@ journalctl -p err
 journalctl -p info
   （deubg、info、notice、warning、err、crit、alert、emerg）
 
-journalctl --since "2020-02-28 22:53:35" --until "2020-02-28 22:53:40"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+journalctl --since "2020-02-28 22:53:35" --until "2020-02-28 22:53:40"
+</code></pre>
 <h3 id="10-2-1-journalctl常用字段"><a href="#10-2-1-journalctl常用字段" class="headerlink" title="10.2.1 journalctl常用字段"></a>10.2.1 journalctl常用字段</h3><table>
 <thead>
 <tr>
@@ -2136,11 +2133,11 @@ journalctl --since "2020-02-28 22:53:35" --until "2020-02-28 22:53:40"<span aria
 <td align="left">启动该进程的systemd单元</td>
 </tr>
 </tbody></table>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">journalctl -o verbose 
+<pre class=" language-language-bash"><code class="language-language-bash">journalctl -o verbose 
 journalctl _HOSTNAME=localhost
-journalctl _HOSTNAME=localhost _PID=1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="102-2-保存journal服务文件"><a href="#102-2-保存journal服务文件" class="headerlink" title="102.2 保存journal服务文件"></a>102.2 保存journal服务文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mandb
+journalctl _HOSTNAME=localhost _PID=1
+</code></pre>
+<h3 id="102-2-保存journal服务文件"><a href="#102-2-保存journal服务文件" class="headerlink" title="102.2 保存journal服务文件"></a>102.2 保存journal服务文件</h3><pre class=" language-language-bash"><code class="language-language-bash">mandb
 man -k journal
 man 5 journald.conf  ， Storage=
 
@@ -2152,9 +2149,9 @@ drwxr-sr-x. 4 root systemd-journal 86 Nov 19 04:30 /var/log/journal
 [root@clear journal]# ll /var/log/journal/3a2b4da8dabb4729935c193e58ad052d/  #字符串目录名字每个人的可能不一样。不要复制我的笔记。
 total 8192
 -rw-r-----. 1 root root 8388608 Nov 19 04:30 system.journal
-[root@clear journal]# journalctl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="10-3-准确的系统时间"><a href="#10-3-准确的系统时间" class="headerlink" title="10.3 准确的系统时间"></a>10.3 准确的系统时间</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># RHEL6 ntp服务
+[root@clear journal]# journalctl
+</code></pre>
+<h2 id="10-3-准确的系统时间"><a href="#10-3-准确的系统时间" class="headerlink" title="10.3 准确的系统时间"></a>10.3 准确的系统时间</h2><pre class=" language-language-bash"><code class="language-language-bash"># RHEL6 ntp服务
 # RHEL8 chrony服务
 # 还是使用同样的协议标准ntp（network time protocol）
 
@@ -2167,9 +2164,9 @@ RTC：(Real-Time Clock)也称为硬件时间：RTC是芯片内置的硬件时钟
     （可通过hwclock命令来获取具体的时间 
       -r 查看硬件时间
       -s 硬件时间设置到系统
-      -w 系统设置到硬件）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="10-3-1-timedatectl命令"><a href="#10-3-1-timedatectl命令" class="headerlink" title="10.3.1 timedatectl命令"></a>10.3.1 timedatectl命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera log]# timedatectl 
+      -w 系统设置到硬件）
+</code></pre>
+<h3 id="10-3-1-timedatectl命令"><a href="#10-3-1-timedatectl命令" class="headerlink" title="10.3.1 timedatectl命令"></a>10.3.1 timedatectl命令</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@servera log]# timedatectl 
                Local time: Sat 2020-02-29 08:51:49 CST
            Universal time: Sat 2020-02-29 00:51:49 UTC
                  RTC time: Sat 2020-02-29 08:11:07
@@ -2194,9 +2191,9 @@ timedatectl set-time "2020-02-30 10:00:00"
 Failed to set time: NTP unit is active
 timedatectl set-ntp false 
 timedatectl set-time "2020-02-30 10:00:00"
-timedatectl set-ntp true <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="10-3-2-chrony命令"><a href="#10-3-2-chrony命令" class="headerlink" title="10.3.2 chrony命令"></a>10.3.2 chrony命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">server
+timedatectl set-ntp true 
+</code></pre>
+<h3 id="10-3-2-chrony命令"><a href="#10-3-2-chrony命令" class="headerlink" title="10.3.2 chrony命令"></a>10.3.2 chrony命令</h3><pre class=" language-language-bash"><code class="language-language-bash">server
 ===server选项格式===
 server host  [ key n ] [ version n ] [ prefer ] [ mode n ] [ minpoll n ] [ maxpoll n ] [ iburst ]
 其中host是上层NTP服务器的IP地址或域名，随后所跟的参数解释如下所示：
@@ -2212,9 +2209,9 @@ server host  [ key n ] [ version n ] [ prefer ] [ mode n ] [ minpoll n ] [ maxpo
 [root@servera ~]# vim /etc/chrony.conf   #大概第7行 server 后面添加服务器'地址'或'域名'。
 server classroom.exmaple.com iburst
 [root@servera ~]# systemctl  restart chronyd.service
-[root@servera ~]# chronyc sources -v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h1 id="11-RHEL网络管理"><a href="#11-RHEL网络管理" class="headerlink" title="11 RHEL网络管理"></a>11 RHEL网络管理</h1><h2 id="11-1-IPv4地址"><a href="#11-1-IPv4地址" class="headerlink" title="11.1 IPv4地址"></a>11.1 IPv4地址</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">IP/(NETMASK\|PREFIX)   172.25.0.9/255.255.0.0 \| 172.25.0.9/16
+[root@servera ~]# chronyc sources -v
+</code></pre>
+<h1 id="11-RHEL网络管理"><a href="#11-RHEL网络管理" class="headerlink" title="11 RHEL网络管理"></a>11 RHEL网络管理</h1><h2 id="11-1-IPv4地址"><a href="#11-1-IPv4地址" class="headerlink" title="11.1 IPv4地址"></a>11.1 IPv4地址</h2><pre class=" language-language-bash"><code class="language-language-bash">IP/(NETMASK\|PREFIX)   172.25.0.9/255.255.0.0 \| 172.25.0.9/16
 --- ---------------------- --------------------------------------------
 GATEWAY                172.25.x.x
 DNS                    正向解析 \# host servera， 反向解析 \# host
@@ -2227,22 +2224,22 @@ C　１９２－２２３
 IP地址分类默认对应的子网掩码掩码：
 Ａ：２５５．０．０．０         11111111.00000000.00000000.00000000     /8
 Ｂ：２５５．２５５．０．０      11111111.11111111.00000000.00000000     /16
-Ｃ：２５５．２５５．２５５．０  11111111.11111111.11111111.00000000     /24<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-1-1-IP与掩码二进制与运算"><a href="#11-1-1-IP与掩码二进制与运算" class="headerlink" title="11.1.1 IP与掩码二进制与运算"></a>11.1.1 IP与掩码二进制与运算</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">网络地址   172.25.0.0       主机位全0
+Ｃ：２５５．２５５．２５５．０  11111111.11111111.11111111.00000000     /24
+</code></pre>
+<h3 id="11-1-1-IP与掩码二进制与运算"><a href="#11-1-1-IP与掩码二进制与运算" class="headerlink" title="11.1.1 IP与掩码二进制与运算"></a>11.1.1 IP与掩码二进制与运算</h3><pre class=" language-language-bash"><code class="language-language-bash">网络地址   172.25.0.0       主机位全0
 ---------- ---------------- -----------
-广播地址   172.25.255.255   主机位全1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-1-2-查看ipv4与ipv6"><a href="#11-1-2-查看ipv4与ipv6" class="headerlink" title="11.1.2 查看ipv4与ipv6"></a>11.1.2 查看ipv4与ipv6</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 查看ip地址方法1：
+广播地址   172.25.255.255   主机位全1
+</code></pre>
+<h3 id="11-1-2-查看ipv4与ipv6"><a href="#11-1-2-查看ipv4与ipv6" class="headerlink" title="11.1.2 查看ipv4与ipv6"></a>11.1.2 查看ipv4与ipv6</h3><pre class=" language-language-bash"><code class="language-language-bash"># 查看ip地址方法1：
 [root@servera ~]#ifconfig 
 [root@servera ~]#ifconfig  eth0
 
 # 查看ip地址方法2：
 [root@servera ~]# ip addr show eth0
 [root@servera ~]# ip a  s eth0
-[root@servera ~]# ip -s link show enp1s0 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-1-3-端口与服务"><a href="#11-1-3-端口与服务" class="headerlink" title="11.1.3 端口与服务"></a>11.1.3 端口与服务</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 查看服务端口是否被占用
+[root@servera ~]# ip -s link show enp1s0 
+</code></pre>
+<h3 id="11-1-3-端口与服务"><a href="#11-1-3-端口与服务" class="headerlink" title="11.1.3 端口与服务"></a>11.1.3 端口与服务</h3><pre class=" language-language-bash"><code class="language-language-bash"># 查看服务端口是否被占用
 lsof -i:80 或 netstat
 -n：显示接口和端口编号
 -t：tcp信息
@@ -2255,9 +2252,9 @@ netstat -ntlp | grep 80
 
 # 参考ss和netstat区别：https://blog.csdn.net/qq_37863891/article/details/107283415
 
-# 标准服务端口 /etc/services<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="11-2-网络管理工具"><a href="#11-2-网络管理工具" class="headerlink" title="11.2 网络管理工具"></a>11.2 网络管理工具</h2><h3 id="11-2-1-nmcli的概念"><a href="#11-2-1-nmcli的概念" class="headerlink" title="11.2.1 nmcli的概念"></a>11.2.1 nmcli的概念</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.使用nmcli管理网络服务NetworkManager
+# 标准服务端口 /etc/services
+</code></pre>
+<h2 id="11-2-网络管理工具"><a href="#11-2-网络管理工具" class="headerlink" title="11.2 网络管理工具"></a>11.2 网络管理工具</h2><h3 id="11-2-1-nmcli的概念"><a href="#11-2-1-nmcli的概念" class="headerlink" title="11.2.1 nmcli的概念"></a>11.2.1 nmcli的概念</h3><pre class=" language-language-bash"><code class="language-language-bash">1.使用nmcli管理网络服务NetworkManager
 2.nmcli工具的功能：查看网络设备、创建网络连接、修改网络配置
 3.nmcli的特点及概念：
   nmcli工具可以对网卡或网卡配置文件操作
@@ -2268,9 +2265,9 @@ netstat -ntlp | grep 80
 4.举例：
   device-----eth0
   connection1  ----  dhcp    自动获取IP  
-  connection2  ----  static  静态IP  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-2-2-nmcli管理网络"><a href="#11-2-2-nmcli管理网络" class="headerlink" title="11.2.2 nmcli管理网络"></a>11.2.2 nmcli管理网络</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mandb
+  connection2  ----  static  静态IP  
+</code></pre>
+<h3 id="11-2-2-nmcli管理网络"><a href="#11-2-2-nmcli管理网络" class="headerlink" title="11.2.2 nmcli管理网络"></a>11.2.2 nmcli管理网络</h3><pre class=" language-language-bash"><code class="language-language-bash">mandb
 man -k nmcli
 nmcli (1) 
 nmcli-examples (7)
@@ -2322,15 +2319,15 @@ Connection 'static' (b85e6a57-b8f7-421f-8d15-9ff5e27cbb85) successfully deleted.
 [root@servera /]# nmcli connection down static   关闭static网卡
 
 -off---关闭网络服务
-[root@servera /]# nmcli networking off       关闭网络服务，慎重使<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-2-3-图形化管理工具nmtui"><a href="#11-2-3-图形化管理工具nmtui" class="headerlink" title="11.2.3 图形化管理工具nmtui"></a>11.2.3 图形化管理工具nmtui</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nmtui-edit
+[root@servera /]# nmcli networking off       关闭网络服务，慎重使
+</code></pre>
+<h3 id="11-2-3-图形化管理工具nmtui"><a href="#11-2-3-图形化管理工具nmtui" class="headerlink" title="11.2.3 图形化管理工具nmtui"></a>11.2.3 图形化管理工具nmtui</h3><pre class=" language-language-bash"><code class="language-language-bash">nmtui-edit
 图形化管理配置
 通过点击设置--network--网卡设置，ipv4address  netmask  dns  gateway
 nmtui-edit
-[root@servera /]# nmcli connection up static<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-2-4-网卡配置文件"><a href="#11-2-4-网卡配置文件" class="headerlink" title="11.2.4 网卡配置文件"></a>11.2.4 网卡配置文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">-RHEL8 版本
+[root@servera /]# nmcli connection up static
+</code></pre>
+<h3 id="11-2-4-网卡配置文件"><a href="#11-2-4-网卡配置文件" class="headerlink" title="11.2.4 网卡配置文件"></a>11.2.4 网卡配置文件</h3><pre class=" language-language-bash"><code class="language-language-bash">-RHEL8 版本
 # grep -r IPADDR /usr/share/ #找到下面手册的指令
 vim /usr/share/doc/initscripts/sysconfig.txt 帮助手册
 
@@ -2351,15 +2348,15 @@ DNS1=xxxx               #dns，dns可以有三个 DNS1= DNS2= DNS3=
 systemctl restart NetworkManager
 
 -RHEL9版本 网卡配置文件位置
-[root@node1 system-connections]# vim /etc/NetworkManager/system-connections/System\ eth0.nmconnection<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="11-3-更改网络信息"><a href="#11-3-更改网络信息" class="headerlink" title="11.3 更改网络信息"></a>11.3 更改网络信息</h2><h3 id="11-3-1-主机名"><a href="#11-3-1-主机名" class="headerlink" title="11.3.1 主机名"></a>11.3.1 主机名</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# hostname
+[root@node1 system-connections]# vim /etc/NetworkManager/system-connections/System\ eth0.nmconnection
+</code></pre>
+<h2 id="11-3-更改网络信息"><a href="#11-3-更改网络信息" class="headerlink" title="11.3 更改网络信息"></a>11.3 更改网络信息</h2><h3 id="11-3-1-主机名"><a href="#11-3-1-主机名" class="headerlink" title="11.3.1 主机名"></a>11.3.1 主机名</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@servera ~]# hostname
 servera.lab.example.com
 [root@servera ~]# hostnmae  www.example.com 临时
 [root@servera ~]# vim /etc/hostname  永久（重启系统:reboot、init 6)
-[root@servera ~]# hostnamectl set-hostname hostname　永久<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-3-2-网关-gateway"><a href="#11-3-2-网关-gateway" class="headerlink" title="11.3.2 网关(gateway)"></a>11.3.2 网关(gateway)</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 使用nmcli
+[root@servera ~]# hostnamectl set-hostname hostname　永久
+</code></pre>
+<h3 id="11-3-2-网关-gateway"><a href="#11-3-2-网关-gateway" class="headerlink" title="11.3.2 网关(gateway)"></a>11.3.2 网关(gateway)</h3><pre class=" language-language-bash"><code class="language-language-bash"># 使用nmcli
 nmcli con add con-name xxx ipv4.gateway xxx.xxx.xxx.xxx  配置网关
 nmcli con mod xxx ipv4.gateway xxx.xxx.xxx.xxx           修改网关
 以上两种改完之后，需要nmcli con up xxx
@@ -2367,9 +2364,9 @@ nmcli con mod xxx ipv4.gateway xxx.xxx.xxx.xxx           修改网关
 # 修改配置文件
 vim /etc/sysconfig/network-scripts/ifcfg-xxxx
 GATEWAY=xxx.xxx.xxx.xxx  
-修改完后要nmcli con reload ，再nmcli con up xxxx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-3-3-查看路由及网关"><a href="#11-3-3-查看路由及网关" class="headerlink" title="11.3.3 查看路由及网关"></a>11.3.3 查看路由及网关</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">[root@servera ~]# ip route 
+修改完后要nmcli con reload ，再nmcli con up xxxx
+</code></pre>
+<h3 id="11-3-3-查看路由及网关"><a href="#11-3-3-查看路由及网关" class="headerlink" title="11.3.3 查看路由及网关"></a>11.3.3 查看路由及网关</h3><pre class=" language-language-bash"><code class="language-language-bash">[root@servera ~]# ip route 
 default via 172.25.250.254 dev enp1s0 proto static metric 100 
 172.25.250.0/24 dev enp1s0 proto kernel scope link src 172.25.250.10 metric 100
 
@@ -2386,9 +2383,9 @@ ipv4.gateway:                           172.25.250.254
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
 0.0.0.0         172.25.250.254  0.0.0.0         UG        0 0          0 enp1s0
-172.25.250.0    0.0.0.0         255.255.255.0   U         0 0          0 enp1s0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="11-3-4-指定DNS"><a href="#11-3-4-指定DNS" class="headerlink" title="11.3.4 指定DNS"></a>11.3.4 指定DNS</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">vim /etc/resolv.conf   #该文件指定dns和域名的/etc/sysconfig/network-scripts/ifcfg-xxx中的DNS字段会同步到/etc/resolv.conf，后者优先。
+172.25.250.0    0.0.0.0         255.255.255.0   U         0 0          0 enp1s0
+</code></pre>
+<h3 id="11-3-4-指定DNS"><a href="#11-3-4-指定DNS" class="headerlink" title="11.3.4 指定DNS"></a>11.3.4 指定DNS</h3><pre class=" language-language-bash"><code class="language-language-bash">vim /etc/resolv.conf   #该文件指定dns和域名的/etc/sysconfig/network-scripts/ifcfg-xxx中的DNS字段会同步到/etc/resolv.conf，后者优先。
 nameserver 172.25.250.254
 
 # 测DNS域名解析是否正常
@@ -2401,9 +2398,9 @@ Address:    172.25.250.254#53
 Name:   classroom.example.com
 Address: 172.25.254.254
 
-[root@servera ~]# dig classroom.example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h1 id="12-归档与系统间复制文件"><a href="#12-归档与系统间复制文件" class="headerlink" title="12 归档与系统间复制文件"></a>12 归档与系统间复制文件</h1><h2 id="12-1-归档及压缩"><a href="#12-1-归档及压缩" class="headerlink" title="12.1 归档及压缩"></a>12.1 归档及压缩</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 语法：tar 选项  归档文件名    源文件 源文件2 源文件N
+[root@servera ~]# dig classroom.example.com
+</code></pre>
+<h1 id="12-归档与系统间复制文件"><a href="#12-归档与系统间复制文件" class="headerlink" title="12 归档与系统间复制文件"></a>12 归档与系统间复制文件</h1><h2 id="12-1-归档及压缩"><a href="#12-1-归档及压缩" class="headerlink" title="12.1 归档及压缩"></a>12.1 归档及压缩</h2><pre class=" language-language-bash"><code class="language-language-bash"># 语法：tar 选项  归档文件名    源文件 源文件2 源文件N
 -c  创建
 -t  查看
 -f  指定文件名
@@ -2412,9 +2409,9 @@ Address: 172.25.254.254
 -C  指定解包路径
 
 man tar
-tar -cvf /root/etc.tar /etc/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="12-1-1-文件及目录打包、解包"><a href="#12-1-1-文件及目录打包、解包" class="headerlink" title="12.1.1 文件及目录打包、解包"></a>12.1.1 文件及目录打包、解包</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 文件打包归档
+tar -cvf /root/etc.tar /etc/
+</code></pre>
+<h3 id="12-1-1-文件及目录打包、解包"><a href="#12-1-1-文件及目录打包、解包" class="headerlink" title="12.1.1 文件及目录打包、解包"></a>12.1.1 文件及目录打包、解包</h3><pre class=" language-language-bash"><code class="language-language-bash"># 文件打包归档
 [root@servera opt]#
 etc.tar  file1  file2  file3
 
@@ -2437,9 +2434,9 @@ NIC2   systemd-private-ef2feb022cd2465c9dd920878a1d962b-chronyd.service-kRKFp0
 etc.tar  file1  file2  file3  file.tar
 
 # 目录解包
-[root@servera opt]# tar -xvf etc.tar <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="12-1-2-文件压缩"><a href="#12-1-2-文件压缩" class="headerlink" title="12.1.2 文件压缩"></a>12.1.2 文件压缩</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 只压缩文件
+[root@servera opt]# tar -xvf etc.tar 
+</code></pre>
+<h3 id="12-1-2-文件压缩"><a href="#12-1-2-文件压缩" class="headerlink" title="12.1.2 文件压缩"></a>12.1.2 文件压缩</h3><pre class=" language-language-bash"><code class="language-language-bash"># 只压缩文件
 [root@servera opt]# gzip file1
 [root@servera opt]# file file1.gz 
 file1.gz: gzip compressed data, was "file1", last modified: Sun Mar  1 05:54:06 2020, from Unix, original size 0
@@ -2448,9 +2445,9 @@ file1.gz: gzip compressed data, was "file1", last modified: Sun Mar  1 05:54:06 
 file2.bz2: bzip2 compressed data, block size = 900k
 [root@servera opt]# xz file.tar 
 [root@servera opt]# ls
-etc.tar  file1.gz  file2.bz2  file3  file.tar.xz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="12-1-3-tar打包并压缩"><a href="#12-1-3-tar打包并压缩" class="headerlink" title="12.1.3 tar打包并压缩"></a>12.1.3 tar打包并压缩</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># tar的压缩选项
+etc.tar  file1.gz  file2.bz2  file3  file.tar.xz
+</code></pre>
+<h3 id="12-1-3-tar打包并压缩"><a href="#12-1-3-tar打包并压缩" class="headerlink" title="12.1.3 tar打包并压缩"></a>12.1.3 tar打包并压缩</h3><pre class=" language-language-bash"><code class="language-language-bash"># tar的压缩选项
   man tar | grep gzip
 -z  gzip    -j  bzip2    -J  xz
 # 打包并压缩
@@ -2461,9 +2458,9 @@ etc.tar  file1.gz  file2.bz2  file3  file.tar.xz<span aria-hidden="true" class="
 
 # 解压缩并指定路径
 tar -zxvf etc.tar.gz -C /opt/
-tar xf etc.tar.gz -C /opt/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="12-2-远程传输"><a href="#12-2-远程传输" class="headerlink" title="12.2 远程传输"></a>12.2 远程传输</h2><h3 id="12-2-1-远程文件传输"><a href="#12-2-1-远程文件传输" class="headerlink" title="12.2.1 远程文件传输"></a>12.2.1 远程文件传输</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># scp实现远程文件传输
+tar xf etc.tar.gz -C /opt/
+</code></pre>
+<h2 id="12-2-远程传输"><a href="#12-2-远程传输" class="headerlink" title="12.2 远程传输"></a>12.2 远程传输</h2><h3 id="12-2-1-远程文件传输"><a href="#12-2-1-远程文件传输" class="headerlink" title="12.2.1 远程文件传输"></a>12.2.1 远程文件传输</h3><pre class=" language-language-bash"><code class="language-language-bash"># scp实现远程文件传输
 scp servra.txt root@bastion:/opt/
 scp root@bastion:/opt/bastion.txt .
 
@@ -2478,13 +2475,13 @@ ID    app   roles
 [root@servera opt]# sftp instructor@classroom.example.com
 instructor@classroom.example.com's password: 
 Connected to instructor@classroom.example.com.
-sftp&gt; cd /tmp/
-sftp&gt; put /opt/put.txt 
+sftp> cd /tmp/
+sftp> put /opt/put.txt 
 Uploading /opt/put.txt to /tmp/put.txt
 /opt/put.txt                                    100%    0     0.0KB/s   00:00    
-sftp&gt; ls<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="12-2-2-同步文件内容"><a href="#12-2-2-同步文件内容" class="headerlink" title="12.2.2 同步文件内容"></a>12.2.2 同步文件内容</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># rsync  -v  显示详细信息     -a  相当于存档模式
+sftp> ls
+</code></pre>
+<h3 id="12-2-2-同步文件内容"><a href="#12-2-2-同步文件内容" class="headerlink" title="12.2.2 同步文件内容"></a>12.2.2 同步文件内容</h3><pre class=" language-language-bash"><code class="language-language-bash"># rsync  -v  显示详细信息     -a  相当于存档模式
   
 # 本地同步
 [root@servera tmp]# rsync -av /var/log/* /tmp
@@ -2493,9 +2490,9 @@ sftp&gt; ls<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 [root@servera tmp]# rsync -av /var/log/* serverb:/tmp
 
 # 将serverb上的/var/log/同步到，servera当前目录下
-[root@servera tmp]# rsync -av serverb:/var/log/  .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h1 id="13-安装和升级软件包"><a href="#13-安装和升级软件包" class="headerlink" title="13 安装和升级软件包"></a>13 安装和升级软件包</h1><h2 id="13-1-RPM包管理"><a href="#13-1-RPM包管理" class="headerlink" title="13.1 RPM包管理"></a>13.1 RPM包管理</h2><h3 id="13-1-1-rpm包语法"><a href="#13-1-1-rpm包语法" class="headerlink" title="13.1.1 rpm包语法"></a>13.1.1 rpm包语法</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#软件的获取方式：
+[root@servera tmp]# rsync -av serverb:/var/log/  .
+</code></pre>
+<h1 id="13-安装和升级软件包"><a href="#13-安装和升级软件包" class="headerlink" title="13 安装和升级软件包"></a>13 安装和升级软件包</h1><h2 id="13-1-RPM包管理"><a href="#13-1-RPM包管理" class="headerlink" title="13.1 RPM包管理"></a>13.1 RPM包管理</h2><h3 id="13-1-1-rpm包语法"><a href="#13-1-1-rpm包语法" class="headerlink" title="13.1.1 rpm包语法"></a>13.1.1 rpm包语法</h3><pre class=" language-language-bash"><code class="language-language-bash">#软件的获取方式：
  1、互联网(下载光盘镜像.iso)、直接使用网络yum源
  2、光盘
 
@@ -2514,9 +2511,9 @@ rpm -ivh xxx.rpm
 /content/rhel8.0/x86_64/dvd/AppStream/Packages
 
 2.安装软件
-[root@foundation0 Packages]# rpm -ivh lftp-4.8.4-1.el8.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="13-1-2-rpm包查询命令"><a href="#13-1-2-rpm包查询命令" class="headerlink" title="13.1.2 rpm包查询命令"></a>13.1.2 rpm包查询命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">#语法:rpm -q 软件包名称
+[root@foundation0 Packages]# rpm -ivh lftp-4.8.4-1.el8.x86_64.rpm
+</code></pre>
+<h3 id="13-1-2-rpm包查询命令"><a href="#13-1-2-rpm包查询命令" class="headerlink" title="13.1.2 rpm包查询命令"></a>13.1.2 rpm包查询命令</h3><pre class=" language-language-bash"><code class="language-language-bash">#语法:rpm -q 软件包名称
 -q: query      查询，和其他参数配合
 -l：list       列出软件包安装后给系统带来的所有文件
 -a：all        查看所有已安装的软件包
@@ -2530,9 +2527,9 @@ rpm -qc openssh-server-8.0p1-4.el8_1.x86_64
 telnet-0.17-73.el8.x86_64
 [root@node1 /]# rpm -e telnet-0.17-73.el8.x86_64
 [root@node1 /]# rpm -q telnet
-package telnet is not installed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="13-2-YUM工具"><a href="#13-2-YUM工具" class="headerlink" title="13.2 YUM工具"></a>13.2 YUM工具</h2><h3 id="13-2-1-管理yum源文件"><a href="#13-2-1-管理yum源文件" class="headerlink" title="13.2.1 管理yum源文件"></a>13.2.1 管理yum源文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># yum源软件配置方式:
+package telnet is not installed
+</code></pre>
+<h2 id="13-2-YUM工具"><a href="#13-2-YUM工具" class="headerlink" title="13.2 YUM工具"></a>13.2 YUM工具</h2><h3 id="13-2-1-管理yum源文件"><a href="#13-2-1-管理yum源文件" class="headerlink" title="13.2.1 管理yum源文件"></a>13.2.1 管理yum源文件</h3><pre class=" language-language-bash"><code class="language-language-bash"># yum源软件配置方式:
 [root@servera /]# cd /etc/yum.repos.d/
 [root@servera yum.repos.d]# mkdir old
 [root@servera yum.repos.d]# mv * old     #将系统默认的yum源文件移动到old中，可以在该文件中查看原来的yum源路径
@@ -2553,9 +2550,9 @@ enabled=1
 [root@servera yum.repos.d]# yum makecache           #和当前yum源建立缓存关联
 [root@servera yum.repos.d]# yum repolist all        #查看当前yum源状态
 [root@servera yum.repos.d]# yum install -y telnet   #测试安装软件telnet
-[root@servera yum.repos.d]# rpm -q telnet           #使用rpm方式查询测试<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="13-2-2-yum源命令配置"><a href="#13-2-2-yum源命令配置" class="headerlink" title="13.2.2 yum源命令配置"></a>13.2.2 yum源命令配置</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1 找到提供yum-config-manager命令的软件包名称
+[root@servera yum.repos.d]# rpm -q telnet           #使用rpm方式查询测试
+</code></pre>
+<h3 id="13-2-2-yum源命令配置"><a href="#13-2-2-yum源命令配置" class="headerlink" title="13.2.2 yum源命令配置"></a>13.2.2 yum源命令配置</h3><pre class=" language-language-bash"><code class="language-language-bash">1 找到提供yum-config-manager命令的软件包名称
 [kiosk@foundation0 ~]$ yum provides yum-config-manager
 
 2 安装yum-utils软件
@@ -2577,9 +2574,9 @@ enabled=1
 [root@servera /]# yum-config-manager --disable rhel-8.0-for-x86_64-appstream-rpms（yum池ID）
 [root@servera /]# yum repolist all
 [root@servera /]# yum-config-manager --enable rhel-8.0-for-x86_64-appstream-rpms
-[root@servera /]# yum repolist all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="13-2-3-YUM常见的命令"><a href="#13-2-3-YUM常见的命令" class="headerlink" title="13.2.3 YUM常见的命令"></a>13.2.3 YUM常见的命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum list http*
+[root@servera /]# yum repolist all
+</code></pre>
+<h3 id="13-2-3-YUM常见的命令"><a href="#13-2-3-YUM常见的命令" class="headerlink" title="13.2.3 YUM常见的命令"></a>13.2.3 YUM常见的命令</h3><pre class=" language-language-bash"><code class="language-language-bash">yum list http*
 yum search httpd
 yum info httpd-manual
 [root@servera /]# yum provides /var/www/html
@@ -2593,9 +2590,9 @@ yum info httpd-manual
 # yum clean all      yum repolist     yum repolist all
 # yum group list     yum groupinfo 'Server with GUI'
 # yum groupinstall -y 'Server with GUI'
-# startx 切图形<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="13-3-第三方YUM源"><a href="#13-3-第三方YUM源" class="headerlink" title="13.3 第三方YUM源"></a>13.3 第三方YUM源</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.虚拟机联网
+# startx 切图形
+</code></pre>
+<h2 id="13-3-第三方YUM源"><a href="#13-3-第三方YUM源" class="headerlink" title="13.3 第三方YUM源"></a>13.3 第三方YUM源</h2><pre class=" language-language-bash"><code class="language-language-bash">1.虚拟机联网
   虚拟机设置里面NAT选择已连接   nmcli connection up ens192
   
 2.百度搜索（阿里源、华为源...），将.repo文件下载到系统
@@ -2604,8 +2601,8 @@ curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos
 3.验证
 cd /etc/yum.repos.d/;ls
 yum repolist all
-yum install -y vsftpd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+yum install -y vsftpd
+</code></pre>
 <h1 id="14-访问Linux文件系统"><a href="#14-访问Linux文件系统" class="headerlink" title="14 访问Linux文件系统"></a>14 访问Linux文件系统</h1><h2 id="14-1-存储管理"><a href="#14-1-存储管理" class="headerlink" title="14.1 存储管理"></a>14.1 存储管理</h2><h3 id="14-1-1-文件系统、存储和块设备"><a href="#14-1-1-文件系统、存储和块设备" class="headerlink" title="14.1.1 文件系统、存储和块设备"></a>14.1.1 文件系统、存储和块设备</h3><table>
 <thead>
 <tr>
@@ -2630,7 +2627,7 @@ yum install -y vsftpd<span aria-hidden="true" class="line-numbers-rows"><span></
 <td align="left">SD卡</td>
 </tr>
 </tbody></table>
-<h3 id="14-1-2-磁盘分区"><a href="#14-1-2-磁盘分区" class="headerlink" title="14.1.2 磁盘分区"></a>14.1.2 磁盘分区</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 分区--格式化--挂载--使用
+<h3 id="14-1-2-磁盘分区"><a href="#14-1-2-磁盘分区" class="headerlink" title="14.1.2 磁盘分区"></a>14.1.2 磁盘分区</h3><pre class=" language-language-bash"><code class="language-language-bash"># 分区--格式化--挂载--使用
 # mount命令挂载是临时的，意味着重启系统后将取消挂载。需要手动重新挂载
 # 永久挂载需要将挂载项记入/etc/fstab中
 
@@ -2740,9 +2737,9 @@ umount: /mnt/disk2: target is busy.
 [root@servera /]# umount /dev/vdb2   #卸载
 [root@servera /]# df -h | tail -2
 tmpfs           183M     0  183M   0% /run/user/0
-/dev/vdb1       976M  2.6M  907M   1% /mnt/disk1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="14-1-3-检查文件系统"><a href="#14-1-3-检查文件系统" class="headerlink" title="14.1.3 检查文件系统"></a>14.1.3 检查文件系统</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># df查看系统挂载状态
+/dev/vdb1       976M  2.6M  907M   1% /mnt/disk1
+</code></pre>
+<h3 id="14-1-3-检查文件系统"><a href="#14-1-3-检查文件系统" class="headerlink" title="14.1.3 检查文件系统"></a>14.1.3 检查文件系统</h3><pre class=" language-language-bash"><code class="language-language-bash"># df查看系统挂载状态
 -T 查看文件系统类型
 -h 以易读方式列出容量单位
 
@@ -2757,9 +2754,9 @@ du查看文件大小
 [root@servera /]# du /etc/man_db.conf  -h  #占用了的块大小，linux默认一个块4k
 8.0K    /etc/man_db.conf
 [root@servera /]# ll /etc/man_db.conf 
--rw-r--r--. 1 root root 5165 Nov  7  2018 /etc/man_db.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="14-2-文件查找"><a href="#14-2-文件查找" class="headerlink" title="14.2 文件查找"></a>14.2 文件查找</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># locate
+-rw-r--r--. 1 root root 5165 Nov  7  2018 /etc/man_db.conf
+</code></pre>
+<h2 id="14-2-文件查找"><a href="#14-2-文件查找" class="headerlink" title="14.2 文件查找"></a>14.2 文件查找</h2><pre class=" language-language-bash"><code class="language-language-bash"># locate
 updatedb      #收集所有文件元数据
 locate passwd
 locate -i image
@@ -2787,9 +2784,9 @@ find / -perm -4000 | xargs ls -ld
 [root@servera ~]# find / -user student -exec cp -a {} /root/studentdir/ \;
 
 将系统中student用户的文件列表保存到/root/studentdir文件中
-find / -user student &gt; /root/studentdir<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="14-3-ln-软链接与硬链接"><a href="#14-3-ln-软链接与硬链接" class="headerlink" title="14.3 ln 软链接与硬链接"></a>14.3 ln 软链接与硬链接</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 软链接(符号链接)：使用范围广，方便访问源文件
+find / -user student > /root/studentdir
+</code></pre>
+<h2 id="14-3-ln-软链接与硬链接"><a href="#14-3-ln-软链接与硬链接" class="headerlink" title="14.3 ln 软链接与硬链接"></a>14.3 ln 软链接与硬链接</h2><pre class=" language-language-bash"><code class="language-language-bash"># 软链接(符号链接)：使用范围广，方便访问源文件
 # 文件链接创建方式：ln -s 源文件   链接文件
 ln -s dir1 linkdir1
 
@@ -2798,27 +2795,15 @@ ln 源文件  链接文件
 ln /opt/sou_file.txt /opt/link_file.txt
 
 # 取消链接
-[root@servera opt]# unlink /opt/link_file.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="14-4-软链接和硬链接区别"><a href="#14-4-软链接和硬链接区别" class="headerlink" title="14.4 软链接和硬链接区别"></a>14.4 软链接和硬链接区别</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">1.命令相同 参数不同
+[root@servera opt]# unlink /opt/link_file.txt
+</code></pre>
+<h2 id="14-4-软链接和硬链接区别"><a href="#14-4-软链接和硬链接区别" class="headerlink" title="14.4 软链接和硬链接区别"></a>14.4 软链接和硬链接区别</h2><pre class=" language-language-bash"><code class="language-language-bash">1.命令相同 参数不同
 2.硬链接的权限和源文件完全一致、软链接的链接文件权限永远是777，和源文件权限不同
 3.硬链接可以删除，移动源文件、软链接不可以删除，移动源文件
 4.软链接inode和源文件不同、硬链接的inode的源文件相同
 5.软链接可以对目录及文件生效、硬链接只可以对文件操作
-6.软链接可以跨文件系统、硬链接不可以跨文件系统<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
+6.软链接可以跨文件系统、硬链接不可以跨文件系统
+</code></pre>
 
                 
             </div>
@@ -3223,7 +3208,7 @@ ln /opt/sou_file.txt /opt/link_file.txt
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99k</span>&nbsp;字
+                class="white-color">63.9k</span>&nbsp;字
             
             
             
