@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Go语言基础</title>
+      <link href="/2025/06/29/bian-cheng-kai-fa/go-yu-yan-ji-chu/"/>
+      <url>/2025/06/29/bian-cheng-kai-fa/go-yu-yan-ji-chu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-Go语言介绍"><a href="#1-Go语言介绍" class="headerlink" title="1 Go语言介绍"></a>1 Go语言介绍</h1><p>  Go 即 Golang，是 Google 公司 2009 年 11 月正式对外公开的一门编程语言。</p><p>  根据 Go 语言开发者自述，近 10 多年，从单机时代的 C 语言到现在互联网时代的Java，都没有令人满意的开发语言，而 C++往往给人的感觉是，花了 100%的经历，却只有60%的开发效率，产出比太低，Java 和 C#的哲学又来源于 C++。并且，随着硬件的不断升级，这些语言不能充分的利用硬件及 CPU。因此，一门高效、简洁、开源的语言诞生了。</p><p>  Go 语言不仅拥有静态编译语言的安全和高性能，而且又达到了动态语言开发速度和易维护性。有人形容 Go 语言：Go = C + Python , 说明 Go 语言既有 C 语言程序的运行速度，又能达到 Python 语言的快速开发。</p><p>  Go 语言是非常有潜力的语言，是因为它的应用场景是目前互联网非常热门的几个领域，比如 WEB 开发、区块链开发、大型游戏服务端开发、分布式/云计算开发。国内比较知名的B 站就是用 Go 语言开发的，像 Goggle、阿里、京东、百度、腾讯、小米、360 的很多应用也是使用 Go 语言开发的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Go语言基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>containerd容器原理与实战</title>
       <link href="/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi-yuan-li-yu-shi-zhan/"/>
       <url>/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi-yuan-li-yu-shi-zhan/</url>
