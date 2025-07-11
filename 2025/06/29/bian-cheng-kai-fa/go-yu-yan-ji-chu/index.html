@@ -44,9 +44,9 @@
     <script
         src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-07-09
+                    2025-07-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    17k
+                    19.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    71 分
+                    81 分
                 </div>
                 
 
@@ -3103,7 +3103,399 @@ func main() {
 	<span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="10-9-多重循环控制"><a href="#10-9-多重循环控制" class="headerlink" title="10.9 多重循环控制"></a>10.9 多重循环控制</h2>
+<h2 id="10-9-多重循环控制"><a href="#10-9-多重循环控制" class="headerlink" title="10.9 多重循环控制"></a>10.9 多重循环控制</h2><p>  1.将一个循环放在另一个循环体内，就形成了嵌套循环，外边的 for 称为<strong>外层循环</strong>，在里面的 for循环称为<strong>内层循环</strong>。</p>
+<p>   一般使用两层，最多不要超过 3 层</p>
+<p>  2.实质上，嵌套循环就是把内层循环当成外层循环的循环体。当只有内层循环的循环条件为 false时，才会完全跳出内层循环，才可结束外层的当次循环，开始下一次的循环。</p>
+<p>  3.外层循环次数为 m 次，内层为 n 次，则内层循环体实际上需要执行 m * n 次</p>
+<p>  <strong>多重循环控制的案例:</strong></p>
+<p>  1.统计 3 个班成绩情况，每个班有5名同学，求出各个班的平均分、所有班级的平均分、三个班的及格人数[学生的成绩从键盘输入]</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// 分析思路1:</span>
+	<span class="token comment">// 1.统计1个班成绩情况，每个班有5名同学，求出该班的平均分[学生的成绩从键盘输入]  ==&gt;先易后难</span>
+	<span class="token comment">// 2.学生数就是5个 ==&gt;先死后活</span>
+	<span class="token comment">// 3.声明一个stuSum  统计班级总分</span>
+
+	<span class="token comment">// 分析思路2:</span>
+	<span class="token comment">// 1.统计3个班成绩情况，每个班有5名同学，求出每个班的平均分[学生的成绩从键盘输入]</span>
+	<span class="token comment">// 2.j 表示第几个班级</span>
+	<span class="token comment">// 3.定义一个变量存放总成绩</span>
+
+	<span class="token comment">// 分析思路3:</span>
+	<span class="token comment">// 1.定义两个变量，表示班级的个数和班级的人数</span>
+
+	<span class="token comment">// 分析思路</span>
+	<span class="token comment">// 1.声明一个变量   passCount 用于保存及格人数</span>
+	<span class="token keyword">var</span> classNum <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">2</span>
+	<span class="token keyword">var</span> stuNum <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">2</span>
+
+	<span class="token keyword">var</span> totalSum <span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token number">0.0</span>
+	<span class="token keyword">var</span> passCount <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">0</span>
+	<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> classNum<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+		stuSum <span class="token operator">:=</span> <span class="token number">0.0</span>
+		<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> stuNum<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+			<span class="token keyword">var</span> stuScore <span class="token builtin">float64</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"请输入第%d个班第%d个学生的成绩: \n"</span><span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Scanln</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>stuScore<span class="token punctuation">)</span>
+
+			<span class="token comment">// 累计总分</span>
+			stuSum <span class="token operator">+=</span> stuScore
+
+			<span class="token comment">// 判断分数是否及格</span>
+			<span class="token keyword">if</span> stuScore <span class="token operator">&gt;=</span> <span class="token number">60</span> <span class="token punctuation">{</span>
+				passCount<span class="token operator">++</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"第%d个班级的平均分是%v \n"</span><span class="token punctuation">,</span> j<span class="token punctuation">,</span> stuSum<span class="token operator">/</span><span class="token function">float64</span><span class="token punctuation">(</span>stuNum<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+		<span class="token comment">// 将各个班级的总成绩累计到totalSum</span>
+		totalSum <span class="token operator">+=</span> stuSum
+
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"各个班级的总成绩是%v 所有班级平均分是%v \n"</span><span class="token punctuation">,</span> totalSum<span class="token punctuation">,</span> totalSum<span class="token operator">/</span><span class="token function">float64</span><span class="token punctuation">(</span>stuNum<span class="token operator">*</span>classNum<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"及格人数为%v \n"</span><span class="token punctuation">,</span> passCount<span class="token punctuation">)</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  2.打印空心金字塔</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// 使用for循环完成下面的案例:</span>
+	<span class="token comment">// 编写一个程序，可以接收一个整数，表示层数，打印空心金字塔</span>
+
+	<span class="token comment">// 编程思路:</span>
+	<span class="token comment">// 1.打印一个矩形</span>
+	<span class="token comment">/*
+
+	 ***
+	 ***
+	 ***
+
+	 */</span>
+
+	<span class="token comment">// 2.打印半个金字塔</span>
+	<span class="token comment">/*
+
+	 *
+	 **
+	 ***
+
+	 */</span>
+
+	<span class="token comment">// 3.打印整个金字塔</span>
+	<span class="token comment">/*
+
+		  *       1层 1个*   2 * 层数 - 1   空格  2  规律:总层数-当前层数
+		 ***      2层 3个*   2 * 层数 - 1   空格  1  规律:总层数-当前层数
+		*****     3层 5个*   2 * 层数 - 1   空格  0  规律:总层数-当前层数
+
+	*/</span>
+
+	<span class="token comment">// 4.将层数做成一个变量  totalLevel</span>
+	<span class="token keyword">var</span> totalLevel <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">9</span>
+
+	<span class="token comment">// 5.打印空心金字塔</span>
+	<span class="token comment">/*
+
+	    *
+	   * *
+	  *****
+	   分析:在给每行打印*时，需要考虑是打印*还是打印空格
+	   分析的结果:每层的第一个和最后一个打印*，其他就应该是空的，即输出空格
+	   分析结果中的例外情况:最后层(底层)全部打*
+
+	*/</span>
+	<span class="token comment">// i 表示层数</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> totalLevel<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token comment">// 在打印*之前先打印空格</span>
+		<span class="token keyword">for</span> k <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> totalLevel<span class="token operator">-</span>i<span class="token punctuation">;</span> k<span class="token operator">++</span> <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		<span class="token comment">// j表示每层打印多少个*</span>
+		<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token operator">*</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> j <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">||</span> j <span class="token operator">==</span> <span class="token number">2</span><span class="token operator">*</span>i<span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> i <span class="token operator">==</span> totalLevel <span class="token punctuation">{</span>
+				fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+				fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  3.打印空心菱形</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	n <span class="token operator">:=</span> <span class="token number">5</span> <span class="token comment">// 菱形高度的一半</span>
+
+	<span class="token comment">// 打印上半部分</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> n<span class="token operator">-</span>i<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">for</span> k <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token operator">*</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> k<span class="token operator">++</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> k <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">||</span> k <span class="token operator">==</span> <span class="token number">2</span><span class="token operator">*</span>i<span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">{</span>
+				fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+				fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// 打印下半部分</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">--</span> <span class="token punctuation">{</span>
+		<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> n<span class="token operator">-</span>i<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">for</span> k <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token operator">*</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> k<span class="token operator">++</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> k <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">||</span> k <span class="token operator">==</span> <span class="token number">2</span><span class="token operator">*</span>i<span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">{</span>
+				fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+				fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-10-跳转控制语句-break"><a href="#10-10-跳转控制语句-break" class="headerlink" title="10.10 跳转控制语句-break"></a>10.10 跳转控制语句-break</h2><p>  break 语句用于终止<strong>某个语句块</strong>的执行，用于中断当前 for 循环或跳出 switch 语句</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"fmt"</span>
+	<span class="token string">"math/rand"</span>
+	<span class="token string">"time"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	rand<span class="token punctuation">.</span><span class="token function">Seed</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token keyword">var</span> sumCount <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">0</span>
+	<span class="token keyword">for</span> <span class="token punctuation">{</span>
+		n <span class="token operator">:=</span> rand<span class="token punctuation">.</span><span class="token function">Intn</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span>
+		sumCount<span class="token operator">++</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"第%d次生成:%d\n"</span><span class="token punctuation">,</span> sumCount<span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">99</span> <span class="token punctuation">{</span>
+			<span class="token keyword">break</span> <span class="token comment">// 表示跳出for循环</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"共用了%d次才生成99\n"</span><span class="token punctuation">,</span> sumCount<span class="token punctuation">)</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-10-1-语法与示意图"><a href="#10-10-1-语法与示意图" class="headerlink" title="10.10.1 语法与示意图"></a>10.10.1 语法与示意图</h3><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token operator">...</span>
+    <span class="token keyword">break</span>
+    <span class="token operator">...</span><span class="token operator">...</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>以for循环使用break为例，画出示意图:</strong></p>
+<p><img src="/images/for%E5%BE%AA%E7%8E%AF%E7%9A%84break%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9B%BE.png"></p>
+<h3 id="10-10-2-break使用细节"><a href="#10-10-2-break使用细节" class="headerlink" title="10.10.2 break使用细节"></a>10.10.2 break使用细节</h3><p>  break 语句出现在多层嵌套的语句块中时，可以通过<strong>标签</strong>指明要终止的是哪一层语句块</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+lable2<span class="token punctuation">:</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">4</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token comment">// lable1: // 设置一个标签</span>
+		<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> j <span class="token operator">==</span> <span class="token number">2</span> <span class="token punctuation">{</span>
+				<span class="token comment">// break   // break默认会跳出最近的for循环</span>
+				<span class="token comment">// break lable1</span>
+				<span class="token keyword">break</span> lable2 <span class="token comment">// j=0   j=1</span>
+			<span class="token punctuation">}</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"j ="</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>说明:</strong></p>
+<p>   1.break 默认会跳出最近的 for 循环</p>
+<p>   2.break 后面可以指定标签，跳出标签对应的 for 循环</p>
+<p>  案例：实现登录验证，有三次机会，如果用户名为”张无忌” ,密码”888”提示登录成功，否则提示还有几次机会</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> maxAttempts <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">3</span>
+	<span class="token keyword">var</span> correctUsername <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">"张无忌"</span>
+	<span class="token keyword">var</span> correctPassword <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">"888"</span>
+
+	<span class="token keyword">var</span> username<span class="token punctuation">,</span> password <span class="token builtin">string</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> maxAttempts<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"请输入用户名: "</span><span class="token punctuation">)</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Scanln</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>username<span class="token punctuation">)</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"请输入密码: "</span><span class="token punctuation">)</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Scanln</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>password<span class="token punctuation">)</span>
+
+		<span class="token keyword">if</span> username <span class="token operator">==</span> correctUsername <span class="token operator">&amp;&amp;</span> password <span class="token operator">==</span> correctPassword <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"登录成功！"</span><span class="token punctuation">)</span>
+			<span class="token keyword">break</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">if</span> i <span class="token operator">&gt;=</span> maxAttempts <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"尝试次数已用完，登录失败"</span><span class="token punctuation">)</span>
+			<span class="token keyword">break</span>
+		<span class="token punctuation">}</span>
+
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"用户名或密码错误，您还有%d次机会\n"</span><span class="token punctuation">,</span> maxAttempts<span class="token operator">-</span>i<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-11-跳转控制语句-continue"><a href="#10-11-跳转控制语句-continue" class="headerlink" title="10.11 跳转控制语句-continue"></a>10.11 跳转控制语句-continue</h2><p>  1.continue语句用于<strong>结束本次循环，继续执行下一次循环</strong></p>
+<p>  2.continue语句出现在多层嵌套的循环语句体中时，可以通过标签指明要<strong>跳过</strong>的是哪一层循环 , 与break 标签的使用的规则一样</p>
+<h3 id="10-11-1-基本语法与示意图"><a href="#10-11-1-基本语法与示意图" class="headerlink" title="10.11.1 基本语法与示意图"></a>10.11.1 基本语法与示意图</h3><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token operator">...</span>
+    <span class="token keyword">continue</span>
+    <span class="token operator">...</span><span class="token operator">...</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>以for循环使用continue为例，画出示意图:</strong></p>
+<p><img src="/images/for%E5%BE%AA%E7%8E%AF%E7%9A%84continue%E6%B5%81%E7%A8%8B%E5%9B%BE.png"></p>
+<h3 id="10-11-2-continue使用示例"><a href="#10-11-2-continue使用示例" class="headerlink" title="10.11.2 continue使用示例"></a>10.11.2 continue使用示例</h3><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">4</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> j <span class="token operator">==</span> <span class="token number">2</span> <span class="token punctuation">{</span>
+				<span class="token keyword">continue</span>
+			<span class="token punctuation">}</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"j ="</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-12-跳转控制语句-goto"><a href="#10-12-跳转控制语句-goto" class="headerlink" title="10.12 跳转控制语句-goto"></a>10.12 跳转控制语句-goto</h2><p>  1.Go 语言的 goto 语句可以无条件地转移到程序中指定的行</p>
+<p>  2.goto 语句通常与条件语句配合使用，可用来实现条件转移，跳出循环体等功能</p>
+<p>  3.在 Go 程序设计中<strong>一般不主张使用 goto 语句</strong>， 以免造成程序流程的混乱，使理解和调试程序都产生困难</p>
+<h3 id="10-12-1-goto的语法与流程图"><a href="#10-12-1-goto的语法与流程图" class="headerlink" title="10.12.1 goto的语法与流程图"></a>10.12.1 goto的语法与流程图</h3><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">goto</span> label
+<span class="token operator">...</span>
+label<span class="token punctuation">:</span>statement<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/images/goto%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE.png"></p>
+<h3 id="10-12-2-goto使用示例"><a href="#10-12-2-goto使用示例" class="headerlink" title="10.12.2 goto使用示例"></a>10.12.2 goto使用示例</h3><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> n <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">10</span>
+	<span class="token comment">// goto的使用</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"ok1"</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> n <span class="token operator">&gt;</span> <span class="token number">20</span> <span class="token punctuation">{</span>
+		<span class="token keyword">goto</span> label1
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"ok2"</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"ok3"</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"ok4"</span><span class="token punctuation">)</span>
+label1<span class="token punctuation">:</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"ok5"</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"ok6"</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"ok7"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-13-跳转控制语句-return"><a href="#10-13-跳转控制语句-return" class="headerlink" title="10.13 跳转控制语句-return"></a>10.13 跳转控制语句-return</h2><p>  return 使用在方法或者函数中，表示跳出所在的方法或函数</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">3</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span>
+		<span class="token punctuation">}</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"你好,中国"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello,World!"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>说明:</strong></p>
+<p>  1.如果 return 是在普通的函数，则表示跳出该函数，即不再执行函数中 return 后面代码，也可以理解成终止函数</p>
+<p>  2.如果 return 是在 main 函数，表示终止 main 函数，也就是说终止程序</p>
+<h1 id="11-函数、包和错误处理"><a href="#11-函数、包和错误处理" class="headerlink" title="11 函数、包和错误处理"></a>11 函数、包和错误处理</h1><h2 id="11-1-为什么需要函数"><a href="#11-1-为什么需要函数" class="headerlink" title="11.1 为什么需要函数"></a>11.1 为什么需要函数</h2><p>  需求：输入两个数,再输入一个运算符(+,-,*,/)，得到结果</p>
+<p>  1.使用传统的方法解决</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> n1 <span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token number">1.2</span>
+	<span class="token keyword">var</span> n2 <span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token number">2.3</span>
+	<span class="token keyword">var</span> operator <span class="token builtin">byte</span> <span class="token operator">=</span> <span class="token char">'+'</span>
+	<span class="token keyword">var</span> res <span class="token builtin">float64</span>
+	<span class="token keyword">switch</span> operator <span class="token punctuation">{</span>
+	<span class="token keyword">case</span> <span class="token char">'+'</span><span class="token punctuation">:</span>
+
+		res <span class="token operator">=</span> n1 <span class="token operator">+</span> n2
+	<span class="token keyword">case</span> <span class="token char">'-'</span><span class="token punctuation">:</span>
+		res <span class="token operator">=</span> n1 <span class="token operator">-</span> n2
+	<span class="token keyword">case</span> <span class="token char">'*'</span><span class="token punctuation">:</span>
+
+		res <span class="token operator">=</span> n1 <span class="token operator">*</span> n2
+	<span class="token keyword">case</span> <span class="token char">'/'</span><span class="token punctuation">:</span>
+		res <span class="token operator">=</span> n1 <span class="token operator">/</span> n2
+	<span class="token keyword">default</span><span class="token punctuation">:</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"操作符号有误..."</span><span class="token punctuation">)</span>
+
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"res ="</span><span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>分析一下上面代码问题:</strong></p>
+<p>  1.上面的写法是可以完成功能, 但是代码冗余</p>
+<p>  2.同时不利于代码维护</p>
+<p>  3.函数可以解决这个问题</p>
+<h2 id="11-2-函数基本概念与语法"><a href="#11-2-函数基本概念与语法" class="headerlink" title="11.2 函数基本概念与语法"></a>11.2 函数基本概念与语法</h2><p>  为完成某一功能的程序指令(语句)的集合,称为<strong>函数</strong>，在 Go 中，函数分为: <strong>自定义函数、系统函数</strong>(查看Go编程手册)</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> 函数名<span class="token punctuation">(</span>形参列表<span class="token punctuation">)</span> <span class="token punctuation">(</span>返回值类型列表<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    执行语句<span class="token operator">...</span>
+    <span class="token keyword">return</span> 返回值列表
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  1.形参列表：表示函数的输入</p>
+<p>  2.函数中的语句：表示为了实现某一功能代码块</p>
+<p>  3.函数可以有返回值，也可以没有</p>
+<h2 id="11-3-函数的使用示例"><a href="#11-3-函数的使用示例" class="headerlink" title="11.3 函数的使用示例"></a>11.3 函数的使用示例</h2><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 将计算的功能，放到一个函数中，在需要时调用即可</span>
+<span class="token keyword">func</span> <span class="token function">calculate</span><span class="token punctuation">(</span>n1 <span class="token builtin">float64</span><span class="token punctuation">,</span> n2 <span class="token builtin">float64</span><span class="token punctuation">,</span> operator <span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">float64</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> res <span class="token builtin">float64</span>
+	<span class="token keyword">switch</span> operator <span class="token punctuation">{</span>
+	<span class="token keyword">case</span> <span class="token char">'+'</span><span class="token punctuation">:</span>
+		res <span class="token operator">=</span> n1 <span class="token operator">+</span> n2
+
+	<span class="token keyword">case</span> <span class="token char">'-'</span><span class="token punctuation">:</span>
+		res <span class="token operator">=</span> n1 <span class="token operator">-</span> n2
+
+	<span class="token keyword">case</span> <span class="token char">'*'</span><span class="token punctuation">:</span>
+		res <span class="token operator">=</span> n1 <span class="token operator">*</span> n2
+
+	<span class="token keyword">case</span> <span class="token char">'/'</span><span class="token punctuation">:</span>
+		res <span class="token operator">=</span> n1 <span class="token operator">/</span> n2
+
+	<span class="token keyword">default</span><span class="token punctuation">:</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"操作符号有误..."</span><span class="token punctuation">)</span>
+
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> res
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> n1 <span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token number">1.2</span>
+	<span class="token keyword">var</span> n2 <span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token number">2.3</span>
+	<span class="token keyword">var</span> operator <span class="token builtin">byte</span> <span class="token operator">=</span> <span class="token char">'+'</span>
+	calculate_result <span class="token operator">:=</span> <span class="token function">calculate</span><span class="token punctuation">(</span>n1<span class="token punctuation">,</span> n2<span class="token punctuation">,</span> operator<span class="token punctuation">)</span>        <span class="token comment">// 调用函数</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"calculate_result ="</span><span class="token punctuation">,</span> calculate_result<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="11-4-包的引出"><a href="#11-4-包的引出" class="headerlink" title="11.4 包的引出"></a>11.4 包的引出</h2><p>  1.实际开发中往往需要在不同的文件中，去调用其它文件定义的函数，比如 main.go中使用 utils.go 文件中的函数，如何实现？===&gt; 包</p>
+<p>  2.现在有两个程序员共同开发一个 Go 项目,他们定义函数都希望以Cal命名，两个程序员为此还吵了起来,怎么办?  ===&gt; 包</p>
+<p><img src="/images/%E5%BC%95%E5%87%BA%E5%8C%85.png"></p>
+<h2 id="11-5-包的原理图"><a href="#11-5-包的原理图" class="headerlink" title="11.5 包的原理图"></a>11.5 包的原理图</h2><p>  包的本质实际上就是创建不同的文件夹，来存放程序文件。</p>
+<p>  画图说明一下包的原理:</p>
+<p><img src="/images/%E5%8C%85%E7%9A%84%E5%8E%9F%E7%90%86%E5%9B%BE.png"></p>
+<h2 id="11-6-包的概念、作用、说明"><a href="#11-6-包的概念、作用、说明" class="headerlink" title="11.6 包的概念、作用、说明"></a>11.6 包的概念、作用、说明</h2><p>  **包的概念:**go 的每一个文件都是属于一个包的，也就是说 go 是以包的形式来管理文件和项目目录结构的</p>
+<p>  <strong>包的三大作用:</strong></p>
+<p>   1.区分相同名字的函数、变量等标识符</p>
+<p>   2.当程序文件很多时,可以很好的管理项目</p>
+<p>   3.控制函数、变量等访问范围，即作用域</p>
+<p>  <strong>包的相关说明:</strong></p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 打包基本语法</span>
+   <span class="token keyword">package</span> 包名
+<span class="token comment">// 引入包的基本语法</span>
+   <span class="token keyword">import</span> <span class="token string">"包的路径"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
             </div>
             <hr/>
@@ -3509,7 +3901,7 @@ func main() {
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">119.3k</span>&nbsp;字
+                class="white-color">121.7k</span>&nbsp;字
             
             
             
