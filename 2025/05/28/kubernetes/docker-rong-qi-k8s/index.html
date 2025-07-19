@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-06-05
+                    2025-07-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    30.1k
+                    37.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    141 分
+                    175 分
                 </div>
                 
 
@@ -3923,8 +3923,1175 @@ No resources found <span class="token keyword">in</span> default namespace.<span
 <p>  Pod 可以同时使用任意数目的卷类型</p>
 <p>  临时卷类型的生命周期与 Pod 相同，但持久卷可以比 Pod 的存活期长</p>
 <p>  当 Pod 不再存在时，Kubernetes 也会销毁临时卷；不过 Kubernetes 不会销毁 持久卷。对于给定 Pod 中任何类型的卷，在容器重启期间数据都不会丢失。<br>  使用卷时, 在 .spec.volumes 字段中设置为 Pod 提供的卷，并在 .spec.containers[*].volumeMounts 字段中声明卷在容器中的挂载位置</p>
-<h2 id="13-2-emptyDir"><a href="#13-2-emptyDir" class="headerlink" title="13.2 emptyDir"></a>13.2 emptyDir</h2><p>  当 Pod 分派到某个 Node 上时，emptyDir 卷会被创建，并且在 Pod 在该节点上运行期间，卷一直存在。 就像其名称表示的那样，卷最初是空的。 尽管 Pod 中的容器挂载 emptyDir 卷的路径可能相同也可能不同，这些容器都可以读写 emptyDir 卷中相同的文件。 当 Pod 因为某些原因被从节点上删除时，emptyDir 卷中的数据也会被永久删除。<br>  容器崩溃并不会导致 Pod 被从节点上移除，因此容器崩溃期间 emptyDir 卷中的数据是安全的</p>
+<h2 id="13-2-配置存储卷"><a href="#13-2-配置存储卷" class="headerlink" title="13.2 配置存储卷"></a>13.2 配置存储卷</h2><h3 id="13-2-1-emptyDir"><a href="#13-2-1-emptyDir" class="headerlink" title="13.2.1 emptyDir"></a>13.2.1 emptyDir</h3><p>  当 Pod 分派到某个 Node 上时，emptyDir 卷会被创建，并且Pod 在该节点上运行期间，卷一直存在。 就像其名称表示的那样，卷最初是空的。</p>
+<p>  尽管 Pod 中的容器挂载 emptyDir 卷的路径可能相同也可能不同，这些容器都可以读写 emptyDir 卷中相同的文件。 当 Pod 因为某些原因被从节点上删除时，emptyDir 卷中的数据也会被永久删除。</p>
+<p>  <strong>容器崩溃并不会导致 Pod 被从节点上移除，因此容器崩溃期间 emptyDir 卷中的数据是安全的</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> emptydir.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> emptydir
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> httpd<span class="token punctuation">:</span><span class="token number">2.4</span>
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>container
+    <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /cache
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> cache<span class="token punctuation">-</span>volume
+  <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cache<span class="token punctuation">-</span>volume
+    <span class="token key atrule">emptyDir</span><span class="token punctuation">:</span>
+      <span class="token key atrule">sizeLimit</span><span class="token punctuation">:</span> 2G
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>  sizeLimit的单位是M，那就是以1000为进制，如果是Mi就是1024进制</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f emptydir.yml</span>
+pod/emptydir created 
+
+root@k8s-master:~<span class="token comment"># kubectl get -f emptydir.yml -o wide</span>
+NAME     READY   STATUS    RESTARTS   AGE     IP              NODE          NOMINATED NODE   READINESS GATES
+emptydir   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m51s   <span class="token number">172.16</span>.194.74   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+<span class="token comment"># 根据上面的提示，在指定的机器上完成这个步骤</span>
+root@k8s-worker1:~<span class="token comment"># crictl ps | grep -i test-container</span>
+0bc0e8e536435       httpd@sha256:f84fe51ff5d35124e024f51215b443b16c939b24eae747025a515200e71c7d07   <span class="token number">2</span> minutes ago       Running             test-container              <span class="token number">0</span>                   865537d0e7a95       emptydir                default
+
+root@k8s-worker1:~<span class="token comment"># crictl inspect 0bc0e8e536435 | grep cache</span>
+        <span class="token string">"containerPath"</span><span class="token builtin class-name">:</span> <span class="token string">"/cache"</span>,
+        <span class="token string">"hostPath"</span><span class="token builtin class-name">:</span> <span class="token string">"/var/lib/kubelet/pods/87730463-f04a-402b-9275-b58a18295ce6/volumes/kubernetes.io~empty-dir/cache-volume"</span>,
+
+// 可以看到数据卷被创建到了:
+/var/lib/kubelet/pods/87730463-f04a-402b-9275-b58a18295ce6/volumes/kubernetes.io~empty-dir/cache-volume
+
+root@k8s-master:~<span class="token comment"># kubectl describe pod emptydir</span>
+Name:             emptydir
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+Volumes:
+  cache-volume:
+    Type:       EmptyDir <span class="token punctuation">(</span>a temporary directory that shares a pod's lifetime<span class="token punctuation">)</span>
+    Medium:
+    SizeLimit:  2G
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f emptydir.yml</span>
+pod <span class="token string">"emptydir"</span> deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-2-2-HostPath"><a href="#13-2-2-HostPath" class="headerlink" title="13.2.2 HostPath"></a>13.2.2 HostPath</h3><p>  hostPath 卷能将主机节点文件系统上的文件或目录挂载到Pod 中，但要注意的是要尽可能避免使用这个类型的卷，会限制pod的迁移性</p>
+<p>  <strong>挂载了一个目录到容器中，并通过nginx对外展示其中的index.html：</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> hostpath.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> hostpathtest
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.29.0
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> hostpathpod
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> web
+        <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /usr/share/nginx/html
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>volume
+  <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>volume
+    <span class="token key atrule">hostPath</span><span class="token punctuation">:</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> /data
+      <span class="token key atrule">type</span><span class="token punctuation">:</span> DirectoryOrCreate
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  除了必需的path属性之外，用户可以选择性的为hostPath卷指定type，支持的type值如下表格:</p>
+<table>
+<thead>
+<tr>
+<th>取值</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>空字符串(默认)用于向后兼容，这意味着在安装<strong>hostPath卷之前不会执行任何检查</strong></td>
+</tr>
+<tr>
+<td>DirectoryOrCreate</td>
+<td>如果在给定路径上什么都不存在，将根据需要创建空目录，权限设置为<strong>0755，具有与kubelet相同的组和属主信息</strong></td>
+</tr>
+<tr>
+<td>Directory</td>
+<td>在给定路径上必须设置<strong>存在的目录</strong></td>
+</tr>
+<tr>
+<td>FileOrCreate</td>
+<td>如果在给定路径上什么都不存在，将根据需要创建空文件，权限设置为<strong>0644，具有与kubelet相同的组和所有权</strong></td>
+</tr>
+<tr>
+<td>File</td>
+<td>在给定路径上必须设置存在的文件</td>
+</tr>
+<tr>
+<td>Socket</td>
+<td>在给定路径上必须设置存在的<strong>UNIX套接字</strong></td>
+</tr>
+<tr>
+<td>CharDevice</td>
+<td>在给定路径上必须设置存在的字符设备</td>
+</tr>
+<tr>
+<td>BlockDevice</td>
+<td>在给定路径上必须设置存在的块设备</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f hostpath.yml</span>
+pod/hostpathtest created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f hostpath.yml -o wide</span>
+NAME       READY   STATUS    RESTARTS   AGE   IP              NODE          NOMINATED NODE   READINESS GATES
+hostpathtest   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          13s   <span class="token number">172.16</span>.194.76   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+// 根据提示，在work1上完成以下步骤
+root@k8s-worker1:~<span class="token comment"># echo hostwrite &gt; /data/index.html</span>
+root@k8s-worker1:~<span class="token comment"># curl http://172.16.194.76</span>
+hostwrite
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f hostpath.yml</span>
+pod <span class="token string">"hostpathtest"</span> deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-2-3-持久卷概述"><a href="#13-2-3-持久卷概述" class="headerlink" title="13.2.3 持久卷概述"></a>13.2.3 持久卷概述</h3><p>  持久卷（PersistentVolume，PV）是集群中的一块存储，可以由管理员事先供应，也可以使用存储类（Storage Class）来动态供应</p>
+<p>  持久卷是集群资源，就像节点也是集群资源一样。PV 持久卷和普通的Volume一样，也是使用卷插件来实现的，只是它们拥有独立于任何使用 PV 的 Pod 的生命周期</p>
+<p>  持久卷申请（PersistentVolumeClaim，PVC）表达的是用户对存储的请求。概念上与 Pod 类似，Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源</p>
+<p><strong>构建简易NFS服务器：</strong><br>  在master上模拟一个nfs服务器，将本地的/nfsshare共享出来给所有人使用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># apt install nfs-kernel-server -y          // 安装nfs服务器</span>
+
+root@k8s-master:~<span class="token comment"># mkdir /nfsshare                          // 创建文件夹</span>
+root@k8s-master:~<span class="token comment"># chmod 777 /nfsshare -R  </span>
+root@k8s-master:~<span class="token comment"># echo /nfsshare *(rw) &gt;&gt; /etc/exports     // 把文件夹共享出去</span>
+root@k8s-master:~<span class="token comment"># systemctl enable nfs-server --now        // 启动服务</span>
+root@k8s-master:~<span class="token comment"># exportfs -rav                            // 查看共享情况</span>
+exportfs: /etc/exports <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>: Neither <span class="token string">'subtree_check'</span> or <span class="token string">'no_subtree_check'</span> specified <span class="token keyword">for</span> <span class="token builtin class-name">export</span> <span class="token string">"*:/nfsshare"</span><span class="token builtin class-name">.</span>
+  Assuming default behaviour <span class="token punctuation">(</span><span class="token string">'no_subtree_check'</span><span class="token punctuation">)</span>.
+  NOTE: this default has changed since nfs-utils version <span class="token number">1.0</span>.x
+
+exporting *:/nfsshare
+
+root@k8s-master:~<span class="token comment"># showmount -e localhost</span>
+Export list <span class="token keyword">for</span> localhost:
+/nfsshare *<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-2-4-PV"><a href="#13-2-4-PV" class="headerlink" title="13.2.4 PV"></a>13.2.4 PV</h3><p>  创建一个名为nfspv、大小为5Gi卷，并以ReadWriteOnce的方式申明，且策略为Recycle</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> pv.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolume
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfspv
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">pvname</span><span class="token punctuation">:</span> nfspv
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">capacity</span><span class="token punctuation">:</span>
+    <span class="token key atrule">storage</span><span class="token punctuation">:</span> 5Gi
+  <span class="token key atrule">volumeMode</span><span class="token punctuation">:</span> Filesystem
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> ReadWriteOnce
+  <span class="token key atrule">persistentVolumeReclaimPolicy</span><span class="token punctuation">:</span> Recycle
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> slow
+  <span class="token key atrule">mountOptions</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> hard
+    <span class="token punctuation">-</span> nfsvers=4.1
+  <span class="token key atrule">nfs</span><span class="token punctuation">:</span>
+    <span class="token key atrule">path</span><span class="token punctuation">:</span> /nfsshare
+    <span class="token key atrule">server</span><span class="token punctuation">:</span> 192.168.8.3
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  Kubernetes 支持两种卷模式（volumeModes）：Filesystem（文件系统） 和 Block（块）</p>
+<p>  volumeMode 属性设置为 Filesystem 的卷会被 Pod 挂载（Mount） 到某个目录。 如果卷的存储来自某块设备而该设备目前为空，Kuberneretes 会在第一次挂载卷之前在设备上创建文件系统。</p>
+<table>
+<thead>
+<tr>
+<th>访问模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ReadWriteOnce</td>
+<td>卷可以被一个节点以读写方式挂载， ReadWriteOnce访问模式也允许运行在同一节点上的多个 Pod 访问卷</td>
+</tr>
+<tr>
+<td>ReadOnlyMany</td>
+<td>卷可以被多个节点以只读方式挂载</td>
+</tr>
+<tr>
+<td>ReadWriteMany</td>
+<td>卷可以被多个节点以读写方式挂载</td>
+</tr>
+<tr>
+<td>ReadWriteOncePod</td>
+<td>卷可以被单个 Pod 以读写方式挂载，如果想确保整个集群中只有一个 Pod 可以读取或写入该 PVC， 请使用ReadWriteOncePod 访问模式</td>
+</tr>
+</tbody></table>
+<p>  在创建pv前，需要确保在3个节点上都安装了nfs客户端：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># apt install nfs-common -y</span>
+root@k8s-worker1:~<span class="token comment"># apt install nfs-common -y</span>
+root@k8s-worker2:~<span class="token comment"># apt install nfs-common -y</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  创建pv:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f pv.yml</span>
+persistentvolume/nfspv created
+
+root@k8s-master:~<span class="token comment"># kubectl get pv</span>
+NAME    CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM   STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+nfspv   5Gi        RWO            Recycle          Available           slow      <span class="token operator">&lt;</span>unset<span class="token operator">&gt;</span>         13s
+
+root@k8s-master:~<span class="token comment"># kubectl describe pv nfspv</span>
+Name:            nfspv
+Labels:          <span class="token assign-left variable">pvname</span><span class="token operator">=</span>nfspv
+Annotations:     pv.kubernetes.io/bound-by-controller: <span class="token function">yes</span>
+Finalizers:      <span class="token punctuation">[</span>kubernetes.io/pv-protection<span class="token punctuation">]</span>
+StorageClass:    slow
+Status:          Bound
+Claim:           default/myclaim
+Reclaim Policy:  Recycle
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        5Gi
+Node Affinity:   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Message:
+Source:
+    Type:      NFS <span class="token punctuation">(</span>an NFS <span class="token function">mount</span> that lasts the lifetime of a pod<span class="token punctuation">)</span>
+    Server:    <span class="token number">192.168</span>.8.3
+    Path:      /nfsshare
+    ReadOnly:  <span class="token boolean">false</span>
+Events:        <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  PV回收策略与状态：</p>
+<table>
+<thead>
+<tr>
+<th>回收策略</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Retain</td>
+<td>手动回收</td>
+</tr>
+<tr>
+<td>Recycle</td>
+<td>基本擦除 (rm -rf /thevolume/*)</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>诸如 AWS EBS、GCE PD、Azure Disk 或 OpenStack Cinder 卷这类关联存储资产也被删除<br>目前，仅NFS和HostPath支持回收（Recycle）， AWS EBS、GCE PD、Azure Disk 和 Cinder 卷都支持删除（Delete）</td>
+</tr>
+</tbody></table>
+<p>  每个卷会处于以下阶段(Phase)之一：</p>
+<table>
+<thead>
+<tr>
+<th>PV卷状态</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Available（可用）</td>
+<td>卷是一个空闲资源，尚未绑定到任何申领；</td>
+</tr>
+<tr>
+<td>Bound（已绑定）</td>
+<td>该卷已经绑定到某申领；</td>
+</tr>
+<tr>
+<td>Released（已释放）</td>
+<td>所绑定的申领已被删除，但是资源尚未被集群回收；</td>
+</tr>
+<tr>
+<td>Failed（失败）</td>
+<td>卷的自动回收操作失败。</td>
+</tr>
+</tbody></table>
+<h3 id="13-2-5-PVC"><a href="#13-2-5-PVC" class="headerlink" title="13.2.5 PVC"></a>13.2.5 PVC</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> pvc.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> myclaim
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> ReadWriteOnce
+  <span class="token key atrule">volumeMode</span><span class="token punctuation">:</span> Filesystem
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Gi
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> slow
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">pvname</span><span class="token punctuation">:</span> <span class="token string">"nfspv"</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>accessModes</td>
+<td>访问模式</td>
+<td>申领在请求具有特定访问模式的存储时，使用与卷相同的访问模式约定</td>
+</tr>
+<tr>
+<td>volumeMode</td>
+<td>卷模式</td>
+<td>申领使用与卷相同的约定来表明是将卷作为文件系统还是块设备来使用</td>
+</tr>
+<tr>
+<td>resources</td>
+<td>资源</td>
+<td>申领和 Pod 一样，也可以请求特定数量的资源</td>
+</tr>
+<tr>
+<td>selector</td>
+<td>选择算符</td>
+<td>申领可以设置标签选择算符来进一步过滤卷集合，只有标签与选择算符相匹配的卷能够绑定到申领上。</td>
+</tr>
+</tbody></table>
+<p>  selector(选择算符)参数选择：</p>
+<p>   1.matchLabels - 卷必须包含带有此值的标签</p>
+<p>   2.matchExpressions - 通过设定键（key）、值列表和操作符（operator） 来构造的需求，合法的操作符有 In、NotIn、Exists 和 DoesNotExist</p>
+<p>  <strong>来自 matchLabels 和 matchExpressions 的所有需求都按逻辑与的方式组合在一起，这些需求都必须被满足才被视为匹配。</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f pvc.yml</span>
+persistentvolumeclaim/myclaim created
+
+root@k8s-master:~<span class="token comment"># kubectl get pv</span>
+NAME    CAPACITY ACCESS MODES   RECLAIM POLICY  STATUS   CLAIM  STORAGECLASS  VOLUMEATTRIBUTESCLASS   REASON   AGE
+nfspv   5Gi   RWO Recycle  Bound    default/myclaim   slow           <span class="token operator">&lt;</span>unset<span class="token operator">&gt;</span>                       24h
+
+root@k8s-master:~<span class="token comment"># kubectl get pvc</span>
+NAME      STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+myclaim   Bound    nfspv    5Gi        RWO            slow           <span class="token operator">&lt;</span>unset<span class="token operator">&gt;</span>                 8s
+
+root@k8s-master:~<span class="token comment"># kubectl describe pvc myclaim</span>
+Name:          myclaim
+Namespace:     default
+StorageClass:  slow
+Status:        Bound
+Volume:        nfspv
+Labels:        <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:   pv.kubernetes.io/bind-completed: <span class="token function">yes</span>
+               pv.kubernetes.io/bound-by-controller: <span class="token function">yes</span>
+Finalizers:    <span class="token punctuation">[</span>kubernetes.io/pvc-protection<span class="token punctuation">]</span>
+Capacity:      5Gi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Events:        <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-2-6-使用PVC"><a href="#13-2-6-使用PVC" class="headerlink" title="13.2.6 使用PVC"></a>13.2.6 使用PVC</h3><p>  创建一个pod并尝试使用PVC</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">apt install nfs<span class="token punctuation">-</span>common <span class="token punctuation">-</span>y
+cat <span class="token punctuation">&gt;</span> pvcuse.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mypod
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> myfrontend
+      <span class="token key atrule">image</span><span class="token punctuation">:</span> httpd<span class="token punctuation">:</span><span class="token number">2.4</span>
+      <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+      <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> web
+          <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> <span class="token string">"/usr/local/apache2/htdocs"</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> mypd
+  <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mypd
+      <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
+        <span class="token key atrule">claimName</span><span class="token punctuation">:</span> myclaim
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f pvcuse.yml</span>
+pod/mypod created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f pvcuse.yml -o wide</span>
+NAME    READY   STATUS    RESTARTS   AGE   IP              NODE          NOMINATED NODE   READINESS GATES
+mypod   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          15s   <span class="token number">172.16</span>.194.77   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+// 在NFS服务器上<span class="token punctuation">(</span><span class="token number">192.168</span>.8.3<span class="token punctuation">)</span>创建出index.html网页
+root@k8s-master:~<span class="token comment"># echo pvtest &gt; /nfsshare/index.html</span>
+
+root@k8s-master:~<span class="token comment"># kubectl get pod -o wide</span>
+
+// 这里要看一下调度到那个机器，被调度到的机器必须执行apt <span class="token function">install</span> nfs-common <span class="token parameter variable">-y</span>
+root@k8s-master:~<span class="token comment"># curl http://172.16.194.77</span>
+pvtest
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f pvcuse.yml</span>
+pod <span class="token string">"mypod"</span> deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="13-3-配置存储类"><a href="#13-3-配置存储类" class="headerlink" title="13.3 配置存储类"></a>13.3 配置存储类</h2><p>  <strong>StorageClass 是 Kubernetes 中用于动态供应持久化存储卷(PV)的核心资源对象，其核心作用包括：</strong></p>
+<p>   **自动化PV创建：**根据 PersistentVolumeClaim(PVC)的请求，自动触发存储插件(Provisioner)生成匹配的 PV，无需管理员手动预配置</p>
+<p>   **存储资源抽象：**定义存储的类型(如 SSD/HDD)、性能参数(如IOPS)、回收策略等属性，为不同应用提供差异化的存储服务</p>
+<p>   **策略分级管理：**通过命名(如 gold、silver)区分存储等级，使用户能按需选择存储类型(例如高性能存储 vs 低成本存储)</p>
+<h3 id="13-3-1-StorageClass-的必要性"><a href="#13-3-1-StorageClass-的必要性" class="headerlink" title="13.3.1 StorageClass 的必要性"></a>13.3.1 StorageClass 的必要性</h3><p>  <strong>在大规模 Kubernetes 集群中，StorageClass 的引入解决了关键问题：动态资源分配</strong></p>
+<p>  传统痛点：手动创建PV需提前预估容量，易导致资源浪费(如分配过大)或不足(如突发需求无法满足)</p>
+<p>  动态优势：根据PVC实时请求自动创建PV，按需分配存储资源，提升集群利用率</p>
+<h3 id="13-3-2-存储类特性"><a href="#13-3-2-存储类特性" class="headerlink" title="13.3.2 存储类特性"></a>13.3.2 存储类特性</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+<th>典型配置实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>动态供应</strong></td>
+<td>按需创建PV，避免预分配资源浪费</td>
+<td>provisioner: kubernetes.io/aws-ebs</td>
+</tr>
+<tr>
+<td><strong>存储策略定制</strong></td>
+<td>定义存储类型(SSD/HDD)、访问模式(ReadWriteOnce)、压缩算法等</td>
+<td>parameters: type=gp3, compression=none</td>
+</tr>
+<tr>
+<td><strong>资源回收策略</strong></td>
+<td>控制PV释放后的处理方式(Delete自动删除/Retain保留数据)</td>
+<td>reclaimPolicy: Delete</td>
+</tr>
+<tr>
+<td><strong>卷扩展支持</strong></td>
+<td>允许在线扩容PV容量(需存储后端支持)</td>
+<td>allowVolumeExpansion: true</td>
+</tr>
+<tr>
+<td><strong>绑定模式</strong></td>
+<td>控制PV绑定时机(Immediate立即绑定/WaiForFirstConsumer延迟至Pod调度时绑定)</td>
+<td>volumeBindingMode: waitForFirstConsumer</td>
+</tr>
+<tr>
+<td><strong>存储类优先级</strong></td>
+<td>定义多个StorageClass的优先级(通过priorityClassName实现资源调度策略)</td>
+<td>priorityClassName: high-performance</td>
+</tr>
+<tr>
+<td><strong>注解与标签</strong></td>
+<td>为StorageClass添加元数据，用于监控或自动化运维</td>
+<td>annotations: {“storage-type”: “ssd”}</td>
+</tr>
+<tr>
+<td><strong>允许卷快照</strong></td>
+<td>支持通过CSI插件创建卷快照(需存储后端支持快照功能)</td>
+<td>volumeSnapshotClassName: csi-snapshot</td>
+</tr>
+</tbody></table>
+<h3 id="13-3-3-NFS外部供应"><a href="#13-3-3-NFS外部供应" class="headerlink" title="13.3.3 NFS外部供应"></a>13.3.3 NFS外部供应</h3><p>  <strong>1.下载外部供应代码</strong>:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># git clone https://gitee.com/cnlxh/nfs-subdir-external-provisioner.git</span>
+root@k8s-master:~<span class="token comment"># cd nfs-subdir-external-provisioner</span>
+root@k8s-master:~/nfs-subdir-external-provisioner<span class="token comment"># ls</span>
+CHANGELOG.md     cmd                 deploy      Dockerfile.multiarch  LICENSE   OWNERS_ALIASES  release-tools
+charts           code-of-conduct.md  <span class="token function">docker</span>      go.mod                Makefile  README.md       SECURITY_CONTACTS
+cloudbuild.yaml  CONTRIBUTING.md     Dockerfile  go.sum                OWNERS    RELEASE.md      vendor
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  本次采用default命名空间，如果需要别的命名空间，请执行以下替换：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">root@k8s<span class="token operator">-</span>master<span class="token punctuation">:</span>~<span class="token operator">/</span>nfs<span class="token operator">-</span>subdir<span class="token operator">-</span>external<span class="token operator">-</span>provisioner# NS<span class="token operator">=</span>$<span class="token punctuation">(</span>kubectl config get<span class="token operator">-</span>contexts<span class="token operator">|</span>grep <span class="token operator">-</span>e <span class="token string">"^\*"</span> <span class="token operator">|</span>awk <span class="token char">'{print $5}'</span><span class="token punctuation">)</span>
+root@k8s<span class="token operator">-</span>master<span class="token punctuation">:</span>~<span class="token operator">/</span>nfs<span class="token operator">-</span>subdir<span class="token operator">-</span>external<span class="token operator">-</span>provisioner# NAMESPACE<span class="token operator">=</span>$<span class="token punctuation">{</span>NS<span class="token punctuation">:</span><span class="token operator">-</span><span class="token keyword">default</span><span class="token punctuation">}</span>
+root@k8s<span class="token operator">-</span>master<span class="token punctuation">:</span>~<span class="token operator">/</span>nfs<span class="token operator">-</span>subdir<span class="token operator">-</span>external<span class="token operator">-</span>provisioner# sed <span class="token operator">-</span>i<span class="token char">''</span> <span class="token string">"s/namespace:.*/namespace: $NAMESPACE/g"</span> <span class="token punctuation">.</span><span class="token operator">/</span>deploy<span class="token operator">/</span>rbac<span class="token punctuation">.</span>yaml <span class="token punctuation">.</span><span class="token operator">/</span>deploy<span class="token operator">/</span>deployment<span class="token punctuation">.</span>yaml
+     
+<span class="token comment">// 三条命令如下：</span>
+NS<span class="token operator">=</span>$<span class="token punctuation">(</span>kubectl config get<span class="token operator">-</span>contexts<span class="token operator">|</span>grep <span class="token operator">-</span>e <span class="token string">"^\*"</span> <span class="token operator">|</span>awk <span class="token char">'{print $5}'</span><span class="token punctuation">)</span>
+NAMESPACE<span class="token operator">=</span>$<span class="token punctuation">{</span>NS<span class="token punctuation">:</span><span class="token operator">-</span><span class="token keyword">default</span><span class="token punctuation">}</span>
+sed <span class="token operator">-</span>i<span class="token char">''</span> <span class="token string">"s/namespace:.*/namespace: $NAMESPACE/g"</span> <span class="token punctuation">.</span><span class="token operator">/</span>deploy<span class="token operator">/</span>rbac<span class="token punctuation">.</span>yaml <span class="token punctuation">.</span><span class="token operator">/</span>deploy<span class="token operator">/</span>deployment<span class="token punctuation">.</span>yaml                                                              <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  如果集群采用了RBAC，请授权一下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/nfs-subdir-external-provisioner<span class="token comment"># kubectl create -f deploy/rbac.yaml</span>
+serviceaccount/nfs-client-provisioner created
+clusterrole.rbac.authorization.k8s.io/nfs-client-provisioner-runner created
+clusterrolebinding.rbac.authorization.k8s.io/run-nfs-client-provisioner created
+role.rbac.authorization.k8s.io/leader-locking-nfs-client-provisioner created
+rolebinding.rbac.authorization.k8s.io/leader-locking-nfs-client-provisioner created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>2.配置NFS外部供应</strong>:</p>
+<p>   根据实际情况在deploy/deployment中修改镜像、名称、nfs地址和挂载:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/nfs-subdir-external-provisioner<span class="token comment"># kubectl create -f deploy/deployment.yaml</span>
+deployment.apps/nfs-client-provisioner created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="13-3-4-部署存储类"><a href="#13-3-4-部署存储类" class="headerlink" title="13.3.4 部署存储类"></a>13.3.4 部署存储类</h3><p>  要支持nfs挂载，所有节点都需要安装nfs-common安装包</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> nfs-common <span class="token parameter variable">-y</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> storageclassdeploy.yml &lt;&lt;'EOF'
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> storage.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> StorageClass
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nfs<span class="token punctuation">-</span>client
+<span class="token key atrule">provisioner</span><span class="token punctuation">:</span> cnlxh/nfs<span class="token punctuation">-</span>storage
+<span class="token key atrule">allowVolumeExpansion</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">volumeBindingMode</span><span class="token punctuation">:</span> WaitForFirstConsumer
+<span class="token key atrule">parameters</span><span class="token punctuation">:</span>
+  <span class="token key atrule">pathPattern</span><span class="token punctuation">:</span> <span class="token string">"${.PVC.namespace}-${.PVC.name}"</span>
+  <span class="token key atrule">onDelete</span><span class="token punctuation">:</span> delete
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  指定存储卷的绑定模式为 WaitForFirstConsumer，这意味着 PV 的创建和绑定会在 PVC 被 Pod 引用时才进行，而不是在 PVC 创建时立即绑定。这种模式特别适用于需要考虑 Pod 调度约束的场景，例如确保 PV 创建在与 Pod 同一节点上（对于本地存储）或同一可用区（对于云存储）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f storageclassdeploy.yml</span>
+storageclass.storage.k8s.io/nfs-client created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="13-3-5-标记默认存储类"><a href="#13-3-5-标记默认存储类" class="headerlink" title="13.3.5 标记默认存储类"></a>13.3.5 标记默认存储类</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get storageclass</span>
+NAME         PROVISIONER         RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+nfs-client   cnlxh/nfs-storage   Delete          WaitForFirstConsumer   <span class="token boolean">true</span>                   80s
+
+root@k8s-master:~<span class="token comment"># kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'</span>
+storageclass.storage.k8s.io/nfs-client patched<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-3-6-使用存储类"><a href="#13-3-6-使用存储类" class="headerlink" title="13.3.6 使用存储类"></a>13.3.6 使用存储类</h3><p>  只需要在pvc.spec中执行storageClassName: nfs-client就可以了</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># cd nfs-subdir-external-provisioner/</span>
+root@k8s-master:~/nfs-subdir-external-provisioner<span class="token comment"># kubectl create -f deploy/test-claim.yaml -f deploy/test-pod.yaml</span>
+persistentvolumeclaim/test-claim created
+pod/test-pod created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  打开test-pod.yaml就会发现，它向我们的pvc也就是nfs服务器写入了名为SUCCESS文件，在nfs服务器上执行：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/nfs-subdir-external-provisioner/deploy<span class="token comment"># ls /nfsshare/default-test-claim/</span>
+SUCCESS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  删除pod和pvc，会删除我们的资源，测试一下，执行后，会删除pod、pvc、pv，再去nfs服务器查看，数据就没了</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/nfs-subdir-external-provisioner<span class="token comment"># kubectl delete -f deploy/test-pod.yaml -f deploy/test-claim.yaml</span>
+pod <span class="token string">"test-pod"</span> deleted
+persistentvolumeclaim <span class="token string">"test-claim"</span> deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="14-Pod调度"><a href="#14-Pod调度" class="headerlink" title="14 Pod调度"></a>14 Pod调度</h1><h2 id="14-1-nodeSelector"><a href="#14-1-nodeSelector" class="headerlink" title="14.1 nodeSelector"></a>14.1 nodeSelector</h2><p>  <strong>需求：</strong><br>  将Pod调度到具有SSD磁盘的节点运行步骤：</p>
+<p>  1.给节点打SSD标签</p>
+<p>  2.创建Pod时带上nodeSelector条件 </p>
+<p>  3.检查Pod调度结果</p>
+<p>  给k8s-worker2节点打一个标签name=lixiaohui</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl label nodes k8s-worker2 name=lixiaohui</span>
+node/k8s-worker2 labeled
+
+root@k8s-master:~<span class="token comment"># kubectl describe nodes k8s-worker2</span>
+Name:               k8s-worker2
+Roles:              worker
+Labels:             beta.kubernetes.io/arch<span class="token operator">=</span>amd64
+                    beta.kubernetes.io/os<span class="token operator">=</span>linux
+                    <span class="token assign-left variable">disktype</span><span class="token operator">=</span>ssd
+                    kubernetes.io/arch<span class="token operator">=</span>amd64
+                    kubernetes.io/hostname<span class="token operator">=</span>k8s-worker2
+                    kubernetes.io/os<span class="token operator">=</span>linux
+                    <span class="token assign-left variable">name</span><span class="token operator">=</span>lixiaohui
+                    node-role.kubernetes.io/worker<span class="token operator">=</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  如果需要删除标签可以用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl label nodes k8s-worker2 name-</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  将pod仅调度到具有name=lixiaohui标签的节点上:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> assignpod.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> cnlxhtest
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+  <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> lixiaohui
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f assignpod.yml</span>
+pod/cnlxhtest created
+
+root@k8s-master:~<span class="token comment"># kubectl get pod cnlxhtest -o wide</span>
+NAME        READY   STATUS    RESTARTS   AGE     IP        NODE          NOMINATED NODE   READINESS GATES
+cnlxhtest   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m20s   <span class="token number">172.16</span>.126.9   k8s-worker2   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f assignpod.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="14-2-nodeName"><a href="#14-2-nodeName" class="headerlink" title="14.2 nodeName"></a>14.2 nodeName</h2><p>  将Pod仅调度到具有特定名称的节点上，例如仅调度到k8s-worker1上</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> nodename.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lxhnodename
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+  <span class="token key atrule">nodeName</span><span class="token punctuation">:</span>
+    k8s<span class="token punctuation">-</span>worker1
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f nodename.yml</span>
+root@k8s-master:~<span class="token comment"># kubectl get pod lxhnodename -o wide</span>
+NAME          READY   STATUS    RESTARTS   AGE    IP              NODE          NOMINATED NODE   READINESS GATES
+lxhnodename   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          108s   <span class="token number">172.16</span>.194.82   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f nodename.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="14-3-节点亲和性"><a href="#14-3-节点亲和性" class="headerlink" title="14.3 节点亲和性"></a>14.3 节点亲和性</h2><p>  节点亲和性概念上类似于 nodeSelector，可以根据节点上的标签来约束 Pod 可以调度到哪些节点。</p>
+<p>  目前有两种类型的节点亲和性，分别为：</p>
+<p>   1.requiredDuringSchedulingIgnoredDuringExecution</p>
+<p>   2.preferredDuringSchedulingIgnoredDuringExecution</p>
+<p>  <strong>以上两种亲和性可理解为“硬需求”和“软需求”，前者指定了将 Pod 调度到一个节点上必须满足的规则，后者指定调度器将尝试执行但不能保证的偏好</strong></p>
+<p><img src="/images/%E8%8A%82%E7%82%B9%E4%BA%B2%E5%92%8C%E6%80%A7.png"></p>
+<p><strong>affinity(亲和性):</strong></p>
+<p>  <strong>本实验展示在 Kubernetes 集群中，如何使用节点亲和性把 Kubernetes Pod 分配到特定节点</strong></p>
+<p>  首先需要给节点打上一个合适的标签：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl label nodes k8s-worker2 disktype=ssd</span>
+node/k8s-worker2 labeled<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  查看节点是否具有标签:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get nodes --show-labels | grep -i disktype</span>
+k8s-worker2   Ready    worker          101d   v1.32.0   beta.kubernetes.io/arch<span class="token operator">=</span>amd64,beta.kubernetes.io/os<span class="token operator">=</span>linux,disktype<span class="token operator">=</span>ssd,kubernetes.io/arch<span class="token operator">=</span>amd64,kubernetes.io/hostname<span class="token operator">=</span>k8s-worker2,kubernetes.io/os<span class="token operator">=</span>linux,name<span class="token operator">=</span>lixiaohui,node-role.kubernetes.io/worker<span class="token operator">=</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  删除k8s-worker2上的污点，避免干扰:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl taint node k8s-worker2 disktype-</span>
+node/k8s-worker2 untainted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  强制调度到具有特定标签的节点上:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> required.yml &lt;&lt;'EOF'
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> require
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">affinity</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nodeAffinity</span><span class="token punctuation">:</span>
+      <span class="token key atrule">requiredDuringSchedulingIgnoredDuringExecution</span><span class="token punctuation">:</span>
+        <span class="token key atrule">nodeSelectorTerms</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> disktype
+            <span class="token key atrule">operator</span><span class="token punctuation">:</span> In
+            <span class="token key atrule">values</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> ssd            
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  可以看到的确调度到了k8s-worker2：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f required.yml</span>
+pod/require created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f required.yml -o wide</span>
+NAME      READY   STATUS    RESTARTS   AGE   IP              NODE          NOMINATED NODE   READINESS GATES
+require   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          48s   <span class="token number">172.16</span>.126.11   k8s-worker2   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  优先但不强制的调度：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> preferred.yml &lt;&lt;'EOF'
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">affinity</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nodeAffinity</span><span class="token punctuation">:</span>
+      <span class="token key atrule">preferredDuringSchedulingIgnoredDuringExecution</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">1</span>
+        <span class="token key atrule">preference</span><span class="token punctuation">:</span>
+          <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> disktype
+            <span class="token key atrule">operator</span><span class="token punctuation">:</span> In
+            <span class="token key atrule">values</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> ssd          
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  依旧被调度到k8s-worker2上：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f preferred.yml</span>
+pod/nginx created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f preferred.yml -o wide</span>
+NAME    READY   STATUS    RESTARTS   AGE   IP              NODE          NOMINATED NODE   READINESS GATES
+nginx   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          19s   <span class="token number">172.16</span>.126.12   k8s-worker2   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="14-4-污点和容忍度"><a href="#14-4-污点和容忍度" class="headerlink" title="14.4 污点和容忍度"></a>14.4 污点和容忍度</h2><p>  节点亲和性是 Pod 的一种属性，它使 Pod 被吸引到一类特定的节点 ，污点（Taint）则相反——它使节点能够排斥一类特定的 Pod</p>
+<p>  容忍度（Toleration）是应用于 Pod 上的，允许（但并不要求）Pod 调度到带有与之匹配的污点的节点上。</p>
+<p>  污点和容忍度（Toleration）相互配合，可以用来避免 Pod 被分配到不合适的节点上。 每个节点上都可以应用一个或多个污点，这表示对于那些不能容忍这些污点的 Pod，是不会被该节点接受的。</p>
+<p>  一旦某个节点打上了污点，Pod如果不容忍此污点，就不会被调度过来</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@host1 ~<span class="token punctuation">]</span><span class="token comment"># taint nodes node1 disktype=ssd:NoSchedule</span>
+
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1 
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod 
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+ <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+ <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+   <span class="token key atrule">env</span><span class="token punctuation">:</span> test 
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+ <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+ <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx 
+   <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+   <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent 
+ <span class="token key atrule">tolerations</span><span class="token punctuation">:</span>
+ <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> <span class="token string">"disktype"</span> 
+   <span class="token key atrule">operator</span><span class="token punctuation">:</span> <span class="token string">"Exists"</span> 
+   <span class="token key atrule">effect</span><span class="token punctuation">:</span> <span class="token string">"NoSchedule"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  operator 的默认值是 Equal</p>
+<p>  一个容忍度和一个污点相“匹配”是指它们有一样的键名和效果，并且：如果 operator 是 Exists （此时容忍度不能指定 value），或者如果 operator 是 Equal ，则它们的 value 应该相等</p>
+<p>  如果一个容忍度的 key 为空且 operator 为 Exists， 表示这个容忍度与任意的 key 、value 和 effect 都匹配，即这个容忍度能容忍任意 taint</p>
+<p>  如果 effect 为空，则可以与所有键名 key的效果相匹配</p>
+<p>effect使用的值：</p>
+<p>  1.NoSchedule，不允许调度</p>
+<p>  2.PreferNoSchedule，系统会尽量避免将 Pod 调度到存在其不能容忍污点的节点上， 但这不是强制的</p>
+<p>  3.NoExecute，不会将新Pod 分配到该节点， 或者将 Pod 从该节点驱逐</p>
+<p>  如果 Pod 存在一个 effect 值为 NoExecute 的容忍度指定了可选属性 tolerationSeconds 的值，则表示在给节点添加了上述污点之后， Pod 还能继续在节点上运行的时间</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">tolerations</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> <span class="token string">"key1"</span> 
+  <span class="token key atrule">operator</span><span class="token punctuation">:</span> <span class="token string">"Equal"</span> 
+  <span class="token key atrule">value</span><span class="token punctuation">:</span> <span class="token string">"value1"</span> 
+  <span class="token key atrule">effect</span><span class="token punctuation">:</span> <span class="token string">"NoExecute"</span>
+  <span class="token key atrule">tolerationSeconds</span><span class="token punctuation">:</span> <span class="token number">3600</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>tolerations(容忍度)</strong>:</p>
+<p>  master节点默认不参与调度的原因就是因为其上有taint(污点)，而toleration就是容忍度</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl describe nodes k8s-master | grep -i taint</span>
+Taints:             node-role.kubernetes.io/control-plane:NoSchedule<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  添加一个磁盘类型为hdd就不调度的污点：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl taint node k8s-worker2 disktype=hdd:NoSchedule</span>
+node/k8s-worker2 tainted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  如需删除以上污点，可用以下命令实现：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl taint node k8s-worker2 disktype-</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  <strong>创建一个可以容忍具有master taint的pod</strong>：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> tolerations.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> tolerations
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+  <span class="token key atrule">tolerations</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> <span class="token string">"node-role.kubernetes.io/control-plane"</span>
+      <span class="token key atrule">operator</span><span class="token punctuation">:</span> <span class="token string">"Exists"</span>
+      <span class="token key atrule">effect</span><span class="token punctuation">:</span> <span class="token string">"NoSchedule"</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f tolerations.yml</span>
+pod/tolerations created
+root@k8s-master:~<span class="token comment"># kubectl get pod tolerations -o wide</span>
+NAME          READY   STATUS    RESTARTS   AGE   IP         NODE          NOMINATED NODE   READINESS GATES
+tolerations   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          15s   <span class="token number">172.16</span>.194.83   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f tolerations.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上述示例表明：并没有调度到k8s-master上，由此得出一个结果，容忍不代表必须，如果必须要调度到k8s-master，需要用以下例子：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> mustassign.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> tolerationsmust
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+  <span class="token key atrule">tolerations</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> <span class="token string">"node-role.kubernetes.io/control-plane"</span>
+      <span class="token key atrule">operator</span><span class="token punctuation">:</span> <span class="token string">"Exists"</span>
+      <span class="token key atrule">effect</span><span class="token punctuation">:</span> <span class="token string">"NoSchedule"</span>
+  <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">node-role.kubernetes.io/control-plane</span><span class="token punctuation">:</span> <span class="token string">""</span> 
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f mustassign.yml</span>
+pod/tolerationsmust created
+root@k8s-master:~<span class="token comment"># kubectl get -f mustassign.yml -o wide</span>
+NAME              READY   STATUS    RESTARTS   AGE   IP        NODE         NOMINATED NODE   READINESS GATES
+tolerationsmust   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8s    <span class="token number">172.16</span>.235.229   k8s-master   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f mustassign.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="14-5-PriorityClass"><a href="#14-5-PriorityClass" class="headerlink" title="14.5 PriorityClass"></a>14.5 PriorityClass</h2><p>  PriorityClass 是 Kubernetes 中用于 <strong>定义 Pod 调度优先级</strong> 的集群级资源对象，其核心作用包括：</p>
+<p>   <strong>优先级分层</strong>：通过数值（0-10亿）划分 Pod 优先级，数值越大优先级越高</p>
+<p>   <strong>抢占机制</strong>：高优先级 Pod 在资源不足时可触发低优先级 Pod 的驱逐（Preemption）</p>
+<p>   <strong>资源分配控制</strong>：确保关键业务（如数据库、监控组件）优先获取计算资源</p>
+<p>  本实验主要是学习如何查询和创建PriorityClass，具有更高数字的PriorityClass在资源紧张时会优先获得资源，具有更低数字的PriorityClass在资源紧张时会被驱逐</p>
+<p>  在 Kubernetes 中，PriorityClass 的优先级范围是一个整数值，用于定义 Pod 的相对优先级。优先级值越高，表示 Pod 的优先级越高。Kubernetes 使用这些优先级值来决定在资源紧张时哪些 Pod 可以被抢占，以及在调度时哪些 Pod 应该优先调度。</p>
+<p>  优先级范围的意义:</p>
+<p>  1.调度优先级：</p>
+<p>  当多个 Pod 等待调度时，调度器会优先调度优先级更高的 Pod</p>
+<p>  如果资源不足，调度器会尝试抢占优先级较低的 Pod，以满足高优先级 Pod 的资源需求</p>
+<p>  2.抢占行为：</p>
+<p>  如果高优先级的 Pod 无法找到足够的资源，调度器会尝试抢占优先级较低的 Pod</p>
+<p>  被抢占的 Pod 会被终止，并重新调度到其他节点（如果资源允许）。</p>
+<p>  PriorityClass 还有两个可选字段：</p>
+<p>  globalDefault 字段表示这个 PriorityClass 的值应该用于没有 priorityClassName 的 Pod。 系统中只能存在一个 globalDefault 设置为 true 的 PriorityClass。 如果不存在设置了 globalDefault 的 PriorityClass， 则没有 priorityClassName 的 Pod 的优先级为零</p>
+<p>  description 字段是一个任意字符串。 它用来告诉集群用户何时应该使用此 PriorityClass</p>
+<p>查询系统中现有的PriorityClass:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get priorityclasses</span>
+NAME                      VALUE        GLOBAL-DEFAULT   AGE    PREEMPTIONPOLICY
+system-cluster-critical   <span class="token number">2000000000</span>   <span class="token boolean">false</span>            101d   PreemptLowerPriority
+system-node-critical      <span class="token number">2000001000</span>   <span class="token boolean">false</span>            101d   PreemptLowerPriority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> pc.yml &lt;&lt;<span class="token punctuation">-</span><span class="token string">'EOF'</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> scheduling.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PriorityClass
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> high<span class="token punctuation">-</span>priority
+<span class="token key atrule">value</span><span class="token punctuation">:</span> <span class="token number">1000000</span>
+<span class="token key atrule">globalDefault</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+<span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"此优先级类应仅用于 XYZ 服务 Pod。"</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建并再次查看：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl apply -f pc.yml</span>
+priorityclass.scheduling.k8s.io/high-priority created
+
+root@k8s-master:~<span class="token comment"># kubectl get priorityclasses.scheduling.k8s.io</span>
+NAME                      VALUE        GLOBAL-DEFAULT   AGE    PREEMPTIONPOLICY
+high-priority             <span class="token number">1000000</span>      <span class="token boolean">false</span>            63s    PreemptLowerPriority
+system-cluster-critical   <span class="token number">2000000000</span>   <span class="token boolean">false</span>            101d   PreemptLowerPriority
+system-node-critical      <span class="token number">2000001000</span>   <span class="token boolean">false</span>            101d   PreemptLowerPriority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建后可以将其应用到pod或deployment上其作用:</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> deployment<span class="token punctuation">-</span>pc.yml &lt;&lt;<span class="token punctuation">-</span><span class="token string">'EOF'</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> high<span class="token punctuation">-</span>priority<span class="token punctuation">-</span>test
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">priorityClassName</span><span class="token punctuation">:</span> high<span class="token punctuation">-</span>priority
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建此deployment，并观察deployment产生的pod是否具有特定的值：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl apply -f deployment-pc.yml</span>
+deployment.apps/high-priority-test created
+
+root@k8s-master:~<span class="token comment"># kubectl get deployments.apps high-priority-test -o yaml | grep priorityClassName:</span>
+      priorityClassName: high-priority
+      
+root@k8s-master:~<span class="token comment"># kubectl get pod</span>
+NAME                                      READY   STATUS    RESTARTS      AGE
+cnlxhtest                                 <span class="token number">1</span>/1     Running   <span class="token number">0</span>             67m
+emptydir                                  <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>17h ago<span class="token punctuation">)</span>   2d21h
+high-priority-test-7dc84c65ff-2wx7q       <span class="token number">1</span>/1     Running   <span class="token number">0</span>             49s
+high-priority-test-7dc84c65ff-cltdl       <span class="token number">1</span>/1     Running   <span class="token number">0</span>             49s
+high-priority-test-7dc84c65ff-hmplw       <span class="token number">1</span>/1     Running   <span class="token number">0</span>             49s
+lxhnodename                               <span class="token number">1</span>/1     Running   <span class="token number">0</span>             56m
+nfs-client-provisioner-5998cfc9bc-zh2fv   <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>17h ago<span class="token punctuation">)</span>   43h
+nginx                                     <span class="token number">1</span>/1     Running   <span class="token number">0</span>             14m
+require                                   <span class="token number">1</span>/1     Running   <span class="token number">0</span>             17m
+tolerations                               <span class="token number">1</span>/1     Running   <span class="token number">0</span>             31m
+tolerationsmust                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>             28m
+
+root@k8s-master:~<span class="token comment"># kubectl get pod high-priority-test-7dc84c65ff-2wx7q -o yaml | grep priorityClassName:</span>
+  priorityClassName: high-priority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="15-ConfigMap和Secret"><a href="#15-ConfigMap和Secret" class="headerlink" title="15 ConfigMap和Secret"></a>15 ConfigMap和Secret</h1><h2 id="15-1-ConfigMap"><a href="#15-1-ConfigMap" class="headerlink" title="15.1 ConfigMap"></a>15.1 ConfigMap</h2><p>  假设正在开发一个应用，它可以在你自己的电脑上（用于开发）和在云上 （用于实际流量） 运行。 代码里有一段是用于查看环境变量 DATABASE_HOST，在本地运行时， 将这个 变量设置为 localhost，在云上，将其设置为引用 Kubernetes 集群中的 公开数据库组件的服务。<br>这可以获取在云中运行的容器镜像，并且如果有需要的话，在本地调试完全相同的代码。</p>
+<p>  ConfigMap 在设计上不是用来保存大量数据的，在 ConfigMap 中保存的数据不可超过 1 MiB。如果需要保存超出此尺寸限制的数据，可能希望考虑挂载存储卷 或者使用独立的数据库或者文件服务。</p>
+<p><img src="/images/ConfigMap.png"></p>
+<h3 id="15-1-1-YAML文件创建"><a href="#15-1-1-YAML文件创建" class="headerlink" title="15.1.1 YAML文件创建"></a>15.1.1 YAML文件创建</h3><p>  在Data节点创建了一些键值：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> cmyaml.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> game<span class="token punctuation">-</span>demo
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">player_initial_lives</span><span class="token punctuation">:</span> <span class="token string">"3"</span>
+  <span class="token key atrule">ui_properties_file_name</span><span class="token punctuation">:</span> <span class="token string">"lixiaohui"</span>
+  <span class="token key atrule">game.properties</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+    enemy.types=aliens,monsters
+    player.maximum-lives=5</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f cmyaml.yml</span>
+configmap/game-demo created
+
+root@k8s-master:~<span class="token comment"># kubectl get configmaps</span>
+NAME               DATA   AGE
+game-demo          <span class="token number">3</span>      16s
+kube-root-ca.crt   <span class="token number">1</span>      102d
+
+root@k8s-master:~<span class="token comment"># kubectl describe configmaps game-demo</span>
+Name:         game-demo
+Namespace:    default
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+Data
+<span class="token operator">==</span><span class="token operator">==</span>
+player_initial_lives:
+----
+<span class="token number">3</span>
+
+ui_properties_file_name:
+----
+lixiaohui
+
+game.properties:
+----
+<span class="token assign-left variable">enemy.types</span><span class="token operator">=</span>aliens,monsters
+player.maximum-lives<span class="token operator">=</span><span class="token number">5</span>
+
+
+
+BinaryData
+<span class="token operator">==</span><span class="token operator">==</span>
+
+Events:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="15-1-2-命令行创建"><a href="#15-1-2-命令行创建" class="headerlink" title="15.1.2 命令行创建"></a>15.1.2 命令行创建</h3><p>  创建了一个名为lixiaohui的键值：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create configmap lixiaohui  --from-literal=username=lixiaohui  --from-literal=age=18</span>
+configmap/lixiaohui created
+root@k8s-master:~<span class="token comment"># kubectl describe configmaps lixiaohui</span>
+Name:         lixiaohui
+Namespace:    default
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+Data
+<span class="token operator">==</span><span class="token operator">==</span>
+age:
+----
+<span class="token number">18</span>
+
+username:
+----
+lixiaohui
+
+
+BinaryData
+<span class="token operator">==</span><span class="token operator">==</span>
+
+Events:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  创建了一个index.html文件，然后用–from-file来引用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># echo hello world &gt; index.html</span>
+root@k8s-master:~<span class="token comment"># kubectl create configmap indexcontent --from-file=index.html</span>
+configmap/indexcontent created
+root@k8s-master:~<span class="token comment"># kubectl describe configmaps indexcontent</span>
+Name:         indexcontent
+Namespace:    default
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+Data
+<span class="token operator">==</span><span class="token operator">==</span>
+index.html:
+----
+hello world
+
+
+
+BinaryData
+<span class="token operator">==</span><span class="token operator">==</span>
+
+Events:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="15-1-3-Volume-挂载ConfigMap"><a href="#15-1-3-Volume-挂载ConfigMap" class="headerlink" title="15.1.3 Volume 挂载ConfigMap"></a>15.1.3 Volume 挂载ConfigMap</h3><p>  创建一个Pod，其挂载的内容，将来自于我们的configmap：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> cmvolume.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> configmapvolume
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> configmaptest
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> test
+      <span class="token key atrule">image</span><span class="token punctuation">:</span> httpd<span class="token punctuation">:</span><span class="token number">2.4</span>
+      <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+      <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> index
+          <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /usr/local/apache2/htdocs
+  <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> index
+      <span class="token key atrule">configMap</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> indexcontent
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f cmvolume.yml</span>
+pod/configmapvolume created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f cmvolume.yml -o wide</span>
+NAME              READY   STATUS    RESTARTS   AGE   IP      NODE          NOMINATED NODE   READINESS GATES
+configmapvolume   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          9s    <span class="token number">172.16</span>.194.86   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+root@k8s-master:~<span class="token comment"># curl http://172.16.194.86</span>
+hello world
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f cmvolume.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="15-1-4-环境变量ConfigMap"><a href="#15-1-4-环境变量ConfigMap" class="headerlink" title="15.1.4 环境变量ConfigMap"></a>15.1.4 环境变量ConfigMap</h3><p>  创建一个名为mysqlpass且包含password=ABCabc123的configmap：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create configmap mysqlpass --from-literal=password=ABCabc123</span>
+configmap/mysqlpass created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> cmenv.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlname
+      <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">8.0</span>
+      <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+      <span class="token key atrule">env</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_ROOT_PASSWORD
+          <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+            <span class="token key atrule">configMapKeyRef</span><span class="token punctuation">:</span>
+              <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlpass
+              <span class="token key atrule">key</span><span class="token punctuation">:</span> password
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>用环境变量的方法引用了configmap：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f cmenv.yml</span>
+pod/mysql created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f cmenv.yml</span>
+NAME    READY   STATUS    RESTARTS   AGE
+mysql   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          44s
+
+root@k8s-master:~<span class="token comment"># kubectl exec -it mysql -- mysql -uroot -pABCabc123</span>
+mysql: <span class="token punctuation">[</span>Warning<span class="token punctuation">]</span> Using a password on the <span class="token builtin class-name">command</span> line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with <span class="token punctuation">;</span> or <span class="token punctuation">\</span>g.
+Your MySQL connection <span class="token function">id</span> is <span class="token number">8</span>
+Server version: <span class="token number">8.0</span>.42 MySQL Community Server - GPL
+
+Copyright <span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token number">2000</span>, <span class="token number">2025</span>, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type <span class="token string">'help;'</span> or <span class="token string">'\h'</span> <span class="token keyword">for</span> help. Type <span class="token string">'\c'</span> to <span class="token function">clear</span> the current input statement.
+
+mysql<span class="token operator">&gt;</span> <span class="token builtin class-name">exit</span>
+Bye<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  用configMap来引用密码是不太靠谱的，通常用于配置文件等明文场景，密文应该使用下一个实验的secret，因为configMap是明文的，见如下示例：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl describe configmaps mysqlpass</span>
+Name:         mysqlpass
+Namespace:    default
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+Data
+<span class="token operator">==</span><span class="token operator">==</span>
+password:
+----
+ABCabc123
+
+
+BinaryData
+<span class="token operator">==</span><span class="token operator">==</span>
+
+Events:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f cmenv.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="15-2-Secret"><a href="#15-2-Secret" class="headerlink" title="15.2 Secret"></a>15.2 Secret</h2><p>  Secret 是一种包含少量敏感信息例如密码、令牌或密钥的对象，这样的信息可能会被放在 Pod 规约中或者镜像中。</p>
+<p>  使用 Secret 意味着不需要在应用程序代码中包含机密数据。</p>
+<p>  要使用 Secret，Pod 需要引用 Secret，Pod 可以用三种方式之一来使用 Secret：</p>
+<p>   1.作为挂载到一个或多个容器上的 卷 中的文件</p>
+<p>   2.作为容器的环境变量</p>
+<p>   3.由 kubelet 在为 Pod 拉取镜像时使用</p>
+<h3 id="15-2-1-命令行创建"><a href="#15-2-1-命令行创建" class="headerlink" title="15.2.1 命令行创建"></a>15.2.1 命令行创建</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create secret generic mysqlpass --from-literal=password=ABCabc123</span>
+secret/mysqlpass created
+
+<span class="token comment"># 查看时，会发现已经加密</span>
+root@k8s-master:~<span class="token comment"># kubectl describe secrets mysqlpass</span>
+Name:         mysqlpass
+Namespace:    default
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+Type:  Opaque
+
+Data
+<span class="token operator">==</span><span class="token operator">==</span>
+password:  <span class="token number">9</span> bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="15-2-2-环境变量Secret"><a href="#15-2-2-环境变量Secret" class="headerlink" title="15.2.2 环境变量Secret"></a>15.2.2 环境变量Secret</h3><p>  使用刚才创建的密码，创建Pod并进行尝试：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> stenv.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql<span class="token punctuation">-</span>secret
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlname
+      <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">5.7</span>
+      <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+      <span class="token key atrule">env</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_ROOT_PASSWORD
+          <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+            <span class="token key atrule">secretKeyRef</span><span class="token punctuation">:</span>
+              <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlpass
+              <span class="token key atrule">key</span><span class="token punctuation">:</span> password
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f stenv.yml</span>
+pod/mysql-secret created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f stenv.yml</span>
+NAME           READY   STATUS    RESTARTS   AGE
+mysql-secret   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24s
+
+root@k8s-master:~<span class="token comment"># kubectl exec -it mysql-secret -- mysql -uroot -pABCabc123</span>
+mysql: <span class="token punctuation">[</span>Warning<span class="token punctuation">]</span> Using a password on the <span class="token builtin class-name">command</span> line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with <span class="token punctuation">;</span> or <span class="token punctuation">\</span>g.
+Your MySQL connection <span class="token function">id</span> is <span class="token number">2</span>
+Server version: <span class="token number">5.7</span>.44 MySQL Community Server <span class="token punctuation">(</span>GPL<span class="token punctuation">)</span>
+
+Copyright <span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token number">2000</span>, <span class="token number">2023</span>, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type <span class="token string">'help;'</span> or <span class="token string">'\h'</span> <span class="token keyword">for</span> help. Type <span class="token string">'\c'</span> to <span class="token function">clear</span> the current input statement.
+
+mysql<span class="token operator">&gt;</span> <span class="token builtin class-name">exit</span>
+Bye
+
+root@k8s-master:~<span class="token comment"># kubectl get secrets mysqlpass -o yaml</span>
+apiVersion: v1
+data:
+  password: QUJDYWJjMTIz
+kind: Secret
+metadata:
+  creationTimestamp: <span class="token string">"2025-07-19T11:12:38Z"</span>
+  name: mysqlpass
+  namespace: default
+  resourceVersion: <span class="token string">"530239"</span>
+  uid: da97c0e1-23e3-48e8-b720-3090373b157a
+type: Opaque
+
+root@k8s-master:~<span class="token comment"># echo  QUJDYWJjMTIz | base64 -d</span>
+ABCabc123root@k8s-master:~<span class="token comment">#</span>
+
+root@k8s-master:~<span class="token comment"># kubectl delete -f stenv.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="16-资源配额"><a href="#16-资源配额" class="headerlink" title="16 资源配额"></a>16 资源配额</h1>
                 
             </div>
             <hr/>
@@ -4328,7 +5495,7 @@ No resources found <span class="token keyword">in</span> default namespace.<span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">121.7k</span>&nbsp;字
+                class="white-color">130k</span>&nbsp;字
             
             
             

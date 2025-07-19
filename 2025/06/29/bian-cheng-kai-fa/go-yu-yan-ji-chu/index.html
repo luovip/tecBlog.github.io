@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-07-11
+                    2025-07-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    19.4k
+                    20.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    81 分
+                    84 分
                 </div>
                 
 
@@ -3481,21 +3481,96 @@ label1<span class="token punctuation">:</span>
 <span class="token comment">// 引入包的基本语法</span>
    <span class="token keyword">import</span> <span class="token string">"包的路径"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h2 id="11-7-包的快速入门"><a href="#11-7-包的快速入门" class="headerlink" title="11.7 包的快速入门"></a>11.7 包的快速入门</h2><p>  包快速入门-Go相互调用函数，将 func Cal 定义到文件 utils.go，将 utils.go 放到一个包中，当其它文件需要使用到 utils.go 的方法时，可以 import 该包，就可以使用了</p>
+<p><img src="/images/%E5%8C%85%E7%9A%84%E5%85%A5%E9%97%A8.png"></p>
+<p>  <strong>utils.go文件:</strong></p>
+<p><img src="/images/utils.png"></p>
+<p>  <strong>main.go文件:</strong></p>
+<p><img src="/images/main.png"></p>
+<h2 id="11-8-包的使用细节"><a href="#11-8-包的使用细节" class="headerlink" title="11.8 包的使用细节"></a>11.8 包的使用细节</h2><p>  1.在给一个文件打包时，该包对应一个文件夹，比如utils 文件夹对应的包名就是 utils，文件的包名通常和文件所在的文件夹名一致，一般为小写字母</p>
+<p><img src="/images/%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%821.png"></p>
+<p>  2.当一个文件要使用其它包函数或变量时，需要先引入对应的包</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 引入方式 1：</span>
+<span class="token keyword">import</span> <span class="token string">"包名"</span>
 
+<span class="token comment">// 引入方式 2：</span>
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"包名"</span>
+    <span class="token string">"包名"</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p><img src="/images/%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%822.png"></p>
+<p>  3.package指令在文件第一行，然后是 import 指令。</p>
+<p>  4.在 import 包时，路径从 $GOPATH 的 src 下开始，不用带 src , 编译器会自动从 src 下开始引入</p>
+<p>  5.为了让其它包的文件，可以访问到本包的函数，则该<strong>函数名的首字母需要大写</strong>，类似其它语言的 public ,这样才能跨包访问。比如 utils.go 的</p>
+<p><img src="/images/%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%825.png"></p>
+<p>  6.在访问其它包函数，变量时，其语法是 包名.函数名， 比如这里的 main.go 文件中</p>
+<p><img src="/images/%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%826.png"></p>
+<p>  7.如果包名较长，Go 支持给包取别名， 注意细节：取别名后，原来的包名就不能使用了</p>
+<p>   说明: 如果给包取了别名，则需要使用别名来访问该包的函数和变量。</p>
+<p><img src="/images/%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%827.png"></p>
+<p>  8.在同一包下，不能有相同的函数名(也不能有相同的全局变量名)，否则报重复定义</p>
+<p>  9.如果要编译成一个可执行程序文件，就需要将这个包声明为 main , 即 package main，这个就是一个语法规范，如果是写一个库 ，包名可以自定义</p>
+<p><img src="/images/%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%829.png"></p>
+<h2 id="11-9-函数的调用机制"><a href="#11-9-函数的调用机制" class="headerlink" title="11.9 函数的调用机制"></a>11.9 函数的调用机制</h2><p><img src="/images/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%9C%BA%E5%88%B6%E7%9A%84%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3.png"></p>
+<p>  拉登同志<strong>给特工小组下达命令</strong>：去<strong>炸美国白宫</strong>，特工小组<strong>返回结果</strong></p>
+<p>  程序员<strong>调用方法</strong>：给方法必要的<strong>输入</strong>，方法<strong>返回结果</strong></p>
+<h3 id="11-9-1-函数的调用过程"><a href="#11-9-1-函数的调用过程" class="headerlink" title="11.9.1 函数的调用过程"></a>11.9.1 函数的调用过程</h3><p><img src="/images/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B.png"></p>
+<p>  1.在调用一个函数时，会给该函数分配一个新的空间，编译器会通过自身的处理让这个新的空间和其它栈的空间区分开</p>
+<p>  2.在每个函数对应的栈中，数据空间是独立的，不会混淆</p>
+<p>  3.当一个函数调用完毕(执行完毕)后，程序会销毁这个函数对应的栈空间</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">test</span><span class="token punctuation">(</span>n1 <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	n1 <span class="token operator">=</span> n1 <span class="token operator">+</span> <span class="token number">1</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"test() n1 ="</span><span class="token punctuation">,</span> n1<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
+<span class="token comment">// 一个函数getSum</span>
+<span class="token keyword">func</span> <span class="token function">getSum</span><span class="token punctuation">(</span>n1 <span class="token builtin">int</span><span class="token punctuation">,</span> n2 <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+	sum <span class="token operator">:=</span> n1 <span class="token operator">+</span> n2
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"getSum() sun ="</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span> <span class="token comment">// 30</span>
 
+	<span class="token comment">// 当函数有return语句时，就将结果返回给调用者</span>
+	<span class="token comment">// 谁调用我，就返回给谁</span>
+	<span class="token keyword">return</span> sum
 
+<span class="token punctuation">}</span>
 
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	n1 <span class="token operator">:=</span> <span class="token number">10</span>
+	<span class="token function">test</span><span class="token punctuation">(</span>n1<span class="token punctuation">)</span>  <span class="token comment">// 调用test</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"main() n1 ="</span><span class="token punctuation">,</span> n1<span class="token punctuation">)</span>
 
+	sum <span class="token operator">:=</span> <span class="token function">getSum</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"main() sum ="</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="11-9-2-return语句"><a href="#11-9-2-return语句" class="headerlink" title="11.9.2 return语句"></a>11.9.2 return语句</h3><p>  Go函数中支持返回多个值，这一点是其他编程语言没有的</p>
+<p>  <strong>基本语法：</strong></p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> 函数名<span class="token punctuation">(</span>形参列表<span class="token punctuation">)</span><span class="token punctuation">(</span>返回值类型列表<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    语句<span class="token operator">...</span>
+    <span class="token keyword">return</span> 返回值列表
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>  1.如果返回多个值时，在接收时，希望忽略某个返回值，则使用_符号表示占位省略</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 如果返回多个值时，在接收时，希望忽略某个返回值，则使用_符号表示占位省略</span>
+	<span class="token boolean">_</span><span class="token punctuation">,</span> res3 <span class="token operator">:=</span> <span class="token function">getSumAndSub</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"res3 ="</span><span class="token punctuation">,</span> res3<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
+<p>  2.如果返回值只有一个，(返回值类型列表)可以不写()</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 编写函数，计算两个数的和与差，并返回结果</span>
+<span class="token keyword">func</span> <span class="token function">getSumAndSub</span><span class="token punctuation">(</span>n1 <span class="token builtin">int</span><span class="token punctuation">,</span> n2 <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	sum <span class="token operator">:=</span> n1 <span class="token operator">+</span> n2
+	sub <span class="token operator">:=</span> n1 <span class="token operator">-</span> n2
+	<span class="token keyword">return</span> sum<span class="token punctuation">,</span> sub
+<span class="token punctuation">}</span>
 
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// 调用getSumAndSub</span>
+	res1<span class="token punctuation">,</span> res2 <span class="token operator">:=</span> <span class="token function">getSumAndSub</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"res1 = %v\nres2 = %v"</span><span class="token punctuation">,</span> res1<span class="token punctuation">,</span> res2<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-
-
+<h2 id="11-10-函数的递归调用"><a href="#11-10-函数的递归调用" class="headerlink" title="11.10 函数的递归调用"></a>11.10 函数的递归调用</h2>
                 
             </div>
             <hr/>
@@ -3901,7 +3976,7 @@ label1<span class="token punctuation">:</span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">121.7k</span>&nbsp;字
+                class="white-color">130k</span>&nbsp;字
             
             
             
