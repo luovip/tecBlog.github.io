@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-07-19
+                    2025-07-22
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    37.4k
+                    52k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    175 分
+                    249 分
                 </div>
                 
 
@@ -5091,7 +5091,1904 @@ ABCabc123root@k8s-master:~<span class="token comment">#</span>
 
 root@k8s-master:~<span class="token comment"># kubectl delete -f stenv.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h1 id="16-资源配额"><a href="#16-资源配额" class="headerlink" title="16 资源配额"></a>16 资源配额</h1>
+<h1 id="16-资源配额"><a href="#16-资源配额" class="headerlink" title="16 资源配额"></a>16 资源配额</h1><p><img src="/images/CPU%E5%92%8CMemory%E9%85%8D%E9%A2%9D.png"></p>
+<h2 id="16-1-Pod-资源配额"><a href="#16-1-Pod-资源配额" class="headerlink" title="16.1 Pod 资源配额"></a>16.1 Pod 资源配额</h2><p>  内存申请64Mi，CPU申请100m，上限为内存128Mi，CPU100m</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> quota.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> frontend
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> frontend
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> app
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+      <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> <span class="token string">"64Mi"</span>
+        <span class="token key atrule">cpu</span><span class="token punctuation">:</span> <span class="token string">"100m"</span>
+      <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> <span class="token string">"128Mi"</span>
+        <span class="token key atrule">cpu</span><span class="token punctuation">:</span> <span class="token string">"100m"</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f quota.yml</span>
+pod/frontend created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f quota.yml</span>
+NAME       READY   STATUS    RESTARTS   AGE
+frontend   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          69s
+
+root@k8s-master:~<span class="token comment"># kubectl describe -f quota.yml | grep -A 5 Limits</span>
+    Limits:
+      cpu:     100m
+      memory:  128Mi
+    Requests:
+      cpu:        100m
+      memory:     64Mi
+root@k8s-master:~<span class="token comment"># kubectl delete -f quota.yml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="16-2-NameSpace-资源配额"><a href="#16-2-NameSpace-资源配额" class="headerlink" title="16.2 NameSpace 资源配额"></a>16.2 NameSpace 资源配额</h2><p>  新建namespace:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create namespace test</span>
+namespace/test created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  在ResourceQuota中，requests.cpu: “1” 就代表1000m，requests.memory后面，如果只是一个数字，没有Mi等单位时，默认使用的是字节单位</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> nmquota.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ResourceQuota
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lixiaohuiquota
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> test
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hard</span><span class="token punctuation">:</span>
+    <span class="token key atrule">pods</span><span class="token punctuation">:</span> <span class="token string">"1"</span>
+    <span class="token key atrule">requests.cpu</span><span class="token punctuation">:</span> <span class="token string">"1"</span>
+    <span class="token key atrule">requests.memory</span><span class="token punctuation">:</span> <span class="token string">"1"</span>
+    <span class="token key atrule">limits.cpu</span><span class="token punctuation">:</span> <span class="token string">"2"</span>
+    <span class="token key atrule">limits.memory</span><span class="token punctuation">:</span> <span class="token string">"2Gi"</span>
+EOF
+
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl create -f nmquota.yml</span>
+resourcequota/lixiaohuiquota created
+
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl get -f nmquota.yml</span>
+NAME             AGE   REQUEST                                              LIMIT
+<span class="token key atrule">lixiaohuiquota   7s    pods</span><span class="token punctuation">:</span> 0/1<span class="token punctuation">,</span> <span class="token key atrule">requests.cpu</span><span class="token punctuation">:</span> 0/1<span class="token punctuation">,</span> <span class="token key atrule">requests.memory</span><span class="token punctuation">:</span> <span class="token key atrule">0/1   limits.cpu</span><span class="token punctuation">:</span> 0/2<span class="token punctuation">,</span> <span class="token key atrule">limits.memory</span><span class="token punctuation">:</span> 0/2Gi
+
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl get resourcequotas -n test</span>
+NAME             AGE   REQUEST                                              LIMIT
+<span class="token key atrule">lixiaohuiquota   32m   pods</span><span class="token punctuation">:</span> 0/1<span class="token punctuation">,</span> <span class="token key atrule">requests.cpu</span><span class="token punctuation">:</span> 0/1<span class="token punctuation">,</span> <span class="token key atrule">requests.memory</span><span class="token punctuation">:</span> <span class="token key atrule">0/1   limits.cpu</span><span class="token punctuation">:</span> 0/2<span class="token punctuation">,</span> <span class="token key atrule">limits.memory</span><span class="token punctuation">:</span> 0/2Gi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  新建一个Pod尝试申请资源：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> nmpod.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> frontend
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> test
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> app
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+      <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> <span class="token string">"64Mi"</span>
+        <span class="token key atrule">cpu</span><span class="token punctuation">:</span> <span class="token string">"15000m"</span>
+      <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> <span class="token string">"128Mi"</span>
+        <span class="token key atrule">cpu</span><span class="token punctuation">:</span> <span class="token string">"15000m"</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  由于限制无法申请成功：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f nmpod.yml</span>
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: error when creating <span class="token string">"nmpod.yml"</span><span class="token builtin class-name">:</span> pods <span class="token string">"frontend"</span> is forbidden: exceeded quota: lixiaohuiquota, requested: <span class="token assign-left variable">limits.cpu</span><span class="token operator">=</span><span class="token number">15</span>,requests.cpu<span class="token operator">=</span><span class="token number">15</span>,requests.memory<span class="token operator">=</span>64Mi, used: <span class="token assign-left variable">limits.cpu</span><span class="token operator">=</span><span class="token number">0</span>,requests.cpu<span class="token operator">=</span><span class="token number">0</span>,requests.memory<span class="token operator">=</span><span class="token number">0</span>, limited: <span class="token assign-left variable">limits.cpu</span><span class="token operator">=</span><span class="token number">2</span>,requests.cpu<span class="token operator">=</span><span class="token number">1</span>,requests.memory<span class="token operator">=</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  修改Pod申请资源的参数：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> nmpod.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> frontend
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> test
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> app
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.26.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+      <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> <span class="token string">"1"</span>
+        <span class="token key atrule">cpu</span><span class="token punctuation">:</span> <span class="token string">"100m"</span>
+      <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> <span class="token string">"128Mi"</span>
+        <span class="token key atrule">cpu</span><span class="token punctuation">:</span> <span class="token string">"100m"</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f nmpod.yml</span>
+pod/frontend created
+
+root@k8s-master:~<span class="token comment"># kubectl get resourcequotas -n test</span>
+NAME             AGE   REQUEST                                                 LIMIT
+lixiaohuiquota   46m   pods: <span class="token number">1</span>/1, requests.cpu: 100m/1, requests.memory: <span class="token number">1</span>/1   limits.cpu: 100m/2, limits.memory: 128Mi/2Gi
+
+root@k8s-master:~<span class="token comment"># kubectl get -f nmpod.yml</span>
+NAME       READY   STATUS    RESTARTS   AGE
+frontend   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m45s
+
+<span class="token comment"># 修改资源配额</span>
+root@k8s-master:~<span class="token comment"># kubectl edit resourcequotas -n test lixiaohuiquota</span>
+resourcequota/lixiaohuiquota edited
+
+root@k8s-master:~<span class="token comment"># kubectl get resourcequotas -n test</span>
+NAME             AGE   REQUEST                                                     LIMIT
+lixiaohuiquota   56m   pods: <span class="token number">1</span>/2, requests.cpu: 100m/1, requests.memory: <span class="token number">1</span>/200Mi   limits.cpu: 100m/2, limits.memory: 128Mi/2Gi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="17-访问控制"><a href="#17-访问控制" class="headerlink" title="17 访问控制"></a>17 访问控制</h1><p><img src="/images/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6.png"></p>
+<h2 id="17-1-访问控制的概念和模块"><a href="#17-1-访问控制的概念和模块" class="headerlink" title="17.1 访问控制的概念和模块"></a>17.1 访问控制的概念和模块</h2><h3 id="17-1-1-鉴权模块"><a href="#17-1-1-鉴权模块" class="headerlink" title="17.1.1 鉴权模块"></a>17.1.1 鉴权模块</h3><p>  <strong>Node:</strong> 一个专用鉴权组件，根据调度到 kubelet 上运行的 Pod 为 kubelet 授予权限</p>
+<p>  **ABAC:**基于属性的访问控制（用户属性、资源属性、 对象，环境属性等） </p>
+<p>  **RBAC:**基于角色的访问控制</p>
+<p>  **Webhook:**基于http回调的访问控制</p>
+<h3 id="17-1-2-User、Permission和Role"><a href="#17-1-2-User、Permission和Role" class="headerlink" title="17.1.2 User、Permission和Role"></a>17.1.2 User、Permission和Role</h3><p>  用户（User）是可以独立访问计算机系统中的数据或者用数据表示的其它资源的主体（Subject）</p>
+<p>  许可（Permission）就是允许对一个或多个客体（object）执行的操作（action）</p>
+<p>  角色（Role）代表了一种权利、资格，可由多种许可构成</p>
+<h3 id="17-1-3-Kubernetes中的用户和用户组"><a href="#17-1-3-Kubernetes中的用户和用户组" class="headerlink" title="17.1.3 Kubernetes中的用户和用户组"></a>17.1.3 Kubernetes中的用户和用户组</h3><p>  User Account（用户账号）：一般是指由独立于Kubernetes之外的其它服务管理的用户账号， Kubernetes中不存在表示此类用户账号的对象，作用于系统全局，名称必须全局唯一。</p>
+<p>  Service Account（服务账号）：为Pod中的进程调用Kubernetes API设计，通常需要绑定于特定的名称空间，作用仅局限在他们所在的Namespace，他们由API Server创建，或者通过API调用手动创建，附带着一组存储为Secret的用于访问API Server的凭据。</p>
+<p>  这两类账号都可以隶属于一个或多个用户组，用户组本身没有操作权限，但是附加在组上 的权限可由其内部的所有用户继承，实现高效的授权管理机制。</p>
+<h3 id="17-1-4-相关的名词解释"><a href="#17-1-4-相关的名词解释" class="headerlink" title="17.1.4 相关的名词解释"></a>17.1.4 相关的名词解释</h3><p><strong>serviceaccount</strong></p>
+<p>  每个Pod都必须有一个serviceaccount，因为serviceaccount决定了pod对集群内部的权限范围，没有指定时会强制分配default账号</p>
+<p>  serviceaccount中会关联具体的角色或集群角色，所以，serviceaccount有什么权限要看其关联的角色中有哪些权限</p>
+<p><strong>角色</strong></p>
+<p>  对特定namespace有效</p>
+<p>  关联上具体的资源，关联上具体的动作，例如，abc角色，对pod拥有delete</p>
+<p><strong>集群角色</strong></p>
+<p>  对特定namespace有效</p>
+<p>  关联上具体的资源，关联上具体的动作，例如，abc角色，对pod拥有delete</p>
+<p><strong>角色绑定</strong></p>
+<p>  对特定namespace有效</p>
+<p>  在特定的namespace中，将namespace中的某个角色绑定到某个serviceaccount，也就是说，将角色拥有的权限，分配给serviceaccount</p>
+<p><strong>集群角色绑定</strong></p>
+<p>  对所有namespace有效</p>
+<p>  将某个集群角色绑定到某个serviceaccount，也就是说，将集群角色拥有的权限，分配给serviceaccount</p>
+<h2 id="17-2-UserAccount"><a href="#17-2-UserAccount" class="headerlink" title="17.2 UserAccount"></a>17.2 UserAccount</h2><p>  创建一个存在于kubernetes组中名为lixiaohui的用户</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># cd /etc/kubernetes/pki</span>
+root@k8s-master:/etc/kubernetes/pki<span class="token comment"># openssl genrsa -out lixiaohui.key 2048</span>
+root@k8s-master:/etc/kubernetes/pki<span class="token comment"># openssl req -new -key lixiaohui.key -out lixiaohui.csr -subj "/O=kubeusers/CN=lixiaohui"</span>
+root@k8s-master:/etc/kubernetes/pki<span class="token comment"># openssl x509 -req -in lixiaohui.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out lixiaohui.crt -days 365</span>
+Certificate request self-signature ok
+<span class="token assign-left variable">subject</span><span class="token operator">=</span>O <span class="token operator">=</span> kubeusers, CN <span class="token operator">=</span> lixiaohui<span class="token punctuation">\</span>0A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  向系统中添加lixiaohui用户</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:/etc/kubernetes/pki<span class="token comment"># kubectl config set-credentials lixiaohui --client-certificate=lixiaohui.crt --client-key=lixiaohui.key --embed-certs=true</span>
+User <span class="token string">"lixiaohui"</span> set.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  允许lixiaohui可以访问kubernetes集群</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl config set-context lixiaohui@kubernetes --cluster=kubernetes --user=lixiaohui</span>
+Context <span class="token string">"lixiaohui@kubernetes"</span> created.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  切换到lixiaohui用户以及切换回超级管理员</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl config use-context lixiaohui@kubernetes</span>
+Switched to context <span class="token string">"lixiaohui@kubernetes"</span><span class="token builtin class-name">.</span>
+
+root@k8s-master:~<span class="token comment"># kubectl config use-context kubernetes-admin@kubernetes</span>
+Switched to context <span class="token string">"kubernetes-admin@kubernetes"</span><span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="17-3-ServiceAaccount"><a href="#17-3-ServiceAaccount" class="headerlink" title="17.3 ServiceAaccount"></a>17.3 ServiceAaccount</h2><h3 id="17-3-1-ServiceAaccount的概念"><a href="#17-3-1-ServiceAaccount的概念" class="headerlink" title="17.3.1 ServiceAaccount的概念"></a>17.3.1 ServiceAaccount的概念</h3><p>  Service account是为了方便Pod里面的进程调用Kubernetes API或 其他外部服务而设计的</p>
+<p>  每个namespace都会自动创建一个default service account</p>
+<p>  Token  controller检测service  account的创建，并为它们创建secret(token)，与APIServer进行交互</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get serviceaccounts</span>
+NAME                     SECRETS   AGE
+default                  <span class="token number">0</span>         104d
+nfs-client-provisioner   <span class="token number">0</span>         3d23h
+
+root@k8s-master:~<span class="token comment"># kubectl get serviceaccounts -n test</span>
+NAME      SECRETS   AGE
+default   <span class="token number">0</span>         151m
+
+root@k8s-master:~<span class="token comment"># kubectl get secrets</span>
+NAME        TYPE     DATA   AGE
+mysqlpass   Opaque   <span class="token number">1</span>      45h
+
+root@k8s-master:~<span class="token comment"># kubectl get secrets -n test</span>
+No resources found <span class="token keyword">in</span> <span class="token builtin class-name">test</span> namespace.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  当创建 Pod 时，如果没有指定服务账户，Pod 会被指定给命名空间中的 default 服务账户。</p>
+<p>  container启动后都会挂载该service  account的token和ca.crt到如下位置：/var/run/secrets/kubernetes.io/serviceaccount/</p>
+<p>  pod 和 apiserver 之 间 进 行 通 信 的 账 号 ， 称 为 serviceAccountName</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get pod -o yaml | grep -i serviceaccount</span>
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+    serviceAccount: default
+    serviceAccountName: default
+        - serviceAccountToken:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+    serviceAccount: default
+    serviceAccountName: default
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="17-3-2-创建ServiceAaccount"><a href="#17-3-2-创建ServiceAaccount" class="headerlink" title="17.3.2 创建ServiceAaccount"></a>17.3.2 创建ServiceAaccount</h3><p>  在一个名为test的namespace中，创建一个名为lixiaohui的ServiceAccount</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create namespace test</span>
+namespace/test created
+
+root@k8s-master:~<span class="token comment"># kubectl create serviceaccount lixiaohui -n test</span>
+serviceaccount/lixiaohui created
+
+root@k8s-master:~<span class="token comment"># kubectl get serviceaccounts lixiaohui -n test</span>
+NAME        SECRETS   AGE
+lixiaohui   <span class="token number">0</span>         26s
+
+root@k8s-master:~<span class="token comment"># kubectl -n test describe serviceaccounts lixiaohui</span>
+Name:                lixiaohui
+Namespace:           <span class="token builtin class-name">test</span>
+Labels:              <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:         <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Image pull secrets:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Mountable secrets:   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Tokens:              <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Events:              <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  创建了seviceaccount之后，会发现用于和apiserver交互的secret也创建好了</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get secrets -n test</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="17-4-Role和ClusterRole"><a href="#17-4-Role和ClusterRole" class="headerlink" title="17.4 Role和ClusterRole"></a>17.4 Role和ClusterRole</h2><p>  RBAC API 声明了四种 Kubernetes 对象：Role、ClusterRole、RoleBinding 和 ClusterRoleBinding</p>
+<p>  RBAC 的 Role 或 ClusterRole 中包含一组代表相关权限的规则，这些权限是纯粹累加的（不存在拒绝某操作的规则）</p>
+<p>  Role 总是用来在某个名字空间内设置访问权限；在创建 Role 时，必须指定该 Role 所属的名字空间</p>
+<p>  ClusterRole 是一个集群作用域的资源。这两种资源的名字不同（Role 和 ClusterRole）是因为 Kubernetes 对象要么是名字空间作用域的，要么是集群作用域的， 不可两者兼具。</p>
+<p>  <strong>如果希望在名字空间内定义角色，应该使用 Role, 如果希望定义集群范围的角色，应该使用ClusterRole</strong></p>
+<h3 id="17-4-1-Role"><a href="#17-4-1-Role" class="headerlink" title="17.4.1 Role"></a>17.4.1 Role</h3><p>  在名为test的namespace中创建一个名为test-role的角色，以及创建一个名为test-clusterrole的集群角色</p>
+<p>  创建一个名为test-role仅有查看pod的角色</p>
+<p><strong>命令行方法:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl -n test create role --resource=pod --verb=get test-role</span>
+role.rbac.authorization.k8s.io/test-role created
+
+root@k8s-master:~<span class="token comment"># kubectl -n test delete role test-role</span>
+role.rbac.authorization.k8s.io <span class="token string">"test-role"</span> deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>YAML方法:</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> role.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Role
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>role
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> test
+<span class="token key atrule">rules</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">""</span>
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> pods
+  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> get
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f role.yml</span>
+role.rbac.authorization.k8s.io/test-role created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f role.yml</span>
+NAME        CREATED AT
+test-role   <span class="token number">2025</span>-07-21T08:43:08Z
+
+root@k8s-master:~<span class="token comment"># kubectl describe role -n test test-role</span>
+Name:         test-role
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+PolicyRule:
+  Resources  Non-Resource URLs  Resource Names  Verbs
+  ---------  -----------------  --------------  -----
+  pods       <span class="token punctuation">[</span><span class="token punctuation">]</span>                 <span class="token punctuation">[</span><span class="token punctuation">]</span>              <span class="token punctuation">[</span>get<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="17-4-2-RoleBinding"><a href="#17-4-2-RoleBinding" class="headerlink" title="17.4.2 RoleBinding"></a>17.4.2 RoleBinding</h3><p>  角色绑定（Role Binding）是将角色中定义的权限赋予一个或者一组用户。 它包含若干 主体（用户、组或服务账户）的列表和对这些主体所获得的角色的引用。 </p>
+<p>  RoleBinding 在指定的名字空间中执行授权，而 ClusterRoleBinding 在集群范围执行授权</p>
+<p>  一个 RoleBinding 可以引用同一的名字空间中的任何 Role。 或者，一个 RoleBinding 可以引用某ClusterRole 并将该 ClusterRole 绑定到 RoleBinding 所在的名字空间。</p>
+<p>  如果希望将某ClusterRole绑定到集群中所有名字空间，要使用ClusterRoleBinding</p>
+<p>  将上述创建的lixiaohui服务账号和本role绑定：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl -n test create rolebinding --role=test-role --serviceaccount=test:lixiaohui lixiaohui-binding</span>
+rolebinding.rbac.authorization.k8s.io/lixiaohui-binding created
+
+root@k8s-master:~<span class="token comment"># kubectl -n test describe rolebinding lixiaohui-binding</span>
+Name:         lixiaohui-binding
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Role:
+  Kind:  Role
+  Name:  test-role
+Subjects:
+  Kind            Name       Namespace
+  ----            ----       ---------
+  ServiceAccount  lixiaohui  <span class="token builtin class-name">test</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  测试权限：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl -n test auth can-i create pods --as=system:serviceaccount:test:lixiaohui</span>
+no
+
+root@k8s-master:~<span class="token comment"># kubectl -n test auth can-i get pods --as=system:serviceaccount:test:lixiaohui</span>
+<span class="token function">yes</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="17-4-3-ClusterRole"><a href="#17-4-3-ClusterRole" class="headerlink" title="17.4.3 ClusterRole"></a>17.4.3 ClusterRole</h3><p>  Kubernetes还提供了四个内置的ClusterRole来供用户直接使用</p>
+<p>   1.cluster-admin：整个kubernetes中权限最高的角色，请谨慎使用</p>
+<p>   2.admin：规定了大部分资源（不包括node）的权限</p>
+<p>   3.edit：规定了大部分资源的修改权限的角色</p>
+<p>   4.view：规定了大部分资源只读权限的角色</p>
+<p>  创建一个名为test-clusterrole仅有创建pod和deployment的角色:</p>
+<p><strong>命令行创建:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create clusterrole --resource=pod,deployment --verb=create test-clusterrole</span>
+clusterrole.rbac.authorization.k8s.io/test-clusterrole created
+
+root@k8s-master:~<span class="token comment"># kubectl describe clusterrole test-clusterrole</span>
+Name:         test-clusterrole
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+PolicyRule:
+  Resources         Non-Resource URLs  Resource Names  Verbs
+  ---------         -----------------  --------------  -----
+  pods              <span class="token punctuation">[</span><span class="token punctuation">]</span>                 <span class="token punctuation">[</span><span class="token punctuation">]</span>              <span class="token punctuation">[</span>create<span class="token punctuation">]</span>
+  deployments.apps  <span class="token punctuation">[</span><span class="token punctuation">]</span>                 <span class="token punctuation">[</span><span class="token punctuation">]</span>              <span class="token punctuation">[</span>create<span class="token punctuation">]</span>
+  
+root@k8s-master:~<span class="token comment"># kubectl delete clusterrole test-clusterrole</span>
+clusterrole.rbac.authorization.k8s.io <span class="token string">"test-clusterrole"</span> deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>YAML文件创建:</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> clusterrole.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> test<span class="token punctuation">-</span>clusterrole
+<span class="token key atrule">rules</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">""</span>
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> pods
+  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> create
+  <span class="token punctuation">-</span> get
+<span class="token punctuation">-</span> <span class="token key atrule">apiGroups</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> apps
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> deployments
+  <span class="token key atrule">verbs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> create
+  <span class="token punctuation">-</span> get
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f clusterrole.yml</span>
+clusterrole.rbac.authorization.k8s.io/test-clusterrole created
+root@k8s-master:~<span class="token comment"># kubectl describe clusterrole test-clusterrole</span>
+Name:         test-clusterrole
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+PolicyRule:
+  Resources         Non-Resource URLs  Resource Names  Verbs
+  ---------         -----------------  --------------  -----
+  pods              <span class="token punctuation">[</span><span class="token punctuation">]</span>                 <span class="token punctuation">[</span><span class="token punctuation">]</span>              <span class="token punctuation">[</span>create get<span class="token punctuation">]</span>
+  deployments.apps  <span class="token punctuation">[</span><span class="token punctuation">]</span>                 <span class="token punctuation">[</span><span class="token punctuation">]</span>              <span class="token punctuation">[</span>create get<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="17-4-4-ClusterRoleBinding"><a href="#17-4-4-ClusterRoleBinding" class="headerlink" title="17.4.4 ClusterRoleBinding"></a>17.4.4 ClusterRoleBinding</h3><p>  将lixiaohui用户和clusterrole绑定，并测试权限:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create clusterrolebinding --clusterrole=test-clusterrole --serviceaccount=test:lixiaohui lixiaohui-clusterbind</span>
+clusterrolebinding.rbac.authorization.k8s.io/lixiaohui-clusterbind created
+
+root@k8s-master:~<span class="token comment"># kubectl describe clusterrolebinding lixiaohui-clusterbind</span>
+Name:         lixiaohui-clusterbind
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Role:
+  Kind:  ClusterRole
+  Name:  test-clusterrole
+Subjects:
+  Kind            Name       Namespace
+  ----            ----       ---------
+  ServiceAccount  lixiaohui  <span class="token builtin class-name">test</span>
+
+root@k8s-master:~<span class="token comment"># kubectl auth can-i get pods --as=system:serviceaccount:test:lixiaohui</span>
+<span class="token function">yes</span>
+root@k8s-master:~<span class="token comment"># kubectl auth can-i create pods --as=system:serviceaccount:test:lixiaohui</span>
+<span class="token function">yes</span>
+root@k8s-master:~<span class="token comment"># kubectl auth can-i create deployments --as=system:serviceaccount:test:lixiaohui</span>
+<span class="token function">yes</span>
+root@k8s-master:~<span class="token comment"># kubectl auth can-i create secret --as=system:serviceaccount:test:lixiaohui</span>
+no
+root@k8s-master:~<span class="token comment"># kubectl auth can-i create service --as=system:serviceaccount:test:lixiaohui</span>
+no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="17-5-网略策略-Network-Plocy"><a href="#17-5-网略策略-Network-Plocy" class="headerlink" title="17.5 网略策略(Network Plocy)"></a>17.5 网略策略(Network Plocy)</h2><p>  Pod 可以通信的 Pod 是通过如下三个标识符的组合来辩识的：</p>
+<p>   1.其他被允许的 Pods（例外：Pod 无法阻塞对自身的访问）</p>
+<p>   2.被允许的名字空间</p>
+<p>   3.IP 组块（与 Pod 运行所在的节点的通信总是被允许的， 无论 Pod 或节点的 IP 地址）</p>
+<p>  在定义基于 Pod 或名字空间的 NetworkPolicy 时，使用选择算符来设定哪些流量 可以进入或离开与该算符匹配的Pod，<br>同时，当基于 IP 的 NetworkPolicy 被创建时，我们基于 IP 组块（CIDR 范围） 来定义策略</p>
+<p><strong>Pod隔离:</strong></p>
+<p>  默认情况下，Pod 是非隔离的，它们接受任何来源的流量。</p>
+<p>  Pod 在被某 NetworkPolicy 选中时进入被隔离状态， 一旦名字空间中有 NetworkPolicy 选择了特定的Pod，该 Pod 会拒绝该 NetworkPolicy 所不允许的连接。</p>
+<p>  网络策略不会冲突，它们是累积的。 如果任何一个或多个策略选择了一个 Pod, 则该 Pod 受限于这些策略的 入站（Ingress）/出站（Egress）规则的并集，因此评估的顺序并不会影响策略的结果。</p>
+<p>  为了允许两个 Pods 之间的网络数据流，源端 Pod 上的出站（Egress）规则和目标端 Pod 上的入站（Ingress）规则都需要允许该流量。 如果源端的出站（Egress）规则或目标端的入站（Ingress）规则拒绝该流量， 则流量将被拒绝</p>
+<p><strong>创建NetworkPolicy:</strong></p>
+<p>  在名为zhangsan的namespace中，创建一个仅允许来自名为lixiaohui的namespace连接的网络策略</p>
+<p>  创建两个namesapce</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create namespace zhangsan</span>
+namespace/zhangsan created
+root@k8s-master:~<span class="token comment"># kubectl create namespace lixiaohui</span>
+namespace/lixiaohui created
+root@k8s-master:~<span class="token comment"># kubectl get ns</span>
+NAME               STATUS   AGE
+calico-apiserver   Active   104d
+calico-system      Active   104d
+default            Active   104d
+kube-node-lease    Active   104d
+kube-public        Active   104d
+kube-system        Active   104d
+lixiaohui          Active   11s
+<span class="token builtin class-name">test</span>               Active   5h21m
+tigera-operator    Active   104d
+zhangsan           Active   19s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  在zhangsan的namespace中，新建一个pod</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> nppod.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> pod
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> zhangsan
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> httpd
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> httpd
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> httpd<span class="token punctuation">:</span><span class="token number">2.4</span>
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> web
+        <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> OnFailure
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f nppod.yml</span>
+pod/pod created
+
+root@k8s-master:~<span class="token comment"># kubectl get pod -n zhangsan -o wide</span>
+NAME   READY   STATUS    RESTARTS   AGE   IP              NODE          NOMINATED NODE   READINESS GATES
+pod    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          18s   <span class="token number">172.16</span>.194.96   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  在lixiaohui的namespace中，新建一个pod</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> nppod1.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> pod1
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> lixiaohui
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> httpd
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> httpd<span class="token punctuation">:</span><span class="token number">2.4</span>
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> web
+        <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> OnFailure
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f nppod1.yml</span>
+pod/pod1 created
+
+root@k8s-master:~<span class="token comment"># kubectl get pod -n lixiaohui -o wide</span>
+NAME   READY   STATUS    RESTARTS   AGE   IP              NODE          NOMINATED NODE   READINESS GATES
+pod1   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          19s   <span class="token number">172.16</span>.194.97   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  新建网络策略：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> np.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> allow<span class="token punctuation">-</span>from<span class="token punctuation">-</span>namesapce<span class="token punctuation">-</span>lixiaohui
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> zhangsan
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Ingress
+  <span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>
+        <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+          <span class="token key atrule">kubernetes.io/metadata.name</span><span class="token punctuation">:</span> lixiaohui
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f np.yml</span>
+networkpolicy.networking.k8s.io/allow-from-namesapce-lixiaohui created
+
+root@k8s-master:~<span class="token comment"># kubectl get -f np.yml</span>
+NAME                             POD-SELECTOR   AGE
+allow-from-namesapce-lixiaohui   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>         9s
+
+root@k8s-master:~<span class="token comment"># kubectl describe networkpolicies -n zhangsan</span>
+Name:         allow-from-namesapce-lixiaohui
+Namespace:    zhangsan
+Created on:   <span class="token number">2025</span>-07-21 <span class="token number">21</span>:52:17 +0800 CST
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Spec:
+  PodSelector:     <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span> <span class="token punctuation">(</span>Allowing the specific traffic to all pods <span class="token keyword">in</span> this namespace<span class="token punctuation">)</span>
+  Allowing ingress traffic:
+    To Port: <span class="token number">80</span>/TCP
+    From:
+      NamespaceSelector: kubernetes.io/metadata.name<span class="token operator">=</span>lixiaohui
+  Not affecting egress traffic
+  Policy Types: Ingress<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  测试效果：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> nptest.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> pod<span class="token punctuation">-</span>default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> busybox
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> busybox<span class="token punctuation">:</span>1.32.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">command</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> /bin/sh
+      <span class="token punctuation">-</span> <span class="token punctuation">-</span>c
+      <span class="token punctuation">-</span> <span class="token string">"sleep 10m"</span>
+  <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> OnFailure
+EOF
+
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl create -f nptest.yml</span>
+pod/pod<span class="token punctuation">-</span>default created
+
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl get -f nptest.yml</span>
+NAME          READY   STATUS    RESTARTS   AGE
+pod<span class="token punctuation">-</span>default   1/1     Running   0          19s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  从default namespace中访问没有被网络策略选中的pod，发现成功访问:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl exec -it pod-default -- wget 172.16.194.97</span>
+Connecting to <span class="token number">172.16</span>.194.97 <span class="token punctuation">(</span><span class="token number">172.16</span>.194.97:80<span class="token punctuation">)</span>
+saving to <span class="token string">'index.html'</span>
+index.html           <span class="token number">100</span>% <span class="token operator">|</span>********************************<span class="token operator">|</span>    <span class="token number">45</span>  <span class="token number">0</span>:00:00 ETA
+<span class="token string">'index.html'</span> saved<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  从default namespace中访问被网络策略选中的pod，发现无法访问:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl exec -it pod-default -- wget 172.16.194.96</span>
+Connecting to <span class="token number">172.16</span>.194.96 <span class="token punctuation">(</span><span class="token number">172.16</span>.194.96:80<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  新建一个lixiaohui namespace的pod，测试是否可以访问被隔离的pod，由于网络策略的原因，一定是可以访问的</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> nplixiaohuitest.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> pod<span class="token punctuation">-</span>lixiaohui<span class="token punctuation">-</span>test
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> lixiaohui
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> busybox
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> busybox<span class="token punctuation">:</span>1.32.1
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+    <span class="token key atrule">command</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> /bin/sh
+      <span class="token punctuation">-</span> <span class="token punctuation">-</span>c
+      <span class="token punctuation">-</span> <span class="token string">"sleep 10m"</span>
+  <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> OnFailure
+EOF
+
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl create -f nplixiaohuitest.yml</span>
+pod/pod<span class="token punctuation">-</span>lixiaohui<span class="token punctuation">-</span>test created
+
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl get -f nplixiaohuitest.yml</span>
+NAME                 READY   STATUS    RESTARTS   AGE
+pod<span class="token punctuation">-</span>lixiaohui<span class="token punctuation">-</span>test   1/1     Running   0          11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  以下测试中，发现可以正常访问zhangsan namesapce中的pod：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl -n lixiaohui exec -it pod-lixiaohui-test -- wget 172.16.194.96</span>
+Connecting to <span class="token number">172.16</span>.194.96 <span class="token punctuation">(</span><span class="token number">172.16</span>.194.96:80<span class="token punctuation">)</span>
+saving to <span class="token string">'index.html'</span>
+index.html           <span class="token number">100</span>% <span class="token operator">|</span>********************************<span class="token operator">|</span>    <span class="token number">45</span>  <span class="token number">0</span>:00:00 ETA
+<span class="token string">'index.html'</span> saved<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="18-Helm-概念与实践"><a href="#18-Helm-概念与实践" class="headerlink" title="18 Helm 概念与实践"></a>18 Helm 概念与实践</h1><h2 id="18-1-Helm基本概念"><a href="#18-1-Helm基本概念" class="headerlink" title="18.1 Helm基本概念"></a>18.1 Helm基本概念</h2><p>  Helm 是 Kubernetes 的官方包管理工具，类似于Linux系统的APT/YUM或Python的PIP，它能够简化 Kubernetes 应用程序的部署和管理。</p>
+<p>  在 Kubernetes 中，一个应用程序可能由多个资源组成，比如 Deployment、Service、ConfigMap、Ingress 等。Helm 可以将这些资源打包成一个 Helm Chart（包），方便用户进行安装、升级、回滚和删除等操作，实现应用的声明式部署、版本控制和配置管理。</p>
+<p><strong>核心价值:</strong></p>
+<p>  1.<strong>简化复杂应用部署</strong>：将微服务拆分的数十个 YAML 文件打包为单一 Chart，降低运维复杂度。</p>
+<p>  2.<strong>标准化交付流程</strong>：支持跨环境（开发/测试/生产）的一致性部署。</p>
+<p>  3.<strong>生态协同</strong>：通过公共仓库（如 Artifact Hub）共享开源应用，企业可搭建私有仓库管理内部应用。</p>
+<h2 id="18-2-Helm核心概念"><a href="#18-2-Helm核心概念" class="headerlink" title="18.2 Helm核心概念"></a>18.2 Helm核心概念</h2><p><img src="/images/Helm%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5.png"></p>
+<h2 id="18-3-主要组件"><a href="#18-3-主要组件" class="headerlink" title="18.3 主要组件"></a>18.3 主要组件</h2><p><strong>Helm Client</strong></p>
+<p>  这是用户与 Helm 交互的客户端工具。用户通过在本地机器上运行 Helm 命令来操作 Helm Chart，例如安装、升级、查询等操作。它会直接与 Kubernetes API 服务器交互，客户端可以直接从它的官方GitHub下载，地址是：<a target="_blank" rel="noopener" href="https://github.com/helm/helm/releases">https://github.com/helm/helm/releases</a></p>
+<p><strong>Helm Chart</strong></p>
+<p>  Helm Chart 是一个打包的 Kubernetes 应用程序，包含所有必要的资源定义和配置文件。它类似于软件包管理工具中的“包”，用于简化 Kubernetes 应用的部署和管理。一个 Helm Chart 包含以下部分：</p>
+<p>  1.Chart.yaml</p>
+<p>   定义：这是 Helm Chart 的元数据文件，包含 Chart 的基本信息。大概内容：</p>
+<p>   name：Chart 的名称</p>
+<p>   version：Chart 的版本号（遵循语义化版本规范）</p>
+<p>   description：Chart 的简要描述</p>
+<p>   dependencies：依赖的其他 Chart（可选）</p>
+<p>  2.values.yaml</p>
+<p>   它是 Chart 的默认配置文件。用户可以通过修改这个文件或者在安装时覆盖其中的值来定制 Chart 的行为。比如，它可能包含应用的副本数量、镜像版本、资源限制等配置项。</p>
+<p>  3.templates</p>
+<p>   包含 Kubernetes 资源的模板文件，这些模板文件在安装或升级时会被渲染成实际的 Kubernetes 资源，渲染的时候，将用values.yaml里的值替换掉templates模板里的变量，例如，一个 Deployment 的模板文件可以根据 values.yaml 中定义的副本数量和镜像版本来生成对应的 Deployment 资源，具体渲染的命令是：helm template，可以用–help等方式获取语法，不过需要注意的是，这会渲染出实际的 Kubernetes 资源文件，但不会实际部署到集群中。</p>
+<p>  4.charts</p>
+<p>   如果当前 Chart 依赖其他 Chart，这些依赖的 Chart 会存放在这个目录下。这样可以实现 Chart 之间的组合和复用。</p>
+<p><strong>Helm Repository（仓库）</strong></p>
+<p>  它是一个存储 Helm Chart 的仓库，可以是本地的，也可以是远程的。远程仓库通常是一个 HTTP 服务器，用户可以从仓库中搜索、下载和更新 Helm Chart。例如，Helm 官方维护了一个默认的公共仓库，里面包含了许多常用的 Helm Chart，用户可以通过 Helm 命令将这些 Chart 添加到本地的 Chart 仓库列表中，然后进行安装等操作。<br><strong>官方网址 <a target="_blank" rel="noopener" href="http://helm.sh/">http://helm.sh</a></strong></p>
+<h2 id="18-4-Helm安装"><a href="#18-4-Helm安装" class="headerlink" title="18.4 Helm安装"></a>18.4 Helm安装</h2><p>  <strong>用二进制版本安装：</strong></p>
+<p>  每个Helm版本都提供了各种操作系统的二进制版本，这些版本可以手动下载和安装</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.下载需要的版本
+root@k8s-master:~<span class="token comment"># wget https://get.helm.sh/helm-v3.17.4-linux-amd64.tar.gz</span>
+
+<span class="token number">2</span>.解压
+root@k8s-master:~<span class="token comment"># tar xf helm-v3.17.4-linux-amd64.tar.gz</span>
+
+<span class="token number">3</span>.在解压目录中找到helm程序，移动到需要的目录中
+root@k8s-master:~<span class="token comment"># mv linux-amd64/helm /usr/local/bin/helm</span>
+
+root@k8s-master:~<span class="token comment"># helm version</span>
+version.BuildInfo<span class="token punctuation">{</span>Version:<span class="token string">"v3.17.4"</span>, GitCommit:<span class="token string">"595a05da6166037d0abebaa27ac8a498fa4d7ed2"</span>, GitTreeState:<span class="token string">"clean"</span>, GoVersion:<span class="token string">"go1.23.10"</span><span class="token punctuation">}</span>
+
+root@k8s-master:~<span class="token comment"># helm completion bash &gt; /etc/bash_completion.d/helm</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  默认情况下，helm内置了一个hub，用于软件搜索和安装，搜索软件是否可被安装，用以下格式命令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># helm search hub packages</span>
+URL                                                     CHART VERSION   APP VERSION     DESCRIPTION
+https://artifacthub.io/packages/helm/ygdrassil/<span class="token punctuation">..</span>.      <span class="token number">0.1</span>.0           <span class="token number">4.0</span>.1           AeneaBot is a Telegram Chat Bot <span class="token function">which</span> includes <span class="token punctuation">..</span>.
+https://artifacthub.io/packages/helm/zerotest/a<span class="token punctuation">..</span>.      <span class="token number">1.1</span>.0           <span class="token number">1.1</span>.0           Artifact Hub is a web-based application that en<span class="token punctuation">..</span>.
+https://artifacthub.io/packages/helm/artifact-h<span class="token punctuation">..</span>.      <span class="token number">1.21</span>.0          <span class="token number">1.21</span>.0          Artifact Hub is a web-based application that en<span class="token punctuation">..</span>.
+https://artifacthub.io/packages/helm/softonic/a<span class="token punctuation">..</span>.      <span class="token number">1.19</span>.0          <span class="token number">1.19</span>.0          Artifact Hub is a web-based application that en<span class="token punctuation">..</span>.
+https://artifacthub.io/packages/helm/angelnu/ch<span class="token punctuation">..</span>.      <span class="token number">3.0</span>.0           latest          Multiplexer <span class="token keyword">for</span> lorawan gateway packages
+https://artifacthub.io/packages/helm/obeone/olv<span class="token punctuation">..</span>.      <span class="token number">0.2</span>.0           <span class="token number">1.5</span>.0           Olvid bot-daemon — a bridge <span class="token function">service</span> that lets y<span class="token punctuation">..</span>.
+https://artifacthub.io/packages/helm/ygdrassil/<span class="token punctuation">..</span>.      <span class="token number">0.4</span>.0           <span class="token number">0.3</span>.0           Raponchi is a silly bot <span class="token function">which</span> posts <span class="token keyword">in</span> Twitter <span class="token punctuation">..</span>.
+https://artifacthub.io/packages/helm/szpadel-ch<span class="token punctuation">..</span>.      <span class="token number">3.52</span>.17         <span class="token number">1.4</span>.0           Repman - PHP Repository Manager: packagist prox<span class="token punctuation">..</span>.
+https://artifacthub.io/packages/helm/victoriame<span class="token punctuation">..</span>.      <span class="token number">0.0</span>.8           v1.25.1         The VictoriaLogs cluster chart packages everyth<span class="token punctuation">..</span>.
+https://artifacthub.io/packages/helm/ygdrassil/<span class="token punctuation">..</span>.      <span class="token number">0.4</span>.0           <span class="token number">0.4</span>.0           Metapackage to deploy Ygdrassil Project monitor<span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  命令行显示有点奇怪，也不够丰富，可以考虑用浏览器打开搜索：<a target="_blank" rel="noopener" href="https://hub.helm.sh/">https://hub.helm.sh</a></p>
+<h2 id="18-5-添加仓库"><a href="#18-5-添加仓库" class="headerlink" title="18.5 添加仓库"></a>18.5 添加仓库</h2><p>  官方仓库网速慢，可以考虑一下以下仓库或自己部署仓库</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># helm repo add azurerepo http://mirror.azure.cn/kubernetes/charts/</span>
+<span class="token string">"azurerepo"</span> has been added to your repositories<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  添加的仓库地址：<a target="_blank" rel="noopener" href="http://mirror.azure.cn/kubernetes/charts/">http://mirror.azure.cn/kubernetes/charts/</a></p>
+<h2 id="18-6-wordpress安装"><a href="#18-6-wordpress安装" class="headerlink" title="18.6 wordpress安装"></a>18.6 wordpress安装</h2><h3 id="18-6-1-手工定制安装"><a href="#18-6-1-手工定制安装" class="headerlink" title="18.6.1 手工定制安装"></a>18.6.1 手工定制安装</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># helm search repo wordpress</span>
+NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+azurerepo/wordpress     <span class="token number">9.0</span>.3           <span class="token number">5.3</span>.2           DEPRECATED Web publishing platform <span class="token keyword">for</span> building<span class="token punctuation">..</span>.
+
+// 下载安装包并解压
+root@k8s-master:~<span class="token comment"># helm pull azurerepo/wordpress</span>
+root@k8s-master:~<span class="token comment"># ls</span>
+wordpress-9.0.3.tgz
+
+root@k8s-master:~<span class="token comment"># tar xf wordpress-9.0.3.tgz</span>
+root@k8s-master:~<span class="token comment"># ls</span>
+wordpresswordpress-9.0.3.tgz
+
+root@k8s-master:~<span class="token comment"># cd wordpress/</span>
+
+// 看到了Chart.yaml templates values.yaml
+root@k8s-master:~/wordpress<span class="token comment"># ls</span>
+charts  Chart.yaml  README.md  requirements.lock  requirements.yaml  templates  values.schema.json  values.yaml
+
+root@k8s-master:~/wordpress<span class="token comment"># ls templates/</span>
+deployment.yaml          _helpers.tpl  NOTES.txt  secrets.yaml         svc.yaml  tls-secrets.yaml
+externaldb-secrets.yaml  ingress.yaml  pvc.yaml   servicemonitor.yaml  tests<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  模板里面都是各种变量，稍后需要用values.yml来填充:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/wordpress<span class="token comment"># head templates/deployment.yaml</span>
+apiVersion: <span class="token punctuation">{</span><span class="token punctuation">{</span> template <span class="token string">"wordpress.deployment.apiVersion"</span> <span class="token builtin class-name">.</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+kind: Deployment
+metadata:
+  name: <span class="token punctuation">{</span><span class="token punctuation">{</span> template <span class="token string">"wordpress.fullname"</span> <span class="token builtin class-name">.</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  labels: <span class="token punctuation">{</span><span class="token punctuation">{</span>- include <span class="token string">"wordpress.labels"</span> <span class="token builtin class-name">.</span> <span class="token operator">|</span> nindent <span class="token number">4</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+spec:
+  selector:
+    matchLabels: <span class="token punctuation">{</span><span class="token punctuation">{</span>- include <span class="token string">"wordpress.matchLabels"</span> <span class="token builtin class-name">.</span> <span class="token operator">|</span> nindent <span class="token number">6</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span>- <span class="token keyword">if</span> .Values.updateStrategy <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  strategy: <span class="token punctuation">{</span><span class="token punctuation">{</span> toYaml .Values.updateStrategy <span class="token operator">|</span> nindent <span class="token number">4</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  用values.yml里的变量来渲染模板，生成最终的yaml文件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">// 从仓库中读出values.yml，将templates目录里的模板渲染成功
+root@k8s-master:~/wordpress<span class="token comment"># helm template --version 9.0.3 azurerepo/wordpress</span>
+WARNING: This chart is deprecated
+---
+<span class="token comment"># Source: wordpress/charts/mariadb/templates/secrets.yaml</span>
+apiVersion: v1
+kind: Secret
+metadata:
+  name: release-name-mariadb
+  labels:
+    app: <span class="token string">"mariadb"</span>
+    chart: <span class="token string">"mariadb-7.3.12"</span>
+    release: <span class="token string">"release-name"</span>
+    heritage: <span class="token string">"Helm"</span>
+type: Opaque
+data:
+  mariadb-root-password: <span class="token string">"RjY4UE5nbDk2UA=="</span>
+
+  mariadb-password: <span class="token string">"RjJqTVJXTHZkeA=="</span>
+---
+<span class="token comment"># Source: wordpress/templates/secrets.yaml</span>
+apiVersion: v1
+kind: Secret
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  如果有值不满意，可以手工指定某一个参数，或者用本地的values.yaml</p>
+<p>  先试试手工指定，看了一下仓库里的value，要用这个镜像，随便改一个看看</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/wordpress<span class="token comment"># helm show values azurerepo/wordpress | grep ^image: -A 10</span>
+image:
+  registry: docker.io
+  repository: bitnami/wordpress
+  tag: <span class="token number">5.3</span>.2-debian-10-r32
+  <span class="token comment">## Specify a imagePullPolicy</span>
+  <span class="token comment">## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'</span>
+  <span class="token comment">## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</span>
+  <span class="token comment">##</span>
+  pullPolicy: IfNotPresent
+  <span class="token comment">## Optionally specify an array of imagePullSecrets.</span>
+  <span class="token comment">## Secrets must be manually created in the namespace.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  渲染时手工指定某个参数，比如替换一个镜像的registry，通过–set参数指定了镜像的registry，并且生成了模板：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/wordpress<span class="token comment"># helm template --version 9.0.3 azurerepo/wordpress --set image.registry=linuxcenter.cn &gt; custom.yml</span>
+WARNING: This chart is deprecated
+root@k8s-master:~/wordpress<span class="token comment"># grep linuxcenter custom.yml</span>
+          image: linuxcenter.cn/bitnami/wordpress:5.3.2-debian-10-r32
+      image: linuxcenter.cn/bitnami/wordpress:5.3.2-debian-10-r32<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  上面的set是瞎写的，镜像仓库不存在，只是为了演示参数，重新用默认参数渲染出最终的yaml，然后向集群部署。这一步将安装mariadb和wordpress，这里用的是存储章节设置的默认存储类，所以会自动创建pv以及pvc，要是还没有默认存储类，往上翻，重新做一下存储类并标记为默认即可</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/wordpress<span class="token comment"># helm template --version 9.0.3 azurerepo/wordpress &gt; lixiaohui.yml</span>
+WARNING: This chart is deprecated
+root@k8s-master:~/wordpress<span class="token comment"># kubectl apply -f lixiaohui.yml</span>
+secret/release-name-mariadb created
+secret/release-name-wordpress created
+configmap/release-name-mariadb created
+configmap/release-name-mariadb-tests created
+persistentvolumeclaim/release-name-wordpress created
+service/release-name-mariadb created
+service/release-name-wordpress created
+deployment.apps/release-name-wordpress created
+statefulset.apps/release-name-mariadb created
+pod/release-name-mariadb-test-mfwqi created
+pod/release-name-credentials-test created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  不需要看到pod工作正常，只研究helm自身，如果你需要它工作正常，需要搞定镜像、机器内存需要再加一下，不然数据库起不来</p>
+<p>  以上就是研究的过程，其实一般来说，不用这么麻烦，比如我们最后实际上就是用的默认value，如果默认value你就满意，可以用下面的方法直接让helm来管理，我们不用改东西，如果你并不是用的<code>helm install</code>，后面就不受helm管理，因为当你使用 <code>helm template</code> 命令生成 Kubernetes 资源清单文件并手动将其部署到集群中时，这些资源不会被 Helm 的生命周期管理所跟踪。因此，当你运行 <code>helm list</code> 命令时，不会看到任何相关的 Helm Release，因为 Helm 的 Release 管理机制没有被触发。</p>
+<h3 id="18-6-2-helm仓库直接安装"><a href="#18-6-2-helm仓库直接安装" class="headerlink" title="18.6.2 helm仓库直接安装"></a>18.6.2 helm仓库直接安装</h3><p>  这一步将安装mariadb和wordpress，这里用的是存储章节设置的默认存储类，所以会自动创建pv以及pvc，你要是还没有默认存储类，往上翻，重新做一下存储类并标记为默认即可</p>
+<p>  <code>helm install</code> 也是只是<code>--set</code>参数的，不一定非要用默认的值</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/wordpress<span class="token comment"># helm install wordpress azurerepo/wordpress</span>
+WARNING: This chart is deprecated
+NAME: wordpress
+LAST DEPLOYED: Tue Jul <span class="token number">22</span> <span class="token number">11</span>:25:19 <span class="token number">2025</span>
+NAMESPACE: default
+STATUS: deployed
+REVISION: <span class="token number">1</span>
+NOTES:
+This Helm chart is deprecated
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+
+root@k8s-master:~/wordpress<span class="token comment"># helm list</span>
+NAME            NAMESPACE       REVISION        UPDATED       STATUS          CHART           APP VERSION
+wordpress       default   <span class="token number">1</span>   <span class="token number">2025</span>-07-22 <span class="token number">11</span>:25:19.467906563 +0800 CST deployed        wordpress-9.0.3 <span class="token number">5.3</span>.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  查询服务端口和pod所在节点：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/wordpress<span class="token comment"># kubectl get service</span>
+NAME                     TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>                      AGE
+wordpress                LoadBalancer   <span class="token number">10.96</span>.139.221    <span class="token operator">&lt;</span>pending<span class="token operator">&gt;</span>     <span class="token number">80</span>:32231/TCP,443:31808/TCP   3m12s
+wordpress-mariadb        ClusterIP      <span class="token number">10.100</span>.62.255    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">3306</span>/TCP                     3m12s
+
+// 不需要看到pod工作正常，只研究helm自身，如果需要它工作正常，需要搞定镜像、机器内存需要再加一下，不然数据库起不来
+root@k8s-master:~/wordpress<span class="token comment"># kubectl get pod -o wide</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="18-7-Dashboard安装"><a href="#18-7-Dashboard安装" class="headerlink" title="18.7 Dashboard安装"></a>18.7 Dashboard安装</h2><p>  为了安全，不要在任何生产环境中使用dashboard</p>
+<p><strong>添加helm仓库：</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/</span>
+Error: looks like <span class="token string">"https://kubernetes.github.io/dashboard/"</span> is not a valid chart repository or cannot be reached: Get <span class="token string">"https://kubernetes.github.io/dashboard/index.yaml"</span><span class="token builtin class-name">:</span> <span class="token builtin class-name">read</span> tcp <span class="token number">192.168</span>.8.3:55470-<span class="token operator">&gt;</span><span class="token number">185.199</span>.111.153:443: read: connection reset by peer
+
+root@k8s-master:~<span class="token comment"># helm repo add kubernetes-dashboard https://oss.linuxcenter.cn/files/cka/helm</span>
+<span class="token string">"kubernetes-dashboard"</span> has been added to your repositories<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>部署dashboard:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard</span>
+Release <span class="token string">"kubernetes-dashboard"</span> does not exist. Installing it now.
+NAME: kubernetes-dashboard
+LAST DEPLOYED: Tue Jul <span class="token number">22</span> <span class="token number">11</span>:37:56 <span class="token number">2025</span>
+NAMESPACE: kubernetes-dashboard
+STATUS: deployed
+REVISION: <span class="token number">1</span>
+TEST SUITE: None
+NOTES:
+*************************************************************************************************
+*** PLEASE BE PATIENT: Kubernetes Dashboard may need a few minutes to get up and become ready ***
+*************************************************************************************************
+
+Congratulations<span class="token operator">!</span> You have just installed Kubernetes Dashboard <span class="token keyword">in</span> your cluster.
+
+To access Dashboard run:
+  kubectl <span class="token parameter variable">-n</span> kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy <span class="token number">8443</span>:443
+
+NOTE: In <span class="token keyword">case</span> port-forward <span class="token builtin class-name">command</span> does not work, <span class="token function">make</span> sure that kong <span class="token function">service</span> name is correct.
+      Check the services <span class="token keyword">in</span> Kubernetes Dashboard namespace using:
+        kubectl <span class="token parameter variable">-n</span> kubernetes-dashboard get svc
+
+Dashboard will be available at:
+  https://localhost:8443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>查看具体部署了什么:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get all -n kubernetes-dashboard</span>
+NAME                                                        READY   STATUS    RESTARTS   AGE
+pod/kubernetes-dashboard-api-6dc59d487d-qx52x               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m21s
+pod/kubernetes-dashboard-auth-85cdc4974f-5k65d              <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m21s
+pod/kubernetes-dashboard-kong-79867c9c48-qlw4p              <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m21s
+pod/kubernetes-dashboard-metrics-scraper-76df4956c4-rlgtc   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m21s
+pod/kubernetes-dashboard-web-56df7655d9-nc9fc               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m21s
+
+NAME                                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>    AGE
+service/kubernetes-dashboard-api               ClusterIP   <span class="token number">10.102</span>.148.211   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP   2m21s
+service/kubernetes-dashboard-auth              ClusterIP   <span class="token number">10.103</span>.11.172    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP   2m21s
+service/kubernetes-dashboard-kong-proxy        ClusterIP   <span class="token number">10.101</span>.12.174    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">443</span>/TCP    2m21s
+service/kubernetes-dashboard-metrics-scraper   ClusterIP   <span class="token number">10.102</span>.77.130    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP   2m21s
+service/kubernetes-dashboard-web               ClusterIP   <span class="token number">10.109</span>.209.151   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP   2m21s
+
+NAME                                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kubernetes-dashboard-api               <span class="token number">1</span>/1     <span class="token number">1</span>            <span class="token number">1</span>           2m21s
+deployment.apps/kubernetes-dashboard-auth              <span class="token number">1</span>/1     <span class="token number">1</span>            <span class="token number">1</span>           2m21s
+deployment.apps/kubernetes-dashboard-kong              <span class="token number">1</span>/1     <span class="token number">1</span>            <span class="token number">1</span>           2m21s
+deployment.apps/kubernetes-dashboard-metrics-scraper   <span class="token number">1</span>/1     <span class="token number">1</span>            <span class="token number">1</span>           2m21s
+deployment.apps/kubernetes-dashboard-web               <span class="token number">1</span>/1     <span class="token number">1</span>            <span class="token number">1</span>           2m21s
+
+NAME                                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/kubernetes-dashboard-api-6dc59d487d               <span class="token number">1</span>         <span class="token number">1</span>         <span class="token number">1</span>       2m21s
+replicaset.apps/kubernetes-dashboard-auth-85cdc4974f              <span class="token number">1</span>         <span class="token number">1</span>         <span class="token number">1</span>       2m21s
+replicaset.apps/kubernetes-dashboard-kong-79867c9c48              <span class="token number">1</span>         <span class="token number">1</span>         <span class="token number">1</span>       2m21s
+replicaset.apps/kubernetes-dashboard-metrics-scraper-76df4956c4   <span class="token number">1</span>         <span class="token number">1</span>         <span class="token number">1</span>       2m21s
+replicaset.apps/kubernetes-dashboard-web-56df7655d9               <span class="token number">1</span>         <span class="token number">1</span>         <span class="token number">1</span>       2m21s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>在中国会遇到了镜像无法下载的情况，看看都有哪些镜像？</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get deployments.apps -n kubernetes-dashboard -o yaml | grep image:</span>
+          image: docker.io/kubernetesui/dashboard-api:1.12.0
+          image: docker.io/kubernetesui/dashboard-auth:1.2.4
+          image: kong:3.8
+          image: kong:3.8
+          image: docker.io/kubernetesui/dashboard-metrics-scraper:1.2.2
+          image: docker.io/kubernetesui/dashboard-web:1.6.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>在所有的节点上都准备一下镜像:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull registry.myk8s.cn/kubernetesui/dashboard-api:1.12.0
+<span class="token function">docker</span> pull registry.myk8s.cn/kubernetesui/dashboard-auth:1.2.4
+<span class="token function">docker</span> pull registry.myk8s.cn/library/kong:3.8
+<span class="token function">docker</span> pull registry.myk8s.cn/kubernetesui/dashboard-metrics-scraper:1.2.2
+<span class="token function">docker</span> pull registry.myk8s.cn/kubernetesui/dashboard-web:1.6.2
+
+<span class="token function">docker</span> tag registry.myk8s.cn/kubernetesui/dashboard-api:1.12.0 docker.io/kubernetesui/dashboard-api:1.12.0
+<span class="token function">docker</span> tag registry.myk8s.cn/kubernetesui/dashboard-auth:1.2.4 docker.io/kubernetesui/dashboard-auth:1.2.4
+<span class="token function">docker</span> tag registry.myk8s.cn/library/kong:3.8 kong:3.8
+<span class="token function">docker</span> tag registry.myk8s.cn/kubernetesui/dashboard-metrics-scraper:1.2.2 docker.io/kubernetesui/dashboard-metrics-scraper:1.2.2
+<span class="token function">docker</span> tag registry.myk8s.cn/kubernetesui/dashboard-web:1.6.2 docker.io/kubernetesui/dashboard-web:1.6.2
+   
+   
+<span class="token function">docker</span> rmi registry.myk8s.cn/kubernetesui/dashboard-api:1.12.0
+<span class="token function">docker</span> rmi registry.myk8s.cn/kubernetesui/dashboard-auth:1.2.4
+<span class="token function">docker</span> rmi registry.myk8s.cn/library/kong:3.8
+<span class="token function">docker</span> rmi registry.myk8s.cn/kubernetesui/dashboard-metrics-scraper:1.2.2
+<span class="token function">docker</span> rmi registry.myk8s.cn/kubernetesui/dashboard-web:1.6.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>重启deployment:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get deployments.apps -n kubernetes-dashboard -o name | xargs kubectl rollout restart -n kubernetes-dashboard</span>
+deployment.apps/kubernetes-dashboard-api restarted
+deployment.apps/kubernetes-dashboard-auth restarted
+deployment.apps/kubernetes-dashboard-kong restarted
+deployment.apps/kubernetes-dashboard-metrics-scraper restarted
+deployment.apps/kubernetes-dashboard-web restarted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>看看pod状态:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get pod -n kubernetes-dashboard</span>
+NAME                                                    READY   STATUS    RESTARTS   AGE
+kubernetes-dashboard-api-6f4dbb77f7-2r6dq               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          113s
+kubernetes-dashboard-auth-86d5ff99c6-kk2xw              <span class="token number">1</span>/1     Running   <span class="token number">0</span>          113s
+kubernetes-dashboard-kong-85f48497cf-cgjxw              <span class="token number">1</span>/1     Running   <span class="token number">0</span>          113s
+kubernetes-dashboard-metrics-scraper-7f44579d58-s9ddn   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          113s
+kubernetes-dashboard-web-6849df5ccc-7vzvv               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          113s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>看到kong-proxy是ClusterIP，不方便查看，直接改为nodeport，就可以用任何节点的ip打开查看了</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl edit service -n kubernetes-dashboard kubernetes-dashboard-kong-proxy</span>
+<span class="token punctuation">..</span>.
+spec:
+  type: NodePort
+service/kubernetes-dashboard-kong-proxy edited<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>看看端口是多少：</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get service -n kubernetes-dashboard</span>
+NAME                                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>         AGE
+kubernetes-dashboard-api               ClusterIP   <span class="token number">10.102</span>.148.211   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP        12m
+kubernetes-dashboard-auth              ClusterIP   <span class="token number">10.103</span>.11.172    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP        12m
+kubernetes-dashboard-kong-proxy        NodePort    <span class="token number">10.101</span>.12.174    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">443</span>:30925/TCP   12m
+kubernetes-dashboard-metrics-scraper   ClusterIP   <span class="token number">10.102</span>.77.130    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP        12m
+kubernetes-dashboard-web               ClusterIP   <span class="token number">10.109</span>.209.151   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP        12m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>浏览器访问：<a target="_blank" rel="noopener" href="https://192.168.8.3:30925/#/login">https://192.168.8.3:30925/#/login</a></strong></p>
+<p><img src="/images/Dashboard%E7%99%BB%E5%BD%95.png"></p>
+<p><strong>创建一个用户登录的超级用户，并创建长期有效的token</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> create<span class="token punctuation">-</span>dash<span class="token punctuation">-</span>user.yml &lt;&lt;<span class="token punctuation">-</span><span class="token string">'EOF'</span>
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lxh<span class="token punctuation">-</span>dash
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRoleBinding
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lxh<span class="token punctuation">-</span>dash<span class="token punctuation">-</span>cluster<span class="token punctuation">-</span>admin
+<span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+  <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> cluster<span class="token punctuation">-</span>admin
+<span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lxh<span class="token punctuation">-</span>dash
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lxh<span class="token punctuation">-</span>dash<span class="token punctuation">-</span>secret
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">kubernetes.io/service-account.name</span><span class="token punctuation">:</span> <span class="token string">"lxh-dash"</span>
+<span class="token key atrule">type</span><span class="token punctuation">:</span> kubernetes.io/service<span class="token punctuation">-</span>account<span class="token punctuation">-</span>token
+
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f create-dash-user.yml</span>
+serviceaccount/lxh-dash created
+clusterrolebinding.rbac.authorization.k8s.io/lxh-dash-cluster-admin created
+secret/lxh-dash-secret created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>获取登录token:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get secret lxh-dash-secret -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d</span>
+eyJhbGciOiJSUzI1NiIsImtpZCI6IklwMGJUWHYwVXNSS1QyN3pCSFFCWDlYaWowOVlOcm9VakhNMV9IWXhQNGsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJseGgtZGFzaC1zZWNyZXQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoibHhoLWRhc2giLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJiMzZhZjM5MC1lNDQ3LTQ5ZWEtYTlkNS02NWQ1YTY1ZDhjYWIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZXJuZXRlcy1kYXNoYm9hcmQ6bHhoLWRhc2gifQ.HnWCUW2iRs29MLthTGeAGiZo_yDj9jJLKg0Jv3ymCUO3U-A377T47NhlH2Q2mqTnV11ssBpb3XKEoOdSUz1fpzNG1aWIYgmz_N2dzl9W4amZcDGsQvRIoMA-amUsPpSamTfD6isXWE-t86FzUlvht0JBZZCKd_X4AavJ__pETsZGqGUvry82dqo7abJaLniKa4iI6wCGsHTAf6qq_05448qCf-CBAF3WEYgMnIn6HcGvRJfJLYGC3LH07xMfIAv9AVg_jOo5gNiJIKpRjEhAmCrOUO7k6Q3duxjLRcUBbO5gXh_7v8ClspOpsBpP3Pr40zQUUVAisLWkwIYustMzPg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>除了bash的root@master:~#提示符之外，把所有的内容复制一下，然后粘贴到登录框里并点击登录</strong>:</p>
+<p><img src="/images/Dashboard%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81.png"></p>
+<h2 id="18-8-Helm常用命令"><a href="#18-8-Helm常用命令" class="headerlink" title="18.8 Helm常用命令"></a>18.8 Helm常用命令</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>helm create [chart-name]</td>
+<td>初始化一个新的Chart目录结构(含values.yaml、templates/ 等文件)</td>
+</tr>
+<tr>
+<td>helm install [release-name] [chart-path]</td>
+<td>安装Chart到Kubernetes集群，生成指定名称的Release</td>
+</tr>
+<tr>
+<td>helm list</td>
+<td>列出当前命名空间下所有已部署的Release</td>
+</tr>
+<tr>
+<td>helm uninstall [release-name]</td>
+<td>卸载指定Release及其关联的Kubernetes资源</td>
+</tr>
+<tr>
+<td>helm search repo [keyword]</td>
+<td>在已添加的仓库中搜索Chart(支持 –version 指定版本)</td>
+</tr>
+</tbody></table>
+<h1 id="19-监控与升级"><a href="#19-监控与升级" class="headerlink" title="19 监控与升级"></a>19 监控与升级</h1><p>  Kubernetes 在每个级别上提供有关应用程序资源使用情况的详细信息。 此信息使你可以评估应用程序的性能，以及在何处可以消除瓶颈以提高整体性能。</p>
+<p>  资源指标管道提供了一组与集群组件，例如 Horizontal Pod Autoscaler 控制器以及 kubectl top实用程序相关的有限度量。 这些指标是由轻量级的、短期、内存存储的 metrics-server 收集的，通过 metrics.k8s.io 公开。</p>
+<h2 id="19-1-部署Metrics"><a href="#19-1-部署Metrics" class="headerlink" title="19.1 部署Metrics"></a>19.1 部署Metrics</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span>  https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+将image换成metrics-server:v0.6.1
+在args中添加 - --kubelet-insecure-tls来解决自签名证书问题 
+kubectl create <span class="token parameter variable">-f</span> components.yaml
+
+root@k8s-master:~<span class="token comment"># kubectl apply -f https://www.linuxcenter.cn/files/cka/cka-yaml/metrics-components.yaml</span>
+serviceaccount/metrics-server created
+clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/system:metrics-server created
+rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader created
+clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator created
+clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created
+service/metrics-server created
+deployment.apps/metrics-server created
+apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  需要解决镜像的问题，在所有机器上都准备一下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get deployments.apps -n kube-system metrics-server -o yaml | grep image:</span>
+        image: registry.k8s.io/metrics-server/metrics-server:v0.7.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/metrics-server:v0.7.2</span>
+
+root@k8s-master:~<span class="token comment"># docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/metrics-server:v0.7.2 registry.k8s.io/metrics-server/metrics-server:v0.7.2</span>
+
+root@k8s-master:~<span class="token comment"># docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/metrics-server:v0.7.2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  重启deployment触发部署：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl rollout restart deployment -n kube-system metrics-server</span>
+deployment.apps/metrics-server restarted
+
+// 部署好后，执行相关命令会返回结果
+root@k8s-master:~<span class="token comment"># kubectl top nodes</span>
+NAME          CPU<span class="token punctuation">(</span>cores<span class="token punctuation">)</span>   CPU<span class="token punctuation">(</span>%<span class="token punctuation">)</span>   MEMORY<span class="token punctuation">(</span>bytes<span class="token punctuation">)</span>   MEMORY<span class="token punctuation">(</span>%<span class="token punctuation">)</span>
+k8s-master    109m         <span class="token number">5</span>%       2358Mi          <span class="token number">62</span>%
+k8s-worker1   45m          <span class="token number">2</span>%       775Mi           <span class="token number">42</span>%
+k8s-worker2   91m          <span class="token number">4</span>%       968Mi           <span class="token number">53</span>%
+
+root@k8s-master:~<span class="token comment"># kubectl top pod</span>
+NAME                                      CPU<span class="token punctuation">(</span>cores<span class="token punctuation">)</span>   MEMORY<span class="token punctuation">(</span>bytes<span class="token punctuation">)</span>
+cnlxhtest                                 0m           3Mi
+configmapvolume                           1m           6Mi
+emptydir                                  1m           10Mi
+frontend                                  0m           3Mi
+high-priority-test-7dc84c65ff-2wx7q       0m           3Mi
+high-priority-test-7dc84c65ff-cltdl       0m           11Mi
+high-priority-test-7dc84c65ff-hmplw       0m           3Mi
+lxhnodename                               0m           3Mi
+nfs-client-provisioner-5998cfc9bc-zh2fv   2m           25Mi
+nginx                                     0m           3Mi
+require                                   0m           3Mi
+tolerationsmust                           0m           15Mi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="19-2-常规维护操作"><a href="#19-2-常规维护操作" class="headerlink" title="19.2 常规维护操作"></a>19.2 常规维护操作</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.查看pod详情，可通过最下面的event查看事件
+root@k8s-master:~<span class="token comment"># kubectl describe pod frontend</span>
+
+<span class="token number">2</span>.查看pod日志
+root@k8s-master:~<span class="token comment"># kubectl logs frontend</span>
+
+<span class="token number">3</span>.查看pod资源用量
+root@k8s-master:~<span class="token comment"># kubectl top pod frontend</span>
+NAME       CPU<span class="token punctuation">(</span>cores<span class="token punctuation">)</span>   MEMORY<span class="token punctuation">(</span>bytes<span class="token punctuation">)</span>
+frontend   0m           3Mi
+
+<span class="token number">4</span>.查看节点资源用量
+root@k8s-master:~<span class="token comment"># kubectl top nodes</span>
+NAME          CPU<span class="token punctuation">(</span>cores<span class="token punctuation">)</span>   CPU<span class="token punctuation">(</span>%<span class="token punctuation">)</span>   MEMORY<span class="token punctuation">(</span>bytes<span class="token punctuation">)</span>   MEMORY<span class="token punctuation">(</span>%<span class="token punctuation">)</span>
+k8s-master    104m         <span class="token number">5</span>%       2349Mi          <span class="token number">62</span>%
+k8s-worker1   31m          <span class="token number">1</span>%       747Mi           <span class="token number">41</span>%
+k8s-worker2   39m          <span class="token number">1</span>%       1017Mi          <span class="token number">55</span>%<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/images/%E5%B8%B8%E8%A7%84%E7%BB%B4%E6%8A%A4%E6%93%8D%E4%BD%9C.png"></p>
+<h2 id="19-3-HPA-自动扩容"><a href="#19-3-HPA-自动扩容" class="headerlink" title="19.3 HPA 自动扩容"></a>19.3 HPA 自动扩容</h2><p><img src="/images/HPA%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6.png"></p>
+<p>  在部署了metrics server后，可以给HPA提供自动扩容的资源用量指标，帮助HPA快速识别用量，并完成自动扩容</p>
+<p>  先创建一个deployment以及上层的访问service</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> hpatest.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">run</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> mirrorgooglecontainers/hpa<span class="token punctuation">-</span>example
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+        <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+          <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 500m
+          <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+            <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 200m
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">run</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">run</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  根据以上代码，deployment创建了一个pod副本，service提供了一个名为php-apache的访问点</p>
+<p>  先在所有机器上下载一下镜像:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull mirrorgooglecontainers/hpa-example<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  创建后，测试一下pod和service本身是否可以访问</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl create -f hpatest.yml</span>
+deployment.apps/php-apache created
+service/php-apache created
+
+root@k8s-master:~<span class="token comment"># kubectl get deployments.apps</span>
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+high-priority-test       <span class="token number">3</span>/3     <span class="token number">3</span>            <span class="token number">3</span>           3d2h
+nfs-client-provisioner   <span class="token number">1</span>/1     <span class="token number">1</span>            <span class="token number">1</span>           4d22h
+php-apache               <span class="token number">1</span>/1     <span class="token number">1</span>            <span class="token number">1</span>           13s
+release-name-wordpress   <span class="token number">0</span>/1     <span class="token number">1</span>            <span class="token number">0</span>           3h34m
+wordpress                <span class="token number">0</span>/1     <span class="token number">1</span>            <span class="token number">0</span>           3h32m
+
+root@k8s-master:~<span class="token comment"># kubectl get service</span>
+NAME                     TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>                      AGE
+kubernetes               ClusterIP      <span class="token number">10.96</span>.0.1        <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">443</span>/TCP                      105d
+php-apache               ClusterIP      <span class="token number">10.97</span>.147.249    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">80</span>/TCP                       55s
+release-name-mariadb     ClusterIP      <span class="token number">10.102</span>.208.149   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">3306</span>/TCP                     3h35m
+release-name-wordpress   LoadBalancer   <span class="token number">10.97</span>.205.180    <span class="token operator">&lt;</span>pending<span class="token operator">&gt;</span>     <span class="token number">80</span>:32099/TCP,443:30311/TCP   3h35m
+wordpress                LoadBalancer   <span class="token number">10.96</span>.139.221    <span class="token operator">&lt;</span>pending<span class="token operator">&gt;</span>     <span class="token number">80</span>:32231/TCP,443:31808/TCP   3h33m
+wordpress-mariadb        ClusterIP      <span class="token number">10.100</span>.62.255    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">3306</span>/TCP                     3h33m
+
+root@k8s-master:~<span class="token comment"># kubectl get pod -o wide</span>
+NAME       READY   STATUS      RESTARTS        AGE     IP  NODE          NOMINATED NODE   READINESS GATES
+php-apache-869df9d947-n85hh <span class="token number">1</span>/1  Running   <span class="token number">0</span>  67s    <span class="token number">172.16</span>.194.104   k8s-worker1   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+root@k8s-master:~<span class="token comment"># curl 172.16.194.104</span>
+OK<span class="token operator">!</span>
+
+OK<span class="token operator">!</span>root@k8s-master:~<span class="token comment"># curl 10.97.147.249</span>
+OK<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>经过测试，pod和service都可以访问，现在来做一个CPU利用率大于50，就扩容的例子</p>
+<p>需要注意的是，这里为了规避瞬时高峰的波动，给扩容和缩容设置了稳定的时间窗口</p>
+<p>  1.扩容场景：</p>
+<p>   当 CPU 使用率超过目标值（50%）时，HPA 会检测到需要扩容。</p>
+<p>   但因为设置了 stabilizationWindowSeconds: 10，HPA 会等待 10 秒，观察这段时间内的 CPU 使用率是否持续高于目标值。</p>
+<p>   如果在这 10 秒内，CPU 使用率一直高于 50%，HPA 会执行扩容操作。</p>
+<p>   如果在这 10 秒内，CPU 使用率恢复正常（低于 50%），HPA 则不会执行扩容操作。</p>
+<p>  2.缩容场景：</p>
+<p>   当 CPU 使用率低于目标值（50%）时，HPA 会检测到需要缩容。</p>
+<p>   但因为设置了 stabilizationWindowSeconds: 30，HPA 会等待 30 秒，观察这段时间内的 CPU 使用率是否持续低于目标值。</p>
+<p>   如果在这 30 秒内，CPU 使用率一直低于 50%，HPA 会执行缩容操作。</p>
+<p>   如果在这 30 秒内，CPU 使用率恢复正常（高于 50%），HPA 则不会执行缩容操作。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> hpa.yml &lt;&lt;<span class="token punctuation">-</span><span class="token string">'EOF'</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> autoscaling/v2
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> HorizontalPodAutoscaler
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">maxReplicas</span><span class="token punctuation">:</span> <span class="token number">10</span>
+  <span class="token key atrule">metrics</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">resource</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> cpu
+      <span class="token key atrule">target</span><span class="token punctuation">:</span>
+        <span class="token key atrule">averageUtilization</span><span class="token punctuation">:</span> <span class="token number">50</span>
+        <span class="token key atrule">type</span><span class="token punctuation">:</span> Utilization
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> Resource
+  <span class="token key atrule">minReplicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">scaleTargetRef</span><span class="token punctuation">:</span>
+    <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+    <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>apache
+  <span class="token key atrule">behavior</span><span class="token punctuation">:</span>
+    <span class="token key atrule">scaleUp</span><span class="token punctuation">:</span>
+      <span class="token key atrule">stabilizationWindowSeconds</span><span class="token punctuation">:</span> <span class="token number">10</span>
+    <span class="token key atrule">scaleDown</span><span class="token punctuation">:</span>
+      <span class="token key atrule">stabilizationWindowSeconds</span><span class="token punctuation">:</span> <span class="token number">30</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl apply -f hpa.yml</span>
+horizontalpodautoscaler.autoscaling/php-apache created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  一分钟后，执行以下命令查看实时CPU利用率和目标的差距，并观察副本数</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get hpa</span>
+NAME         REFERENCE               TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   cpu: <span class="token number">0</span>%/50%   <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">1</span>          95s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  启动一个不同的 Pod 作为客户端。 客户端 Pod 中的容器在无限循环中运行，向 php-apache 服务发送查询。</p>
+<p>  不断的访问，将产生压力，压力大了，hpa就会扩容</p>
+<p>  需要注意的是，需要先在所有节点上下载busybox镜像</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl run -i --tty load-generator --rm --image=busybox:1.32.1 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  运行后会不断的输出ok，不要结束输出，开一个新的ssh会话，运行以下命令，观察hpa收集到的信息以及pod的扩容情况：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">// 按下CTRL C结束ok的输出，再次观察target的利用率下降
+root@k8s-master:~<span class="token comment"># kubectl get hpa php-apache --watch</span>
+NAME         REFERENCE               TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   cpu: <span class="token number">0</span>%/50%   <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">1</span>          5m49s
+php-apache   Deployment/php-apache   cpu: <span class="token number">43</span>%/50%   <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">1</span>          7m1s
+php-apache   Deployment/php-apache   cpu: <span class="token number">250</span>%/50%   <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">1</span>          7m16s
+php-apache   Deployment/php-apache   cpu: <span class="token number">102</span>%/50%   <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">5</span>          7m31s
+php-apache   Deployment/php-apache   cpu: <span class="token number">57</span>%/50%    <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">5</span>          7m46s
+php-apache   Deployment/php-apache   cpu: <span class="token number">49</span>%/50%    <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">6</span>          8m1s
+php-apache   Deployment/php-apache   cpu: <span class="token number">48</span>%/50%    <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">6</span>          8m16s
+php-apache   Deployment/php-apache   cpu: <span class="token number">15</span>%/50%    <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">6</span>          8m31s
+php-apache   Deployment/php-apache   cpu: <span class="token number">0</span>%/50%     <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">6</span>          8m46s
+php-apache   Deployment/php-apache   cpu: <span class="token number">0</span>%/50%     <span class="token number">1</span>         <span class="token number">10</span>        <span class="token number">2</span>          9m1s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="19-4-部署Prometheus"><a href="#19-4-部署Prometheus" class="headerlink" title="19.4 部署Prometheus"></a>19.4 部署Prometheus</h2><p>  手工部署较为复杂，采用operator进行部署，先克隆它的operator，本次采用的是0.14.0版本</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># wget https://www.linuxcenter.cn/files/cka/kube-prometheus-0.14.0.tar</span>
+--2025-07-22 <span class="token number">16</span>:35:40--  https://www.linuxcenter.cn/files/cka/kube-prometheus-0.14.0.tar
+Resolving www.linuxcenter.cn <span class="token punctuation">(</span>www.linuxcenter.cn<span class="token punctuation">)</span><span class="token punctuation">..</span>. <span class="token number">120.226</span>.91.62, <span class="token number">120.226</span>.91.100, <span class="token number">117.135</span>.206.157, <span class="token punctuation">..</span>.
+Connecting to www.linuxcenter.cn <span class="token punctuation">(</span>www.linuxcenter.cn<span class="token punctuation">)</span><span class="token operator">|</span><span class="token number">120.226</span>.91.62<span class="token operator">|</span>:443<span class="token punctuation">..</span>. connected.
+HTTP request sent, awaiting response<span class="token punctuation">..</span>. <span class="token number">200</span> OK
+Length: <span class="token number">648980</span> <span class="token punctuation">(</span>634K<span class="token punctuation">)</span> <span class="token punctuation">[</span>application/x-tar<span class="token punctuation">]</span>
+Saving to: ‘kube-prometheus-0.14.0.tar’
+
+kube-prometheus-0.14.0.tar             <span class="token number">100</span>%<span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span><span class="token operator">&gt;</span><span class="token punctuation">]</span> <span class="token number">633</span>.77K  <span class="token number">1</span>.83MB/s    <span class="token keyword">in</span> <span class="token number">0</span>.3s
+
+<span class="token number">2025</span>-07-22 <span class="token number">16</span>:35:45 <span class="token punctuation">(</span><span class="token number">1.83</span> MB/s<span class="token punctuation">)</span> - ‘kube-prometheus-0.14.0.tar’ saved <span class="token punctuation">[</span><span class="token number">648980</span>/648980<span class="token punctuation">]</span>
+
+root@k8s-master:~<span class="token comment"># tar xf kube-prometheus-0.14.0.tar</span>
+
+root@k8s-master:~<span class="token comment"># cd kube-prometheus-0.14.0</span>
+
+root@k8s-master:~/kube-prometheus-0.14.0<span class="token comment"># kubectl create -f manifests/setup/</span>
+customresourcedefinition.apiextensions.k8s.io/alertmanagerconfigs.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/alertmanagers.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/podmonitors.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/probes.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/prometheuses.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/prometheusagents.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/prometheusrules.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/scrapeconfigs.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/servicemonitors.monitoring.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/thanosrulers.monitoring.coreos.com created
+namespace/monitoring created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  测试是否符合条件，如果上一步全部成功，这里会显示全部符合</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/kube-prometheus-0.14.0<span class="token comment"># kubectl wait --for condition=Established --all CustomResourceDefinition --namespace=monitoring</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  在master上自动给所有节点准备容器镜像，此处会产生大量网络流量，需要较长时间，请耐心等待</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> dockerimage <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+#!/bin/bash
+
+function sshcmd {
+  sshpass -p vagrant ssh root@$1 $2
+}
+
+echo
+echo Pulling images on $(hostname)
+echo
+
+docker pull registry.myk8s.cn/prometheus/alertmanager:v0.27.0
+docker pull registry.myk8s.cn/prometheus/blackbox-exporter:v0.25.0
+docker pull registry.myk8s.cn/jimmidyson/configmap-reload:v0.13.1
+docker pull registry.myk8s.cn/brancz/kube-rbac-proxy:v0.18.1
+docker pull registry.myk8s.cn/grafana/grafana:11.2.0
+docker pull registry.myk8s.cn/kube-state-metrics/kube-state-metrics:v2.13.0
+docker pull registry.myk8s.cn/prometheus/node-exporter:v1.8.2
+docker pull registry.myk8s.cn/prometheus-adapter/prometheus-adapter:v0.12.0
+docker pull registry.myk8s.cn/prometheus-operator/prometheus-operator:v0.76.2
+docker pull registry.myk8s.cn/prometheus/prometheus:v2.54.1
+
+docker tag registry.myk8s.cn/prometheus/alertmanager:v0.27.0 quay.io/prometheus/alertmanager:v0.27.0
+docker tag registry.myk8s.cn/prometheus/blackbox-exporter:v0.25.0 quay.io/prometheus/blackbox-exporter:v0.25.0
+docker tag registry.myk8s.cn/jimmidyson/configmap-reload:v0.13.1 ghcr.io/jimmidyson/configmap-reload:v0.13.1
+docker tag registry.myk8s.cn/brancz/kube-rbac-proxy:v0.18.1 quay.io/brancz/kube-rbac-proxy:v0.18.1
+docker tag registry.myk8s.cn/grafana/grafana:11.2.0 grafana/grafana:11.2.0
+docker tag registry.myk8s.cn/kube-state-metrics/kube-state-metrics:v2.13.0 registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.13.0
+docker tag registry.myk8s.cn/prometheus/node-exporter:v1.8.2 quay.io/prometheus/node-exporter:v1.8.2
+docker tag registry.myk8s.cn/prometheus-adapter/prometheus-adapter:v0.12.0 registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0
+docker tag registry.myk8s.cn/prometheus-operator/prometheus-operator:v0.76.2 quay.io/prometheus-operator/prometheus-operator:v0.76.2
+docker tag registry.myk8s.cn/prometheus/prometheus:v2.54.1 quay.io/prometheus/prometheus:v2.54.1
+
+docker rmi registry.myk8s.cn/prometheus/alertmanager:v0.27.0
+docker rmi registry.myk8s.cn/prometheus/blackbox-exporter:v0.25.0
+docker rmi registry.myk8s.cn/jimmidyson/configmap-reload:v0.13.1
+docker rmi registry.myk8s.cn/brancz/kube-rbac-proxy:v0.18.1
+docker rmi registry.myk8s.cn/grafana/grafana:11.2.0
+docker rmi registry.myk8s.cn/kube-state-metrics/kube-state-metrics:v2.13.0
+docker rmi registry.myk8s.cn/prometheus/node-exporter:v1.8.2
+docker rmi registry.myk8s.cn/prometheus-adapter/prometheus-adapter:v0.12.0
+docker rmi registry.myk8s.cn/prometheus-operator/prometheus-operator:v0.76.2
+docker rmi registry.myk8s.cn/prometheus/prometheus:v2.54.1
+
+
+echo
+echo Saving images to file
+echo
+
+docker save -o alertmanager.tar quay.io/prometheus/alertmanager:v0.27.0
+docker save -o blackbox-exporter.tar quay.io/prometheus/blackbox-exporter:v0.25.0
+docker save -o configmap-reload.tar ghcr.io/jimmidyson/configmap-reload:v0.13.1
+docker save -o kube-rbac-proxy.tar quay.io/brancz/kube-rbac-proxy:v0.18.1
+docker save -o grafana.tar grafana/grafana:11.2.0
+docker save -o kube-state-metrics.tar registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.13.0
+docker save -o node-exporter.tar quay.io/prometheus/node-exporter:v1.8.2
+docker save -o prometheus-adapter.tar registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0
+docker save -o prometheus-operator.tar quay.io/prometheus-operator/prometheus-operator:v0.76.2
+docker save -o prometheus.tar quay.io/prometheus/prometheus:v2.54.1
+
+echo
+echo Copying images file to k8s-worker1 and import it
+echo
+
+scp alertmanager.tar root@k8s-worker1:/root
+scp blackbox-exporter.tar root@k8s-worker1:/root
+scp configmap-reload.tar root@k8s-worker1:/root
+scp kube-rbac-proxy.tar root@k8s-worker1:/root
+scp grafana.tar root@k8s-worker1:/root
+scp kube-state-metrics.tar root@k8s-worker1:/root
+scp node-exporter.tar root@k8s-worker1:/root
+scp prometheus-adapter.tar root@k8s-worker1:/root
+scp prometheus-operator.tar root@k8s-worker1:/root
+scp prometheus.tar root@k8s-worker1:/root
+
+sshcmd k8s-worker1 'docker load -i /root/alertmanager.tar'
+sshcmd k8s-worker1 'docker load -i /root/blackbox-exporter.tar'
+sshcmd k8s-worker1 'docker load -i /root/configmap-reload.tar'
+sshcmd k8s-worker1 'docker load -i /root/kube-rbac-proxy.tar'
+sshcmd k8s-worker1 'docker load -i /root/grafana.tar'
+sshcmd k8s-worker1 'docker load -i /root/kube-state-metrics.tar'
+sshcmd k8s-worker1 'docker load -i /root/node-exporter.tar'
+sshcmd k8s-worker1 'docker load -i /root/prometheus-adapter.tar'
+sshcmd k8s-worker1 'docker load -i /root/prometheus-operator.tar'
+sshcmd k8s-worker1 'docker load -i /root/prometheus.tar'
+
+echo
+echo Copying images file to k8s-worker2 and import it
+echo
+
+scp alertmanager.tar root@k8s-worker2:/root
+scp blackbox-exporter.tar root@k8s-worker2:/root
+scp configmap-reload.tar root@k8s-worker2:/root
+scp kube-rbac-proxy.tar root@k8s-worker2:/root
+scp grafana.tar root@k8s-worker2:/root
+scp kube-state-metrics.tar root@k8s-worker2:/root
+scp node-exporter.tar root@k8s-worker2:/root
+scp prometheus-adapter.tar root@k8s-worker2:/root
+scp prometheus-operator.tar root@k8s-worker2:/root
+scp prometheus.tar root@k8s-worker2:/root
+
+sshcmd k8s-worker2 'docker load -i /root/alertmanager.tar'
+sshcmd k8s-worker2 'docker load -i /root/blackbox-exporter.tar'
+sshcmd k8s-worker2 'docker load -i /root/configmap-reload.tar'
+sshcmd k8s-worker2 'docker load -i /root/kube-rbac-proxy.tar'
+sshcmd k8s-worker2 'docker load -i /root/grafana.tar'
+sshcmd k8s-worker2 'docker load -i /root/kube-state-metrics.tar'
+sshcmd k8s-worker2 'docker load -i /root/node-exporter.tar'
+sshcmd k8s-worker2 'docker load -i /root/prometheus-adapter.tar'
+sshcmd k8s-worker2 'docker load -i /root/prometheus-operator.tar'
+sshcmd k8s-worker2 'docker load -i /root/prometheus.tar'
+
+EOF</span>
+
+<span class="token function">bash</span> dockerimage<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  默认情况下，grafana等各个组件都提供了网络策略，无法被外部访问，我们先删除grafana的策略，并修改它的服务暴露方式为NodePort，因为要从外部访问它的图表面板</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rm</span> <span class="token parameter variable">-rf</span> manifests/grafana-networkPolicy.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/spec:/a\  type: NodePort'</span> manifests/grafana-service.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/targetPort/a\    nodePort: 32000'</span> manifests/grafana-service.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/        image: /a\        imagePullPolicy: IfNotPresent'</span> manifests/nodeExporter-daemonset.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/        image: /a\        imagePullPolicy: IfNotPresent'</span> manifests/blackboxExporter-deployment.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/        image: /a\        imagePullPolicy: IfNotPresent'</span> manifests/grafana-deployment.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/        image: /a\        imagePullPolicy: IfNotPresent'</span> manifests/kubeStateMetrics-deployment.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/        image: /a\        imagePullPolicy: IfNotPresent'</span> manifests/prometheusAdapter-deployment.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/        image: /a\        imagePullPolicy: IfNotPresent'</span> manifests/prometheusOperator-deployment.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/        image: /a\        imagePullPolicy: IfNotPresent'</span> manifests/alertmanager-alertmanager.yaml
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'/        image: /a\        imagePullPolicy: IfNotPresent'</span> manifests/prometheus-prometheus.yaml
+
+kubectl apply <span class="token parameter variable">-f</span> manifests/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  确定grafana已经定义了32000端口，直接在浏览器打开任意节点的IP地址访问</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get service -n monitoring grafana</span>
+NAME      TYPE       CLUSTER-IP     EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>          AGE
+grafana   NodePort   <span class="token number">10.99</span>.168.64   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">3000</span>:32000/TCP   30m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  配置好解析后，在浏览器中打开 <a target="_blank" rel="noopener" href="http://k8s-worker1:32000/">http://k8s-worker1:32000</a> ，或者不配置解析用IP也可以</p>
+<p>  用户名和密码都是admin，点击login之后会让你修改新密码，进行修改后点击submit或直接点击skip不修改</p>
+<p><img src="/images/grafana-login.png"></p>
+<p>  点击左侧或右上角的+号，选择import导入k8s模板</p>
+<p><img src="/images/grafana-index.png"></p>
+<p>  点击 [模板链接](Dashboards | Grafana Labs) 选一个模板，把ID填进来，点击load即可</p>
+<p>  category选择Docker，Data Source选择Prometheus可以更好的筛选</p>
+<p><img src="/images/grafana-template.png"></p>
+<p>  自己可以挑选喜欢的模板，点击进去可以看到图示，选好之后点击Copy ID，填到我们的系统中即可</p>
+<p><img src="/images/grafana-template-id.png"></p>
+<p>  填好ID之后，点击ID后侧的load按钮进行加载，在最下侧的Prometheus处，选择Prometheus，然后点击import</p>
+<p><img src="/images/grafana-template-import.png"></p>
+<p><img src="/images/grafana-monitor.png"></p>
+<h2 id="19-5-升级控制平面"><a href="#19-5-升级控制平面" class="headerlink" title="19.5 升级控制平面"></a>19.5 升级控制平面</h2><p>  先确定要升级的版本</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># apt update</span>
+root@k8s-master:~<span class="token comment"># apt list kubeadm -a</span>
+Listing<span class="token punctuation">..</span>. Done
+kubeadm/unknown <span class="token number">1.32</span>.7-1.1 amd64 <span class="token punctuation">[</span>upgradable from: <span class="token number">1.32</span>.0-1.1<span class="token punctuation">]</span>
+kubeadm/unknown <span class="token number">1.32</span>.6-1.1 amd64
+kubeadm/unknown <span class="token number">1.32</span>.5-1.1 amd64
+kubeadm/unknown <span class="token number">1.32</span>.4-1.1 amd64
+kubeadm/unknown <span class="token number">1.32</span>.3-1.1 amd64
+kubeadm/unknown <span class="token number">1.32</span>.2-1.1 amd64
+kubeadm/unknown <span class="token number">1.32</span>.1-1.1 amd64
+kubeadm/unknown,now <span class="token number">1.32</span>.0-1.1 amd64 <span class="token punctuation">[</span>installed,upgradable to: <span class="token number">1.32</span>.7-1.1<span class="token punctuation">]</span>
+
+kubeadm/unknown <span class="token number">1.32</span>.7-1.1 arm64
+kubeadm/unknown <span class="token number">1.32</span>.6-1.1 arm64
+kubeadm/unknown <span class="token number">1.32</span>.5-1.1 arm64
+kubeadm/unknown <span class="token number">1.32</span>.4-1.1 arm64
+kubeadm/unknown <span class="token number">1.32</span>.3-1.1 arm64
+kubeadm/unknown <span class="token number">1.32</span>.2-1.1 arm64
+kubeadm/unknown <span class="token number">1.32</span>.1-1.1 arm64
+kubeadm/unknown <span class="token number">1.32</span>.0-1.1 arm64
+
+kubeadm/unknown <span class="token number">1.32</span>.7-1.1 ppc64el
+kubeadm/unknown <span class="token number">1.32</span>.6-1.1 ppc64el
+kubeadm/unknown <span class="token number">1.32</span>.5-1.1 ppc64el
+kubeadm/unknown <span class="token number">1.32</span>.4-1.1 ppc64el
+kubeadm/unknown <span class="token number">1.32</span>.3-1.1 ppc64el
+kubeadm/unknown <span class="token number">1.32</span>.2-1.1 ppc64el
+kubeadm/unknown <span class="token number">1.32</span>.1-1.1 ppc64el
+kubeadm/unknown <span class="token number">1.32</span>.0-1.1 ppc64el
+
+kubeadm/unknown <span class="token number">1.32</span>.7-1.1 s390x
+kubeadm/unknown <span class="token number">1.32</span>.6-1.1 s390x
+kubeadm/unknown <span class="token number">1.32</span>.5-1.1 s390x
+kubeadm/unknown <span class="token number">1.32</span>.4-1.1 s390x
+kubeadm/unknown <span class="token number">1.32</span>.3-1.1 s390x
+kubeadm/unknown <span class="token number">1.32</span>.2-1.1 s390x
+kubeadm/unknown <span class="token number">1.32</span>.1-1.1 s390x
+kubeadm/unknown <span class="token number">1.32</span>.0-1.1 s390x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  在上一步可以看到一个可用的列表，假设要升级的目标为1.32.7-1.1的版本</p>
+<p>  禁止Master节点接收新调度</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl cordon k8s-master</span>
+node/k8s-master cordoned
+
+root@k8s-master:~<span class="token comment"># kubectl get nodes</span>
+NAME          STATUS                     ROLES           AGE    VERSION
+k8s-master    Ready,SchedulingDisabled   control-plane   105d   v1.32.0
+k8s-worker1   Ready                      worker          105d   v1.32.0
+k8s-worker2   Ready                      worker          105d   v1.32.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  驱逐Master节点上的现有任务</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl drain k8s-master --ignore-daemonsets --delete-emptydir-data</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  安装目标的kubeadm、kubelet、kubectl</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># apt-get update</span>
+root@k8s-master:~<span class="token comment"># apt-get install -y kubelet=1.32.7-1.1 kubeadm=1.32.7-1.1 kubectl=1.32.7-1.1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  查看可升级的列表并升级</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubeadm upgrade plan</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  看完之后来升级，一般数据库不升级，或者先备份好再升级</p>
+<pre class="line-numbers language-none"><code class="language-none">root@k8s-master:~# kubeadm upgrade apply v1.32.7 --etcd-upgrade=false<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  恢复Master节点的调度能力</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># systemctl restart kubelet</span>
+root@k8s-master:~<span class="token comment"># kubectl uncordon k8s-master</span>
+node/k8s-master uncordoned
+root@k8s-master:~<span class="token comment"># kubectl get nodes</span>
+NAME          STATUS   ROLES           AGE    VERSION
+k8s-master    Ready    control-plane   105d   v1.32.7
+k8s-worker1   Ready    worker          105d   v1.32.0
+k8s-worker2   Ready    worker          105d   v1.32.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="20-ETCD-备份与恢复"><a href="#20-ETCD-备份与恢复" class="headerlink" title="20 ETCD 备份与恢复"></a>20 ETCD 备份与恢复</h1><h2 id="20-1-备份"><a href="#20-1-备份" class="headerlink" title="20.1 备份"></a>20.1 备份</h2><p>  先安装etcd客户端</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># apt install etcd-client -y</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  备份成文件并查看</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">ETCDCTL_API</span><span class="token operator">=</span><span class="token number">3</span> etcdctl <span class="token punctuation">\</span>
+<span class="token parameter variable">--endpoints</span><span class="token operator">=</span>https://127.0.0.1:2379 <span class="token punctuation">\</span>
+<span class="token parameter variable">--cacert</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/ca.crt <span class="token punctuation">\</span>
+<span class="token parameter variable">--cert</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/server.crt <span class="token punctuation">\</span>
+<span class="token parameter variable">--key</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/server.key <span class="token punctuation">\</span>
+snapshot save etcdbackupfile.db<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="20-2-恢复"><a href="#20-2-恢复" class="headerlink" title="20.2 恢复"></a>20.2 恢复</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.停止服务
+root@k8s-master:~<span class="token comment"># mv /etc/kubernetes/manifests /etc/kubernetes/manifests.bak</span>
+root@k8s-master:~<span class="token comment"># sleep 1m</span>
+
+<span class="token number">2</span>.删除现有ETCD，并恢复数据
+root@k8s-master:~<span class="token comment"># mv /var/lib/etcd /var/lib/etcd.bak</span>
+root@k8s-master:~<span class="token comment"># ETCDCTL_API=3 etcdctl \</span>
+<span class="token parameter variable">--endpoints</span><span class="token operator">=</span>https://127.0.0.1:2379 <span class="token punctuation">\</span>
+<span class="token parameter variable">--cacert</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/ca.crt <span class="token punctuation">\</span>
+<span class="token parameter variable">--cert</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/server.crt <span class="token punctuation">\</span>
+<span class="token parameter variable">--key</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/server.key <span class="token punctuation">\</span>
+--data-dir /var/lib/etcd <span class="token punctuation">\</span>
+snapshot restore etcdbackupfile.db
+
+<span class="token number">3</span>.恢复服务
+root@k8s-master:~<span class="token comment"># mv /etc/kubernetes/manifests.bak /etc/kubernetes/manifests</span>
+root@k8s-master:~<span class="token comment"># systemctl restart kubelet.service</span>
+
+<span class="token number">4</span>.验证数据已经恢复
+root@k8s-master:~<span class="token comment"># kubectl get pod</span>
+
+<span class="token number">5</span>.检查etcd是否健康
+root@k8s-master:~<span class="token comment"># ETCDCTL_API=3 etcdctl --endpoints=https://192.168.8.3:2379 \</span>
+<span class="token parameter variable">--cacert</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/ca.crt <span class="token punctuation">\</span>
+<span class="token parameter variable">--cert</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/server.crt <span class="token punctuation">\</span>
+<span class="token parameter variable">--key</span><span class="token operator">=</span>/etc/kubernetes/pki/etcd/server.key endpoint health
+https://192.168.8.3:2379 is healthy: successfully committed proposal: took <span class="token operator">=</span> <span class="token number">6</span>.794497ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="21-Kustomize管理"><a href="#21-Kustomize管理" class="headerlink" title="21 Kustomize管理"></a>21 Kustomize管理</h1><h2 id="21-1-Kustomize-概念"><a href="#21-1-Kustomize-概念" class="headerlink" title="21.1 Kustomize 概念"></a>21.1 Kustomize 概念</h2><p>  Kustomize 是 Kubernetes 的原生配置管理工具，它允许用户通过定义资源和它们之间的依赖关系来描述 Kubernetes 应用程序的配置。</p>
+<p>  Kustomize 的核心概念大概包括：</p>
+<p><strong>Kustomization 文件：</strong></p>
+<p>  这是 Kustomize 配置的核心，它是一个 YAML 文件，定义了 Kubernetes 资源和如何定制它们。它可以用来指定要包含的资源、应用补丁、设置标签和注解、生成configmap和secret等</p>
+<p><strong>资源（Resources）：</strong></p>
+<p>  在 kustomization.yaml 文件中定义的 Kubernetes 资源列表，可以是文件、目录或者远程仓库中的资源。</p>
+<p><strong>生成器（Generators）：</strong></p>
+<p>  如 configMapGenerator 和 secretGenerator，它们可以根据文件或字面值生成 ConfigMap 或 Secret。</p>
+<p><strong>补丁（Patches）：</strong></p>
+<p>  用于修改现有资源的字段。Kustomize 支持策略性合并补丁（patchesStrategicMerge）和 JSON 补丁（patchesJson6902）。</p>
+<p><strong>基准（Bases）：</strong></p>
+<p>  包含 kustomization.yaml 文件的目录，定义了一组资源及其定制。</p>
+<p><strong>覆盖（Overlays）：</strong></p>
+<p>  也是一个目录，它引用基准目录作为基础，并且可以包含额外的定制。覆盖可以用来创建特定环境的配置，如开发、测试和生产环境。</p>
+<p>  Kustomize 的工作流程通常包括定义基准和覆盖，然后在覆盖中应用补丁和生成器来定制基准资源。这种方式使得用户可以轻松地为不同环境创建和管理 Kubernetes 资源配置。</p>
+<h2 id="21-2-Kustomize-实验概述"><a href="#21-2-Kustomize-实验概述" class="headerlink" title="21.2 Kustomize 实验概述"></a>21.2 Kustomize 实验概述</h2><p>  本实验旨在通过实际操作，让大家掌握 Kustomize 的使用，以便能够根据不同的环境需求（如开发、测试和生产环境）定制和管理 Kubernetes 应用的配置。</p>
+<h2 id="21-3-Kustomize-实验目标"><a href="#21-3-Kustomize-实验目标" class="headerlink" title="21.3 Kustomize 实验目标"></a>21.3 Kustomize 实验目标</h2><p><strong>理解 Kustomize 的作用和优势:</strong></p>
+<p>  理解 Kustomize 如何简化 Kubernetes 应用的配置管理。</p>
+<p><strong>创建和管理 Base 目录:</strong></p>
+<p>  学会创建包含通用资源定义的 Base 目录。</p>
+<p>  编写 kustomization.yaml 文件来声明资源、生成器和补丁。</p>
+<p><strong>定制 Overlay 配置:</strong></p>
+<p>  学会创建 Overlay 目录以适应特定环境的配置需求。</p>
+<p>  应用 patchesStrategicMerge 和 patchesJson6902 来定制 Deployment 资源。</p>
+<p><strong>生成 ConfigMap 和 Secret:</strong></p>
+<p>  使用 configMapGenerator 和 secretGenerator 来生成环境特定的配置和敏感信息。</p>
+<p><strong>应用环境标签和注解:</strong></p>
+<p>  在资源上添加环境特定的标签（如 env: dev）和注解。</p>
+<p><strong>禁用名称后缀哈希:</strong></p>
+<p>  配置 generatorOptions 以禁用资源名称的哈希后缀，以保持资源名称的一致性。</p>
+<p><strong>验证 Overlay 配置:</strong></p>
+<p>  使用 kubectl kustomize 命令来验证 Overlay 目录的最终 Kubernetes 资源配置。</p>
+<p><strong>部署到 Kubernetes 集群:</strong></p>
+<p>  使用 kubectl apply -k 命令将定制的 Overlay 配置应用到 Kubernetes 集群。</p>
+<p><strong>清理和维护:</strong></p>
+<p>  学会如何清理实验中创建的资源，包括 Namespace 和各种 Kubernetes 资源。</p>
+<h2 id="21-4-Kustomize-实验步骤"><a href="#21-4-Kustomize-实验步骤" class="headerlink" title="21.4 Kustomize 实验步骤"></a>21.4 Kustomize 实验步骤</h2><h3 id="21-4-1-准备Base目录"><a href="#21-4-1-准备Base目录" class="headerlink" title="21.4.1 准备Base目录"></a>21.4.1 准备Base目录</h3><p>  先在base目录中创建一些通用的yaml文件</p>
+<pre class="line-numbers language-base" data-language="base"><code class="language-base">root@k8s-master:~# mkdir base
+root@k8s-master:~# cd base
+root@k8s-master:~/base#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  在base目录中，创建一个secret，稍后可以在overlay目录中打补丁或者不打，secret文件如下：</p>
+<p>  这个密码是ABCabc123</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> Secret.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">password</span><span class="token punctuation">:</span> QUJDYWJjMTIz
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlpass
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  在base目录中，创建一个Deployment，replicas是3，标签为app: nginx, Deployment文件如下：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> Deployment.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlname
+          <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">5.7</span>
+          <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+          <span class="token key atrule">env</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_ROOT_PASSWORD
+              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+                <span class="token key atrule">secretKeyRef</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlpass
+                  <span class="token key atrule">key</span><span class="token punctuation">:</span> password
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  在base目录中，创建一个Service，Service文件如下：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> Service.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nodeservice
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8000</span>
+      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">31788</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  最后生成kustomization.yaml，在这个文件中包含刚创建的3个资源：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> kustomization.yaml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kustomize.config.k8s.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Kustomization
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lxh<span class="token punctuation">-</span>base<span class="token punctuation">-</span>kustomization
+<span class="token key atrule">resources</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> Secret.yml
+<span class="token punctuation">-</span> Deployment.yml
+<span class="token punctuation">-</span> Service.yml
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  查看现在文件列表：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/base<span class="token comment"># apt install tree -y</span>
+root@k8s-master:~/base<span class="token comment"># tree .</span>
+<span class="token builtin class-name">.</span>
+├── Deployment.yml
+├── kustomization.yaml
+├── Secret.yml
+└── Service.yml
+
+<span class="token number">1</span> directory, <span class="token number">4</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>以上在base目录中的文件将用于生成：</strong></p>
+<p>  一个名为mysqlpass的机密</p>
+<p>  一个名为nginx-deployment的部署，此部署的pod将具有app: nginx标签，并引用mysqlpass机密作为密码，密码值为ABCabc123</p>
+<p>  一个名为nodeservice的服务，监听在8000端口，收到请求后，转发给具有app: nginx标签的pod，并启用了31788的nodePort</p>
+<h3 id="21-4-2-准备Overlay目录"><a href="#21-4-2-准备Overlay目录" class="headerlink" title="21.4.2 准备Overlay目录"></a>21.4.2 准备Overlay目录</h3><p>  创建开发环境</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/base<span class="token comment"># cd</span>
+root@k8s-master:~<span class="token comment"># mkdir -p overlays/development</span>
+root@k8s-master:~<span class="token comment"># cd overlays/development</span>
+root@k8s-master:~/overlays/development<span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  创建开发环境的kustomization.yaml 文件：</p>
+<p>  Kustomize 功能特性列表参阅：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex">https://kubernetes.io/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/#kustomize-feature-list
+1. patchesStrategicMerge补丁将会更新nginx-deployment这个Deployment
+2. patchesJson6902补丁也会更新nginx-deployment这个Deployment
+3. overlay的对象是刚创建的base目录下的内容
+4. 全体对象添加env: dev
+5. 禁止添加hash后缀
+6. 产生两个新的configmap和secret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> kustomization.yaml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kustomize.config.k8s.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Kustomization
+<span class="token key atrule">namespace</span><span class="token punctuation">:</span> lxh<span class="token punctuation">-</span>dev
+<span class="token key atrule">patches</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">path</span><span class="token punctuation">:</span> patchesStrategicMerge<span class="token punctuation">-</span>demo.yaml
+    <span class="token key atrule">target</span><span class="token punctuation">:</span>
+      <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+    <span class="token key atrule">options</span><span class="token punctuation">:</span>
+      <span class="token key atrule">allowNameChange</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">path</span><span class="token punctuation">:</span> patchesJson6902<span class="token punctuation">-</span>demo.yaml
+    <span class="token key atrule">target</span><span class="token punctuation">:</span>
+      <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+    <span class="token key atrule">options</span><span class="token punctuation">:</span>
+      <span class="token key atrule">allowNameChange</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ../../base
+<span class="token key atrule">commonLabels</span><span class="token punctuation">:</span>
+  <span class="token key atrule">env</span><span class="token punctuation">:</span> dev
+<span class="token key atrule">generatorOptions</span><span class="token punctuation">:</span>
+  <span class="token key atrule">disableNameSuffixHash</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">configMapGenerator</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cmusername
+  <span class="token key atrule">files</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> configmap<span class="token punctuation">-</span>1.yml
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cmage
+  <span class="token key atrule">literals</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> cmage=18
+<span class="token key atrule">secretGenerator</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> username
+  <span class="token key atrule">files</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> secret<span class="token punctuation">-</span>1.yml
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> secrettest
+  <span class="token key atrule">literals</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> password=LiXiaoHui
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="21-4-3-生成器Generator"><a href="#21-4-3-生成器Generator" class="headerlink" title="21.4.3 生成器Generator"></a>21.4.3 生成器Generator</h3><p>  在kustomization.yaml，如果用文件来生成configmap和secret，会将文件名也作为数据的一部分，建议用literals</p>
+<p>  生成configmap和secret的文件</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> configmap<span class="token punctuation">-</span>1.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+username=lixiaohui
+EOF
+
+cat <span class="token punctuation">&gt;</span> secret<span class="token punctuation">-</span>1.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+username=admin
+password=secret
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="21-4-4-策略性合并与JSON补丁"><a href="#21-4-4-策略性合并与JSON补丁" class="headerlink" title="21.4.4 策略性合并与JSON补丁"></a>21.4.4 策略性合并与JSON补丁</h3><p><strong>在 Kustomize 中，patchesStrategicMerge 和 patchesJson6902 都用于修改现有的 Kubernetes 资源。</strong></p>
+<p>  1.patchesStrategicMerge补丁方式使用 YAML 文件来定义，它允许直接编辑资源的 YAML 结构，就像编辑原始资源文件一样。这种方式直观且易于理解，特别是对于那些熟悉 Kubernetes 资源配置的人来说</p>
+<p>  2.patchesJson6902 使用的是 JSON 补丁（JSON Patch）的方式，这是一种更为灵活和强大的补丁应用方式。JSON 补丁遵循 JSON Patch 规范（RFC 6902），允许执行更复杂的操作，如添加、删除、替换、测试等。这种方式使用 JSON 格式定义，可能在处理复杂的修改时更加强大。</p>
+<p><strong>生成策略性合并补丁</strong></p>
+<p>  这里的名字一定要和已有的资源的名称一致</p>
+<p>  更新deployment的replicas为4</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> patchesStrategicMerge<span class="token punctuation">-</span>demo.yaml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">4</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>生成JSON补丁</strong></p>
+<p>  新增deployment下的pod标签为dev: release1</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">cat <span class="token punctuation">&gt;</span> patchesJson6902<span class="token punctuation">-</span>demo.yaml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    <span class="token key atrule">"op"</span><span class="token punctuation">:</span> <span class="token string">"add"</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"path"</span><span class="token punctuation">:</span> <span class="token string">"/spec/template/metadata/labels/dev"</span><span class="token punctuation">,</span>
+    <span class="token key atrule">"value"</span><span class="token punctuation">:</span> <span class="token string">"release1"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+EOF<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>目前的文件列表：</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/overlays/development<span class="token comment"># tree .</span>
+<span class="token builtin class-name">.</span>
+├── configmap-1.yml
+├── kustomization.yaml
+├── patchesJson6902-demo.yaml
+├── patchesStrategicMerge-demo.yaml
+└── secret-1.yml
+
+<span class="token number">1</span> directory, <span class="token number">5</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="21-4-5-验证overlay最终成果"><a href="#21-4-5-验证overlay最终成果" class="headerlink" title="21.4.5 验证overlay最终成果"></a>21.4.5 验证overlay最终成果</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/overlays/development<span class="token comment"># kubectl kustomize ./</span>
+<span class="token comment"># Warning: 'commonLabels' is deprecated. Please use 'labels' instead. Run 'kustomize edit fix' to update your Kustomization automatically.</span>
+apiVersion: v1
+data:
+  cmage: <span class="token string">"18"</span>
+kind: ConfigMap
+metadata:
+  labels:
+    env: dev
+  name: cmage
+  namespace: lxh-dev
+---
+apiVersion: v1
+data:
+  configmap-1.yml: <span class="token operator">|</span>
+    <span class="token assign-left variable">username</span><span class="token operator">=</span>lixiaohui
+kind: ConfigMap
+metadata:
+  labels:
+    env: dev
+  name: cmusername
+  namespace: lxh-dev
+---
+apiVersion: v1
+data:
+  password: QUJDYWJjMTIz
+kind: Secret
+metadata:
+  labels:
+    env: dev
+  name: mysqlpass
+  namespace: lxh-dev
+---
+apiVersion: v1
+data:
+  password: TGlYaWFvSHVp
+kind: Secret
+metadata:
+  labels:
+    env: dev
+  name: secrettest
+  namespace: lxh-dev
+type: Opaque
+---
+apiVersion: v1
+data:
+  secret-1.yml: <span class="token assign-left variable">dXNlcm5hbWU9YWRtaW4KcGFzc3dvcmQ9c2VjcmV0Cg</span><span class="token operator">==</span>
+kind: Secret
+metadata:
+  labels:
+    env: dev
+  name: username
+  namespace: lxh-dev
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    env: dev
+  name: nodeservice
+  namespace: lxh-dev
+spec:
+  ports:
+  - nodePort: <span class="token number">31788</span>
+    port: <span class="token number">8000</span>
+    protocol: TCP
+    targetPort: <span class="token number">80</span>
+  selector:
+    app: nginx
+    env: dev
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+    env: dev
+  name: nginx-deployment
+  namespace: lxh-dev
+spec:
+  replicas: <span class="token number">4</span>
+  selector:
+    matchLabels:
+      app: nginx
+      env: dev
+  template:
+    metadata:
+      labels:
+        app: nginx
+        dev: release1
+        env: dev
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: mysqlpass
+        image: mysql:5.7
+        imagePullPolicy: IfNotPresent
+        name: mysqlname<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="21-4-6-发布开发环境"><a href="#21-4-6-发布开发环境" class="headerlink" title="21.4.6 发布开发环境"></a>21.4.6 发布开发环境</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/overlays/development<span class="token comment"># cd /root/overlays/development/</span>
+root@k8s-master:~/overlays/development<span class="token comment"># kubectl create namespace lxh-dev</span>
+namespace/lxh-dev created
+root@k8s-master:~/overlays/development<span class="token comment"># kubectl apply -k .</span>
+<span class="token comment"># Warning: 'commonLabels' is deprecated. Please use 'labels' instead. Run 'kustomize edit fix' to update your Kustomization automatically.</span>
+configmap/cmage created
+configmap/cmusername created
+secret/mysqlpass created
+secret/secrettest created
+secret/username created
+service/nodeservice created
+deployment.apps/nginx-deployment created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>查询创建的内容</strong></p>
+<p>  发现新configmap和secret已经生效，两个补丁也都生效了，一个补丁将deployment的pod数量该为4，一个补丁添加了dev=release1的标签</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~/overlays/development<span class="token comment"># kubectl get configmaps -n lxh-dev</span>
+NAME               DATA   AGE
+cmage              <span class="token number">1</span>      90s
+cmusername         <span class="token number">1</span>      90s
+kube-root-ca.crt   <span class="token number">1</span>      99s
+
+root@k8s-master:~/overlays/development<span class="token comment"># kubectl get secrets -n lxh-dev</span>
+NAME         TYPE     DATA   AGE
+mysqlpass    Opaque   <span class="token number">1</span>      100s
+secrettest   Opaque   <span class="token number">1</span>      100s
+username     Opaque   <span class="token number">1</span>      100s
+
+root@k8s-master:~/overlays/development<span class="token comment"># kubectl get service -n lxh-dev</span>
+NAME          TYPE       CLUSTER-IP      EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>          AGE
+nodeservice   NodePort   <span class="token number">10.108</span>.18.219   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>:31788/TCP   116s
+
+root@k8s-master:~/overlays/development<span class="token comment"># kubectl get deployments.apps -n lxh-dev</span>
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   <span class="token number">2</span>/4     <span class="token number">4</span>            <span class="token number">2</span>           2m4s
+
+root@k8s-master:~/overlays/development<span class="token comment"># kubectl get pod --show-labels  -n lxh-dev</span>
+NAME                                READY   STATUS              RESTARTS   AGE     LABELS
+nginx-deployment-7dc9f5ffbf-4pv2v  <span class="token number">1</span>/1     Running             <span class="token number">0</span>          4m13s   <span class="token assign-left variable">app</span><span class="token operator">=</span>nginx,dev<span class="token operator">=</span>release1,env<span class="token operator">=</span>dev,pod-template-hash<span class="token operator">=</span>7dc9f5ffbf
+nginx-deployment-7dc9f5ffbf-bskzl   <span class="token number">0</span>/1     ContainerCreating   <span class="token number">0</span>          4m13s   <span class="token assign-left variable">app</span><span class="token operator">=</span>nginx,dev<span class="token operator">=</span>release1,env<span class="token operator">=</span>dev,pod-template-hash<span class="token operator">=</span>7dc9f5ffbf
+nginx-deployment-7dc9f5ffbf-fx5v7   <span class="token number">0</span>/1     ContainerCreating   <span class="token number">0</span>          4m13s   <span class="token assign-left variable">app</span><span class="token operator">=</span>nginx,dev<span class="token operator">=</span>release1,env<span class="token operator">=</span>dev,pod-template-hash<span class="token operator">=</span>7dc9f5ffbf
+nginx-deployment-7dc9f5ffbf-nqwb8   <span class="token number">1</span>/1     Running             <span class="token number">0</span>          4m13s   <span class="token assign-left variable">app</span><span class="token operator">=</span>nginx,dev<span class="token operator">=</span>release1,env<span class="token operator">=</span>dev,pod-template-hash<span class="token operator">=</span>7dc9f5ffbf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
             </div>
             <hr/>
@@ -5495,7 +7392,7 @@ root@k8s-master:~<span class="token comment"># kubectl delete -f stenv.yml</span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">130k</span>&nbsp;字
+                class="white-color">144.5k</span>&nbsp;字
             
             
             
