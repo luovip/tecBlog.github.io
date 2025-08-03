@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-07-28T06:24:44.544Z</updated>
+  <updated>2025-07-28T06:25:12.745Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -15,23 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>HCIA-Datacom</title>
-    <link href="https://linuxcenter.icu/2025/07/28/wang-luo-gong-cheng-shi/hcia-datacom/"/>
-    <id>https://linuxcenter.icu/2025/07/28/wang-luo-gong-cheng-shi/hcia-datacom/</id>
-    <published>2025-07-28T11:30:00.000Z</published>
-    <updated>2025-07-28T06:24:44.544Z</updated>
-    
-    
-    
-    
-    <category term="网络工程师" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/"/>
-    
-    
-    <category term="HCIA-Datacom" scheme="https://linuxcenter.icu/tags/HCIA-Datacom/"/>
-    
-  </entry>
   
   <entry>
     <title>HCIP-Datacom</title>
@@ -47,6 +30,31 @@
     
     
     <category term="HCIP-Datacom" scheme="https://linuxcenter.icu/tags/HCIP-Datacom/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HCIA-Datacom</title>
+    <link href="https://linuxcenter.icu/2025/07/28/wang-luo-gong-cheng-shi/hcia-datacom/"/>
+    <id>https://linuxcenter.icu/2025/07/28/wang-luo-gong-cheng-shi/hcia-datacom/</id>
+    <published>2025-07-28T11:30:00.000Z</published>
+    <updated>2025-08-03T13:59:38.628Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-数据通信网络基础&quot;&gt;&lt;a href=&quot;#1-数据通信网络基础&quot; class=&quot;headerlink&quot; title=&quot;1 数据通信网络基础&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    <category term="网络工程师" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/"/>
+    
+    
+    <category term="HCIA-Datacom" scheme="https://linuxcenter.icu/tags/HCIA-Datacom/"/>
     
   </entry>
   
