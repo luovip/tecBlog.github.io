@@ -44,9 +44,9 @@
     <script
         src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-08-03
+                    2025-08-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    22.9k
+                    32.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    84 分
+                    118 分
                 </div>
                 
 
@@ -1587,7 +1587,361 @@ MainBoard:
 <p>   连续性：连续地址在层次结构网络中易于进行路由汇总，大大缩减路由表，提高路由计算的效率、加速路由收敛。</p>
 <p>   扩展性：地址分配在每一层次上都要有合理的预留，在网络规模扩展时能保证路由汇总所需的连续性。避免网络扩展造成的地址、路由重新规划。</p>
 <p>   结构化、业务相关性：地址规划与网络拓扑结构和网络承载业务结合起来，便于路由规划和QoS部署。好的IP地址规划使得每个地址都具有实际含义，看到一个地址就可以大致判断出该地址所属的设备和对应的业务。</p>
-<h1 id="5-以太网交换基础"><a href="#5-以太网交换基础" class="headerlink" title="5 以太网交换基础"></a>5 以太网交换基础</h1>
+<h1 id="5-以太网交换基础"><a href="#5-以太网交换基础" class="headerlink" title="5 以太网交换基础"></a>5 以太网交换基础</h1><h2 id="5-1-以太网协议"><a href="#5-1-以太网协议" class="headerlink" title="5.1 以太网协议"></a>5.1 以太网协议</h2><h3 id="5-1-1-以太网协议的概念"><a href="#5-1-1-以太网协议的概念" class="headerlink" title="5.1.1 以太网协议的概念"></a>5.1.1 以太网协议的概念</h3><p>  以太网是当今现有局域网（Local Area Network, LAN）采用的最通用的通信协议标准，该标准定义了在局域网中采用的电缆类型和信号处理方法。</p>
+<p>  以太网是建立在CSMA/CD (Carrier Sense Multiple Access/Collision Detection，载波监听多路访问/冲突检测)机制上的广播型网络。</p>
+<p><img src="/images/%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%8D%8F%E8%AE%AE.png"></p>
+<p><strong>早期的以太网</strong>：</p>
+<p>  以太网是建立在CSMA/CD机制上的广播型网络。冲突的产生是限制以太网性能的重要因素，早期的以太网设备如集线器HUB是物理层设备，不能隔绝冲突扩散，限制了网络性能的提高。</p>
+<p><strong>交换机组网</strong>：</p>
+<p>  交换机做为一种能隔绝冲突的二层网络设备，极大的提高了以太网的性能，并替代HUB成为主流的以太网设备。但是交换机对网络中的广播数据流量不做任何限制，这也影响了网络的性能。</p>
+<h3 id="5-1-2-冲突域"><a href="#5-1-2-冲突域" class="headerlink" title="5.1.2 冲突域"></a>5.1.2 冲突域</h3><p>  冲突域是指连接在同一共享介质上的所有节点的集合，冲突域内所有节点竞争同一带宽，一个节点发出的报文（无论是单播、组播、广播），其余节点都可以收到。</p>
+<p><img src="/images/%E5%86%B2%E7%AA%81%E5%9F%9F.png"></p>
+<p>  在传统的以太网中，同一介质上的多个节点共享链路带宽，争用链路的使用权，这样就会发生冲突。</p>
+<p>  同一介质上的节点越多，冲突发生的概率越大。</p>
+<p>  交换机不同的接口发送和接收数据独立，各接口属于不同的冲突域，因此有效地隔离了网络中物理层冲突域，使得通过它互连的主机（或网络）之间不必再担心流量大小对于数据发送冲突的影响。</p>
+<p>  在共享网络，以太网络使用CSMA/CD技术，避免冲突问题。CSMA/CD的基本工作过程如下：</p>
+<p>   终端设备不停的检测共享线路的状态。</p>
+<p>      如果线路空闲则发送数据。</p>
+<p>      如果线路不空闲则一直等待。</p>
+<p>   如果有另外一个设备同时发送数据，两个设备发送的数据必然产生冲突，导致线路上的信号不稳定。</p>
+<p>   终端设备检测到这种不稳定之后，马上停止发送自己的数据。</p>
+<p>   终端设备发送一连串干扰脉冲，然后等待一段时间之后再进行发送数据。发送干扰脉冲的目的是为了通知其他设备，特别是跟自己在同一个时刻发送数据的设备，线路上已经产生了冲突。</p>
+<p>  CSMA/CD的工作原理可简单总结为：先听后发，边发边听，冲突停发，随机延迟后重发。</p>
+<h3 id="5-1-3-广播域"><a href="#5-1-3-广播域" class="headerlink" title="5.1.3 广播域"></a>5.1.3 广播域</h3><p>  广播报文所能到达的整个访问范围称为二层广播域，简称广播域，同一广播域内的主机都能收到广播报文。</p>
+<p><img src="/images/%E5%B9%BF%E6%92%AD%E5%9F%9F.png"></p>
+<p>  在传统的以太网中，同一介质上的多个节点共享链路，一台设备发出的广播报文，所有设备均会收到。</p>
+<p>  交换机对广播报文会向所有的接口都转发，所以交换机的所有接口连接的节点属于一个广播域。</p>
+<p>  全1MAC地址FF-FF-FF-FF-FF-FF为广播地址，所有节点都会处理目的地址为广播地址的数据帧，该数据帧所能到达的整个访问范围称为二层广播域，简称广播域。</p>
+<p><strong>注：MAC (Media Access Control)地址，在网络中唯一标识一个网卡，每个网卡都需要并会有唯一的一个MAC地址</strong></p>
+<h2 id="5-2-以太网帧"><a href="#5-2-以太网帧" class="headerlink" title="5.2 以太网帧"></a>5.2 以太网帧</h2><h3 id="5-2-1-MAC地址的概念"><a href="#5-2-1-MAC地址的概念" class="headerlink" title="5.2.1 MAC地址的概念"></a>5.2.1 MAC地址的概念</h3><p>  MAC (Media Access Control)地址在网络中唯一标识一个网卡，每个网卡都需要并拥有唯一的一个MAC地址。</p>
+<p>  一块网卡的MAC地址是具有全球唯一性的。</p>
+<p><img src="/images/MAC%E5%9C%B0%E5%9D%80%E7%9A%84%E6%A6%82%E5%BF%B5.png"></p>
+<p>  MAC地址是在IEEE 802标准中定义并规范的，凡是符合IEEE 802标准的以太网卡，都必须拥有一个MAC地址，用MAC地址来定义网络设备的位置。不同的网卡，MAC地址也不同。</p>
+<h3 id="5-2-2-IP地址-vs-MAC地址"><a href="#5-2-2-IP地址-vs-MAC地址" class="headerlink" title="5.2.2 IP地址 vs MAC地址"></a>5.2.2 IP地址 vs MAC地址</h3><p>  每个以太网设备在出厂时都有一个唯一的MAC地址，但在设备接入网络时，会同时为每台主机再分配一个IP地址。</p>
+<p><img src="/images/IP%E5%9C%B0%E5%9D%80%E4%B8%8EMAC%E5%9C%B0%E5%9D%80.png"></p>
+<p>  每个以太网设备在出厂时都有一个唯一的MAC地址，那为什么还需要为每台主机再分配一个IP地址呢？或者说每台主机都分配唯一的IP地址了，为什么还要在网络设备 (如：网卡) 生产时内嵌一个唯一的MAC地址呢？</p>
+<p>  主要原因有：</p>
+<p>    IP地址是根据网络的拓朴结构分配的，MAC地址是根据制造商分配的，若路由选择建立在设备制造商的基础上，这种方案不可行。</p>
+<p>    当存在两层地址寻址时，设备更灵活，易于移动和维修。</p>
+<p>    例如，如果一个以太网卡坏了，可以被更换，而无须更换一个新的IP地址；如果一个IP主机从一个网络移到另一个网络，可以给它一个新的IP地址，而无须换一个新的网卡。</p>
+<p>  总结：</p>
+<p>    IP地址的作用是唯一标识网络中的一个节点，可以通过IP地址进行不同网段的数据访问。</p>
+<p>    MAC地址的作用是唯一标识一个网卡，可以通过MAC地址进行同网段的数据访问。</p>
+<h3 id="5-2-3-MAC地址表示"><a href="#5-2-3-MAC地址表示" class="headerlink" title="5.2.3 MAC地址表示"></a>5.2.3 MAC地址表示</h3><p>  一个MAC地址有48 bit，6 Byte。</p>
+<p>  MAC地址通常采用“十六进制”+“-”表示。</p>
+<p><img src="/images/MAC%E5%9C%B0%E5%9D%80%E8%A1%A8%E7%A4%BA.png"></p>
+<p>  <strong>MAC地址由48比特（6个字节）长，12位的16进制数字组成。</strong></p>
+<h2 id="5-3-以太网交换机"><a href="#5-3-以太网交换机" class="headerlink" title="5.3 以太网交换机"></a>5.3 以太网交换机</h2><h3 id="5-3-1-以太网二层交换机概念"><a href="#5-3-1-以太网二层交换机概念" class="headerlink" title="5.3.1 以太网二层交换机概念"></a>5.3.1 以太网二层交换机概念</h3><p>  以太网二层交换机转发数据的端口都是以太网口，并且只能够针对数据的二层头部 (以太网数据帧头) 中的MAC地址进行寻址并转发数据。</p>
+<p><img src="/images/%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%8C%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%A6%82%E5%BF%B5.png"></p>
+<p>  以太网二层交换机：</p>
+<p>    在园区网络中，交换机一般来说是距离终端用户最近的设备，用于终端接入园区网，接入层的交换机一般为二层交换机。</p>
+<p>    二层交换设备工作在TCP/IP对等模型的第二层，即数据链路层，它对数据包的转发是建立在MAC（Media Access Control ）地址基础之上的。</p>
+<p>  以太网三层交换机：</p>
+<p>    不同局域网之间的网络互通需要由路由器来完成。随着数据通信网络范围的不断扩大，网络业务的不断丰富，网络间互访的需求越来越大，而路由器由于自身成本高、转发性能低、接口数量少等特点无法很好的满足网络发展的需求。因此出现了三层交换机这样一种能实现高速三层转发的设备。</p>
+<h3 id="5-3-2-交换机工作原理"><a href="#5-3-2-交换机工作原理" class="headerlink" title="5.3.2 交换机工作原理"></a>5.3.2 交换机工作原理</h3><p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png"></p>
+<p>  工作原理总结：</p>
+<p>    1.基于源MAC地址学习</p>
+<p>    2.基于目的MAC地址转发</p>
+<p>    3.收到广播、未知的单播或组播，则泛洪处理</p>
+<p>  二层交换机工作在数据链路层，它对数据帧的转发是建立在MAC地址基础之上的。交换机不同的接口发送和接收数据是独立的，各接口属于不同的冲突域，因此有效地隔离了网络中的冲突域。</p>
+<p>  二层交换设备通过学习以太网数据帧的源MAC地址来维护MAC地址与接口的对应关系（保存MAC与接口对应关系的表称为MAC地址表），通过其目的MAC地址来查找MAC地址表决定向哪个接口转发。</p>
+<h3 id="5-3-3-交换机的MAC地址表"><a href="#5-3-3-交换机的MAC地址表" class="headerlink" title="5.3.3 交换机的MAC地址表"></a>5.3.3 交换机的MAC地址表</h3><p>  每台交换机中都有一个MAC地址表，存放了MAC地址与交换机端口编号之间的映射关系。</p>
+<p><img src="/images/MAC%E5%9C%B0%E5%9D%80%E8%A1%A8.png"></p>
+<p>  MAC地址表记录了交换机学习到的其他设备的MAC地址与接口的对应关系。交换机在转发数据帧时，根据数据帧的目的MAC地址查询MAC地址表。如果MAC地址表中包含与该帧目的MAC地址对应的表项，则直接通过该表项中的出接口转发该报文；如果MAC地址表中没有包含该帧目的MAC地址对应的表项时，交换机将采取泛洪方式在除接收接口外的所有接口发送该报文。</p>
+<h3 id="5-3-4-交换机的3种数据帧处理行为"><a href="#5-3-4-交换机的3种数据帧处理行为" class="headerlink" title="5.3.4 交换机的3种数据帧处理行为"></a>5.3.4 交换机的3种数据帧处理行为</h3><p>  交换机对于从传输介质进入某一端口的帧的处理行为一共有3种：</p>
+<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%843%E7%A7%8D%E6%95%B0%E6%8D%AE%E5%B8%A7%E5%A4%84%E7%90%86%E8%A1%8C%E4%B8%BA.png"></p>
+<p>  交换机会通过传输介质进入其端口的每一个帧都进行转发操作，交换机的基本作用就是用来转发数据帧。</p>
+<p>  交换机对帧的处理行为一共有三种：泛洪（Flooding），转发（Forwarding），丢弃（Discarding）。</p>
+<p>    泛洪：交换机把从某一端口进来的帧通过所有其它的端口转发出去（注意，“所有其它的端口”是指除了这个帧进入交换机的那个端口以外的所有端口）。</p>
+<p>    转发：交换机把从某一端口进来的帧通过另一个端口转发出去（注意，“另一个端口”不能是这个帧进入交换机的那个端口）。</p>
+<p>    丢弃：交换机把从某一端口进来的帧直接丢弃。</p>
+<p>  <strong>泛洪:</strong></p>
+<p><img src="/images/%E6%B3%9B%E6%B4%AA.png"></p>
+<p>  如果从传输介质进入交换机的某个端口的帧是一个单播帧，交换机会去MAC表查这个帧的目的MAC地址。如果查不到这个MAC地址，则交换机将对该单播帧执行泛洪操作。</p>
+<p>  如果从传输介质进入交换机的某个端口的帧是一个广播帧，交换机不会去查MAC地址表，而是直接对该广播帧执行泛洪操作。</p>
+<p>  如图所示：</p>
+<p>    场景一：主机1想要访问主机2，发送单播数据帧，交换机收到后，若MAC地址表中查不到对应的表项，则会泛洪该数据帧。</p>
+<p>    场景二：主机1想要访问主机2，但不知道对应的MAC地址，则会发送ARP请求报文，该报文为广播数据帧，交换机收到后，则会泛洪该数据帧。</p>
+<p>  <strong>转发:</strong></p>
+<p><img src="/images/%E8%BD%AC%E5%8F%91.png"></p>
+<p>  如果从传输介质进入交换机的某个端口的帧是一个单播帧，则交换机会去MAC表查这个帧的目的MAC地址。如果查到了这个MAC地址表，则比较这个MAC地址在MAC地址表中对应的端口编号是不是这个帧从传输介质进入交换机的那个端口的端口编号。如果不是，则交换机执行转发操作（将该帧送至该帧目的MAC地址在MAC地址表中对应的那个端口，并从那个端口发送出去）。</p>
+<p>  如图所示：</p>
+<p>    主机1想要访问主机2，发送单播数据帧，交换机收到后，在MAC地址表中查到了对应的表项，则会点对点转发该数据帧。</p>
+<p>  <strong>丢弃:</strong></p>
+<p><img src="/images/%E4%B8%A2%E5%BC%83.png"></p>
+<p>  如果从传输介质进入交换机的某个端口的帧是一个单播帧，则交换机会去MAC表查这个帧的目的MAC地址。如果查到了这个MAC地址表，则比较这个MAC地址在MAC地址表中对应的端口编号是不是这个帧从传输介质进入交换机的那个端口的端口编号。如果是，则交换机将对该帧执行丢弃操作。</p>
+<p>  如图所示：</p>
+<p>    主机1想要访问主机2，发送单播数据帧，交换机1收到后，若MAC地址表中查不到对应的表项，则会泛洪该数据帧。</p>
+<p>    交换机2收到该数据帧后，发现目的MAC地址对应的端口就是接收数据帧的端口，则会丢弃该数据帧。</p>
+<h3 id="5-3-5-交换机的MAC地址学习"><a href="#5-3-5-交换机的MAC地址学习" class="headerlink" title="5.3.5 交换机的MAC地址学习"></a>5.3.5 交换机的MAC地址学习</h3><p>  <strong>学习1:</strong></p>
+<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%AD%A6%E4%B9%A01.png"></p>
+<p>  初始状态下，交换机并不知道所连接主机的MAC地址，所以MAC地址表为空。</p>
+<p>  <strong>学习2:</strong></p>
+<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%AD%A6%E4%B9%A02.png"></p>
+<p>  主机1想要发送数据给主机2（假设已知对端的IP地址和MAC地址），会封装数据帧，包含自己的源IP地址和源MAC地址。</p>
+<p>  交换机收到后会查自己的MAC地址表，发现没有对应表项，则收到的数据帧是“未知单播帧” 。</p>
+<p>  <strong>学习3:</strong></p>
+<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%AD%A6%E4%B9%A03.png"></p>
+<p>  由于收到的数据帧是“未知单播帧”，因此交换机会泛洪该数据帧。同时，交换机将收到的数据帧的源MAC地址和对应端口编号记录到MAC地址表中。</p>
+<p>  注意：MAC地址表中动态学习的表项并非永远有效，每一条表项都有一个生存周期，到达生存周期仍得不到更新的表项将被删除，这个生存周期被称作老化时间。例如华为S系列交换机的老化时间缺省值是300秒。</p>
+<p>  <strong>学习4:</strong></p>
+<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%AD%A6%E4%B9%A04.png"></p>
+<p>  广播网络中的所有主机均会收到该数据帧，但是只有主机2会处理（因为目的MAC地址是主机2)。</p>
+<p>  主机2会回复数据帧给主机1，也是单播数据帧。</p>
+<p>  <strong>学习5:</strong></p>
+<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%AD%A6%E4%B9%A05.png"></p>
+<p>  交换机收到该单播数据帧后，会查看自己的MAC地址表，发现有对应的表项，则将数据从对应的端口转发出去。同时，交换机将收到的数据帧的源MAC地址和对应端口编号记录到MAC地址表中。</p>
+<h2 id="5-4-同网段数据通信全过程"><a href="#5-4-同网段数据通信全过程" class="headerlink" title="5.4 同网段数据通信全过程"></a>5.4 同网段数据通信全过程</h2><p><img src="/images/%E5%90%8C%E7%BD%91%E6%AE%B5%E9%80%9A%E4%BF%A1.png"></p>
+<h3 id="5-4-1-数据封装过程"><a href="#5-4-1-数据封装过程" class="headerlink" title="5.4.1 数据封装过程"></a>5.4.1 数据封装过程</h3><p><img src="/images/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.png"></p>
+<p>  主机1在发送数据报文前，需要先进行报文封装，包括源目IP地址、源目MAC地址等。</p>
+<h3 id="5-4-2-初始状态"><a href="#5-4-2-初始状态" class="headerlink" title="5.4.2 初始状态"></a>5.4.2 初始状态</h3><p><img src="/images/%E5%88%9D%E5%A7%8B%E7%8A%B6%E6%80%81.png"></p>
+<p>  主机1为了进行报文封装，会查本地的ARP缓存表。初始状态下，主机1的ARP缓存是空的。</p>
+<p>  刚上电的交换机，初始状态下，交换机的MAC地址表也是空的。</p>
+<h3 id="5-4-3-泛洪数据帧"><a href="#5-4-3-泛洪数据帧" class="headerlink" title="5.4.3 泛洪数据帧"></a>5.4.3 泛洪数据帧</h3><p><img src="/images/%E6%B3%9B%E6%B4%AA%E6%95%B0%E6%8D%AE%E5%B8%A7.png"></p>
+<p>  主机1发送ARP请求报文，请求目的MAC地址。</p>
+<p>  交换机收到的数据帧后查MAC地址表，发现没有对应表项，则向所有非接收端口，泛洪该数据帧。</p>
+<h3 id="5-4-4-学习MAC地址"><a href="#5-4-4-学习MAC地址" class="headerlink" title="5.4.4 学习MAC地址"></a>5.4.4 学习MAC地址</h3><p><img src="/images/%E5%AD%A6%E4%B9%A0MAC%E5%9C%B0%E5%9D%80.png"></p>
+<p>  交换机将收到的数据帧的源MAC地址和对应端口记录到MAC地址表中。</p>
+<h3 id="5-4-5-目标主机回复"><a href="#5-4-5-目标主机回复" class="headerlink" title="5.4.5 目标主机回复"></a>5.4.5 目标主机回复</h3><p><img src="/images/%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BA%E5%9B%9E%E5%A4%8D.png"></p>
+<p>  主机2收到ARP请求报文后，会进行相应的处理，并发送ARP响应报文，回复主机1。</p>
+<p>  交换机收到的数据帧后查MAC地址表，发现有对应表项，则向对应端口转发该数据帧；并且交换机将收到的数据帧的源MAC地址和对应端口记录到MAC地址表中。</p>
+<p>  最终，主机1收到主机2的ARP响应报文后，就会将对应的IP地址和MAC地址记录到自己的ARP缓存中，并封装自己的报文，访问主机2。</p>
+<h1 id="6-VLAN原理与配置"><a href="#6-VLAN原理与配置" class="headerlink" title="6 VLAN原理与配置"></a>6 VLAN原理与配置</h1><h2 id="6-1-什么是VLAN"><a href="#6-1-什么是VLAN" class="headerlink" title="6.1 什么是VLAN"></a>6.1 什么是VLAN</h2><h3 id="6-1-1-传统以太网的问题"><a href="#6-1-1-传统以太网的问题" class="headerlink" title="6.1.1 传统以太网的问题"></a>6.1.1 传统以太网的问题</h3><p><img src="/images/%E4%BC%A0%E7%BB%9F%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84%E9%97%AE%E9%A2%98.png"></p>
+<p>  在典型交换网络中，当某台主机发送一个广播帧或未知单播帧时，该数据帧会被泛洪，甚至传递到整个广播域。</p>
+<p>  广播域越大，产生的网络安全问题、垃圾流量问题，就越严重</p>
+<p>  广播域：</p>
+<p>    如图是一个典型的交换网络，网络中只有终端计算机和交换机。在这样的网络中，如果某一台计算机发送了一个广播帧，由于交换机对广播帧执行泛洪操作，结果所有其他的计算机都会收到这个广播帧。</p>
+<p>    把广播帧所能到达的整个访问范围称为二层广播域，简称广播域 (Broadcast Domain)。显然，一个交换网络其实就是一个广播域。</p>
+<p>  网络安全问题和垃圾流量问题：</p>
+<p>    如图：如果PC1向PC2发送了一个单播帧。此时SW1、SW3、SW7的MAC地址表中存在关于PC2的MAC地址表项，但SW2和SW5不存在关于PC2的MAC地址表项。那么，SW1和SW3将对该单播帧执行点对点的转发操作，SW7将对该单播帧执行丢弃操作，SW2和SW5将对该单播帧执行泛洪操作。最后的结果是，PC2虽然收到了该单播帧，但网络中的很多其他非目的主机，同样收到了不该接收的数据帧。</p>
+<p>  显然，广播域越大，网络安全问题和垃圾流量问题就越严重。</p>
+<h3 id="6-1-2-虚拟局域网-VLAN-Virtual-LAN"><a href="#6-1-2-虚拟局域网-VLAN-Virtual-LAN" class="headerlink" title="6.1.2 虚拟局域网 (VLAN, Virtual LAN)"></a>6.1.2 虚拟局域网 (VLAN, Virtual LAN)</h3><p><img src="/images/%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91.png"></p>
+<p>  为了解决广播域带来的问题，人们引入了VLAN (Virtual Local Area Network)，即虚拟局域网技术：</p>
+<p>    通过在交换机上部署VLAN，可以将一个规模较大的广播域在逻辑上划分成若干个不同的、规模较小的广播域，由此可以有效地提升网络的安全性，同时减少垃圾流量，节约网络资源。</p>
+<p>  VLAN的特点：</p>
+<p>    一个VLAN就是一个广播域，所以在同一个VLAN内部，计算机可以直接进行二层通信；而不同VLAN内的计算机，无法直接进行二层通信，只能进行三层通信来传递信息，即广播报文被限制在一个VLAN内。</p>
+<p>    VLAN的划分不受地域的限制。</p>
+<p>  VLAN的好处：</p>
+<p>    灵活构建虚拟工作组：用VLAN可以划分不同的用户到不同的工作组，同一工作组的用户也不必局限于某一固定的物理范围，网络构建和维护更方便灵活。</p>
+<p>    限制广播域：广播域被限制在一个VLAN内，节省了带宽，提高了网络处理能力。</p>
+<p>    增强局域网的安全性：不同VLAN内的报文在传输时是相互隔离的，即一个VLAN内的用户不能和其它VLAN内的用户直接通信。</p>
+<p>    提高了网络的健壮性：故障被限制在一个VLAN内，本VLAN内的故障不会影响其他VLAN的正常工作。</p>
+<p>  注：二层，即数据链路层。</p>
+<h2 id="6-2-VLAN的基本原理"><a href="#6-2-VLAN的基本原理" class="headerlink" title="6.2 VLAN的基本原理"></a>6.2 VLAN的基本原理</h2><h3 id="6-2-1-如何实现VLAN"><a href="#6-2-1-如何实现VLAN" class="headerlink" title="6.2.1 如何实现VLAN"></a>6.2.1 如何实现VLAN</h3><p><img src="/images/%E5%AE%9E%E7%8E%B0VLAN.png"></p>
+<p>  Switch1与Switch2同属一个企业，该企业统一规划了网络中的VLAN。其中VLAN10用于A部门，VLAN20用于B部门。A、B部门的员工在Switch1和Switch2上都有接入。</p>
+<p>  PC1发出的数据经过Switch1和Switch2之间的链路到达了Switch2。如果不加处理，后者无法判断该数据所属的VLAN，也不知道应该将这个数据输出到本地哪个VLAN中。</p>
+<h3 id="6-2-2-VLAN标签-VLAN-Tag"><a href="#6-2-2-VLAN标签-VLAN-Tag" class="headerlink" title="6.2.2 VLAN标签 (VLAN Tag)"></a>6.2.2 VLAN标签 (VLAN Tag)</h3><p>  交换机通过VLAN标签识别接收到的数据帧属于哪个VLAN</p>
+<p><img src="/images/VLAN%E6%A0%87%E7%AD%BE.png"></p>
+<p><strong>VLAN标签:</strong></p>
+<p>  要使交换机能够分辨不同VLAN的报文，需要在报文中添加标识VLAN信息的字段。</p>
+<p>  IEEE 802.1Q协议规定，在以太网数据帧中加入4个字节的VLAN标签，又称VLAN Tag，简称Tag</p>
+<p>  如图所示，SW1识别出某个帧是属于哪个VLAN后，会在这个帧的特定位置上添加一个标签。这个标签明确地标明了这个帧是属于哪个VLAN的。其他交换机（如SW2）收到这个带标签的数据帧后，就能轻而易举地直接根据标签信息识别出这个帧属于哪个VLAN。</p>
+<p>  IEEE 802.1Q定义了这种带标签的数据帧的格式。满足这种格式的数据帧称为IEEE 802.1Q数据帧，也称VLAN数据帧。</p>
+<h3 id="6-2-3-VLAN数据帧"><a href="#6-2-3-VLAN数据帧" class="headerlink" title="6.2.3 VLAN数据帧"></a>6.2.3 VLAN数据帧</h3><p><img src="/images/VLAN%E6%95%B0%E6%8D%AE%E5%B8%A7.png"></p>
+<p>在一个VLAN交换网络中，以太网帧主要有以下两种形式：</p>
+<p>  有标记帧（Tagged帧）：IEEE 802.1Q协议规定，在以太网数据帧的目的MAC地址和源MAC地址字段之后、协议类型字段之前加入4个字节的VLAN标签（又称VLAN Tag，简称Tag）的数据帧。</p>
+<p>  无标记帧（Untagged帧）：原始的、未加入4字节VLAN标签的数据帧。</p>
+<p>VLAN数据帧中的主要字段：</p>
+<p>  TPID：2字节，Tag Protocol Identifier（标签协议标识符），表示数据帧类型。</p>
+<p>    取值为0x8100时表示IEEE 802.1Q的VLAN数据帧。如果不支持802.1Q的设备收到这样的帧，会将其丢弃。</p>
+<p>    各设备厂商可以自定义该字段的值。当邻居设备将TPID值配置为非0x8100时，为了能够识别这样的报文，实现互通，必须在本设备上修改TPID值，确保和邻居设备的TPID值配置一致。</p>
+<p>  PRI：3 bit，Priority，表示数据帧的优先级，用于QoS。</p>
+<p>    取值范围为0～7，值越大优先级越高。当网络阻塞时，交换机优先发送优先级高的数据帧。</p>
+<h3 id="6-2-4-VLAN的实现"><a href="#6-2-4-VLAN的实现" class="headerlink" title="6.2.4 VLAN的实现"></a>6.2.4 VLAN的实现</h3><p><img src="/images/VLAN%E7%9A%84%E5%AE%9E%E7%8E%B0.png"></p>
+<p>  Switch1和Switch2之间的链路要承载多个VLAN的数据，需要一种基于VLAN的数据“标记”手段，以便对不同VLAN的数据帧进行区分。</p>
+<p>  IEEE 802.1Q标准（也被称为Dot1Q）定义了该“标记”方法。该标准对传统的以太网数据帧进行修改，在帧头中插入802.1Q Tag，而在该Tag中，便可以写入VLAN信息。</p>
+<h3 id="6-2-5-VLAN的划分方式"><a href="#6-2-5-VLAN的划分方式" class="headerlink" title="6.2.5 VLAN的划分方式"></a>6.2.5 VLAN的划分方式</h3><p><img src="/images/VLAN%E7%9A%84%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F.png"></p>
+<p>  计算机发出的数据帧不带任何标签。对已支持VLAN特性的交换机来说，当计算机发出的Untagged帧一旦进入交换机后，交换机必须通过某种划分原则把这个帧划分到某个特定的VLAN中去。</p>
+<p>  VLAN的划分包括如下5种方法：</p>
+<p>  <strong>1.基于接口划分：根据交换机的接口来划分VLAN</strong>。</p>
+<p>    网络管理员预先给交换机的每个接口配置不同的PVID，当一个数据帧进入交换机时，如果没有带VLAN标签，该数据帧就会被打上接口指定PVID的标签，然后数据帧将在指定VLAN中传输。</p>
+<p><img src="/images/%E5%9F%BA%E4%BA%8E%E6%8E%A5%E5%8F%A3%E5%88%92%E5%88%86VLAN.png"></p>
+<p>  划分原则：</p>
+<p>    将VLAN ID配置到交换机的物理接口上，从某一个物理接口进入交换机的、由终端计算机发送的Untagged数据帧都被划分到该接口的VLAN ID所表明的那个VLAN。</p>
+<p>  特点：</p>
+<p>    这种划分原则简单而直观，实现容易，是目前实际的网络应用中最为广泛的划分VLAN的方式。</p>
+<p>    当计算机接入交换机的端口发生了变化时，该计算机发送的帧的VLAN归属可能会发生变化。</p>
+<p>  缺省VLAN，PVID (Port VLAN ID)</p>
+<p>    每个交换机的接口都应该配置一个PVID，到达这个端口的Untagged帧将一律被交换机划分到PVID所指代的VLAN。</p>
+<p>    默认情况下，PVID的值为1。</p>
+<p>  <strong>2.基于MAC地址划分：根据数据帧的源MAC地址来划分VLAN</strong>。</p>
+<p>    网络管理员预先配置MAC地址和VLAN ID映射关系表，当交换机收到的是Untagged帧时，就依据该表给数据帧添加指定VLAN的标签，然后数据帧将在指定VLAN中传输。</p>
+<p><img src="/images/%E5%9F%BA%E4%BA%8EMAC%E5%9C%B0%E5%9D%80%E5%88%92%E5%88%86VLAN.png"></p>
+<p>  划分原则：</p>
+<p>    交换机内部建立并维护了一个MAC地址与VLAN ID的对应表。当交换机接收到计算机发送的Untagged帧时，交换机将分析帧中的源MAC地址，然后查询MAC地址与VLAN ID的对应表，并根据对应关系把这个帧划分到相应的VLAN中。</p>
+<p>  特点：</p>
+<p>    这种划分实现稍微复杂，但灵活性得到了提高。</p>
+<p>    当计算机接入交换机的端口发生了变化时，该计算机发送的帧的VLAN归属不会发生变化（因为计算机的MAC地址没有变）。</p>
+<p>    这种类型的VLAN划分安全性不是很高，因为恶意计算机很容易伪造MAC地址。</p>
+<p>  <strong>3.基于IP子网划分：根据数据帧中的源IP地址和子网掩码来划分VLAN</strong>。</p>
+<p>    网络管理员预先配置IP地址和VLAN ID映射关系表，当交换机收到的是Untagged帧，就依据该表给数据帧添加指定VLAN的标签，然后数据帧将在指定VLAN中传输。</p>
+<p>  <strong>4.基于协议划分：根据数据帧所属的协议（族）类型及封装格式来划分VLAN</strong>。</p>
+<p>    网络管理员预先配置以太网帧中的协议域和VLAN ID的映射关系表，如果收到的是Untagged帧，就依据该表给数据帧添加指定VLAN的标签，然后数据帧将在指定VLAN中传输。</p>
+<p>  <strong>5.基于策略划分：根据配置的策略划分VLAN，能实现多种组合的划分方式，包括接口、MAC地址、IP地址等</strong>。</p>
+<p>    网络管理员预先配置策略，如果收到的是Untagged帧，且匹配配置的策略时，给数据帧添加指定VLAN的标签，然后数据帧将在指定VLAN中传输。</p>
+<h2 id="6-3-以太网二层接口类型"><a href="#6-3-以太网二层接口类型" class="headerlink" title="6.3 以太网二层接口类型"></a>6.3 以太网二层接口类型</h2><p><img src="/images/%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%8C%E5%B1%82%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B.png"></p>
+<p>  基于接口的VLAN划分依赖于交换机的接口类型。</p>
+<p>  Access接口</p>
+<p>    Access接口一般用于和不能识别Tag的用户终端（如用户主机、服务器等）相连，或者不需要区分不同VLAN成员时使用。</p>
+<p>  Trunk接口</p>
+<p>    Trunk接口一般用于连接交换机、路由器、AP以及可同时收发Tagged帧和Untagged帧的语音终端。</p>
+<p>  Hybrid接口</p>
+<p>    Hybrid接口既可以用于连接不能识别Tag的用户终端（如用户主机、服务器等），也可以用于连接交换机、路由器以及可同时收发Tagged帧和Untagged帧的语音终端、AP。</p>
+<p>    华为设备默认的接口类型是Hybrid。</p>
+<h3 id="6-3-1-Access接口"><a href="#6-3-1-Access接口" class="headerlink" title="6.3.1 Access接口"></a>6.3.1 Access接口</h3><p><img src="/images/Access%E6%8E%A5%E5%8F%A3.png"></p>
+<p>  上文已经介绍了交换机如何识别数据帧属于哪个VLAN以及VLAN的划分方式，那交换机对于Untagged帧和Tagged帧又是如何处理的呢？</p>
+<p>  Access接口特点：</p>
+<p>    仅允许VLAN ID与接口PVID相同的数据帧通过。</p>
+<p>  Access接口接收数据帧：</p>
+<p>    当Access接口从链路上收到一个Untagged帧，交换机会在这个帧中添加上VID为PVID的Tag，然后对得到的Tagged帧进行转发操作（泛洪、转发、丢弃）。</p>
+<p>    当Access接口从链路上收到一个Tagged帧，交换机会检查这个帧的Tag中的VID是否与PVID相同。如果相同，则对这个Tagged帧进行转发操作；如果不同，则直接丢弃这个Tagged帧。</p>
+<p>  Access接口发送数据帧：</p>
+<p>    当一个Tagged帧从本交换机的其他接口到达一个Access接口后，交换机会检查这个帧的Tag中的VID是否与PVID相同：</p>
+<p>    如果相同，则将这个Tagged帧的Tag进行剥离，然后将得到的Untagged帧从链路上发送出去；</p>
+<p>    如果不同，则直接丢弃这个Tagged帧。</p>
+<h3 id="6-3-2-Trunk接口"><a href="#6-3-2-Trunk接口" class="headerlink" title="6.3.2 Trunk接口"></a>6.3.2 Trunk接口</h3><p><img src="/images/Trunk%E6%8E%A5%E5%8F%A3.png"></p>
+<p>  对于Trunk接口，除了要配置PVID外，还必须配置允许通过的VLAN ID列表，其中VLAN 1是默认存在的。</p>
+<p>  Trunk接口特点：</p>
+<p>    Trunk接口仅允许VLAN ID在允许通过列表中的数据帧通过。</p>
+<p>    Trunk接口可以允许多个VLAN的帧带Tag通过，但只允许一个VLAN的帧从该类接口上发出时不带Tag（即剥除Tag）。</p>
+<p>  Trunk接口接收数据帧：</p>
+<p>    当Trunk接口从链路上收到一个Untagged帧，交换机会在这个帧中添加上VID为PVID的Tag，然后查看PVID是否在允许通过的VLAN ID列表中。如果在，则对得到的Tagged帧进行转发操作；如果不在，则直接丢弃得到的Tagged帧。</p>
+<p>    当Trunk接口从链路上收到一个Tagged帧，交换机会检查这个帧的Tag中的VID是否在允许通过的VLAN ID列表中。如果在，则对这个Tagged帧进行转发操作；如果不在，则直接丢弃这个Tagged帧。</p>
+<p>  Trunk接口发送数据帧：</p>
+<p>    当一个Tagged帧从本交换机的其他接口到达一个Trunk接口后，如果这个帧的Tag中的VID不在允许通过的VLAN ID列表中，则该Tagged帧会被直接丢弃。</p>
+<p>    当一个Tagged帧从本交换机的其他接口到达一个Trunk接口后，如果这个帧的Tag中的VID在允许通过的VLAN ID列表中，则会比较该Tag中的VID是否与接口的PVID相同：</p>
+<p>    如果相同，则交换机会对这个Tagged帧的Tag进行剥离，然后将得到的Untagged帧从链路上发送出去；</p>
+<p>    如果不同，则交换机不会对这个Tagged帧的Tag进行剥离，而是直接将它从链路上发送出去。</p>
+<h3 id="6-3-3-Access接口与Trunk接口举例"><a href="#6-3-3-Access接口与Trunk接口举例" class="headerlink" title="6.3.3 Access接口与Trunk接口举例"></a>6.3.3 Access接口与Trunk接口举例</h3><p><img src="/images/Access%E6%8E%A5%E5%8F%A3%E4%B8%8ETrunk%E6%8E%A5%E5%8F%A3%E4%B8%BE%E4%BE%8B.png"></p>
+<p>  在本例中，SW1和SW2连接主机的接口为Access接口，PVID如图所示。SW1和SW2互连的接口为Trunk接口，PVID都为1，此Trunk接口的允许通过的VLAN ID列表也如图所示。</p>
+<h3 id="6-3-4-Hybrid接口"><a href="#6-3-4-Hybrid接口" class="headerlink" title="6.3.4 Hybrid接口"></a>6.3.4 Hybrid接口</h3><p><img src="/images/Hybrid%E6%8E%A5%E5%8F%A3.png"></p>
+<p>  对于Hybrid接口，除了要配置PVID外，还存在两个允许通过的VLAN ID列表，一个是Untagged VLAN ID列表，另一个是Tagged VLAN ID列表，其中VLAN 1默认在Untagged VLAN列表中。这两个允许通过列表中的所有VLAN的帧都是允许通过这个Hybrid接口的。</p>
+<p>  Hybrid接口特点：</p>
+<p>    Hybrid接口仅允许VLAN ID在允许通过列表中的数据帧通过。</p>
+<p>    Hybrid接口可以允许多个VLAN的帧带Tag通过，且允许从该类接口发出的帧根据需要配置某些VLAN的帧带Tag、某些VLAN的帧不带Tag。</p>
+<p>    与Trunk最主要的区别就是，能够支持多个VLAN的数据帧，不带标签通过。</p>
+<p>  Hybrid接口接收数据帧：</p>
+<p>    当Hybrid接口从链路上收到一个Untagged帧，交换机会在这个帧中添加上VID为PVID的Tag，然后查看PVID是否在Untagged或Tagged VLAN ID列表中。如果在，则对得到的Tagged帧进行转发操作；如果不在，则直接丢弃得到的Tagged帧。</p>
+<p>    当Hybrid接口从链路上收到一个Tagged帧，交换机会检查这个帧的Tag中的VID是否在Untagged或Tagged VLAN ID列表中。如果在，则对这个Tagged帧进行转发操作；如果不在，则直接丢弃这个Tagged帧。</p>
+<p>  Hybrid接口发送数据帧：</p>
+<p>    当一个Tagged帧从本交换机的其他接口到达一个Hybrid接口后，如果这个帧的Tag中的VID既不在Untagged VLAN ID列表中，也不在Tagged VLAN ID列表中，则该Tagged帧会被直接丢弃。</p>
+<p>    当一个Tagged帧从本交换机的其他接口到达一个Hybrid接口后，如果这个帧的Tag中的VID在Untagged VLAN ID列表中，则交换机会对这个Tagged帧的Tag进行剥离，然后将得到的Untagged帧从链路上发送出去。</p>
+<p>    当一个Tagged帧从本交换机的其他接口到达一个Hybrid接口后，如果这个帧的Tag中的VID在Tagged VLAN ID列表中，则交换机不会对这个Tagged帧的Tag进行剥离，而是直接将它从链路上发送出去。</p>
+<h3 id="6-3-5-Hybrid接口举例"><a href="#6-3-5-Hybrid接口举例" class="headerlink" title="6.3.5 Hybrid接口举例"></a>6.3.5 Hybrid接口举例</h3><p><img src="/images/Hybrid%E6%8E%A5%E5%8F%A3%E4%B8%BE%E4%BE%8B.png"></p>
+<p>  在本例中，SW1和SW2连接主机的接口以及互连的接口均为Hybrid接口，PVID如图所示，Hybrid接口的允许通过的VLAN ID列表也如图所示。</p>
+<h3 id="6-3-6-三大接口总结"><a href="#6-3-6-三大接口总结" class="headerlink" title="6.3.6 三大接口总结"></a>6.3.6 三大接口总结</h3><p><strong>Access接口:</strong></p>
+<p>  接收数据帧</p>
+<p>    Untagged数据帧，打上PVID，接收。</p>
+<p>    Tagged数据帧，与PVID比较，相同则接收；不同则丢弃。</p>
+<p>  发送数据帧<br>    VID与PVID比较，相同则剥离标签发送；不同则丢弃。</p>
+<p><strong>Trunk接口:</strong></p>
+<p>  接收数据帧</p>
+<p>    Untagged数据帧，打上PVID，且VID在允许列表中，则接收；VID不在允许列表，则丢弃。</p>
+<p>    Tagged数据帧，查看VID是否在允许列表中，在允许列表中，则接收；VID不在允许列表，则丢弃。</p>
+<p>  发送数据帧</p>
+<p>    VID在允许列表中，且VID与PVID一致，则剥离标签发送。</p>
+<p>    VID在允许列表，但VID与PVID不一致，则直接带标签发送。</p>
+<p>    不在允许列表中，则直接丢弃。</p>
+<p><strong>Hybrid接口:</strong></p>
+<p>  接收数据帧</p>
+<p>    Untagged数据帧，打上PVID，且VID在允许列表中，则接收；VID不在允许列表中，则丢弃。</p>
+<p>    Tagged数据帧，查看VID是否在允许列表中，在允许列表中，则接收；VID不在允许列表，则丢弃。</p>
+<p>  发送数据帧</p>
+<p>    VID不在允许列表中，直接丢弃。</p>
+<p>    VID在Untagged列表中，剥离标签发送。</p>
+<p>    VID在Tagged列表中，带标签直接发送</p>
+<p><strong>各类接口添加或剥除VLAN标签的处理过程总结如下：</strong></p>
+<p>  当接收数据帧时：</p>
+<p>    当接收到不带VLAN标签的数据帧时，Access接口、Trunk接口、Hybrid接口都会给数据帧打上VLAN标签，但Trunk接口、Hybrid接口会根据数据帧的VID是否为其允许通过的VLAN来判断是否接收，而Access接口则无条件接收。</p>
+<p>    当接收到带VLAN标签的数据帧时，Access接口、Trunk接口、Hybrid接口都会根据数据帧的VID是否为其允许通过的VLAN（Access接口允许通过的VLAN就是缺省VLAN）来判断是否接收。</p>
+<p>  当发送数据帧时：</p>
+<p>    Access接口直接剥离数据帧中的VLAN标签。</p>
+<p>    Trunk接口只有在数据帧中的VID与接口的PVID相等时才会剥离数据帧中的VLAN标签。</p>
+<p>    Hybrid接口会根据接口上的配置判断是否剥离数据帧中的VLAN标签。</p>
+<p>  因此，Access接口发出的数据帧肯定不带Tag；Trunk接口发出的数据帧只有一个VLAN的数据帧不带Tag，其他都带VLAN标签；Hybrid接口发出的数据帧可根据需要设置某些VLAN的数据帧带Tag，某些VLAN的数据帧不带Tag。</p>
+<h2 id="6-4-VLAN的应用"><a href="#6-4-VLAN的应用" class="headerlink" title="6.4 VLAN的应用"></a>6.4 VLAN的应用</h2><h3 id="6-4-1-VLAN基础配置命令"><a href="#6-4-1-VLAN基础配置命令" class="headerlink" title="6.4.1 VLAN基础配置命令"></a>6.4.1 VLAN基础配置命令</h3><p>  <strong>1.创建VLAN</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.通过此命令创建VLAN并进入VLAN视图，如果VLAN已存在，直接进入该VLAN的视图。 
+  vlan-id是整数形式，取值范围是1～4094。
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> vlan vlan-id
+
+<span class="token number">2</span>.通过此命令批量创建VLAN。其中：
+  batch：指定批量创建的VLAN ID。
+  vlan-id1：表示第一个VLAN的编号。
+  vlan-id2：表示最后一个VLAN的编号。
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> vlan batch <span class="token punctuation">{</span> vlan-id1 <span class="token punctuation">[</span> to vlan-id2 <span class="token punctuation">]</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  vlan命令用来创建VLAN并进入VLAN视图，如果VLAN已存在，直接进入该VLAN的视图。</p>
+<p>  undo vlan用来删除指定VLAN。</p>
+<p>  缺省情况下，将所有接口都加入到一个缺省的VLAN中，该VLAN标识为1。</p>
+<p>    命令：</p>
+<p>    <strong>vlan vlan-id</strong></p>
+<p>    vlan-id：指定VLAN ID。整数形式，取值范围是1～4094。</p>
+<p>    <strong>vlan batch { vlan-id1 [ to vlan-id2 ] }</strong></p>
+<p>    batch：指定批量创建VLAN。</p>
+<p>    vlan-id1 to vlan-id2：指定批量创建的VLAN ID，其中：</p>
+<p>    vlan-id1表示第一个VLAN的编号。</p>
+<p>    vlan-id2表示最后一个VLAN的编号。vlan-id2的取值必须大于等于vlan-id1，它与vlan-id1共同确定一个VLAN范围。</p>
+<p>    如果不指定to vlan-id2参数，则只创建vlan-id1所指定的VLAN。</p>
+<p>    vlan-id1和vlan-id2是整数形式，取值范围是1～4094。</p>
+<h3 id="6-4-2-Access接口的基础配置命令"><a href="#6-4-2-Access接口的基础配置命令" class="headerlink" title="6.4.2 Access接口的基础配置命令"></a>6.4.2 Access接口的基础配置命令</h3><p>  1.配置接口类型</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，配置接口的链路类型为Access</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port link-type access<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  2.配置Access接口的缺省VLAN</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，配置接口的缺省VLAN并同时加入这个VLAN。</span>
+<span class="token comment"># vlan-id：配置缺省VLAN的编号。整数形式，取值范围是1～4094。</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port default vlan vlan-id <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-4-3-Trunk接口的基础配置命令"><a href="#6-4-3-Trunk接口的基础配置命令" class="headerlink" title="6.4.3 Trunk接口的基础配置命令"></a>6.4.3 Trunk接口的基础配置命令</h3><p>  1.配置接口类型</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，配置接口的链路类型为Trunk</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port link-type trunk<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  2.配置Trunk接口加入指定VLAN</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，配置Trunk类型接口加入的VLAN</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token punctuation">{</span> <span class="token punctuation">{</span> vlan-id1 <span class="token punctuation">[</span> to vlan-id2 <span class="token punctuation">]</span> <span class="token punctuation">}</span> <span class="token operator">|</span> all <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  3.(可选) 配置Trunk接口的缺省VLAN</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，配置Trunk类型接口的缺省VLAN</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port trunk pvid vlan vlan-id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>命令：port trunk allow-pass vlan { { vlan-id1 [ to vlan-id2 ] | all }</p>
+<p>  vlan-id1 [ to vlan-id2 ]：指定Trunk类型接口加入的VLAN，其中：</p>
+<p>    vlan-id1表示第一个VLAN的编号。</p>
+<p>    to vlan-id2表示最后一个VLAN的编号。vlan-id2的取值必须大于等于vlan-id1的取值。</p>
+<p>    vlan-id1和vlan-id 2为整数形式，取值范围是1～4094。</p>
+<p>  all：指定Trunk接口加入所有VLAN。</p>
+<p>命令：port trunk pvid vlan vlan-id，设置Trunk类型接口的缺省VLAN。</p>
+<p>  vlan-id：指定Trunk类型接口的缺省VLAN编号。整数形式，取值范围是1～4094。</p>
+<h3 id="6-4-4-Hybrid接口的基础配置命令"><a href="#6-4-4-Hybrid接口的基础配置命令" class="headerlink" title="6.4.4 Hybrid接口的基础配置命令"></a>6.4.4 Hybrid接口的基础配置命令</h3><p>  1.配置接口类型</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，配置接口的链路类型为Hybrid</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port link-type hybrid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  2.配置Hybrid接口加入指定VLAN</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，配置Hybrid类型接口加入的VLAN，这些VLAN的帧以Untagged方式通过接口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port hybrid untagged vlan <span class="token punctuation">{</span> <span class="token punctuation">{</span> vlan-id1 <span class="token punctuation">[</span> to vlan-id2 <span class="token punctuation">]</span> <span class="token punctuation">}</span> <span class="token operator">|</span> all <span class="token punctuation">}</span>
+
+<span class="token comment"># 在接口视图下，配置Hybrid类型接口加入的VLAN，这些VLAN的帧以Tagged方式通过接口</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port hybrid tagged vlan <span class="token punctuation">{</span> <span class="token punctuation">{</span> vlan-id1 <span class="token punctuation">[</span> to vlan-id2 <span class="token punctuation">]</span> <span class="token punctuation">}</span> <span class="token operator">|</span> all <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  3.(可选) 配置Hybrid接口的缺省VLAN</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，配置Hybrid类型接口的缺省VLAN</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port hybrid pvid vlan vlan-id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>命令：port hybrid untagged vlan { { vlan-id1 [ to vlan-id2 ] } | all }</p>
+<p>  vlan-id1 [ to vlan-id2 ]：指定Hybrid类型接口加入的VLAN，其中：</p>
+<p>    vlan-id1表示第一个VLAN的编号。</p>
+<p>    to vlan-id2表示最后一个VLAN的编号。vlan-id2的取值必须大于等于vlan-id1的取值。</p>
+<p>    vlan-id1和vlan-id 2为整数形式，取值范围是1～4094。</p>
+<p>  all：指定Hybrid接口加入所有VLAN。</p>
+<p>命令：port hybrid tagged vlan { { vlan-id1 [ to vlan-id2 ] } | all }</p>
+<p>  vlan-id1 [ to vlan-id2 ]：指定Hybrid类型接口加入的VLAN，其中：</p>
+<p>    vlan-id1表示第一个VLAN的编号。</p>
+<p>    to vlan-id2表示最后一个VLAN的编号。vlan-id2的取值必须大于等于vlan-id1的取值。</p>
+<p>    vlan-id1和vlan-id 2为整数形式，取值范围是1～4094。</p>
+<p>  all：指定Hybrid接口加入所有VLAN。</p>
+<p>命令：port hybrid pvid vlan vlan-id，设置Hybrid类型接口的缺省VLAN。</p>
+<p>  vlan-id：指定Hybrid类型接口的缺省VLAN编号。整数形式，取值范围是1～4094。</p>
+<h1 id="7-生成树"><a href="#7-生成树" class="headerlink" title="7 生成树"></a>7 生成树</h1>
                 
             </div>
             <hr/>
@@ -1991,7 +2345,7 @@ MainBoard:
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">167.5k</span>&nbsp;字
+                class="white-color">177k</span>&nbsp;字
             
             
             
