@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-07-28T06:25:12.745Z</updated>
+  <updated>2025-08-07T06:24:29.934Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -17,78 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>HCIP-Datacom</title>
-    <link href="https://linuxcenter.icu/2025/07/28/wang-luo-gong-cheng-shi/hcip-datacom/"/>
-    <id>https://linuxcenter.icu/2025/07/28/wang-luo-gong-cheng-shi/hcip-datacom/</id>
-    <published>2025-07-28T11:30:00.000Z</published>
-    <updated>2025-07-28T06:25:12.745Z</updated>
-    
-    
-    
-    
-    <category term="网络工程师" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/"/>
-    
-    
-    <category term="HCIP-Datacom" scheme="https://linuxcenter.icu/tags/HCIP-Datacom/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HCIA-Datacom</title>
-    <link href="https://linuxcenter.icu/2025/07/28/wang-luo-gong-cheng-shi/hcia-datacom/"/>
-    <id>https://linuxcenter.icu/2025/07/28/wang-luo-gong-cheng-shi/hcia-datacom/</id>
-    <published>2025-07-28T11:30:00.000Z</published>
-    <updated>2025-08-05T05:04:30.736Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-数据通信网络基础&quot;&gt;&lt;a href=&quot;#1-数据通信网络基础&quot; class=&quot;headerlink&quot; title=&quot;1 数据通信网络基础&quot;&gt;&lt;/a&gt;1</summary>
-        
-      
-    
-    
-    
-    <category term="网络工程师" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/"/>
-    
-    
-    <category term="HCIA-Datacom" scheme="https://linuxcenter.icu/tags/HCIA-Datacom/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go语言基础</title>
-    <link href="https://linuxcenter.icu/2025/06/29/bian-cheng-kai-fa/go-yu-yan-ji-chu/"/>
-    <id>https://linuxcenter.icu/2025/06/29/bian-cheng-kai-fa/go-yu-yan-ji-chu/</id>
-    <published>2025-06-29T04:34:00.000Z</published>
-    <updated>2025-07-16T12:25:08.154Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-Golang的概述&quot;&gt;&lt;a href=&quot;#1-Golang的概述&quot; class=&quot;headerlink&quot; title=&quot;1 Golang的概述&quot;&gt;&lt;/a&gt;1 Golang的概述&lt;/h1&gt;&lt;h2 id=&quot;1-1-Go语言介绍&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="编程开发" scheme="https://linuxcenter.icu/categories/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="Go语言基础" scheme="https://linuxcenter.icu/tags/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>containerd容器原理与实战</title>
-    <link href="https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi-yuan-li-yu-shi-zhan/"/>
-    <id>https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi-yuan-li-yu-shi-zhan/</id>
+    <title>containerd原理与实战</title>
+    <link href="https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-yuan-li-yu-shi-zhan/"/>
+    <id>https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-yuan-li-yu-shi-zhan/</id>
     <published>2025-06-03T13:48:00.000Z</published>
-    <updated>2025-06-03T15:07:50.090Z</updated>
+    <updated>2025-08-07T06:24:29.934Z</updated>
     
     
       
@@ -104,16 +37,16 @@
     <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="containerd容器原理与实战" scheme="https://linuxcenter.icu/tags/containerd%E5%AE%B9%E5%99%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/"/>
+    <category term="containerd原理与实战" scheme="https://linuxcenter.icu/tags/containerd%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
   <entry>
     <title>Kubernetes企业级运维</title>
-    <link href="https://linuxcenter.icu/2025/06/01/kubernetes/kubernetes-qi-ye-ji-yun-wei/"/>
-    <id>https://linuxcenter.icu/2025/06/01/kubernetes/kubernetes-qi-ye-ji-yun-wei/</id>
+    <link href="https://linuxcenter.icu/2025/06/01/kubernetes-ji-zhu/kubernetes-qi-ye-ji-yun-wei/"/>
+    <id>https://linuxcenter.icu/2025/06/01/kubernetes-ji-zhu/kubernetes-qi-ye-ji-yun-wei/</id>
     <published>2025-06-01T04:34:00.000Z</published>
-    <updated>2025-06-01T04:47:40.198Z</updated>
+    <updated>2025-08-07T06:31:01.111Z</updated>
     
     
       
@@ -126,7 +59,7 @@
     
     
     
-    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    <category term="Kubernetes技术" scheme="https://linuxcenter.icu/categories/Kubernetes%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="Kubernetes企业级运维" scheme="https://linuxcenter.icu/tags/Kubernetes%E4%BC%81%E4%B8%9A%E7%BA%A7%E8%BF%90%E7%BB%B4/"/>
@@ -135,10 +68,10 @@
   
   <entry>
     <title>Kubernetes网络系统原理</title>
-    <link href="https://linuxcenter.icu/2025/05/30/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/"/>
-    <id>https://linuxcenter.icu/2025/05/30/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/</id>
+    <link href="https://linuxcenter.icu/2025/05/30/kubernetes-ji-zhu/kubernetes-wang-luo-xi-tong-yuan-li/"/>
+    <id>https://linuxcenter.icu/2025/05/30/kubernetes-ji-zhu/kubernetes-wang-luo-xi-tong-yuan-li/</id>
     <published>2025-05-30T04:34:00.000Z</published>
-    <updated>2025-06-01T04:55:00.752Z</updated>
+    <updated>2025-08-07T06:32:02.200Z</updated>
     
     
       
@@ -151,7 +84,7 @@
     
     
     
-    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    <category term="Kubernetes技术" scheme="https://linuxcenter.icu/categories/Kubernetes%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="Kubernetes网络系统原理" scheme="https://linuxcenter.icu/tags/Kubernetes%E7%BD%91%E7%BB%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/"/>
@@ -159,11 +92,11 @@
   </entry>
   
   <entry>
-    <title>podman容器</title>
-    <link href="https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/"/>
-    <id>https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/</id>
+    <title>podman原理与实战</title>
+    <link href="https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-yuan-li-yu-shi-zhan/"/>
+    <id>https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-yuan-li-yu-shi-zhan/</id>
     <published>2025-05-28T13:12:00.000Z</published>
-    <updated>2025-06-02T12:09:09.856Z</updated>
+    <updated>2025-08-07T06:25:33.115Z</updated>
     
     
       
@@ -179,16 +112,16 @@
     <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="podman容器" scheme="https://linuxcenter.icu/tags/podman%E5%AE%B9%E5%99%A8/"/>
+    <category term="podman原理与实战" scheme="https://linuxcenter.icu/tags/podman%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
   <entry>
-    <title>Docker容器&amp;Kubernetes</title>
-    <link href="https://linuxcenter.icu/2025/05/28/kubernetes/docker-rong-qi-k8s/"/>
-    <id>https://linuxcenter.icu/2025/05/28/kubernetes/docker-rong-qi-k8s/</id>
+    <title>K8S-CKA认证</title>
+    <link href="https://linuxcenter.icu/2025/05/28/yun-wei-cong-ye-ji-zhu-ren-zheng/k8s-cka-ren-zheng/"/>
+    <id>https://linuxcenter.icu/2025/05/28/yun-wei-cong-ye-ji-zhu-ren-zheng/k8s-cka-ren-zheng/</id>
     <published>2025-05-28T04:34:00.000Z</published>
-    <updated>2025-07-22T12:59:31.544Z</updated>
+    <updated>2025-08-07T06:29:31.460Z</updated>
     
     
       
@@ -201,78 +134,53 @@
     
     
     
-    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    <category term="运维从业技术认证" scheme="https://linuxcenter.icu/categories/%E8%BF%90%E7%BB%B4%E4%BB%8E%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81/"/>
     
     
-    <category term="Docker容器&amp;Kubernetes" scheme="https://linuxcenter.icu/tags/Docker%E5%AE%B9%E5%99%A8-Kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NGINX</title>
-    <link href="https://linuxcenter.icu/2025/03/01/linux/nginx-de-shi-yong/"/>
-    <id>https://linuxcenter.icu/2025/03/01/linux/nginx-de-shi-yong/</id>
-    <published>2025-03-01T04:34:00.000Z</published>
-    <updated>2025-06-04T15:43:48.996Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-NGINX介绍&quot;&gt;&lt;a href=&quot;#1-NGINX介绍&quot; class=&quot;headerlink&quot; title=&quot;1 NGINX介绍&quot;&gt;&lt;/a&gt;1 NGINX介绍&lt;/h1&gt;&lt;h2 id=&quot;1-1-基本概念&quot;&gt;&lt;a href=&quot;#1-1-基本概念&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="https://linuxcenter.icu/categories/Linux/"/>
-    
-    
-    <category term="NGINX" scheme="https://linuxcenter.icu/tags/NGINX/"/>
+    <category term="K8S-CKA认证" scheme="https://linuxcenter.icu/tags/K8S-CKA%E8%AE%A4%E8%AF%81/"/>
     
   </entry>
   
   <entry>
-    <title>Shell脚本</title>
-    <link href="https://linuxcenter.icu/2024/08/28/zi-dong-hua-yun-wei/shell-jiao-ben/"/>
-    <id>https://linuxcenter.icu/2024/08/28/zi-dong-hua-yun-wei/shell-jiao-ben/</id>
+    <title>Shell脚本编程</title>
+    <link href="https://linuxcenter.icu/2024/08/28/yun-wei-zhong-de-bian-cheng/shell-jiao-ben-bian-cheng/"/>
+    <id>https://linuxcenter.icu/2024/08/28/yun-wei-zhong-de-bian-cheng/shell-jiao-ben-bian-cheng/</id>
     <published>2024-08-28T13:12:00.000Z</published>
-    <updated>2025-06-01T04:56:23.508Z</updated>
+    <updated>2025-08-07T06:40:29.013Z</updated>
     
     
     
     
-    <category term="自动化运维" scheme="https://linuxcenter.icu/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/"/>
+    <category term="运维中的编程" scheme="https://linuxcenter.icu/categories/%E8%BF%90%E7%BB%B4%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A8%8B/"/>
     
     
-    <category term="Shell脚本" scheme="https://linuxcenter.icu/tags/Shell%E8%84%9A%E6%9C%AC/"/>
+    <category term="Shell脚本编程" scheme="https://linuxcenter.icu/tags/Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
-    <title>Linux的基础服务</title>
-    <link href="https://linuxcenter.icu/2024/07/28/linux/linux-de-ji-chu-fu-wu/"/>
-    <id>https://linuxcenter.icu/2024/07/28/linux/linux-de-ji-chu-fu-wu/</id>
+    <title>Linux的服务</title>
+    <link href="https://linuxcenter.icu/2024/07/28/linux-de-ji-ben-ji-zhu/linux-de-fu-wu/"/>
+    <id>https://linuxcenter.icu/2024/07/28/linux-de-ji-ben-ji-zhu/linux-de-fu-wu/</id>
     <published>2024-07-28T13:12:00.000Z</published>
-    <updated>2025-06-01T05:00:06.720Z</updated>
+    <updated>2025-08-07T06:35:25.943Z</updated>
     
     
     
     
-    <category term="Linux" scheme="https://linuxcenter.icu/categories/Linux/"/>
+    <category term="Linux的基本技术" scheme="https://linuxcenter.icu/categories/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux的基础服务" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1/"/>
+    <category term="Linux的服务" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E6%9C%8D%E5%8A%A1/"/>
     
   </entry>
   
   <entry>
-    <title>数据库基础</title>
-    <link href="https://linuxcenter.icu/2024/05/14/shu-ju-ku/shu-ju-ku-ji-chu/"/>
-    <id>https://linuxcenter.icu/2024/05/14/shu-ju-ku/shu-ju-ku-ji-chu/</id>
+    <title>数据库的基本操作</title>
+    <link href="https://linuxcenter.icu/2024/05/14/shu-ju-ku/shu-ju-ku-de-ji-ben-cao-zuo/"/>
+    <id>https://linuxcenter.icu/2024/05/14/shu-ju-ku/shu-ju-ku-de-ji-ben-cao-zuo/</id>
     <published>2024-05-14T13:12:00.000Z</published>
-    <updated>2025-05-31T13:56:20.957Z</updated>
+    <updated>2025-08-07T06:27:55.335Z</updated>
     
     
     
@@ -280,16 +188,16 @@
     <category term="数据库" scheme="https://linuxcenter.icu/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="数据库基础" scheme="https://linuxcenter.icu/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/"/>
+    <category term="数据库的基本操作" scheme="https://linuxcenter.icu/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
     
   </entry>
   
   <entry>
-    <title>Ansible的基本使用</title>
-    <link href="https://linuxcenter.icu/2024/04/28/zi-dong-hua-yun-wei/ansible-de-ji-ben-shi-yong/"/>
-    <id>https://linuxcenter.icu/2024/04/28/zi-dong-hua-yun-wei/ansible-de-ji-ben-shi-yong/</id>
+    <title>Ansible的原理与实战</title>
+    <link href="https://linuxcenter.icu/2024/04/28/zi-dong-hua-yun-wei/ansible-de-yuan-li-yu-shi-zhan/"/>
+    <id>https://linuxcenter.icu/2024/04/28/zi-dong-hua-yun-wei/ansible-de-yuan-li-yu-shi-zhan/</id>
     <published>2024-04-28T13:12:00.000Z</published>
-    <updated>2025-06-01T04:56:36.437Z</updated>
+    <updated>2025-08-07T06:30:00.223Z</updated>
     
     
       
@@ -305,16 +213,16 @@
     <category term="自动化运维" scheme="https://linuxcenter.icu/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/"/>
     
     
-    <category term="Ansible的基本使用" scheme="https://linuxcenter.icu/tags/Ansible%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+    <category term="Ansible的原理与实战" scheme="https://linuxcenter.icu/tags/Ansible%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
   <entry>
-    <title>Linux进阶</title>
-    <link href="https://linuxcenter.icu/2023/05/28/linux/linux-jin-jie/"/>
-    <id>https://linuxcenter.icu/2023/05/28/linux/linux-jin-jie/</id>
+    <title>Linux的进阶使用</title>
+    <link href="https://linuxcenter.icu/2023/05/28/linux-de-ji-ben-ji-zhu/linux-de-jin-jie-shi-yong/"/>
+    <id>https://linuxcenter.icu/2023/05/28/linux-de-ji-ben-ji-zhu/linux-de-jin-jie-shi-yong/</id>
     <published>2023-05-28T13:12:00.000Z</published>
-    <updated>2025-06-01T05:51:45.093Z</updated>
+    <updated>2025-08-07T06:37:09.836Z</updated>
     
     
       
@@ -327,19 +235,19 @@
     
     
     
-    <category term="Linux" scheme="https://linuxcenter.icu/categories/Linux/"/>
+    <category term="Linux的基本技术" scheme="https://linuxcenter.icu/categories/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux进阶" scheme="https://linuxcenter.icu/tags/Linux%E8%BF%9B%E9%98%B6/"/>
+    <category term="Linux的进阶使用" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/"/>
     
   </entry>
   
   <entry>
     <title>Linux的基本使用</title>
-    <link href="https://linuxcenter.icu/2022/05/28/linux/linux-de-ji-ben-shi-yong/"/>
-    <id>https://linuxcenter.icu/2022/05/28/linux/linux-de-ji-ben-shi-yong/</id>
+    <link href="https://linuxcenter.icu/2022/05/28/linux-de-ji-ben-ji-zhu/linux-de-ji-ben-shi-yong/"/>
+    <id>https://linuxcenter.icu/2022/05/28/linux-de-ji-ben-ji-zhu/linux-de-ji-ben-shi-yong/</id>
     <published>2022-05-28T13:12:00.000Z</published>
-    <updated>2025-05-31T13:34:08.267Z</updated>
+    <updated>2025-08-07T06:36:01.503Z</updated>
     
     
       
@@ -352,7 +260,7 @@
     
     
     
-    <category term="Linux" scheme="https://linuxcenter.icu/categories/Linux/"/>
+    <category term="Linux的基本技术" scheme="https://linuxcenter.icu/categories/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="Linux的基本使用" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
@@ -360,19 +268,19 @@
   </entry>
   
   <entry>
-    <title>Linux命令</title>
-    <link href="https://linuxcenter.icu/2022/04/28/linux/linux-ming-ling/"/>
-    <id>https://linuxcenter.icu/2022/04/28/linux/linux-ming-ling/</id>
+    <title>Linux的命令</title>
+    <link href="https://linuxcenter.icu/2022/04/28/linux-de-ji-ben-ji-zhu/linux-de-ming-ling/"/>
+    <id>https://linuxcenter.icu/2022/04/28/linux-de-ji-ben-ji-zhu/linux-de-ming-ling/</id>
     <published>2022-04-28T13:12:00.000Z</published>
-    <updated>2025-06-01T02:08:04.934Z</updated>
+    <updated>2025-08-07T06:37:29.585Z</updated>
     
     
     
     
-    <category term="Linux" scheme="https://linuxcenter.icu/categories/Linux/"/>
+    <category term="Linux的基本技术" scheme="https://linuxcenter.icu/categories/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="Linux命令" scheme="https://linuxcenter.icu/tags/Linux%E5%91%BD%E4%BB%A4/"/>
+    <category term="Linux的命令" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E5%91%BD%E4%BB%A4/"/>
     
   </entry>
   
