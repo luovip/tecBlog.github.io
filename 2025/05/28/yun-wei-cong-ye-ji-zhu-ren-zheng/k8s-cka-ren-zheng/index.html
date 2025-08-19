@@ -44,9 +44,9 @@
     <script
         src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-08-07
+                    2025-08-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    52k
+                    54k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    249 分
+                    259 分
                 </div>
                 
 
@@ -557,82 +557,77 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-微服务"><a href="#1-微服务" class="headerlink" title="1 微服务"></a>1 微服务</h1><p>  把一个庞大的应用拆成几个小的独立的服务，再把独立的服务串起来的一种架构设计:内聚更强，更加敏捷</p>
+                <h1 id="1-架构的发展与微服务"><a href="#1-架构的发展与微服务" class="headerlink" title="1 架构的发展与微服务"></a>1 架构的发展与微服务</h1><p>  <strong>微服务</strong>: 把一个庞大的应用拆成几个小的独立的服务，再把独立的服务串起来的一种架构设计:内聚更强，更加敏捷</p>
 <p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1.png"></p>
 <h2 id="1-1-应用架构的发展"><a href="#1-1-应用架构的发展" class="headerlink" title="1.1 应用架构的发展"></a>1.1 应用架构的发展</h2><p><img src="/images/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E7%9A%84%E5%8F%91%E5%B1%95.png"></p>
-<h2 id="1-2-传统单体架构vs微服务软件架构"><a href="#1-2-传统单体架构vs微服务软件架构" class="headerlink" title="1.2 传统单体架构vs微服务软件架构"></a>1.2 传统单体架构vs微服务软件架构</h2><p>  不同于微服务，传统的项目会包含很多功能，是一个大而全的“超级”工程</p>
-<p>  例如：以普通架构方式实现的电商平台包含：登录、权限、会员、商品库存、订单、收藏、关注、购物车等功能的多个单一项目。随着项目业务越来越复杂、开发人员越来越多，相应开发、编译、部署、技术扩展、水平扩展都会受到限制</p>
+<h2 id="1-2-单体架构vs微服务架构"><a href="#1-2-单体架构vs微服务架构" class="headerlink" title="1.2 单体架构vs微服务架构"></a>1.2 单体架构vs微服务架构</h2><p>  <strong>不同于微服务，传统的项目会包含很多功能，是一个大而全的“超级”工程</strong></p>
+<p>  例如：以普通架构方式实现的电商平台包含：登录、权限、会员、商品库存、订单、收藏、关注、购物车等功能的多个单一项目。随着项目业务越来越复杂、开发人员越来越多，相应开发、编译、部署、技术扩展、水平扩展都会受到限制。</p>
 <p><img src="/images/%E4%BC%A0%E7%BB%9F%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84vs%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84.png"></p>
 <h2 id="1-3-基于微服务的系统架构"><a href="#1-3-基于微服务的系统架构" class="headerlink" title="1.3 基于微服务的系统架构"></a>1.3 基于微服务的系统架构</h2><p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png"></p>
-<p>  核心思路是拆分</p>
+<p>  微服务的核心思路是拆分</p>
 <p>  单体项目的问题，通过把项目拆分成一个个小项目就可以解决</p>
 <h2 id="1-4-微服务的特征"><a href="#1-4-微服务的特征" class="headerlink" title="1.4 微服务的特征"></a>1.4 微服务的特征</h2><p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%89%B9%E5%BE%81.png"></p>
-<h2 id="1-5-单体架构"><a href="#1-5-单体架构" class="headerlink" title="1.5 单体架构"></a>1.5 单体架构</h2><p>  紧耦合面临的问题：故障影响范围大、变更成本高、无法支持大规模计算</p>
+<h2 id="1-5-单体架构"><a href="#1-5-单体架构" class="headerlink" title="1.5 单体架构"></a>1.5 单体架构</h2><p>  <strong>紧耦合面临的问题</strong>：故障影响范围大、变更成本高、无法支持大规模计算</p>
 <p><img src="/images/%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84.png"></p>
 <p>  如果需要加入模块C，需要更改模块A、B的代码，需要各个系统人员协调处理</p>
 <h2 id="1-6-解耦架构"><a href="#1-6-解耦架构" class="headerlink" title="1.6 解耦架构"></a>1.6 解耦架构</h2><p><img src="/images/%E8%A7%A3%E8%80%A6%E6%9E%B6%E6%9E%84.png"></p>
-<p>  解耦架构的优势：</p>
-<p>  1.模块化，缩小故障范围</p>
-<p>  2.降低变更成本，插入新模块不影响其他模块</p>
-<p>  3.开发人员协作更简单</p>
-<p>  4.易于扩展</p>
-<h2 id="1-7-消息队列"><a href="#1-7-消息队列" class="headerlink" title="1.7 消息队列"></a>1.7 消息队列</h2><h3 id="1-7-1-传统架构"><a href="#1-7-1-传统架构" class="headerlink" title="1.7.1 传统架构"></a>1.7.1 传统架构</h3><p><img src="/images/%E4%BC%A0%E7%BB%9F%E6%9E%B6%E6%9E%84.png"></p>
-<h3 id="1-7-2-消息队列架构"><a href="#1-7-2-消息队列架构" class="headerlink" title="1.7.2 消息队列架构"></a>1.7.2 消息队列架构</h3><p><img src="/images/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9E%B6%E6%9E%84.png"></p>
+<p>  <strong>解耦架构的优势</strong>：</p>
+<p>   1.模块化，缩小故障范围</p>
+<p>   2.降低变更成本，插入新模块不影响其他模块</p>
+<p>   3.开发人员协作更简单</p>
+<p>   4.易于扩展</p>
+<h2 id="1-7-消息队列"><a href="#1-7-消息队列" class="headerlink" title="1.7 消息队列"></a>1.7 消息队列</h2><p>  <strong>1.传统架构</strong></p>
+<p><img src="/images/%E4%BC%A0%E7%BB%9F%E6%9E%B6%E6%9E%84.png"></p>
+<p>  <strong>2.消息队列架构</strong></p>
+<p><img src="/images/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9E%B6%E6%9E%84.png"></p>
 <h2 id="1-8-微服务面临的挑战"><a href="#1-8-微服务面临的挑战" class="headerlink" title="1.8 微服务面临的挑战"></a>1.8 微服务面临的挑战</h2><table>
 <thead>
 <tr>
-<th></th>
+<th>对比类型</th>
+<th>单体架构</th>
+<th>微服务架构</th>
+<th>对比类型</th>
 <th>单体架构</th>
 <th>微服务架构</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>迭代速度</td>
+<td><strong>迭代速度</strong></td>
 <td>较慢</td>
 <td>快</td>
-</tr>
-<tr>
-<td>部署频率</td>
-<td>不经常部署</td>
-<td>经常发布</td>
-</tr>
-<tr>
-<td>系统性能</td>
-<td>吞吐量小</td>
-<td>吞吐量大</td>
-</tr>
-<tr>
-<td>系统扩展性</td>
-<td>扩展性差</td>
-<td>扩展性好</td>
-</tr>
-<tr>
-<td>技术栈多样性</td>
-<td>单一、封闭</td>
-<td>多样、开放</td>
-</tr>
-<tr>
-<td>运维</td>
+<td><strong>运维</strong></td>
 <td>简单</td>
 <td>运维复杂</td>
 </tr>
 <tr>
-<td>部署难度</td>
+<td><strong>部署频率</strong></td>
+<td>不经常部署</td>
+<td>经常发布</td>
+<td><strong>部署难度</strong></td>
 <td>容易部署</td>
 <td>较难部署</td>
 </tr>
 <tr>
-<td>架构复杂度</td>
+<td><strong>系统性能</strong></td>
+<td>吞吐量小</td>
+<td>吞吐量大</td>
+<td><strong>架构复杂度</strong></td>
 <td>较小</td>
 <td>复杂度高</td>
 </tr>
 <tr>
-<td>查错</td>
+<td><strong>系统扩展性</strong></td>
+<td>扩展性差</td>
+<td>扩展性好</td>
+<td><strong>查错</strong></td>
 <td>简单</td>
 <td>定位问题较难</td>
 </tr>
 <tr>
-<td>管理成本</td>
+<td><strong>技术栈多样性</strong></td>
+<td>单一、封闭</td>
+<td>多样、开放</td>
+<td><strong>管理成本</strong></td>
 <td>主要在于开发成本</td>
 <td>服务治理、运维</td>
 </tr>
@@ -644,43 +639,41 @@
 <th>对比模块</th>
 <th>虚拟机</th>
 <th>容器</th>
+<th>对比模块</th>
+<th>虚拟机</th>
+<th>容器</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>占用空间</td>
+<td><strong>占用空间</strong></td>
 <td>非常大，GB级别</td>
 <td>小，MB/KB级别</td>
-</tr>
-<tr>
-<td>启用速度</td>
-<td>慢，分钟级</td>
-<td>快，秒级</td>
-</tr>
-<tr>
-<td>运行形态</td>
-<td>运行于Hypervisor</td>
-<td>直接运行在宿主机内核上</td>
-</tr>
-<tr>
-<td>并发性</td>
+<td><strong>并发性</strong></td>
 <td>一台宿主机上十几个，最多几 十个</td>
 <td>上百个，甚至数百个</td>
 </tr>
 <tr>
-<td>性能</td>
+<td><strong>启用速度</strong></td>
+<td>慢，分钟级</td>
+<td>快，秒级</td>
+<td><strong>性能</strong></td>
 <td>低于宿主机</td>
 <td>接近于宿主机本地进程</td>
 </tr>
 <tr>
-<td>资源利用率</td>
+<td><strong>运行形态</strong></td>
+<td>运行于Hypervisor</td>
+<td>直接运行在宿主机内核上</td>
+<td><strong>资源利用率</strong></td>
 <td>低</td>
 <td>高</td>
 </tr>
 </tbody></table>
-<h1 id="2-容器的基本使用"><a href="#2-容器的基本使用" class="headerlink" title="2 容器的基本使用"></a>2 容器的基本使用</h1><h2 id="2-1-容器介绍"><a href="#2-1-容器介绍" class="headerlink" title="2.1 容器介绍"></a>2.1 容器介绍</h2><p>  容器是一个可以在共享的操作系统上将应用程序以指定格式打包并运行在一个与操作系统相关联的环境中的方法</p>
-<p>  和虚拟机相比，容器并不会打包整个操作系统，而只是打包应用程序所必须的库和设置，这将使得容器具备高效率、轻量化、系统隔离性，以上特性将会确保无论在何处部署，容器每次运行都会完全一致</p>
-<p>  容器工具：Rkt、Containerd、Docker、Podman</p>
-<h2 id="2-2-部署Docker"><a href="#2-2-部署Docker" class="headerlink" title="2.2 部署Docker"></a>2.2 部署Docker</h2><p>  从南京大学开源镜像站在Ubuntu上安装docker</p>
+<h1 id="2-docker容器"><a href="#2-docker容器" class="headerlink" title="2 docker容器"></a>2 docker容器</h1><h2 id="2-1-容器的概念"><a href="#2-1-容器的概念" class="headerlink" title="2.1 容器的概念"></a>2.1 容器的概念</h2><p>  可以在共享的操作系统上将应用程序以指定格式打包并运行在一个与操作系统相关联的环境中的方法</p>
+<p>  和虚拟机相比，容器并不会打包整个操作系统，而只是打包应用程序所必须的库和设置，这将使容器具备高效率、轻量化、系统隔离性，以上特性将会确保无论在何处部署，容器每次运行都会完全一致</p>
+<p>  常见的容器工具：Rkt、Containerd、Docker、Podman</p>
+<h2 id="2-2-部署Docker"><a href="#2-2-部署Docker" class="headerlink" title="2.2 部署Docker"></a>2.2 部署Docker</h2><p>  <strong>按南京大学开源镜像站的指引在Ubuntu上安装docker</strong>:  </p>
+<p>   <a target="_blank" rel="noopener" href="https://mirror.nju.edu.cn/mirrorz-help/docker-ce/?mirror=NJU">https://mirror.nju.edu.cn/mirrorz-help/docker-ce/?mirror=NJU</a></p>
 <p><img src="/images/docker%E5%AE%89%E8%A3%85.png"></p>
 <h3 id="2-2-1-安装依赖"><a href="#2-2-1-安装依赖" class="headerlink" title="2.2.1 安装依赖"></a>2.2.1 安装依赖</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检测系统是否安装了docker</span>
 root@k8s-master:~<span class="token comment"># for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done</span>
@@ -689,12 +682,12 @@ root@k8s-master:~<span class="token comment"># for pkg in docker.io docker-doc d
 root@k8s-master:~<span class="token comment"># sudo apt-get update</span>
 root@k8s-master:~<span class="token comment"># sudo apt-get install ca-certificates curl gnupg</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-2-2-安装GPG公钥"><a href="#2-2-2-安装GPG公钥" class="headerlink" title="2.2.2 安装GPG公钥"></a>2.2.2 安装GPG公钥</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># sudo install -m 0755 -d /etc/apt/keyrings</span>
+<h3 id="2-2-2-信任Docker的GPG公钥"><a href="#2-2-2-信任Docker的GPG公钥" class="headerlink" title="2.2.2 信任Docker的GPG公钥"></a>2.2.2 信任Docker的GPG公钥</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># sudo install -m 0755 -d /etc/apt/keyrings</span>
 root@k8s-master:~<span class="token comment"># curl -fsSL https://mirror.nju.edu.cn/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span>
 
 root@k8s-master:~<span class="token comment"># sudo chmod a+r /etc/apt/keyrings/docker.gpg</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-2-3-添加Docker仓库"><a href="#2-2-3-添加Docker仓库" class="headerlink" title="2.2.3 添加Docker仓库"></a>2.2.3 添加Docker仓库</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># echo \</span>
+<h3 id="2-2-3-添加仓库"><a href="#2-2-3-添加仓库" class="headerlink" title="2.2.3 添加仓库"></a>2.2.3 添加仓库</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># echo \</span>
   <span class="token string">"deb [arch=<span class="token variable"><span class="token variable">$(</span>dpkg --print-architecture<span class="token variable">)</span></span> signed-by=/etc/apt/keyrings/docker.gpg] https://mirror.nju.edu.cn/docker-ce/linux/ubuntu \
   "</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">.</span> /etc/os-release <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$VERSION_CODENAME</span>"</span><span class="token variable">)</span></span><span class="token string">" stable"</span> <span class="token operator">|</span> <span class="token punctuation">\</span>
   <span class="token function">sudo</span> <span class="token function">tee</span> /etc/apt/sources.list.d/docker.list <span class="token operator">&gt;</span> /dev/null<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
@@ -702,16 +695,105 @@ root@k8s-master:~<span class="token comment"># sudo chmod a+r /etc/apt/keyrings/
 <h3 id="2-2-4-安装Docker"><a href="#2-2-4-安装Docker" class="headerlink" title="2.2.4 安装Docker"></a>2.2.4 安装Docker</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># sudo apt-get update</span>
 root@k8s-master:~<span class="token comment"># sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span>
 
-<span class="token comment"># 拉取失败，因此在中国需要加速器</span>
-root@k8s-master:~<span class="token comment"># sudo docker run hello-world</span>
-Unable to <span class="token function">find</span> image <span class="token string">'hello-world:latest'</span> locally
-docker: Error response from daemon: Get <span class="token string">"https://registry-1.docker.io/v2/"</span><span class="token builtin class-name">:</span> context deadline exceeded <span class="token punctuation">(</span>Client.Timeout exceeded <span class="token keyword">while</span> awaiting headers<span class="token punctuation">)</span>
+root@k8s-master:~<span class="token comment"># docker version</span>
+Client: Docker Engine - Community
+ Version:           <span class="token number">28.3</span>.3
+ API version:       <span class="token number">1.51</span>
+ Go version:        go1.24.5
+ Git commit:        980b856
+ Built:             Fri Jul <span class="token number">25</span> <span class="token number">11</span>:34:09 <span class="token number">2025</span>
+ OS/Arch:           linux/amd64
+ Context:           default
 
-Run <span class="token string">'docker run --help'</span> <span class="token keyword">for</span> <span class="token function">more</span> information<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Server: Docker Engine - Community
+ Engine:
+  Version:          <span class="token number">28.3</span>.3
+  API version:      <span class="token number">1.51</span> <span class="token punctuation">(</span>minimum version <span class="token number">1.24</span><span class="token punctuation">)</span>
+  Go version:       go1.24.5
+  Git commit:       bea959c
+  Built:            Fri Jul <span class="token number">25</span> <span class="token number">11</span>:34:09 <span class="token number">2025</span>
+  OS/Arch:          linux/amd64
+  Experimental:     <span class="token boolean">false</span>
+ containerd:
+  Version:          <span class="token number">1.7</span>.27
+  GitCommit:        05044ec0a9a75232cad458027ca83437aae3f4da
+ runc:
+  Version:          <span class="token number">1.2</span>.5
+  GitCommit:        v1.2.5-0-g59923ef
+ docker-init:
+  Version:          <span class="token number">0.19</span>.0
+  GitCommit:        de40ad0
 
-<h3 id="2-2-5-Docker镜像加速器"><a href="#2-2-5-Docker镜像加速器" class="headerlink" title="2.2.5 Docker镜像加速器"></a>2.2.5 Docker镜像加速器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># mkdir -p /etc/docker</span>
-root@k8s-master:~<span class="token comment"># cd /etc/docker</span>
-root@k8s-master:/etc/docker<span class="token comment"># vim daemon.json</span>
+root@k8s-master:~<span class="token comment"># systemctl status docker</span>
+● docker.service - Docker Application Container Engine
+     Loaded: loaded <span class="token punctuation">(</span>/usr/lib/systemd/system/docker.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> preset: enabled<span class="token punctuation">)</span>
+     Active: active <span class="token punctuation">(</span>running<span class="token punctuation">)</span> since Mon <span class="token number">2025</span>-08-18 08:42:04 UTC<span class="token punctuation">;</span> 4min 0s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-5-测试拉取镜像"><a href="#2-2-5-测试拉取镜像" class="headerlink" title="2.2.5 测试拉取镜像"></a>2.2.5 测试拉取镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">格式：域名/命名空间/镜像名称：版本
+对于Docker官方的镜像来说，其域名为docker.io，命名空间为library，如果你要从Docker官方拉取nginx镜像，那就需要用下面的命令：
+<span class="token function">docker</span> pull docker.io/library/nginx:latest
+
+<span class="token comment"># 基于中国国情原因，默认从docker默认的镜像仓库拉取镜像会失败，因此在中国需要加速器或从指定镜像仓库拉取</span>
+root@k8s-master:~<span class="token comment"># docker pull nginx</span>
+Using default tag: latest
+Error response from daemon: Get <span class="token string">"https://registry-1.docker.io/v2/"</span><span class="token builtin class-name">:</span> net/http: request canceled <span class="token keyword">while</span> waiting <span class="token keyword">for</span> connection <span class="token punctuation">(</span>Client.Timeout exceeded <span class="token keyword">while</span> awaiting headers<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-6-使用加速器拉取镜像"><a href="#2-2-6-使用加速器拉取镜像" class="headerlink" title="2.2.6 使用加速器拉取镜像"></a>2.2.6 使用加速器拉取镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 登录docker镜像仓库</span>
+<span class="token comment"># docker login class-docker.myk8s.cn -u cka -p cka</span>
+root@k8s-master:~<span class="token comment"># docker login registry.myk8s.cn -u cka -p cka</span>
+WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+
+WARNING<span class="token operator">!</span> Your credentials are stored unencrypted <span class="token keyword">in</span> <span class="token string">'/root/.docker/config.json'</span><span class="token builtin class-name">.</span>
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+
+<span class="token number">1</span>.在命令行指定拉取镜像的地址
+root@k8s-master:~<span class="token comment"># docker pull registry.myk8s.cn/library/nginx</span>
+Using default tag: latest
+latest: Pulling from library/nginx
+8a628cdd7ccc: Pull complete
+b0c073cda91f: Pull complete
+e6557c42ebea: Pull complete
+ec74683520b9: Pull complete
+6c95adab80c5: Pull complete
+ad8a0171f43e: Pull complete
+32ef64864ec3: Pull complete
+Digest: sha256:5ed8fcc66f4ed123c1b2560ed708dc148755b6e4cbd8b943fab094f2c6bfa91e
+Status: Downloaded newer image <span class="token keyword">for</span> registry.myk8s.cn/library/nginx:latest
+
+root@k8s-master:~<span class="token comment"># docker images</span>
+REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
+registry.myk8s.cn/library/nginx   latest    4e1b6bae1e48   <span class="token number">4</span> months ago   192MB
+
+<span class="token number">2</span>.在/etc/docker/daemon.json中添加可用的仓库地址
+root@k8s-master:~<span class="token comment"># vim /etc/docker/daemon.json</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"registry-mirrors"</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">"https://registry.myk8s.cn"</span><span class="token punctuation">]</span>,
+  <span class="token string">"exec-opts"</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">"native.cgroupdriver=systemd"</span><span class="token punctuation">]</span>
+ <span class="token punctuation">}</span>
+root@k8s-master:~<span class="token comment"># systemctl daemon-reload</span>
+root@k8s-master:~<span class="token comment"># systemctl restart docker</span>
+root@k8s-master:~<span class="token comment"># docker pull httpd</span>
+Using default tag: latest
+latest: Pulling from library/httpd
+8a628cdd7ccc: Already exists
+60ba3d18ad64: Pull complete
+4f4fb700ef54: Pull complete
+03e322382f93: Pull complete
+4ad6b63c403f: Pull complete
+c613327bbca6: Pull complete
+Digest: sha256:4564ca7604957765bd2598e14134a1c6812067f0daddd7dc5a484431dd03832b
+Status: Downloaded newer image <span class="token keyword">for</span> httpd:latest
+docker.io/library/httpd:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>部分可用的镜像加速器</strong>:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:/etc/docker<span class="token comment"># vim daemon.json</span>
 <span class="token punctuation">{</span>
   <span class="token string">"registry-mirrors"</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
         <span class="token string">"https://docker.mirrors.ustc.edu.cn"</span>,
@@ -733,186 +815,185 @@ root@k8s-master:/etc/docker<span class="token comment"># vim daemon.json</span>
 <span class="token punctuation">}</span>
 root@k8s-master:~<span class="token comment"># systemctl daemon-reload</span>
 root@k8s-master:~<span class="token comment"># systemctl restart docker</span>
+root@k8s-master:~<span class="token comment"># docker info</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-root@k8s-master:~<span class="token comment"># sudo docker pull hello-world</span>
-Using default tag: latest
-latest: Pulling from library/hello-world
-Digest: sha256:c41088499908a59aae84b0a49c70e86f4731e588a737f1637e73c8c09d995654
-Status: Image is up to <span class="token function">date</span> <span class="token keyword">for</span> hello-world:latest
-docker.io/library/hello-world:latest
+<h3 id="2-2-7-删除镜像"><a href="#2-2-7-删除镜像" class="headerlink" title="2.2.7 删除镜像"></a>2.2.7 删除镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker images</span>
+REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
+registry.myk8s.cn/library/nginx   latest    4e1b6bae1e48   <span class="token number">4</span> months ago   192MB
+registry.myk8s.cn/library/httpd   latest    10fd72f437c4   <span class="token number">6</span> months ago   148MB
+httpd                             latest    10fd72f437c4   <span class="token number">6</span> months ago   148MB
+root@k8s-master:~<span class="token comment"># docker rmi registry.myk8s.cn/library/nginx</span>
+
+root@k8s-master:~<span class="token comment"># docker rmi -f $(docker images -aq)</span>
 
 root@k8s-master:~<span class="token comment"># docker images</span>
-REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
-hello-world   latest    74cc54e27dc4   <span class="token number">3</span> months ago   <span class="token number">10</span>.1kB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+参数说明：
+<span class="token number">1</span>.删除镜像  <span class="token function">docker</span> rmi 镜像名
+<span class="token number">2</span>.删除所有镜像 <span class="token function">docker</span> rmi <span class="token parameter variable">-f</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">docker</span> images <span class="token parameter variable">-aq</span><span class="token variable">)</span></span>
+  说明：列出所有镜像的ID，并使用docker rmi -f强制删除
+  
+<span class="token number">3</span>.使用docker system prune命令  <span class="token function">docker</span> system prune <span class="token parameter variable">-a</span> <span class="token parameter variable">--volumes</span>
+  说明：删除所有停止的容器、未被使用的网络、卷、没有关联容器的镜像以及所有构建缓存
+<span class="token number">4</span>.使用docker image prune命令   <span class="token function">docker</span> image prune <span class="token parameter variable">-a</span> <span class="token parameter variable">-f</span>
+  说明：删除所有未被使用的镜像，-a参数表示删除所有未使用的镜像，而不仅仅是悬空镜像，-f参数表示不进行确认提示<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-2-6-重启Docker服务"><a href="#2-2-6-重启Docker服务" class="headerlink" title="2.2.6 重启Docker服务"></a>2.2.6 重启Docker服务</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># systemctl restart docker</span>
-root@k8s-master:~<span class="token comment"># docker info</span>
-Client: Docker Engine - Community
- Version:    <span class="token number">28.1</span>.1
- Context:    default
- Debug Mode: <span class="token boolean">false</span>
- Plugins:
-  buildx: Docker Buildx <span class="token punctuation">(</span>Docker Inc.<span class="token punctuation">)</span>
-    Version:  v0.23.0
-    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
-  compose: Docker Compose <span class="token punctuation">(</span>Docker Inc.<span class="token punctuation">)</span>
-    Version:  v2.35.1
-    Path:     /usr/libexec/docker/cli-plugins/docker-compose
-
-Server:
- Containers: <span class="token number">2</span>
-  Running: <span class="token number">1</span>
-  Paused: <span class="token number">0</span>
-  Stopped: <span class="token number">1</span>
- Images: <span class="token number">2</span>
- Server Version: <span class="token number">28.1</span>.1
- Storage Driver: overlay2
-  Backing Filesystem: extfs
-  Supports d_type: <span class="token boolean">true</span>
-  Using metacopy: <span class="token boolean">false</span>
-  Native Overlay Diff: <span class="token boolean">true</span>
-  userxattr: <span class="token boolean">false</span>
- Logging Driver: json-file
- Cgroup Driver: systemd
- Cgroup Version: <span class="token number">2</span>
- Plugins:
-  Volume: <span class="token builtin class-name">local</span>
-  Network: bridge <span class="token function">host</span> ipvlan macvlan null overlay
-  Log: awslogs fluentd gcplogs gelf journald json-file <span class="token builtin class-name">local</span> splunk syslog
- Swarm: inactive
- Runtimes: io.containerd.runc.v2 runc
- Default Runtime: runc
- Init Binary: docker-init
- containerd version: 05044ec0a9a75232cad458027ca83437aae3f4da
- runc version: v1.2.5-0-g59923ef
- init version: de40ad0
- Security Options:
-  apparmor
-  seccomp
-   Profile: <span class="token builtin class-name">builtin</span>
-  cgroupns
- Kernel Version: <span class="token number">6.8</span>.0-53-generic
- Operating System: Ubuntu <span class="token number">24.04</span>.2 LTS
- OSType: linux
- Architecture: x86_64
- CPUs: <span class="token number">2</span>
- Total Memory: <span class="token number">3</span>.777GiB
- Name: k8s-master
- ID: 6c5b4dc6-423d-47e6-a687-e75062cf4fd9
- Docker Root Dir: /var/lib/docker
- Debug Mode: <span class="token boolean">false</span>
- Experimental: <span class="token boolean">false</span>
- Insecure Registries:
-  ::1/128
-  <span class="token number">127.0</span>.0.0/8
- Registry Mirrors:
-  https://docker.mirrors.ustc.edu.cn/
-  https://mirror.baidubce.com/
-  https://docker.m.daocloud.io/
-  https://mirror.ccs.tencentyun.com/
-  https://docker.nju.edu.cn/
-  https://docker.mirrors.sjtug.sjtu.edu.cn/
-  https://mirror.gcr.io/
-  https://docker.registry.cyou/
-  https://docker-cf.registry.cyou/
-  https://dockercf.jsdelivr.fyi/
-  https://docker.jsdelivr.fyi/
-  https://dockertest.jsdelivr.fyi/
-  https://mirror.aliyuncs.com/
-  https://dockerproxy.com/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2-3-操作容器"><a href="#2-3-操作容器" class="headerlink" title="2.3 操作容器"></a>2.3 操作容器</h2><h3 id="2-3-1-创建持续运行的容器"><a href="#2-3-1-创建持续运行的容器" class="headerlink" title="2.3.1 创建持续运行的容器"></a>2.3.1 创建持续运行的容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker run -d --name nginxtest nginx</span>
+<h2 id="2-3-操作docekr容器"><a href="#2-3-操作docekr容器" class="headerlink" title="2.3 操作docekr容器"></a>2.3 操作docekr容器</h2><h3 id="2-3-1-创建持续运行的容器"><a href="#2-3-1-创建持续运行的容器" class="headerlink" title="2.3.1 创建持续运行的容器"></a>2.3.1 创建持续运行的容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker run -d -p 8000:80 --name container1 registry.myk8s.cn/library/nginx</span>
 root@k8s-master:~<span class="token comment"># docker ps</span>
-CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS     NAMES
-b68184fd3b9b   nginx     <span class="token string">"/docker-entrypoint.…"</span>   About a minute ago   Up About a minute   <span class="token number">80</span>/tcp  nginxtest
+CONTAINER ID   IMAGE       COMMAND    CREATED          STATUS          PORTS         NAMES
+f3763cc8e85a   registry.myk8s.cn/library/nginx   <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">17</span> seconds ago   Up <span class="token number">16</span> seconds   <span class="token number">0.0</span>.0.0:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container1
 
-root@k8s-master:~<span class="token comment"># docker ps -a</span>
-CONTAINER ID   IMAGE    COMMAND                  CREATED              STATUS               PORTS     NAMES
-b68184fd3b9b   nginx    <span class="token string">"/docker-entrypoint.…"</span>   About a minute ago   Up About a minute     <span class="token number">80</span>/tcp  nginxtest
-8ea8394296ac   hello-world   <span class="token string">"/hello"</span>            <span class="token number">22</span> minutes ago    Exited <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token number">22</span> minutes ago   goofy_brattain<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment"># 参数说明：</span>
+   -d：后台运行
+   -p：端口映射，此处是将宿主机的8000端口和容器内的80端口映射到一起
+   –name：容器的名字
+   nginx：本次使用的镜像名字
+   <span class="token function">docker</span> <span class="token function">ps</span>      查看正在运行的容器  
+   <span class="token function">docker</span> <span class="token function">ps</span> <span class="token parameter variable">-a</span>   查看所有容器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-3-2-进入容器"><a href="#2-3-2-进入容器" class="headerlink" title="2.3.2 进入容器"></a>2.3.2 进入容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker exec -it nginxtest /bin/bash</span>
-root@b68184fd3b9b:/<span class="token comment"># cat /etc/nginx/nginx.conf</span>
-root@b68184fd3b9b:/<span class="token comment"># exit</span>
+<h3 id="2-3-2-进入容器并访问"><a href="#2-3-2-进入容器并访问" class="headerlink" title="2.3.2 进入容器并访问"></a>2.3.2 进入容器并访问</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.进入容器
+root@k8s-master:~<span class="token comment"># docker exec -it container1 /bin/bash</span>
+root@f3763cc8e85a:/<span class="token comment"># echo Hello China &gt; /usr/share/nginx/html/index.html</span>
+root@f3763cc8e85a:/<span class="token comment"># exit</span>
 <span class="token builtin class-name">exit</span>
-root@k8s-master:~<span class="token comment">#</span>
 
-<span class="token comment"># @后的主机名在exec后发生了变化，这就是进入容器内的标志</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">2</span>.访问容器
+root@k8s-master:~<span class="token comment"># curl http://127.0.0.1:8000</span>
+Hello China
+
+<span class="token comment"># 参数说明：exec -it是通过交互式进入treminal</span>
+<span class="token comment"># @后的主机名在exec后发生了变化，这就是进入容器内的标志</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="2-3-3-删除容器"><a href="#2-3-3-删除容器" class="headerlink" title="2.3.3 删除容器"></a>2.3.3 删除容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker ps</span>
-CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS        PORTS       NAMES
-260028d6b4a2   httpd:v1   <span class="token string">"httpd-foreground"</span>       <span class="token number">5</span> seconds ago   Up <span class="token number">4</span> seconds   <span class="token number">0.0</span>.0.0:4000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:4000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   luoyudockerfile
-b68184fd3b9b   nginx      <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">12</span> hours ago    Up <span class="token number">12</span> hours    <span class="token number">80</span>/tcp    nginxtest
+CONTAINER ID   IMAGE      COMMAND      CREATED     STATUS       PORTS            NAMES
+f3763cc8e85a   registry.myk8s.cn/library/nginx   <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">17</span> minutes ago   Up <span class="token number">17</span> minutes   <span class="token number">0.0</span>.0.0:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container1
 
-root@k8s-master:~<span class="token comment"># docker rm -f nginxtest luoyudockerfile</span>
-nginxtest
-luoyudockerfile
+root@k8s-master:~<span class="token comment"># docker rm -f container1</span>
+container1
+
 root@k8s-master:~<span class="token comment"># docker ps</span>
-CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
-<h2 id="2-4-构建-使用镜像"><a href="#2-4-构建-使用镜像" class="headerlink" title="2.4 构建&amp;使用镜像"></a>2.4 构建&amp;使用镜像</h2><h3 id="2-4-1-镜像概述"><a href="#2-4-1-镜像概述" class="headerlink" title="2.4.1 镜像概述"></a>2.4.1 镜像概述</h3><p>  镜像是一个用于创建容器的只读模板，通常来讲，包含一些额外的自定义，比如说，可以构建一个基于centos的镜像，在镜像构建时，直接包含一些应用程序，比如Apache或者其他程序，构建完成后，可以直接基于这个镜像启动容器，快速获得期望的业务</p>
+<span class="token comment"># 参数说明：</span>
+<span class="token number">1</span>.删除已经停止的容器 <span class="token function">docker</span> <span class="token function">rm</span> 容器名称、docker <span class="token function">rm</span> 容器ID
+<span class="token number">2</span>.强制删除正在运行的容器   <span class="token function">docker</span> <span class="token function">rm</span> <span class="token parameter variable">-f</span> 容器名称
+  说明：使用强制删除选项-f会立即停止并删除容器，可能会导致数据丢失或服务中断
+<span class="token number">3</span>.删除多个容器 <span class="token function">docker</span> <span class="token function">rm</span> container1 container2 <span class="token punctuation">..</span>.
+<span class="token number">4</span>.删除所有容器<span class="token punctuation">(</span>包括正在运行的容器<span class="token punctuation">)</span>   <span class="token function">docker</span> <span class="token function">rm</span> <span class="token parameter variable">-f</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">docker</span> <span class="token function">ps</span> <span class="token parameter variable">-aq</span><span class="token variable">)</span></span>
+  说明：通过docker <span class="token function">ps</span> -aq列出所有容器的ID，然后通过docker <span class="token function">rm</span> -f强制删除
+  
+root@k8s-master:~<span class="token comment"># docker run -d -p 8000:80 --name container1 registry.myk8s.cn/library/nginx</span>
+root@k8s-master:~<span class="token comment"># docker run -d -p 7000:80 --name container2 registry.myk8s.cn/library/httpd</span>
+root@k8s-master:~<span class="token comment"># docker ps</span>
+CONTAINER ID   IMAGE    COMMAND     CREATED       STATUS     PORTS            NAMES
+94d9846bd45e   registry.myk8s.cn/library/httpd   <span class="token string">"httpd-foreground"</span>       <span class="token number">8</span> seconds ago    Up <span class="token number">8</span> seconds    <span class="token number">0.0</span>.0.0:7000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:7000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container2
+f6dda7674768   registry.myk8s.cn/library/nginx   <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">33</span> seconds ago   Up <span class="token number">33</span> seconds   <span class="token number">0.0</span>.0.0:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container1
+
+root@k8s-master:~<span class="token comment"># docker ps -aq</span>
+94d9846bd45e
+f6dda7674768
+
+root@k8s-master:~<span class="token comment"># docker rm -f $(docker ps -aq)</span>
+94d9846bd45e
+f6dda7674768
+
+root@k8s-master:~<span class="token comment"># docker ps</span>
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-4-构建-使用镜像"><a href="#2-4-构建-使用镜像" class="headerlink" title="2.4 构建&amp;使用镜像"></a>2.4 构建&amp;使用镜像</h2><h3 id="2-4-1-镜像概述"><a href="#2-4-1-镜像概述" class="headerlink" title="2.4.1 镜像概述"></a>2.4.1 镜像概述</h3><p>  镜像是用于创建容器的只读模板，通常来讲，包含一些额外的自定义，比如说，可以构建一个基于centos的镜像，在镜像构建时，直接包含一些应用程序，比如Apache或者其他程序，构建完成后，可以直接基于这个镜像启动容器，快速获得期望的业务</p>
 <p>  镜像可以来自公共的仓库，也可通过Dockerfile等定义文件来构建，并且把自己的镜像推送到仓库中，以备在任何地方任何时间下载使用</p>
+<p>  <strong>镜像分层技术：</strong></p>
+<p><img src="/images/%E9%95%9C%E5%83%8F%E5%88%86%E5%B1%82.png"></p>
 <h3 id="2-4-2-公共镜像仓库"><a href="#2-4-2-公共镜像仓库" class="headerlink" title="2.4.2 公共镜像仓库"></a>2.4.2 公共镜像仓库</h3><p>  Docker公共镜像仓库：<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com</a></p>
-<p>  Docker Hub是一个基于云端的registry服务，这个服务允许我们连接仓库代码、建立镜像、 推送镜像等功能，提供了一个集中式的容器资源管理平台，包含了各式各样的官方镜像，例如Apache、Centos以及各种企业级应用镜像，还以星级和评分来确保镜像的可靠性和适用性</p>
+<p>  Docker Hub是一个基于云端的registry服务，这个服务允许连接仓库代码、建立镜像、 推送镜像等，提供了一个集中式的容器资源管理平台，包含了各式各样的官方镜像，例如Apache、Centos以及各种企业级应用镜像，以星级和评分来确保镜像的可靠性和适用性</p>
 <p><img src="/images/%E5%85%AC%E5%85%B1%E9%95%9C%E5%83%8F%E5%BA%93.png"></p>
 <p>  打开<a target="_blank" rel="noopener" href="https://hub.docker.com,注册一个docker/">https://hub.docker.com，注册一个Docker</a> ID，登陆后浏览各项功能</p>
-<h3 id="2-4-3-镜像分层技术"><a href="#2-4-3-镜像分层技术" class="headerlink" title="2.4.3 镜像分层技术"></a>2.4.3 镜像分层技术</h3><p><img src="/images/%E9%95%9C%E5%83%8F%E5%88%86%E5%B1%82.png"></p>
-<h3 id="2-4-4-构建镜像的方法"><a href="#2-4-4-构建镜像的方法" class="headerlink" title="2.4.4 构建镜像的方法"></a>2.4.4 构建镜像的方法</h3><p>  1.docker commit</p>
-<p>  使用容器中发生更改的部分生成一个新的镜像，通常的使用场景为，基于普通镜像启动了容器，在容器内部署了所需的业务后，把当前的状态重新生成镜像，以便以当前状态快速部署业务所用</p>
-<p>  2.Dockerfile 创建镜像</p>
-<p>  从零开始构建自己所需的镜像，在创建镜像之初把所需的各种设置和所需要的各种应用程序包含进去，生成的镜像可直接用于业务部署</p>
-<p>  3.Dockerfile高频指令集</p>
-<p><img src="/images/dockerfile%E6%8C%87%E4%BB%A4.png"></p>
-<h3 id="2-4-5-Dockerfile-image"><a href="#2-4-5-Dockerfile-image" class="headerlink" title="2.4.5 Dockerfile image"></a>2.4.5 Dockerfile image</h3><p>  在设计Dockerfile时应考虑以下事项：</p>
-<p>  1.容器应该是暂时的</p>
-<p>  2.避免安装不必要的软件包</p>
-<p>  3.每个容器只应该有一个用途</p>
-<p>  4.避免容器有过多的层</p>
-<p>  5.多行排序</p>
-<p>  6.建立缓存</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建dockerfile文件</span>
-root@k8s-master:~<span class="token comment"># cat &gt; dockerfile &lt;&lt;EOF</span>
-FROM httpd
-MAINTAINER luovipyu@163.com
-RUN <span class="token builtin class-name">echo</span> hello luoyu dockerfile container <span class="token operator">&gt;</span> /usr/local/apache2/htdocs/index.html
-EXPOSE <span class="token number">80</span>
-WORKDIR /usr/local/apache2/htdocs/
-EOF
-
-<span class="token comment"># 开始构建镜像</span>
-root@k8s-master:~<span class="token comment"># docker build -t httpd:v1 -f dockerfile .</span>
-
-<span class="token comment"># 查看docker镜像</span>
+<h3 id="2-4-3-构建与使用镜像"><a href="#2-4-3-构建与使用镜像" class="headerlink" title="2.4.3 构建与使用镜像"></a>2.4.3 构建与使用镜像</h3><p>  <strong>1.docker commit构建</strong></p>
+<p>   使用容器中发生更改的部分生成一个新的镜像，通常的使用场景为，基于普通镜像启动了容器，在容器内部署了所需的业务后，把当前的状态重新生成镜像，以便以当前状态快速部署业务所用</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker pull registry.myk8s.cn/library/nginx</span>
 root@k8s-master:~<span class="token comment"># docker images</span>
-REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
-httpd         v1        d6d24a446dd4   <span class="token number">25</span> seconds ago   148MB
-nginx         latest    a830707172e8   <span class="token number">3</span> weeks ago      192MB
-hello-world   latest    74cc54e27dc4   <span class="token number">3</span> months ago     <span class="token number">10</span>.1kB
+REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
+registry.myk8s.cn/library/nginx   latest    4e1b6bae1e48   <span class="token number">4</span> months ago   192MB
+
+root@k8s-master:~<span class="token comment"># docker tag registry.myk8s.cn/library/nginx:latest nginx:v0</span>
+root@k8s-master:~<span class="token comment"># docker images</span>
+REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
+nginx                             v0        4e1b6bae1e48   <span class="token number">4</span> months ago   192MB
+registry.myk8s.cn/library/nginx   latest    4e1b6bae1e48   <span class="token number">4</span> months ago   192MB
+
+root@k8s-master:~<span class="token comment"># docker run -d -p 8000:80 --name container1 nginx:v0</span>
+3a44ea7abf54f5016594fd8d99d719b56cf6b5382e4bbc17b273df9c9c22b86e
+root@k8s-master:~<span class="token comment"># docker ps</span>
+CONTAINER ID   IMAGE      COMMAND      CREATED         STATUS    PORTS                     NAMES
+3a44ea7abf54   nginx:v0   <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">5</span> seconds ago   Up <span class="token number">5</span> seconds   <span class="token number">0.0</span>.0.0:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container1
+
+<span class="token number">1</span>.将上述的container1容器生成一个新的镜像：nginx:v1
+root@k8s-master:~<span class="token comment"># docker commit container1 nginx:v1</span>
+root@k8s-master:~<span class="token comment"># docker images</span>
+REPOSITORY                        TAG       IMAGE ID       CREATED         SIZE
+nginx                             v1        e6db2907aa9a   <span class="token number">7</span> seconds ago   192MB
+nginx                             v0        4e1b6bae1e48   <span class="token number">4</span> months ago    192MB
+registry.myk8s.cn/library/nginx   latest    4e1b6bae1e48   <span class="token number">4</span> months ago    192MB
+
+<span class="token number">2</span>.使用Commit镜像：使用nginx:v1镜像在本机的3000端口提供一个名为container2的容器
+root@k8s-master:~<span class="token comment"># docker run -d -p 3000:80 --name container2 nginx:v1</span>
+root@k8s-master:~<span class="token comment"># docker ps</span>
+CONTAINER ID   IMAGE      COMMAND    CREATED         STATUS         PORTS         NAMES
+bb4944635875   nginx:v1   <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">5</span> seconds ago   Up <span class="token number">4</span> seconds   <span class="token number">0.0</span>.0.0:3000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:3000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container2
+3a44ea7abf54   nginx:v0   <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">5</span> minutes ago   Up <span class="token number">5</span> minutes   <span class="token number">0.0</span>.0.0:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container1
+
+root@k8s-master:~<span class="token comment"># docker exec -it container2 /bin/bash</span>
+root@bb4944635875:/<span class="token comment"># echo hello ChengDu! &gt; /usr/share/nginx/html/index.html</span>
+root@bb4944635875:/<span class="token comment"># exit</span>
+<span class="token builtin class-name">exit</span>
+root@k8s-master:~<span class="token comment"># curl http://127.0.01:3000</span>
+hello ChengDu<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>2.Dockerfile构建</strong></p>
+<p>   从零开始构建自己所需的镜像，在创建镜像之初把所需的各种设置和所需要的各种应用程序包含进去，生成的镜像可直接用于业务部署</p>
+<p>   <strong>Dockerfile高频指令集:</strong></p>
+<p><img src="/images/dockerfile%E6%8C%87%E4%BB%A4.png"></p>
+<p>   <strong>设计Dockerfile时应考虑：</strong> 容器应该是暂时的、避免安装不必要的软件包、每个容器只应该有一个用途、避免容器有过多的层、多行排序、建立缓存</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.创建dockerfile文件并构建
+root@k8s-master:~<span class="token comment"># vim dockerfile</span>
+FROM registry.myk8s.cn/library/httpd
+MAINTAINER <span class="token number">252414302</span>@qq.com
+RUN <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/local/apache/htdocs
+RUN <span class="token function">chmod</span> <span class="token number">755</span> /usr/local/apache/htdocs
+RUN <span class="token builtin class-name">echo</span> 你好,中国 <span class="token operator">&gt;</span> /usr/local/apache/htdocs/index.html
+EXPOSE <span class="token number">80</span>
+WORKDIR /usr/local/apache/htdocs/
+
+root@k8s-master:~<span class="token comment"># docker build -t httpd:v1 -f dockerfile .</span>
+root@k8s-master:~<span class="token comment"># docker images</span>
+REPOSITORY                        TAG       IMAGE ID       CREATED          SIZE
+httpd                             v1        81dd183d7978   <span class="token number">38</span> seconds ago   148MB
+nginx                             v1        e6db2907aa9a   <span class="token number">58</span> minutes ago   192MB
+registry.myk8s.cn/library/nginx   latest    4e1b6bae1e48   <span class="token number">4</span> months ago     192MB
+nginx                             v0        4e1b6bae1e48   <span class="token number">4</span> months ago     192MB
+
+说明：docker build <span class="token parameter variable">-t</span> httpd:v1 <span class="token parameter variable">-f</span> dockerfile <span class="token builtin class-name">.</span> 命令后面还有一个英文的句号.是指当前目录
 
 注明：如果文件名是Dockerfile时可不指定
 <span class="token function">docker</span> build <span class="token parameter variable">-t</span> web:v1 <span class="token builtin class-name">.</span>
 
-<span class="token comment"># 如果用的是containerd，dockerfile方式构建容器镜像的命令就是下面这样的</span>
-nerdctl build  <span class="token parameter variable">-t</span> httpd:v1 <span class="token parameter variable">-f</span> dockerfile <span class="token builtin class-name">.</span>
-nerdctl images<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">#参数说明：</span>
+   <span class="token number">1</span>.t 或 -tag：此选项允许为构建的镜像分配标签，以便于引用和版本控制
+     示例用法： <span class="token function">docker</span> build <span class="token parameter variable">-t</span> sampleapp:latest <span class="token builtin class-name">.</span>
 
-<h3 id="2-4-6-使用Dockerfile镜像"><a href="#2-4-6-使用Dockerfile镜像" class="headerlink" title="2.4.6 使用Dockerfile镜像"></a>2.4.6 使用Dockerfile镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 用httpd:v1的镜像在本机4000端口上提供一个名为luoyudockerfile的容器</span>
-root@k8s-master:~<span class="token comment"># docker run -d -p 4000:80 --name luoyudockerfile httpd:v1</span>
-260028d6b4a2b11cd2cfca9ab6ae9d406cc8fa9afd33131db03c880cc235e68f
-
+   <span class="token number">2</span>.f 或 file：如果 Dockerfile 的名称不是 “Dockerfile”，则可以使用此选项指定不同的 Dockerfile 名称或位置
+     示例用法： <span class="token function">docker</span> build <span class="token parameter variable">-f</span> ProductionDockerfile <span class="token builtin class-name">.</span>
+  
+  
+<span class="token number">2</span>.使用Dockerfile镜像：用httpd:v1的镜像在本机4000端口上提供一个名为dockerfilecontainer的容器
+root@k8s-master:~<span class="token comment"># docker run -d -p 4000:80 --name dockerfilecontainer httpd:v1</span>
 root@k8s-master:~<span class="token comment"># docker ps</span>
-CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS        PORTS       NAMES
-260028d6b4a2   httpd:v1   <span class="token string">"httpd-foreground"</span>       <span class="token number">5</span> seconds ago   Up <span class="token number">4</span> seconds   <span class="token number">0.0</span>.0.0:4000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:4000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   luoyudockerfile
-b68184fd3b9b   nginx      <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">12</span> hours ago    Up <span class="token number">12</span> hours    <span class="token number">80</span>/tcp    nginxtest
+CONTAINER ID   IMAGE      COMMAND     CREATED         STATUS    PORTS              NAMES
+0bab50cd2a59   httpd:v1   <span class="token string">"httpd-foreground"</span>       <span class="token number">5</span> seconds ago   Up <span class="token number">5</span> seconds   <span class="token number">0.0</span>.0.0:4000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:4000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   dockerfilecontainer
+bb4944635875   nginx:v1   <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">3</span> hours ago     Up <span class="token number">3</span> hours     <span class="token number">0.0</span>.0.0:3000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:3000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container2
+3a44ea7abf54   nginx:v0   <span class="token string">"/docker-entrypoint.…"</span>   <span class="token number">3</span> hours ago     Up <span class="token number">3</span> hours     <span class="token number">0.0</span>.0.0:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp, <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:8000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp   container1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-root@k8s-master:~<span class="token comment"># curl http://127.0.0.1:4000</span>
-hello luoyu dockerfile container
-
-<span class="token comment"># 如果用的是containerd，dockerfile方式构建容器镜像的使用命令就是下面这样的</span>
-nerdctl run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">4000</span>:80 <span class="token parameter variable">--name</span> luoyudockerfile httpd:v1
-nerdctl <span class="token function">ps</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-4-7-关于镜像命名"><a href="#2-4-7-关于镜像命名" class="headerlink" title="2.4.7 关于镜像命名"></a>2.4.7 关于镜像命名</h3><p>  1.镜像命名格式：REPOSITORY+TAG，使用版本号作为命名</p>
+<h3 id="2-4-4-关于镜像命名"><a href="#2-4-4-关于镜像命名" class="headerlink" title="2.4.4 关于镜像命名"></a>2.4.4 关于镜像命名</h3><p>  1.镜像命名格式：REPOSITORY+TAG，使用版本号作为命名</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker images</span>
 REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
 httpd         v1        d6d24a446dd4   <span class="token number">11</span> hours ago   148MB
@@ -929,317 +1010,307 @@ web           latest    d6d24a446dd4   <span class="token number">11</span> hour
 nginx         latest    a830707172e8   <span class="token number">3</span> weeks ago    192MB
 hello-world   latest    74cc54e27dc4   <span class="token number">3</span> months ago   <span class="token number">10</span>.1kB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-4-8-删除镜像"><a href="#2-4-8-删除镜像" class="headerlink" title="2.4.8 删除镜像"></a>2.4.8 删除镜像</h3><p>  删除一个特定的镜像，需要知道该镜像的ID或者标签(repository:tag)。或者，如果只记得镜像的部分ID，可以使用这个ID来删除镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># docker images</span>
-REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
-httpd         v1        d6d24a446dd4   <span class="token number">11</span> hours ago   148MB
-web           latest    d6d24a446dd4   <span class="token number">11</span> hours ago   148MB
-nginx         latest    a830707172e8   <span class="token number">3</span> weeks ago    192MB
-hello-world   latest    74cc54e27dc4   <span class="token number">3</span> months ago   <span class="token number">10</span>.1kB
-root@k8s-master:~<span class="token comment"># docker rmi web:latest</span>
-Untagged: web:latest
-root@k8s-master:~<span class="token comment"># docker rmi 74cc54e27dc4</span>
-Error response from daemon: conflict: unable to delete 74cc54e27dc4 <span class="token punctuation">(</span>must be forced<span class="token punctuation">)</span> - image is being used by stopped container 8ea8394296ac
-root@k8s-master:~<span class="token comment"># docker ps -a</span>
-CONTAINER ID   IMAGE         COMMAND    CREATED        STATUS                    PORTS     NAMES
-8ea8394296ac   hello-world   <span class="token string">"/hello"</span>   <span class="token number">13</span> hours ago   Exited <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token number">13</span> hours ago             goofy_brattain
+<h1 id="3-Containerd容器"><a href="#3-Containerd容器" class="headerlink" title="3 Containerd容器"></a>3 Containerd容器</h1><h2 id="3-1-安装Containerd"><a href="#3-1-安装Containerd" class="headerlink" title="3.1 安装Containerd"></a>3.1 安装Containerd</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># wget https://github.com/containerd/nerdctl/releases/download/v2.1.3/nerdctl-2.1.3-linux-amd64.tar.gz</span>
+root@k8s-master:~<span class="token comment"># tar Cxzvvf /usr/local nerdctl-2.1.3-linux-amd64.tar.gz</span>
+-rwxr-xr-x root/root  <span class="token number">29302968</span> <span class="token number">2025</span>-07-08 05:46 nerdctl
+-rwxr-xr-x root/root     <span class="token number">22657</span> <span class="token number">2025</span>-07-08 05:46 containerd-rootless-setuptool.sh
+-rwxr-xr-x root/root      <span class="token number">8708</span> <span class="token number">2025</span>-07-08 05:46 containerd-rootless.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-root@k8s-master:~<span class="token comment"># docker rm 8ea8394296ac</span>
+<h2 id="3-2-生成配置文件"><a href="#3-2-生成配置文件" class="headerlink" title="3.2  生成配置文件"></a>3.2  生成配置文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># containerd config default &gt; /etc/containerd/config.toml</span>
+root@k8s-master:~<span class="token comment"># sed -i "s|sandbox = 'registry.k8s.io/pause:3.10'|sandbox = 'registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.10'|" /etc/containerd/config.toml</span>
 
-root@k8s-master:~<span class="token comment"># docker rmi 74cc54e27dc4</span>
+root@k8s-master:~<span class="token comment"># sed -i '/^\s*\[plugins.'"'"'io.containerd.cri.v1.images'"'"'.registry\]/{n;s|^\(\s*\)config_path = .*$|\1config_path = '"'"'/etc/containerd/certs.d'"'"'|}' /etc/containerd/config.toml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-root@k8s-master:~<span class="token comment"># docker images</span>
-<span class="token punctuation">\</span>REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
-httpd        v1        d6d24a446dd4   <span class="token number">11</span> hours ago   148MB
-nginx        latest    a830707172e8   <span class="token number">3</span> weeks ago    192MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-3-使用镜像加速器"><a href="#3-3-使用镜像加速器" class="headerlink" title="3.3 使用镜像加速器"></a>3.3 使用镜像加速器</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># mkdir /etc/containerd/certs.d/docker.io -p</span>
+root@k8s-master:~<span class="token comment"># vim /etc/containerd/certs.d/docker.io/hosts.toml</span>
+server <span class="token operator">=</span> <span class="token string">"https://registry.myk8s.cn"</span>
+<span class="token punctuation">[</span>host.<span class="token string">"https://registry.myk8s.cn"</span><span class="token punctuation">]</span>
+capabilities <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"pull"</span>, <span class="token string">"resolve"</span>, <span class="token string">"push"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-4-9-私有镜像仓库"><a href="#2-4-9-私有镜像仓库" class="headerlink" title="2.4.9 私有镜像仓库"></a>2.4.9 私有镜像仓库</h3><p>  构建私有镜像存储考虑：</p>
-<p>  1.交付时效，例如，下载并运行镜像，需要消耗带宽和时间</p>
-<p>  2.机房是否允许接入外网</p>
-<p>  3.镜像私密，不允许将数据放到外网</p>
-<p>  4.内网速率更高</p>
-<p>  什么是Registry？</p>
-<p>  1.Registry是一个无状态、高度可扩展的服务，可以存储和分发镜像</p>
-<p>  2.Registry是一个基于Apache License许可的开源服务</p>
-<p>  为什么使用Registry？</p>
-<p>  1.严格控制映像存储位置</p>
-<p>  2.拥有完全属于自己的镜像分发渠道</p>
-<p>  3.将镜像存储和分布紧密集成到内部开发工作流程中</p>
-<p>  部署Registry步骤如下：如果选用Harbor，请参考Gitee文档</p>
-<p>  1.下载Docker官方最新版的Registry镜像</p>
-<p>  2.启动Registry容器</p>
-<p>  3.下载测试镜像</p>
-<p>  4.将测试镜像上传至自己的私有仓库</p>
-<p>  5.验证从自有仓库下载并启动容器</p>
-<h1 id="3-部署Harbor私有仓库"><a href="#3-部署Harbor私有仓库" class="headerlink" title="3 部署Harbor私有仓库"></a>3 部署Harbor私有仓库</h1><p>  在现代软件开发中，容器化应用已经成为主流，而容器镜像仓库则是确保容器镜像安全、管理和分发的重要工具。Harbor作为一款开源的企业级容器镜像仓库管理工具，不仅支持多种认证方式，还提供镜像复制、漏洞扫描和用户访问控制等功能，为企业提供了一个安全、高效的镜像管理方案</p>
-<table>
-<thead>
-<tr>
-<th>主机名</th>
-<th>角色</th>
-<th>IP</th>
-<th>VMware网络类型</th>
-<th>用户名</th>
-<th>密码</th>
-<th>系统</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>harbor</td>
-<td>Harbor主机</td>
-<td>192.168.8.52</td>
-<td>NAT</td>
-<td>root</td>
-<td>harbor</td>
-<td>RHEL-9.5</td>
-</tr>
-</tbody></table>
-<h2 id="3-1-RedHat9镜像源配置"><a href="#3-1-RedHat9镜像源配置" class="headerlink" title="3.1 RedHat9镜像源配置"></a>3.1 RedHat9镜像源配置</h2><h3 id="3-1-1-国内镜像源"><a href="#3-1-1-国内镜像源" class="headerlink" title="3.1.1 国内镜像源"></a>3.1.1 国内镜像源</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/yum.repos.d</span>
-<span class="token punctuation">[</span>root@harbor yum.repos.d<span class="token punctuation">]</span><span class="token comment"># ll</span>
--rw-r--r--. <span class="token number">1</span> root root <span class="token number">358</span> May <span class="token number">14</span> <span class="token number">11</span>:25 redhat.repo
+<h2 id="3-4-启动Containerd服务"><a href="#3-4-启动Containerd服务" class="headerlink" title="3.4 启动Containerd服务"></a>3.4 启动Containerd服务</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># systemctl daemon-reload</span>
+root@k8s-master:~<span class="token comment"># systemctl enable --now containerd</span>
+root@k8s-master:~<span class="token comment"># systemctl status containerd</span>
+● containerd.service - containerd container runtime
+     Loaded: loaded <span class="token punctuation">(</span>/usr/lib/systemd/system/containerd.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> preset: enabled<span class="token punctuation">)</span>
+     Active: active <span class="token punctuation">(</span>running<span class="token punctuation">)</span> since Mon <span class="token number">2025</span>-08-18 09:16:31 UTC<span class="token punctuation">;</span> 21h ago
+<span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token punctuation">[</span>root@harbor yum.repos.d<span class="token punctuation">]</span><span class="token comment"># vim aliyun_yum.repo</span>
-<span class="token punctuation">[</span>ali_baseos<span class="token punctuation">]</span>
-<span class="token assign-left variable">name</span><span class="token operator">=</span>ali_baseos
-<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>https://mirrors.aliyun.com/centos-stream/9-stream/BaseOS/x86_64/os/
-<span class="token assign-left variable">gpgcheck</span><span class="token operator">=</span><span class="token number">0</span>
+<h2 id="3-5-镜像构建工具-buildkit"><a href="#3-5-镜像构建工具-buildkit" class="headerlink" title="3.5 镜像构建工具-buildkit"></a>3.5 镜像构建工具-buildkit</h2><h3 id="3-5-1-buildkit介绍"><a href="#3-5-1-buildkit介绍" class="headerlink" title="3.5.1 buildkit介绍"></a>3.5.1 buildkit介绍</h3><p>  buildkit是Docker公司开源的下一代镜像构建工具，支持OCI标准的镜像构建,可以通过Dockerfile制作容器镜像</p>
+<p>  buildkit由两部分组成：</p>
+<p>   buildkitd（服务端）：负责镜像构建，目前支持runc和containerd作为镜像构建环境，默认是runc</p>
+<p>   buildkitctl（客户端）：负责解析Dockerfile文件，并向服务端buildkitd发出构建请求。</p>
+<p>  相对于docker，buildkit具有以下优势：</p>
+<p>   更高效：支持并行的多阶段构建、更好的缓存</p>
+<p>   管理更安全：支持secret mount，无需root权限</p>
+<p>   更易于扩展：使用自定义中间语言LLB，完全兼容Dockerfile，也可以支持第三方语言。后台支持runc和containerd</p>
+<h3 id="3-5-2-buildkit安装"><a href="#3-5-2-buildkit安装" class="headerlink" title="3.5.2 buildkit安装"></a>3.5.2 buildkit安装</h3><p>  项目托管地址：<a target="_blank" rel="noopener" href="https://github.com/moby/buildkit">https://github.com/moby/buildkit</a></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># wget https://github.com/moby/buildkit/releases/download/v0.23.2/buildkit-v0.23.2.linux-amd64.tar.gz</span>
 
-<span class="token punctuation">[</span>ali_appstream<span class="token punctuation">]</span>
-<span class="token assign-left variable">name</span><span class="token operator">=</span>ali_appstream
-<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>https://mirrors.aliyun.com/centos-stream/9-stream/AppStream/x86_64/os/
-<span class="token assign-left variable">gpgcheck</span><span class="token operator">=</span><span class="token number">0</span>
+root@k8s-master:~<span class="token comment"># tar xf buildkit-v0.23.2.linux-amd64.tar.gz</span>
+root@k8s-master:~<span class="token comment"># mv bin/* /usr/bin/</span>
 
-<span class="token punctuation">[</span>root@harbor yum.repos.d<span class="token punctuation">]</span><span class="token comment"># yum makecache</span>
+<span class="token number">1</span>.添加服务配置
+root@k8s-master:~<span class="token comment"># vim /usr/lib/systemd/system/buildkit.socket</span>
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+<span class="token assign-left variable">Description</span><span class="token operator">=</span>BuildKit
+<span class="token assign-left variable">Documentation</span><span class="token operator">=</span>https://github.com/moby/buildkit
 
-<span class="token comment"># 根据需要选择是否更新yum源</span>
-<span class="token punctuation">[</span>root@harbor yum.repos.d<span class="token punctuation">]</span><span class="token comment"># yum -y update</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>Socket<span class="token punctuation">]</span>
+<span class="token assign-left variable">ListenStream</span><span class="token operator">=</span>%t/buildkit/buildkitd.sock
+<span class="token assign-left variable">SocketMode</span><span class="token operator">=</span>0660
 
-<h3 id="3-1-2-本地yum源配置"><a href="#3-1-2-本地yum源配置" class="headerlink" title="3.1.2 本地yum源配置"></a>3.1.2 本地yum源配置</h3><p>  配置本地yum源可以创建一个本地的软件包存储库，以便更快地安装、更新和管理软件包</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建文件夹并将光盘挂载到新建的文件中</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># mkdir -p /GuaZai/Iso</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># mount /dev/sr0 /GuaZai/Iso</span>
-mount: /GuaZai/Iso: WARNING: <span class="token builtin class-name">source</span> write-protected, mounted read-only.
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+<span class="token assign-left variable">WantedBy</span><span class="token operator">=</span>sockets.target
 
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># cd /GuaZai/Iso</span>
-<span class="token punctuation">[</span>root@harbor Iso<span class="token punctuation">]</span><span class="token comment"># ls</span>
-AppStream  BaseOS  EFI  EULA  extra_files.json  GPL  images  isolinux  media.repo  RPM-GPG-KEY-redhat-beta  RPM-GPG-KEY-redhat-release
+root@k8s-master:~<span class="token comment"># vim /usr/lib/systemd/system/buildkit.service</span>
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+<span class="token assign-left variable">Description</span><span class="token operator">=</span>BuildKit
+<span class="token assign-left variable">Requires</span><span class="token operator">=</span>buildkit.socket
+<span class="token assign-left variable">After</span><span class="token operator">=</span>buildkit.socket
+<span class="token assign-left variable">Documentation</span><span class="token operator">=</span>https://github.com/moby/buildkit
 
-<span class="token comment">#配置yum文件</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/yum.repos.d/rhel9.repo</span>
-<span class="token punctuation">[</span>BaseOS<span class="token punctuation">]</span>
-<span class="token assign-left variable">name</span><span class="token operator">=</span>rhel9-BaseOS
-<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>file:///GuaZai/Iso/BaseOS
-<span class="token assign-left variable">gpgcheck</span><span class="token operator">=</span><span class="token number">0</span>
-<span class="token punctuation">[</span>Appstream<span class="token punctuation">]</span>
-<span class="token assign-left variable">name</span><span class="token operator">=</span>rhel9-Appstream
-<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>file:///GuaZai/Iso/AppStream
-<span class="token assign-left variable">gpgcheck</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+<span class="token assign-left variable">ExecStart</span><span class="token operator">=</span>/usr/bin/buildkitd --oci-worker<span class="token operator">=</span>false --containerd-worker<span class="token operator">=</span>true
 
-<span class="token comment"># 查看仓库序列</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># yum repolist</span>
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+<span class="token assign-left variable">WantedBy</span><span class="token operator">=</span>multi-user.target
 
-<span class="token comment"># 生成yum缓存</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># yum makecache</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">2</span>.重新加载systemd配置
+root@k8s-master:~<span class="token comment"># sudo systemctl daemon-reload</span>
 
-<h2 id="3-2-主机名和IP地址映射"><a href="#3-2-主机名和IP地址映射" class="headerlink" title="3.2 主机名和IP地址映射"></a>3.2 主机名和IP地址映射</h2><p>  配置Harbor主机的主机名和IP地址映射，映射文件“/etc/hosts”加入如下内容</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/hosts</span>
-<span class="token number">192.168</span>.8.52 registry.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span class="token number">3</span>.启用并启动服务
+root@k8s-master:~<span class="token comment"># systemctl enable --now buildkit.service</span>
+Created symlink /etc/systemd/system/multi-user.target.wants/buildkit.service → /usr/lib/systemd/system/buildkit.service.
 
-<h2 id="3-3-部署Docker-CE"><a href="#3-3-部署Docker-CE" class="headerlink" title="3.3 部署Docker CE"></a>3.3 部署Docker CE</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检测系统是否安装了docker并卸载旧版本的容器</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># sudo dnf remove docker \</span>
-                  docker-client <span class="token punctuation">\</span>
-                  docker-client-latest <span class="token punctuation">\</span>
-                  docker-common <span class="token punctuation">\</span>
-                  docker-latest <span class="token punctuation">\</span>
-                  docker-latest-logrotate <span class="token punctuation">\</span>
-                  docker-logrotate <span class="token punctuation">\</span>
-                  docker-engine <span class="token punctuation">\</span>
-                  <span class="token function">podman</span> <span class="token punctuation">\</span>
-                  runc
-<span class="token comment"># 安装依赖</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># sudo yum install -y yum-utils</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># sudo dnf -y install dnf-plugins-core</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo</span>
+<span class="token number">4</span>.查看服务状态
+root@k8s-master:~<span class="token comment"># sudo systemctl status buildkit.service</span>
+● buildkit.service - BuildKit
+     Loaded: loaded <span class="token punctuation">(</span>/usr/lib/systemd/system/buildkit.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> preset: enabled<span class="token punctuation">)</span>
+     Active: active <span class="token punctuation">(</span>running<span class="token punctuation">)</span> since Tue <span class="token number">2025</span>-08-19 07:08:04 UTC<span class="token punctuation">;</span> 3min 45s ago
+TriggeredBy: ● buildkit.socket
+       Docs: https://github.com/moby/buildkit
+<span class="token punctuation">..</span><span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment"># 安装docker</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># sudo sed -i 's+https://download.docker.com+https://mirror.nju.edu.cn/docker-ce+' /etc/yum.repos.d/docker-ce.repo</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span>
+<h2 id="3-6-nerdctl安装"><a href="#3-6-nerdctl安装" class="headerlink" title="3.6 nerdctl安装"></a>3.6 nerdctl安装</h2><p>  一个酷似docker又胜于docker的命令行工具</p>
+<h3 id="3-6-1-nerdctl简介"><a href="#3-6-1-nerdctl简介" class="headerlink" title="3.6.1 nerdctl简介"></a>3.6.1 nerdctl简介</h3><p>  nerdctl 是一个命令行工具，旨在为用户提供与 Docker 相似的体验，但它是通过 containerd 来管理容器的。containerd 是一个高性能的容器运行时，用于管理容器的生命周期，包括镜像拉取、容器的创建、运行、停止等。nerdctl 的出现是为了简化和容器管理工具之间的差距，尤其是在不使用 Docker 的情况下，仍然能够获得类似 Docker 的体验。</p>
+<p>  nerdctl的目标并不是单纯地复制 docker 的功能，它还实现了很多 docker 不具备的功能，例如延迟拉取镜像（lazy-pulling）、镜像加密（imgcrypt）等</p>
+<h3 id="3-6-2-nerdctl特点"><a href="#3-6-2-nerdctl特点" class="headerlink" title="3.6.2 nerdctl特点"></a>3.6.2 nerdctl特点</h3><p>  <strong>兼容 Docker 命令</strong>：它的语法尽可能与 Docker 相似，减少用户的学习成本。</p>
+<p>  <strong>基于 containerd</strong>：nerdctl 是在 containerd 的基础上开发的，而 containerd 是一个较为轻量级的容器运行时，相比 Docker 它提供了更为精细的控制。</p>
+<p>  <strong>支持 Kubernetes 和其他容器相关的技术</strong>：nerdctl 在功能上与 Kubernetes 和容器的标准协作非常好，适用于那些不依赖 Docker 的环境。</p>
+<p>  <strong>跨平台支持</strong>：nerdctl 支持在 Linux、macOS 和 WSL（Windows Subsystem for Linux）环境中使用。</p>
+<h3 id="3-6-3-安装nerdctl"><a href="#3-6-3-安装nerdctl" class="headerlink" title="3.6.3 安装nerdctl"></a>3.6.3 安装nerdctl</h3><p>  项目地址：<a target="_blank" rel="noopener" href="https://github.com/containerd/nerdctl/releases">https://github.com/containerd/nerdctl/releases</a></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.下载安装包
+root@k8s-master:~<span class="token comment"># wget https://github.com/containerd/nerdctl/releases/download/v2.1.3/nerdctl-2.1.3-linux-amd64.tar.gz</span>
 
-<span class="token comment"># 查看docker状态</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># sudo systemctl enable --now docker</span>
-Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /usr/lib/systemd/system/docker.service.
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># sudo systemctl status docker</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># docker info                         </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">2</span>.解压并安装
+root@k8s-master:~<span class="token comment"># tar -xvf nerdctl-2.1.3-linux-amd64.tar.gz</span>
 
-<h2 id="3-4-Docker镜像加速器"><a href="#3-4-Docker镜像加速器" class="headerlink" title="3.4 Docker镜像加速器"></a>3.4 Docker镜像加速器</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># mkdir -p /etc/docker</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/docker</span>
-<span class="token punctuation">[</span>root@harbor docker<span class="token punctuation">]</span><span class="token comment"># vim /etc/docker/daemon.json</span>
-<span class="token punctuation">{</span>
-  <span class="token string">"registry-mirrors"</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
-        <span class="token string">"https://docker.mirrors.ustc.edu.cn"</span>,
-        <span class="token string">"https://mirror.baidubce.com"</span>,
-        <span class="token string">"https://docker.m.daocloud.io"</span>,
-        <span class="token string">"https://mirror.ccs.tencentyun.com"</span>,
-        <span class="token string">"https://docker.nju.edu.cn"</span>,
-        <span class="token string">"https://docker.mirrors.sjtug.sjtu.edu.cn"</span>,
-        <span class="token string">"https://mirror.gcr.io"</span>,
-        <span class="token string">"https://docker.registry.cyou"</span>,
-        <span class="token string">"https://docker-cf.registry.cyou"</span>,
-        <span class="token string">"https://dockercf.jsdelivr.fyi"</span>,
-        <span class="token string">"https://docker.jsdelivr.fyi"</span>,
-        <span class="token string">"https://dockertest.jsdelivr.fyi"</span>,
-        <span class="token string">"https://mirror.aliyuncs.com"</span>,
-        <span class="token string">"https://dockerproxy.com"</span>
-  <span class="token punctuation">]</span>,
-  <span class="token string">"data-root"</span><span class="token builtin class-name">:</span> <span class="token string">"/data/docker"</span>   <span class="token comment"># 自定义Docker的镜像存储路径</span>
-<span class="token punctuation">}</span>
+<span class="token comment"># 将nerdctl 安装到 usr/local/bin 目录，确保在环境变量PATH 中</span>
+root@k8s-master:~<span class="token comment"># mv nerdctl /usr/local/bin</span>
 
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># mkdir -p /data/docker</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># cp -a /var/lib/docker/* /data/docker/</span>
+<span class="token number">3</span>.验证安装
+root@k8s-master:~<span class="token comment"># nerdctl version</span>
+Client:
+ Version:       v2.1.3
+ OS/Arch:       linux/amd64
+ Git commit:    ff9323859a8d7892d8d72380a17b99395ef9a516
+ buildctl:
+  Version:      v0.23.2
+  GitCommit:    40b2ede0ac0a37030f9959b4a28e9c6c8ea036e7
 
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># systemctl daemon-reload</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart docker</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># docker info</span>
+Server:
+ containerd:
+  Version:      <span class="token number">1.7</span>.27
+  GitCommit:    05044ec0a9a75232cad458027ca83437aae3f4da
+ runc:
+  Version:      <span class="token number">1.2</span>.5
+  GitCommit:    v1.2.5-0-g59923ef
+
+<span class="token number">4</span>.添加nerdctl命令自动补齐功能
+root@k8s-master:~<span class="token comment"># nerdctl completion bash &gt; /etc/bash_completion.d/nerdctl</span>
+root@k8s-master:~<span class="token comment"># source /etc/bash_completion.d/nerdctl</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-7-操作Containerd容器"><a href="#3-7-操作Containerd容器" class="headerlink" title="3.7 操作Containerd容器"></a>3.7 操作Containerd容器</h2><h3 id="3-7-1-镜像操作"><a href="#3-7-1-镜像操作" class="headerlink" title="3.7.1 镜像操作"></a>3.7.1 镜像操作</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.拉取镜像
+root@k8s-master:~<span class="token comment"># nerdctl pull registry.myk8s.cn/library/httpd</span>
+root@k8s-master:~<span class="token comment"># nerdctl images</span>
+REPOSITORY                 TAG       IMAGE ID        CREATED           PLATFORM       SIZE       BLOB SIZE
+registry.myk8s.cn/library/httpd    latest    4564ca760495    <span class="token number">2</span> minutes ago  linux/amd64    <span class="token number">162</span>.2MB    <span class="token number">58</span>.5MB
+registry.myk8s.cn/library/nginx    latest    5ed8fcc66f4e    <span class="token number">22</span> minutes ago linux/amd64    207MB     <span class="token number">72</span>.39MB
+
+<span class="token number">2</span>.删除镜像
+root@k8s-master:~<span class="token comment"># nerdctl rmi registry.myk8s.cn/library/httpd</span>
+root@k8s-master:~<span class="token comment"># nerdctl images</span>
+REPOSITORY              TAG       IMAGE ID        CREATED           PLATFORM       SIZE     BLOB SIZE
+registry.myk8s.cn/library/nginx    latest    5ed8fcc66f4e    <span class="token number">23</span> minutes ago linux/amd64    207MB    <span class="token number">72</span>.39MB
+
+root@k8s-master:~<span class="token comment"># nerdctl rmi -f $(nerdctl images -aq)</span>
+root@k8s-master:~<span class="token comment"># nerdctl images</span>
+REPOSITORY    TAG       IMAGE ID        CREATED          PLATFORM       SIZE     BLOB SIZE
+<span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>    5ed8fcc66f4e    <span class="token number">6</span> seconds ago    linux/amd64    207MB    <span class="token number">72</span>.39MB
+
+参数说明：
+<span class="token number">1</span>.删除镜像    nerdctl rmi 镜像名
+<span class="token number">2</span>.删除所有镜像 nerdctl rmi <span class="token parameter variable">-f</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">docker</span> images <span class="token parameter variable">-aq</span><span class="token variable">)</span></span>
+  说明：列出所有镜像的ID，并使用nerdctl rmi -f强制删除
+  
+<span class="token number">3</span>.使用nerdctl system prune命令  nerdctl system prune <span class="token parameter variable">-a</span> <span class="token parameter variable">--volumes</span>
+  说明：删除所有停止的容器、未被使用的网络、卷、没有关联容器的镜像以及所有构建缓存
+<span class="token number">4</span>.使用nerdctl image prune命令   nerdctl image prune <span class="token parameter variable">-a</span> <span class="token parameter variable">-f</span>
+  说明：删除所有未被使用的镜像，-a参数表示删除所有未使用的镜像，而不仅仅是悬空镜像，-f参数表示不进行确认提示<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-7-2-创建持续运行的容器"><a href="#3-7-2-创建持续运行的容器" class="headerlink" title="3.7.2 创建持续运行的容器"></a>3.7.2 创建持续运行的容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># nerdctl run -d -p 9000:80 --name container1 registry.myk8s.cn/library/nginx</span>
+9a834031839a1dbe75a454f8e4dbab6717b9a4f921d8a8657785502b565f376b
+root@k8s-master:~<span class="token comment"># nerdctl ps</span>
+CONTAINER ID    IMAGE              COMMAND        CREATED           STATUS    PORTS          NAMES
+9a834031839a    registry.myk8s.cn/library/nginx:latest    <span class="token string">"/docker-entrypoint.…"</span>    <span class="token number">10</span> seconds ago    Up        <span class="token number">0.0</span>.0.0:9000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container1
+root@k8s-master:~<span class="token comment"># nerdctl images</span>
+REPOSITORY                         TAG       IMAGE ID        CREATED       PLATFORM       SIZE     BLOB SIZE
+registry.myk8s.cn/library/nginx    latest    5ed8fcc66f4e    <span class="token number">9</span> minutes ago    linux/amd64    207MB    <span class="token number">72</span>.39MB
 
 
-<span class="token comment"># 测试</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># docker pull nginx</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
-REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
-nginx        latest    a830707172e8   <span class="token number">3</span> weeks ago   192MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment"># 参数说明：</span>
+   -d：后台运行
+   -p：端口映射，此处是将宿主机的8000端口和容器内的80端口映射到一起
+   –name：容器的名字
+   nginx：本次使用的镜像名字
+   nerdctl <span class="token function">ps</span>      查看正在运行的容器  
+   nerdctl <span class="token function">ps</span> <span class="token parameter variable">-a</span>   查看所有容器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="3-5-Compose支持"><a href="#3-5-Compose支持" class="headerlink" title="3.5 Compose支持"></a>3.5 Compose支持</h2><p>  添加Compose支持，并启动Docker服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下载docker-compose并放在/usr/local/bin下</span>
-<span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token string">"https://github.com/docker/compose/releases/download/v2.36.0/docker-compose-linux-x86_64"</span> <span class="token parameter variable">-o</span> /usr/local/bin/docker-compose
+<h3 id="3-7-3-进入容器并访问"><a href="#3-7-3-进入容器并访问" class="headerlink" title="3.7.3 进入容器并访问"></a>3.7.3 进入容器并访问</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.进入容器
+root@k8s-master:~<span class="token comment"># nerdctl exec -it container1 /bin/bash</span>
+root@9a834031839a:/<span class="token comment"># echo Hello Containerd &gt; /usr/share/nginx/html/index.html</span>
+root@9a834031839a:/<span class="token comment"># exit</span>
+<span class="token builtin class-name">exit</span>
 
-<span class="token function">chmod</span> +x /usr/local/bin/docker-compose
-systemctl daemon-reload
-systemctl restart <span class="token function">docker</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># docker-compose version</span>
-Docker Compose version v2.36.0
+<span class="token number">2</span>.访问容器
+root@k8s-master:~<span class="token comment"># curl http://127.0.0.1:900</span>
+curl: <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span> Failed to connect to <span class="token number">127.0</span>.0.1 port <span class="token number">900</span> after <span class="token number">0</span> ms: Couldn't connect to server
+root@k8s-master:~<span class="token comment"># curl http://127.0.0.1:9000</span>
+Hello Containerd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment"># 注明：github可能会访问不了，故先从github下载到本地，再上传到服务器</span>
-https://github.com/docker/compose/releases<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-7-4-删除容器"><a href="#3-7-4-删除容器" class="headerlink" title="3.7.4 删除容器"></a>3.7.4 删除容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># nerdctl ps</span>
+CONTAINER ID    IMAGE      COMMAND         CREATED           STATUS    PORTS                   NAMES
+9a834031839a    registry.myk8s.cn/library/nginx:latest    <span class="token string">"/docker-entrypoint.…"</span>    <span class="token number">22</span> minutes ago    Up        <span class="token number">0.0</span>.0.0:9000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container1
 
-<h2 id="3-6-下载Harbor"><a href="#3-6-下载Harbor" class="headerlink" title="3.6 下载Harbor"></a>3.6 下载Harbor</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># wget https://github.com/goharbor/harbor/releases/download/v2.13.0/harbor-offline-installer-v2.13.0.tgz</span>
+root@k8s-master:~<span class="token comment"># nerdctl rm -f container1</span>
+container1
 
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># tar xf harbor-offline-installer-v2.13.0.tgz -C /usr/local/bin</span>
+root@k8s-master:~<span class="token comment"># nerdctl ps</span>
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
-<span class="token comment"># 使用docker load命令将解压后的tar文件加载为Docker镜像</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># cd /usr/local/bin</span>
-<span class="token punctuation">[</span>root@harbor bin<span class="token punctuation">]</span><span class="token comment"># ll</span>
-total <span class="token number">72004</span>
--rwxr-xr-x. <span class="token number">1</span> root root <span class="token number">73731911</span> May <span class="token number">14</span> <span class="token number">14</span>:25 <span class="token function">docker-compose</span>
-drwxr-xr-x. <span class="token number">2</span> root root      <span class="token number">123</span> May <span class="token number">14</span> <span class="token number">16</span>:33 harbor
-<span class="token punctuation">[</span>root@harbor bin<span class="token punctuation">]</span><span class="token comment"># cd harbor</span>
-<span class="token punctuation">[</span>root@harbor harbor<span class="token punctuation">]</span><span class="token comment"># docker load -i harbor.v2.13.0.tar.gz</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment"># 参数说明：</span>
+<span class="token number">1</span>.删除已经停止的容器      nerdctl <span class="token function">rm</span> 容器名称、nerdctl <span class="token function">rm</span> 容器ID
+<span class="token number">2</span>.强制删除正在运行的容器   nerdctl <span class="token function">rm</span> <span class="token parameter variable">-f</span> 容器名称
+  说明：使用强制删除选项-f会立即停止并删除容器，可能会导致数据丢失或服务中断
+<span class="token number">3</span>.删除多个容器 nerdctl <span class="token function">rm</span> container1 container2 <span class="token punctuation">..</span>.
+<span class="token number">4</span>.删除所有容器<span class="token punctuation">(</span>包括正在运行的容器<span class="token punctuation">)</span>   nerdctl <span class="token function">rm</span> <span class="token parameter variable">-f</span> <span class="token variable"><span class="token variable">$(</span>nerdctl <span class="token function">ps</span> <span class="token parameter variable">-aq</span><span class="token variable">)</span></span>
+  说明：通过nerdctl <span class="token function">ps</span> -aq列出所有容器的ID，然后通过nerdctl <span class="token function">rm</span> -f强制删除
+  
+root@k8s-master:~<span class="token comment"># nerdctl run -d -p 9000:80 --name container1 registry.myk8s.cn/library/nginx</span>
+root@k8s-master:~<span class="token comment"># nerdctl run -d -p 7000:80 --name container2 registry.myk8s.cn/library/httpd</span>
 
-<h2 id="3-7-修改harbor-yml文件"><a href="#3-7-修改harbor-yml文件" class="headerlink" title="3.7 修改harbor.yml文件"></a>3.7 修改harbor.yml文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mv</span> harbor.yml.tmpl harbor.yml
+root@k8s-master:~<span class="token comment"># nerdctl ps</span>
+CONTAINER ID    IMAGE    COMMAND           CREATED               STATUS    PORTS                   NAMES
+edd159eed7e1    registry.myk8s.cn/library/httpd:latest    <span class="token string">"httpd-foreground"</span>        <span class="token number">43</span> seconds ago        Up        <span class="token number">0.0</span>.0.0:7000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container2
+9f789c6447dc    registry.myk8s.cn/library/nginx:latest    <span class="token string">"/docker-entrypoint.…"</span>    About a minute ago    Up        <span class="token number">0.0</span>.0.0:9000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container1
 
-<span class="token comment"># 备份harbor.yml文件</span>
-<span class="token function">cp</span> harbor.yml harbor.yml.bak
+root@k8s-master:~<span class="token comment"># nerdctl ps -aq</span>
+root@k8s-master:~<span class="token comment"># nerdctl rm -f $(nerdctl ps -aq)</span>
+root@k8s-master:~<span class="token comment"># nerdctl ps -a</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># vim /usr/local/bin/harbor/harbor.yml</span>
-<span class="token number">1</span>.修改hostname为192.168.8.52
-<span class="token number">2</span>.修改http的端口为82
-<span class="token number">3</span>.修改harbor_admin_password为admin
-<span class="token comment"># 如果不启用https就注释掉12行-20行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-8-构建与使用镜像"><a href="#3-8-构建与使用镜像" class="headerlink" title="3.8 构建与使用镜像"></a>3.8 构建与使用镜像</h2><p>  <strong>1.nerdctl commit构建</strong></p>
+<p>   使用容器中发生更改的部分生成一个新的镜像，通常的使用场景为，基于普通镜像启动了容器，在容器内部署了所需的业务后，把当前的状态重新生成镜像，以便以当前状态快速部署业务所用</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># nerdctl images</span>
+REPOSITORY              TAG       IMAGE ID        CREATED           PLATFORM       SIZE       BLOB SIZE
+registry.myk8s.cn/library/httpd    latest    4564ca760495    <span class="token number">7</span> minutes ago     linux/amd64    <span class="token number">162</span>.2MB    <span class="token number">58</span>.5MB
+registry.myk8s.cn/library/nginx    latest    5ed8fcc66f4e    <span class="token number">18</span> minutes ago    linux/amd64    207MB      <span class="token number">72</span>.39MB
+<span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>                             <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>    5ed8fcc66f4e    <span class="token number">32</span> minutes ago    linux/amd64    207MB      <span class="token number">72</span>.39MB
 
-<h2 id="3-8-安装Harbor"><a href="#3-8-安装Harbor" class="headerlink" title="3.8 安装Harbor"></a>3.8 安装Harbor</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 加载配置并安装</span>
-<span class="token punctuation">[</span>root@harbor harbor<span class="token punctuation">]</span><span class="token comment"># ./prepare</span>
-<span class="token punctuation">[</span>root@harbor harbor<span class="token punctuation">]</span><span class="token comment"># ./install.sh</span>
-<span class="token punctuation">..</span>.
-<span class="token punctuation">[</span>Step <span class="token number">5</span><span class="token punctuation">]</span>: starting Harbor <span class="token punctuation">..</span>.
-<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Running <span class="token number">10</span>/10
- ✔ Network harbor_harbor        Created    <span class="token number">0</span>.0s                                                    
- ✔ Container harbor-log         Started    <span class="token number">0</span>.3s                                                      
- ✔ Container registryctl        Started    <span class="token number">0</span>.8s                                                    
- ✔ Container harbor-db          Started    <span class="token number">1</span>.2s                                                     
- ✔ Container redis              Started    <span class="token number">1</span>.2s                                                 
- ✔ Container harbor-portal      Started    <span class="token number">1</span>.2s                                                          
- ✔ Container registry           Started    <span class="token number">1</span>.3s                                                 
- ✔ Container harbor-core        Started    <span class="token number">1</span>.4s                                              
- ✔ Container harbor-jobservice  Started    <span class="token number">2</span>.0s                                               
- ✔ Container nginx              Started    <span class="token number">2</span>.0s                                           
-✔ ----Harbor has been installed and started successfully.----<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+root@k8s-master:~<span class="token comment"># nerdctl tag registry.myk8s.cn/library/nginx:latest nginx:v0</span>
+root@k8s-master:~<span class="token comment"># nerdctl images</span>
+REPOSITORY              TAG       IMAGE ID        CREATED           PLATFORM       SIZE       BLOB SIZE
+nginx                              v0        5ed8fcc66f4e    <span class="token number">5</span> seconds ago     linux/amd64    207MB      <span class="token number">72</span>.39MB
+registry.myk8s.cn/library/httpd    latest    4564ca760495    <span class="token number">9</span> minutes ago     linux/amd64    <span class="token number">162</span>.2MB    <span class="token number">58</span>.5MB
+registry.myk8s.cn/library/nginx    latest    5ed8fcc66f4e    <span class="token number">21</span> minutes ago    linux/amd64    207MB      <span class="token number">72</span>.39MB
+<span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>                             <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>    5ed8fcc66f4e    <span class="token number">34</span> minutes ago    linux/amd64    207MB      <span class="token number">72</span>.39MB
 
-<h2 id="3-9-重启Harbor"><a href="#3-9-重启Harbor" class="headerlink" title="3.9 重启Harbor"></a>3.9 重启Harbor</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@harbor harbor<span class="token punctuation">]</span><span class="token comment"># docker-compose down</span>
-<span class="token punctuation">[</span>root@harbor harbor<span class="token punctuation">]</span><span class="token comment"># ./prepare</span>
-<span class="token punctuation">[</span>root@harbor harbor<span class="token punctuation">]</span><span class="token comment"># docker-compose up -d</span>
+root@k8s-master:~<span class="token comment"># nerdctl run -d -p 9000:80 --name container1 nginx:v0</span>
+root@k8s-master:~<span class="token comment"># nerdctl ps -a</span>
+CONTAINER ID    IMAGE      COMMAND              CREATED          STATUS    PORTS                   NAMES
+6f8c50caccc3    docker.io/library/nginx:v0    <span class="token string">"/docker-entrypoint.…"</span>    <span class="token number">8</span> seconds ago    Up        <span class="token number">0.0</span>.0.0:9000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container1
 
-<span class="token comment"># 浏览器访问Harbor   http://192.168.8.52:82  用户名/密码:admin/admin</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">1</span>.将上述的container1容器生成一个新的镜像：nginx:v1
+root@k8s-master:~<span class="token comment"># nerdctl commit container1 nginx:v1</span>
+sha256:75075d88243da88c3be2009c39bbed95d384c90383c9122d06dc40f3492d4f0e
+root@k8s-master:~<span class="token comment"># nerdctl images</span>
+REPOSITORY            TAG       IMAGE ID        CREATED           PLATFORM       SIZE       BLOB SIZE
+nginx                              v1        ff3d36d56246    <span class="token number">23</span> seconds ago    linux/amd64    207MB      <span class="token number">72</span>.39MB
+nginx                              v0        5ed8fcc66f4e    <span class="token number">2</span> minutes ago     linux/amd64    207MB      <span class="token number">72</span>.39MB
+registry.myk8s.cn/library/httpd    latest    4564ca760495    <span class="token number">12</span> minutes ago    linux/amd64    <span class="token number">162</span>.2MB    <span class="token number">58</span>.5MB
+registry.myk8s.cn/library/nginx    latest    5ed8fcc66f4e    <span class="token number">23</span> minutes ago    linux/amd64    207MB      <span class="token number">72</span>.39MB
+<span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>                             <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>    5ed8fcc66f4e    <span class="token number">37</span> minutes ago    linux/amd64    207MB      <span class="token number">72</span>.39MB
 
-<h2 id="3-10-生成服务文件"><a href="#3-10-生成服务文件" class="headerlink" title="3.10 生成服务文件"></a>3.10 生成服务文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/systemd/system/harbor.service <span class="token operator">&lt;&lt;</span><span class="token string">EOF
-[Unit]
-Description=Harbor
-After=docker.service systemd-networkd.service systemd-resolved.service
-Requires=docker.service
-Documentation=http://github.com/vmware/harbor
-[Service]
-Type=simple
-Restart=on-failure
-RestartSec=5
-ExecStart=/usr/local/bin/docker-compose -f /usr/local/bin/harbor/docker-compose.yml up
-ExecStop=/usr/local/bin/docker-compose -f /usr/local/bin/harbor/docker-compose.yml down
-[Install]
-WantedBy=multi-user.target
-EOF</span>
+<span class="token number">2</span>.使用Commit镜像：使用nginx:v1镜像在本机的3000端口提供一个名为container2的容器
+root@k8s-master:~<span class="token comment"># nerdctl run -d -p 3000:80 --name container2 nginx:v1</span>
+eb4c803b8104b6ae66dba79b3d0e9cea01a7e5950ee834dded8575432e25025f
+root@k8s-master:~<span class="token comment"># nerdctl ps -a</span>
+CONTAINER ID    IMAGE        COMMAND          CREATED          STATUS    PORTS                   NAMES
+eb4c803b8104    docker.io/library/nginx:v1    <span class="token string">"/docker-entrypoint.…"</span>    <span class="token number">5</span> seconds ago    Up        <span class="token number">0.0</span>.0.0:3000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container2
+6f8c50caccc3    docker.io/library/nginx:v0    <span class="token string">"/docker-entrypoint.…"</span>    <span class="token number">2</span> minutes ago    Up        <span class="token number">0.0</span>.0.0:9000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container1
 
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># systemctl daemon-reload</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># systemctl enable harbor --now</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># systemctl stop harbor</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># systemctl status harbor</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># systemctl start harbor</span>
-<span class="token punctuation">[</span>root@harbor ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart harbor</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="3-11-推送镜像到Harbor"><a href="#3-11-推送镜像到Harbor" class="headerlink" title="3.11 推送镜像到Harbor"></a>3.11 推送镜像到Harbor</h2><p>  将registry.luovip.cn以及其对应的IP添加到/etc/hosts，然后将上述实验中的httpd:v1镜像，改名为带上IP:PORT形式，上传的镜像到本地仓库</p>
-<p>  1.添加域名解析</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/hosts</span>
-<span class="token number">192.168</span>.8.52 registry.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+root@k8s-master:~<span class="token comment"># nerdctl exec -it container2 /bin/bash</span>
+root@eb4c803b8104:/<span class="token comment"># echo hello ChengDu! &gt; /usr/share/nginx/html/index.html</span>
+root@eb4c803b8104:/<span class="token comment"># exit</span>
+<span class="token builtin class-name">exit</span>
+root@k8s-master:~<span class="token comment"># curl http://127.0.01:3000</span>
+hello ChengDu<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>  2.编辑文件“/usr/lib/systemd/system/docker.service”，输入以下内容。其中，my.harbor.com是Harbor主机的主机名</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># vim /usr/lib/systemd/system/docker.service</span>
-<span class="token assign-left variable">ExecStart</span><span class="token operator">=</span>/usr/bin/dockerd --insecure-registry registry.luovip.cn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>  <strong>2.Dockerfile构建</strong></p>
+<p>   从零开始构建自己所需的镜像，在创建镜像之初把所需的各种设置和所需要的各种应用程序包含进去，生成的镜像可直接用于业务部署</p>
+<p>   <strong>Dockerfile高频指令集:</strong></p>
+<p><img src="/images/dockerfile%E6%8C%87%E4%BB%A4.png"></p>
+<p>   <strong>设计Dockerfile时应考虑：</strong> 容器应该是暂时的、避免安装不必要的软件包、每个容器只应该有一个用途、避免容器有过多的层、多行排序、建立缓存</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.创建dockerfile文件并构建
+root@k8s-master:~<span class="token comment"># vim dockerfile</span>
+FROM registry.myk8s.cn/library/httpd
+MAINTAINER <span class="token number">252414302</span>@qq.com
+RUN <span class="token builtin class-name">echo</span> 你好,中国 <span class="token operator">&gt;</span> /usr/local/apache2/htdocs/index.html
+EXPOSE <span class="token number">80</span>
+WORKDIR /usr/local/apache/htdocs/
 
-<p>  3.编辑“/etc/docker/daemon.json”文件，在该文件中指定私有镜像仓库地址</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/docker/daemon.json</span>
-<span class="token string">"insecure-registries"</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
-        <span class="token string">"192.168.8.52:82"</span>
-  <span class="token punctuation">]</span>
-<span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># systemctl daemon-reload</span>
-<span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart docker.service</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+root@k8s-master:~<span class="token comment"># nerdctl build -t httpd:v2 -f dockerfile .</span>
+root@k8s-master:~<span class="token comment"># nerdctl images</span>
+REPOSITORY             TAG       IMAGE ID        CREATED               PLATFORM       SIZE       BLOB SIZE
+httpd                              v2        43243a4ac567    <span class="token number">2</span> seconds ago         linux/amd64    <span class="token number">162</span>.2MB    <span class="token number">58</span>.5MB
+httpd                              v1        43243a4ac567    About a minute ago    linux/amd64    <span class="token number">162</span>.2MB    <span class="token number">58</span>.5MB
+nginx                              v1        ff3d36d56246    <span class="token number">11</span> minutes ago        linux/amd64    207MB      <span class="token number">72</span>.39MB
+nginx                              v0        5ed8fcc66f4e    <span class="token number">13</span> minutes ago        linux/amd64    207MB      <span class="token number">72</span>.39MB
+registry.myk8s.cn/library/httpd    latest    4564ca760495    <span class="token number">23</span> minutes ago        linux/amd64    <span class="token number">162</span>.2MB    <span class="token number">58</span>.5MB
+registry.myk8s.cn/library/nginx    latest    5ed8fcc66f4e    <span class="token number">34</span> minutes ago        linux/amd64    207MB      <span class="token number">72</span>.39MB
+<span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>                             <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>    5ed8fcc66f4e    <span class="token number">48</span> minutes ago        linux/amd64    207MB      <span class="token number">72</span>.39MB
 
-<p>  4.推送的命令</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Docker推送命令:</span>
-<span class="token number">1</span>.在项目中标记镜像:
-<span class="token function">docker</span> tag SOURCE_IMAGE<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span> <span class="token number">192.168</span>.8.52:82/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span>
-<span class="token number">2</span>.推送镜像到当前项目：
-<span class="token function">docker</span> push <span class="token number">192.168</span>.8.52:82/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span>
 
-Podman推送命令：
-<span class="token number">1</span>.推送镜像到当前项目：
-<span class="token function">podman</span> push IMAGE_ID <span class="token number">192.168</span>.8.52:82/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+注明：如果文件名是Dockerfile时可不指定
+nerdctl build <span class="token parameter variable">-t</span> web:v1 <span class="token builtin class-name">.</span>
 
-<p>  5.推送镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
-REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
-tomcat       latest    c6c6349a7df2   <span class="token number">47</span> hours ago   468MB
-nginx        latest    a830707172e8   <span class="token number">4</span> weeks ago    192MB
+<span class="token comment">#参数说明：</span>
+   <span class="token number">1</span>.t 或 -tag：此选项允许为构建的镜像分配标签，以便于引用和版本控制
+     示例用法： nerdctl build <span class="token parameter variable">-t</span> sampleapp:latest <span class="token builtin class-name">.</span>
 
-<span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># docker login 192.168.8.52:82</span>
+   <span class="token number">2</span>.f 或 file：如果 Dockerfile 的名称不是 “Dockerfile”，则可以使用此选项指定不同的 Dockerfile 名称或位置
+     示例用法： nerdctl build <span class="token parameter variable">-f</span> ProductionDockerfile <span class="token builtin class-name">.</span>
+  
+  
+<span class="token number">2</span>.使用Dockerfile镜像：用httpd:v1的镜像在本机4000端口上提供一个名为dockerfilecontainer的容器
+root@k8s-master:~<span class="token comment"># nerdctl run -d -p 4000:80 --name dockerfilecontainer httpd:v1</span>
+root@k8s-master:~<span class="token comment"># nerdctl ps -a</span>
+CONTAINER ID    IMAGE               COMMAND      CREATED           STATUS    PORTS                   NAMES
+8ade7ac2dd39    docker.io/library/httpd:v1    <span class="token string">"httpd-foreground"</span>        <span class="token number">8</span> seconds ago     Up        <span class="token number">0.0</span>.0.0:4000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    dockerfilecontainer
+eb4c803b8104    docker.io/library/nginx:v1    <span class="token string">"/docker-entrypoint.…"</span>    <span class="token number">11</span> minutes ago    Up        <span class="token number">0.0</span>.0.0:3000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container2
+6f8c50caccc3    docker.io/library/nginx:v0    <span class="token string">"/docker-entrypoint.…"</span>    <span class="token number">14</span> minutes ago    Up        <span class="token number">0.0</span>.0.0:9000-<span class="token operator">&gt;</span><span class="token number">80</span>/tcp    container1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># docker tag c6c6349a7df2 192.168.8.52:82/library/tomcat:v2</span>
-<span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># docekr images</span>
--bash: docekr: <span class="token builtin class-name">command</span> not found
-<span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
-REPOSITORY                       TAG       IMAGE ID       CREATED        SIZE
-<span class="token number">192.168</span>.8.52:82/library/tomcat   v2        c6c6349a7df2   <span class="token number">47</span> hours ago   468MB
-tomcat                           latest    c6c6349a7df2   <span class="token number">47</span> hours ago   468MB
-nginx                            latest    a830707172e8   <span class="token number">4</span> weeks ago    192MB
 
-<span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># docker push 192.168.8.52:82/library/tomcat:v2</span>
-
-<span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># docker pull 192.168.8.52:82/library/tomcat:v2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="4-管理容器的资源"><a href="#4-管理容器的资源" class="headerlink" title="4 管理容器的资源"></a>4 管理容器的资源</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建容器并观察内存量</span>
 <span class="token punctuation">[</span>root@docker ~<span class="token punctuation">]</span><span class="token comment"># docker run -d --name=httpd_server httpd</span>
@@ -1404,7 +1475,7 @@ f85881372579   bridge    bridge    <span class="token builtin class-name">local<
 <p>   1.volume</p>
 <p>   2.bind mount</p>
 <p><img src="/images/%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE.png"></p>
-<h1 id="6-Kubernetes"><a href="#6-Kubernetes" class="headerlink" title="6 Kubernetes"></a>6 Kubernetes</h1><h2 id="6-1-K8S的概念"><a href="#6-1-K8S的概念" class="headerlink" title="6.1 K8S的概念"></a>6.1 K8S的概念</h2><p>  Kubernetes是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化</p>
+<h1 id="6-Kubernetes的深入理解"><a href="#6-Kubernetes的深入理解" class="headerlink" title="6 Kubernetes的深入理解"></a>6 Kubernetes的深入理解</h1><h2 id="6-1-K8S的概念"><a href="#6-1-K8S的概念" class="headerlink" title="6.1 K8S的概念"></a>6.1 K8S的概念</h2><p>  Kubernetes是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化</p>
 <p>  Kubernetes拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用</p>
 <p><img src="/images/k8s.png"></p>
 <h2 id="6-2-K8S的特点"><a href="#6-2-K8S的特点" class="headerlink" title="6.2 K8S的特点"></a>6.2 K8S的特点</h2><p>  Kubernetes具有以下几个特点：</p>
@@ -6550,7 +6621,7 @@ k8s-master    Ready    control-plane   105d   v1.32.7
 k8s-worker1   Ready    worker          105d   v1.32.0
 k8s-worker2   Ready    worker          105d   v1.32.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h1 id="20-ETCD-备份与恢复"><a href="#20-ETCD-备份与恢复" class="headerlink" title="20 ETCD 备份与恢复"></a>20 ETCD 备份与恢复</h1><h2 id="20-1-备份"><a href="#20-1-备份" class="headerlink" title="20.1 备份"></a>20.1 备份</h2><p>  先安装etcd客户端</p>
+<h1 id="20-ETCD备份与恢复"><a href="#20-ETCD备份与恢复" class="headerlink" title="20 ETCD备份与恢复"></a>20 ETCD备份与恢复</h1><h2 id="20-1-备份"><a href="#20-1-备份" class="headerlink" title="20.1 备份"></a>20.1 备份</h2><p>  先安装etcd客户端</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># apt install etcd-client -y</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>  备份成文件并查看</p>
@@ -7392,7 +7463,7 @@ nginx-deployment-7dc9f5ffbf-nqwb8   <span class="token number">1</span>/1     Ru
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">118k</span>&nbsp;字
+                class="white-color">127.7k</span>&nbsp;字
             
             
             
