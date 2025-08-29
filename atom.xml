@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-08-07T06:24:29.934Z</updated>
+  <updated>2025-08-29T08:28:00.394Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CKA认证模拟题</title>
+    <link href="https://linuxcenter.icu/2025/08/27/yun-wei-cong-ye-ji-zhu-ren-zheng/cka-ren-zheng-mo-ni-ti/"/>
+    <id>https://linuxcenter.icu/2025/08/27/yun-wei-cong-ye-ji-zhu-ren-zheng/cka-ren-zheng-mo-ni-ti/</id>
+    <published>2025-08-27T04:34:00.000Z</published>
+    <updated>2025-08-29T08:28:00.394Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;题目1-HPA&quot;&gt;&lt;a href=&quot;#题目1-HPA&quot; class=&quot;headerlink&quot; title=&quot;题目1: HPA&quot;&gt;&lt;/a&gt;&lt;strong&gt;题目1&lt;/strong&gt;: HPA&lt;/h1&gt;&lt;p&gt;  在&lt;code&gt;autoscale&lt;/code&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="运维从业技术认证" scheme="https://linuxcenter.icu/categories/%E8%BF%90%E7%BB%B4%E4%BB%8E%E4%B8%9A%E6%8A%80%E6%9C%AF%E8%AE%A4%E8%AF%81/"/>
+    
+    
+    <category term="CKA认证模拟题" scheme="https://linuxcenter.icu/tags/CKA%E8%AE%A4%E8%AF%81%E6%A8%A1%E6%8B%9F%E9%A2%98/"/>
+    
+  </entry>
   
   <entry>
     <title>containerd原理与实战</title>
@@ -121,7 +146,7 @@
     <link href="https://linuxcenter.icu/2025/05/28/yun-wei-cong-ye-ji-zhu-ren-zheng/k8s-cka-ren-zheng/"/>
     <id>https://linuxcenter.icu/2025/05/28/yun-wei-cong-ye-ji-zhu-ren-zheng/k8s-cka-ren-zheng/</id>
     <published>2025-05-28T04:34:00.000Z</published>
-    <updated>2025-08-27T03:29:55.663Z</updated>
+    <updated>2025-08-27T11:45:38.749Z</updated>
     
     
       
