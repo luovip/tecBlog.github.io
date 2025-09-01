@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-08-29
+                    2025-09-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9.7k
+                    10.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    48 分
+                    51 分
                 </div>
                 
 
@@ -626,7 +626,7 @@ Behavior:
 <h1 id="题目2-Ingress"><a href="#题目2-Ingress" class="headerlink" title="题目2: Ingress"></a><strong>题目2</strong>: Ingress</h1><p>  创建如下ingress资源：</p>
 <p>   名称：<code>echo</code></p>
 <p>   Namespace: <code>sound-repeater</code></p>
-<p>   使用service端口8080在 <code>http://ingress-q2.linuxcenter.cn/echo</code> 上公开名为echoserver-service的服务</p>
+<p>   使用service端口8080在 <code>http://ingress-q2.linuxcenter.cn/echo</code> 上公开名为<code>echoserver-service</code>的服务</p>
 <p>  验证：</p>
 <p>   访问 curl -kL <a target="_blank" rel="noopener" href="http://ingress-q2.linuxcenter.cn/echo">http://ingress-q2.linuxcenter.cn/echo</a> 会返回 <code>hello world</code></p>
 <p>   访问 <code>curl -o /dev/null -s -w "%{http_code}\n" http://ingress-q2.linuxcenter.cn/echo</code> 会输出200</p>
@@ -729,11 +729,7 @@ NAME                                      READY   STATUS             RESTARTS   
 nfs-client-provisioner-5998cfc9bc-gmkrh   <span class="token number">1</span>/1     Running            <span class="token number">0</span>          3d16h
 synergy-leverager-67ff8bb4bf-p88f2        <span class="token number">1</span>/1     Running            <span class="token number">0</span>          3d16h
 synergy-leverager-75f46879f9-v77gc        <span class="token number">1</span>/2     ImagePullBackOff   <span class="token number">0</span>          24m
-web-6f7fff8685-zmntq                      <span class="token number">1</span>/1     Running            <span class="token number">0</span>          3d16h
-
-root@k8s-master:~<span class="token comment"># kubectl get pod synergy-leverager-75f46879f9-v77gc</span>
-NAME                                 READY   STATUS             RESTARTS   AGE
-synergy-leverager-75f46879f9-v77gc   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          37m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+web-6f7fff8685-zmntq                      <span class="token number">1</span>/1     Running            <span class="token number">0</span>          3d16h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  <strong>解决镜像问题:</strong></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 考试时无需解决镜像拉取失败的问题</span>
@@ -785,26 +781,26 @@ cka-sc <span class="token punctuation">(</span>default<span class="token punctua
 <p>  在名字为<code>nginx</code>的容器里面添加一个端口配置，端口名字为<code>http</code>，暴露端口号为<code>80/tcp</code></p>
 <p>  然后创建一个名为<code>front-end-svc</code>且service的类型为<code>NodePort</code>的service，用于暴露容器的http端口。</p>
 <p>  <strong>解析:</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 不要忘了切换集群，每道题前面都有给你ssh命令连接到相对应的机器，或者给你切换context的命令，你复制粘贴就行</span>
-root@k8s-master:~<span class="token comment"># ssh root@k8s-master</span>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 不要忘了切换集群，每道题前面都有给你ssh命令连接到相对应的机器，或者给你切换context的命令，你复制粘贴就行</span>
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># ssh root@k8s-master</span>
 
-root@k8s-master:~<span class="token comment"># kubectl edit deployments.apps -n spline-reticulator front-end</span>
-apiVersion: apps/v1
-kind: Deployment
-spec:
-  template:
-    spec:
-      containers:
-      - image: nginx
-        ports: <span class="token comment">#添加了这里几行</span>
-        - containerPort: <span class="token number">80</span>
-          name: http
-          protocol: TCP
-<span class="token punctuation">..</span>.
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl edit deployments.apps -n spline-reticulator front-end</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token comment">#添加了这里几行</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> http
+          <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+<span class="token punctuation">...</span>
 
 <span class="token comment"># 以NodePort方式暴露端口并验证</span>
-root@k8s-master:~<span class="token comment"># kubectl expose deployment -n spline-reticulator front-end --port=80 --target-port=80 --name=front-end-svc --type=NodePort</span>
-service/front-end-svc exposed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+root@k8s<span class="token punctuation">-</span>master<span class="token punctuation">:</span><span class="token null important">~</span><span class="token comment"># kubectl expose deployment -n spline-reticulator front-end --port=80 --target-port=80 --name=front-end-svc --type=NodePort</span>
+service/front<span class="token punctuation">-</span>end<span class="token punctuation">-</span>svc exposed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  <strong>验证:</strong></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># kubectl get service -n spline-reticulator</span>
@@ -1816,21 +1812,62 @@ spec:
 
 <span class="token comment"># 节点NotReady？看看pod咋样了，还是不对劲，kube-scheduler组件还是异常，它也是静态pod</span>
 root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubectl get nodes</span>
-E0829 <span class="token number">16</span>:21:59.983501  <span class="token number">112606</span> memcache.go:265<span class="token punctuation">]</span> <span class="token string">"Unhandled Error"</span> <span class="token assign-left variable">err</span><span class="token operator">=</span><span class="token string">"couldn't get current server API group list: Get <span class="token entity" title="\&quot;">\"</span>https://192.168.8.6:6443/api?timeout=32s<span class="token entity" title="\&quot;">\"</span>: dial tcp 192.168.8.6:6443: connect: connection refused"</span>
-E0829 <span class="token number">16</span>:21:59.985084  <span class="token number">112606</span> memcache.go:265<span class="token punctuation">]</span> <span class="token string">"Unhandled Error"</span> <span class="token assign-left variable">err</span><span class="token operator">=</span><span class="token string">"couldn't get current server API group list: Get <span class="token entity" title="\&quot;">\"</span>https://192.168.8.6:6443/api?timeout=32s<span class="token entity" title="\&quot;">\"</span>: dial tcp 192.168.8.6:6443: connect: connection refused"</span>
-E0829 <span class="token number">16</span>:21:59.987313  <span class="token number">112606</span> memcache.go:265<span class="token punctuation">]</span> <span class="token string">"Unhandled Error"</span> <span class="token assign-left variable">err</span><span class="token operator">=</span><span class="token string">"couldn't get current server API group list: Get <span class="token entity" title="\&quot;">\"</span>https://192.168.8.6:6443/api?timeout=32s<span class="token entity" title="\&quot;">\"</span>: dial tcp 192.168.8.6:6443: connect: connection refused"</span>
-E0829 <span class="token number">16</span>:21:59.989136  <span class="token number">112606</span> memcache.go:265<span class="token punctuation">]</span> <span class="token string">"Unhandled Error"</span> <span class="token assign-left variable">err</span><span class="token operator">=</span><span class="token string">"couldn't get current server API group list: Get <span class="token entity" title="\&quot;">\"</span>https://192.168.8.6:6443/api?timeout=32s<span class="token entity" title="\&quot;">\"</span>: dial tcp 192.168.8.6:6443: connect: connection refused"</span>
-E0829 <span class="token number">16</span>:21:59.990962  <span class="token number">112606</span> memcache.go:265<span class="token punctuation">]</span> <span class="token string">"Unhandled Error"</span> <span class="token assign-left variable">err</span><span class="token operator">=</span><span class="token string">"couldn't get current server API group list: Get <span class="token entity" title="\&quot;">\"</span>https://192.168.8.6:6443/api?timeout=32s<span class="token entity" title="\&quot;">\"</span>: dial tcp 192.168.8.6:6443: connect: connection refused"</span>
-The connection to the server <span class="token number">192.168</span>.8.6:6443 was refused - did you specify the right <span class="token function">host</span> or port?
+NAME             STATUS     ROLES           AGE   VERSION
+k8s-standalone   NotReady   control-plane   60d   v1.33.0
 
 root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubectl get pod -A</span>
+NAMESPACE     NAME                                     READY   STATUS                     RESTARTS     AGE
+kube-system   coredns-746c97786-8vch4                  <span class="token number">0</span>/1     Pending                    <span class="token number">0</span>            60d
+kube-system   coredns-746c97786-nb77d                  <span class="token number">0</span>/1     Pending                    <span class="token number">0</span>            60d
+kube-system   etcd-k8s-standalone                      <span class="token number">1</span>/1     Running                    <span class="token number">2</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-system   kube-apiserver-k8s-standalone            <span class="token number">1</span>/1     Running                    <span class="token number">0</span>            60d
+kube-system   kube-controller-manager-k8s-standalone   <span class="token number">1</span>/1     Running                    <span class="token number">4</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-system   kube-proxy-wbfsl                         <span class="token number">1</span>/1     Running                    <span class="token number">2</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-system   kube-scheduler-k8s-standalone            <span class="token number">0</span>/1     UnexpectedAdmissionError   <span class="token number">0</span>            60d
 
 <span class="token comment"># 调度器也是用的静态pod，如果静态pod无法自动创建，那估计是文件内容有问题，我们直接创建，看看有啥问题？</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubectl create -f kube-scheduler.yaml</span>
+pod/kube-scheduler created
+root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubectl get pod -n kube-system</span>
+NAME                                     READY   STATUS                     RESTARTS     AGE
+coredns-746c97786-8vch4                  <span class="token number">0</span>/1     Pending                    <span class="token number">0</span>            60d
+coredns-746c97786-nb77d                  <span class="token number">0</span>/1     Pending                    <span class="token number">0</span>            60d
+etcd-k8s-standalone                      <span class="token number">1</span>/1     Running                    <span class="token number">2</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-apiserver-k8s-standalone            <span class="token number">1</span>/1     Running                    <span class="token number">0</span>            60d
+kube-controller-manager-k8s-standalone   <span class="token number">1</span>/1     Running                    <span class="token number">4</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-proxy-wbfsl                         <span class="token number">1</span>/1     Running                    <span class="token number">2</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-scheduler                           <span class="token number">0</span>/1     Pending                    <span class="token number">0</span>            12s
+kube-scheduler-k8s-standalone            <span class="token number">0</span>/1     UnexpectedAdmissionError   <span class="token number">0</span>            60d
 
+<span class="token comment"># 看来创建没问题，但是起不来？能创建说明语法问题不大，那就先决条件不足，比如资源请求太多？</span>
+root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubectl describe -n kube-system pod kube-scheduler | grep -i Requests -A 3</span>
+    Requests:
+      cpu:        <span class="token number">20</span>
+    Liveness:     http-get https://127.0.0.1:10259/livez <span class="token assign-left variable">delay</span><span class="token operator">=</span>10s <span class="token assign-left variable">timeout</span><span class="token operator">=</span>15s <span class="token assign-left variable">period</span><span class="token operator">=</span>10s <span class="token comment">#success=1 #failure=8</span>
+    Readiness:    http-get https://127.0.0.1:10259/readyz <span class="token assign-left variable">delay</span><span class="token operator">=</span>0s <span class="token assign-left variable">timeout</span><span class="token operator">=</span>15s <span class="token assign-left variable">period</span><span class="token operator">=</span>1s <span class="token comment">#success=1 #failure=3</span>
 
+root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># sudo vim kube-scheduler.yaml</span>
+apiVersion: v1
+kind: Pod
+spec:
+<span class="token punctuation">..</span>.
+    resources:
+      requests:
+        cpu: 20000m <span class="token comment">#直接改成100m意思意思得了，如果也是让你改成10%，记得通知我一下</span>
+        
 
+root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubectl delete -f kube-scheduler.yaml</span>
+pod <span class="token string">"kube-scheduler"</span> deleted
 
+root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubectl get pod -n kube-system</span>
+NAME                                     READY   STATUS    RESTARTS     AGE
+coredns-746c97786-8vch4                  <span class="token number">0</span>/1     Pending   <span class="token number">0</span>            60d
+coredns-746c97786-nb77d                  <span class="token number">0</span>/1     Pending   <span class="token number">0</span>            60d
+etcd-k8s-standalone                      <span class="token number">1</span>/1     Running   <span class="token number">2</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-apiserver-k8s-standalone            <span class="token number">1</span>/1     Running   <span class="token number">0</span>            60d
+kube-controller-manager-k8s-standalone   <span class="token number">1</span>/1     Running   <span class="token number">4</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-proxy-wbfsl                         <span class="token number">1</span>/1     Running   <span class="token number">2</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-scheduler-k8s-standalone            <span class="token number">1</span>/1     Running   <span class="token number">0</span>            56s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="题目16-calico"><a href="#题目16-calico" class="headerlink" title="题目16: calico"></a><strong>题目16</strong>: calico</h1><p>  您必须连接到正确的主机。不这样做可能导致零分。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">root@k8s-master:~<span class="token comment"># ssh root@k8s-standalone</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -1851,6 +1888,69 @@ root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubec
 <p>   让 Pod 相互通信</p>
 <p>   支持 Network Policy 实施</p>
 <p>   从清单文件安装（请勿使用 Helm）</p>
+<p>  <strong>解析</strong>:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 不要忘了切换集群，每道题前面都有给你ssh命令连接到相对应的机器，或者给你切换context的命令，你复制粘贴就行</span>
+root@k8s-master:~<span class="token comment"># ssh root@k8s-master</span>
+
+<span class="token comment"># 根据题目，ssh到root@k8s-standalone这个机器上</span>
+root@k8s-master:~<span class="token comment"># ssh root@k8s-standalone</span>
+
+<span class="token comment"># 题目提到，需要支持网络策略，这里直接选择calico</span>
+root@k8s-standalone:~<span class="token comment"># kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/refs/tags/v3.30.2/manifests/tigera-operator.yaml</span>
+
+<span class="token comment"># 看看现在集群中的 Pod CIDR是多少</span>
+root@k8s-standalone:~<span class="token comment"># kubectl cluster-info dump | grep -i cluster-cidr</span>
+                            <span class="token string">"--cluster-cidr=172.16.0.0/16"</span>,
+
+<span class="token comment"># 最终的IP地址分发范围是: 172.16.0.0/16</span>
+<span class="token comment"># 将这个CIDR填充到我们的CRD中，然后把CRD发布</span>
+<span class="token function">wget</span> https://raw.githubusercontent.com/projectcalico/calico/refs/tags/v3.30.2/manifests/custom-resources.yaml
+
+root@k8s-standalone:~<span class="token comment"># vim custom-resources.yaml</span>
+apiVersion: operator.tigera.io/v1
+kind: Installation
+metadata:
+  name: default
+spec:
+  <span class="token comment"># Configures Calico networking.</span>
+  calicoNetwork:
+    ipPools:
+    - name: default-ipv4-ippool
+      blockSize: <span class="token number">26</span>
+      cidr: <span class="token number">192.168</span>.0.0/16 <span class="token comment"># 到时候看看这个文件里自带的是多少，把这个改成你刚查出来的172.16.0.0/16</span>
+      encapsulation: VXLANCrossSubnet
+      natOutgoing: Enabled
+      nodeSelector: all<span class="token punctuation">(</span><span class="token punctuation">)</span>
+      
+<span class="token comment"># 向集群发布</span>
+root@k8s-standalone:~<span class="token comment"># kubectl create -f custom-resources.yaml</span>
+
+<span class="token comment"># 检查 Calico 组件运行状态</span>
+root@k8s-standalone:~<span class="token comment"># kubectl get pod -A</span>
+NAMESPACE          NAME                                       READY   STATUS    RESTARTS     AGE
+calico-apiserver   calico-apiserver-6b5695b898-8fc5m          <span class="token number">1</span>/1     Running   <span class="token number">0</span>            62s
+calico-apiserver   calico-apiserver-6b5695b898-wbgkn          <span class="token number">1</span>/1     Running   <span class="token number">0</span>            62s
+calico-system      calico-kube-controllers-6899c9c99b-z9wbg   <span class="token number">1</span>/1     Running   <span class="token number">0</span>            58s
+calico-system      calico-node-n7l2p                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>            59s
+calico-system      calico-typha-5dd49f758b-6dql2              <span class="token number">1</span>/1     Running   <span class="token number">0</span>            59s
+calico-system      csi-node-driver-l4sq6                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>            58s
+calico-system      goldmane-5f56496f4c-zppfp                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>            59s
+calico-system      whisker-554b456567-j5smm                   <span class="token number">2</span>/2     Running   <span class="token number">0</span>            53s
+kube-system        coredns-746c97786-8vch4                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>            60d
+kube-system        coredns-746c97786-nb77d                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>            60d
+kube-system        etcd-k8s-standalone                        <span class="token number">1</span>/1     Running   <span class="token number">2</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-system        kube-apiserver-k8s-standalone              <span class="token number">1</span>/1     Running   <span class="token number">0</span>            60d
+kube-system        kube-controller-manager-k8s-standalone     <span class="token number">1</span>/1     Running   <span class="token number">4</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-system        kube-proxy-wbfsl                           <span class="token number">1</span>/1     Running   <span class="token number">2</span> <span class="token punctuation">(</span>8d ago<span class="token punctuation">)</span>   60d
+kube-system        kube-scheduler-k8s-standalone              <span class="token number">1</span>/1     Running   <span class="token number">0</span>            12m
+tigera-operator    tigera-operator-747864d56d-2w92r           <span class="token number">1</span>/1     Running   <span class="token number">0</span>            7m18s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
 
                 
             </div>
@@ -2257,7 +2357,7 @@ root@k8s-standalone:/etc/kubernetes/manifests<span class="token comment"># kubec
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">138k</span>&nbsp;字
+                class="white-color">138.7k</span>&nbsp;字
             
             
             
