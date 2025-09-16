@@ -160,15 +160,15 @@
   
   <entry>
     <title>Linux的服务</title>
-    <link href="https://linuxcenter.icu/2024/07/28/linux-de-ji-ben-ji-zhu/linux-de-fu-wu/"/>
-    <id>https://linuxcenter.icu/2024/07/28/linux-de-ji-ben-ji-zhu/linux-de-fu-wu/</id>
+    <link href="https://linuxcenter.icu/2024/07/28/linux-ji-ben-ji-zhu/linux-de-fu-wu/"/>
+    <id>https://linuxcenter.icu/2024/07/28/linux-ji-ben-ji-zhu/linux-de-fu-wu/</id>
     <published>2024-07-28T13:12:00.000Z</published>
-    <updated>2025-08-07T06:35:25.943Z</updated>
+    <updated>2025-09-16T07:28:27.491Z</updated>
     
     
     
     
-    <category term="Linux的基本技术" scheme="https://linuxcenter.icu/categories/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
+    <category term="Linux基本技术" scheme="https://linuxcenter.icu/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="Linux的服务" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E6%9C%8D%E5%8A%A1/"/>
@@ -219,10 +219,10 @@
   
   <entry>
     <title>Linux的进阶使用</title>
-    <link href="https://linuxcenter.icu/2023/05/28/linux-de-ji-ben-ji-zhu/linux-de-jin-jie-shi-yong/"/>
-    <id>https://linuxcenter.icu/2023/05/28/linux-de-ji-ben-ji-zhu/linux-de-jin-jie-shi-yong/</id>
+    <link href="https://linuxcenter.icu/2023/05/28/linux-ji-ben-ji-zhu/linux-de-jin-jie-shi-yong/"/>
+    <id>https://linuxcenter.icu/2023/05/28/linux-ji-ben-ji-zhu/linux-de-jin-jie-shi-yong/</id>
     <published>2023-05-28T13:12:00.000Z</published>
-    <updated>2025-08-07T06:37:09.836Z</updated>
+    <updated>2025-09-16T07:28:36.101Z</updated>
     
     
       
@@ -235,7 +235,7 @@
     
     
     
-    <category term="Linux的基本技术" scheme="https://linuxcenter.icu/categories/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
+    <category term="Linux基本技术" scheme="https://linuxcenter.icu/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="Linux的进阶使用" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/"/>
@@ -244,10 +244,10 @@
   
   <entry>
     <title>Linux的基本使用</title>
-    <link href="https://linuxcenter.icu/2022/05/28/linux-de-ji-ben-ji-zhu/linux-de-ji-ben-shi-yong/"/>
-    <id>https://linuxcenter.icu/2022/05/28/linux-de-ji-ben-ji-zhu/linux-de-ji-ben-shi-yong/</id>
+    <link href="https://linuxcenter.icu/2022/05/28/linux-ji-ben-ji-zhu/linux-de-ji-ben-shi-yong/"/>
+    <id>https://linuxcenter.icu/2022/05/28/linux-ji-ben-ji-zhu/linux-de-ji-ben-shi-yong/</id>
     <published>2022-05-28T13:12:00.000Z</published>
-    <updated>2025-08-07T06:36:01.503Z</updated>
+    <updated>2025-09-16T07:28:32.820Z</updated>
     
     
       
@@ -260,7 +260,7 @@
     
     
     
-    <category term="Linux的基本技术" scheme="https://linuxcenter.icu/categories/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
+    <category term="Linux基本技术" scheme="https://linuxcenter.icu/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="Linux的基本使用" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
@@ -269,10 +269,10 @@
   
   <entry>
     <title>Linux的命令</title>
-    <link href="https://linuxcenter.icu/2022/04/28/linux-de-ji-ben-ji-zhu/linux-de-ming-ling/"/>
-    <id>https://linuxcenter.icu/2022/04/28/linux-de-ji-ben-ji-zhu/linux-de-ming-ling/</id>
+    <link href="https://linuxcenter.icu/2022/04/28/linux-ji-ben-ji-zhu/linux-de-ming-ling/"/>
+    <id>https://linuxcenter.icu/2022/04/28/linux-ji-ben-ji-zhu/linux-de-ming-ling/</id>
     <published>2022-04-28T13:12:00.000Z</published>
-    <updated>2025-08-15T06:43:49.448Z</updated>
+    <updated>2025-09-16T07:28:39.650Z</updated>
     
     
       
@@ -285,7 +285,7 @@
     
     
     
-    <category term="Linux的基本技术" scheme="https://linuxcenter.icu/categories/Linux%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
+    <category term="Linux基本技术" scheme="https://linuxcenter.icu/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="Linux的命令" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E5%91%BD%E4%BB%A4/"/>
