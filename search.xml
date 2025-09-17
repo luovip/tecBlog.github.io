@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Docker容器</title>
+      <link href="/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/"/>
+      <url>/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 容器技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker容器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>containerd容器</title>
       <link href="/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/"/>
       <url>/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/</url>

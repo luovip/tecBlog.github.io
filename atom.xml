@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-09-16T06:56:54.654Z</updated>
+  <updated>2025-09-17T08:44:59.635Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker容器</title>
+    <link href="https://linuxcenter.icu/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/"/>
+    <id>https://linuxcenter.icu/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/</id>
+    <published>2025-08-03T13:48:00.000Z</published>
+    <updated>2025-09-17T08:44:59.635Z</updated>
+    
+    
+    
+    
+    <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="Docker容器" scheme="https://linuxcenter.icu/tags/Docker%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>containerd容器</title>
