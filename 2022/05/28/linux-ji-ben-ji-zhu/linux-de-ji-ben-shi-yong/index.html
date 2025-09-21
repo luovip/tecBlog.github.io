@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-09-16
+                    2025-09-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    13.3k
+                    14k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    62 分
+                    65 分
                 </div>
                 
 
@@ -2804,6 +2804,101 @@ updatedb      <span class="token comment">#收集所有文件元数据</span>
 <span class="token number">5</span>.软链接可以对目录及文件生效、硬链接只可以对文件操作
 <span class="token number">6</span>.软链接可以跨文件系统、硬链接不可以跨文件系统<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h1 id="15-扩容Linux根分区大小"><a href="#15-扩容Linux根分区大小" class="headerlink" title="15 扩容Linux根分区大小"></a>15 扩容Linux根分区大小</h1><h2 id="15-1-查询现有根分区大小"><a href="#15-1-查询现有根分区大小" class="headerlink" title="15.1 查询现有根分区大小"></a>15.1 查询现有根分区大小</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 根分区有45G，已经用了32%</span>
+<span class="token punctuation">[</span>root@vm ~<span class="token punctuation">]</span><span class="token comment"># df -h</span>
+Filesystem           Size  Used Avail Use% Mounted on
+devtmpfs             <span class="token number">4</span>.0M     <span class="token number">0</span>  <span class="token number">4</span>.0M   <span class="token number">0</span>% /dev
+tmpfs                <span class="token number">1</span>.9G     <span class="token number">0</span>  <span class="token number">1</span>.9G   <span class="token number">0</span>% /dev/shm
+tmpfs                776M  <span class="token number">9</span>.1M  767M   <span class="token number">2</span>% /run
+efivarfs             256K   55K  197K  <span class="token number">22</span>% /sys/firmware/efi/efivars
+/dev/mapper/rl-root   45G   15G   31G  <span class="token number">32</span>% /
+/dev/sda2            960M  281M  680M  <span class="token number">30</span>% /boot
+/dev/sda1            599M  <span class="token number">7</span>.1M  592M   <span class="token number">2</span>% /boot/efi
+tmpfs                388M     <span class="token number">0</span>  388M   <span class="token number">0</span>% /run/user/0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="15-2-添加新硬盘到虚拟机"><a href="#15-2-添加新硬盘到虚拟机" class="headerlink" title="15.2 添加新硬盘到虚拟机"></a>15.2 添加新硬盘到虚拟机</h2><p>  先将虚拟机正常关机，然后执行下面的添加硬盘操作</p>
+<p>  在VMware workstation的顶栏菜单中，点击虚拟机—&gt;设置—&gt;添加—&gt;硬盘</p>
+<p>  在添加硬盘的过程中，除了硬盘大小，一切保持默认即可，大小处输入了50G</p>
+<p>  将虚拟机开机</p>
+<p><img src="/images/sdb.png"></p>
+<h2 id="15-3-将新加的硬盘加入vg"><a href="#15-3-将新加的硬盘加入vg" class="headerlink" title="15.3 将新加的硬盘加入vg"></a>15.3 将新加的硬盘加入vg</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.查询新加的硬盘  可看出新硬盘名称是sdb
+<span class="token punctuation">[</span>root@vm ~<span class="token punctuation">]</span><span class="token comment"># lsblk</span>
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda           <span class="token number">8</span>:0    <span class="token number">0</span>   50G  <span class="token number">0</span> disk
+├─sda1        <span class="token number">8</span>:1    <span class="token number">0</span>  600M  <span class="token number">0</span> part /boot/efi
+├─sda2        <span class="token number">8</span>:2    <span class="token number">0</span>    1G  <span class="token number">0</span> part /boot
+└─sda3        <span class="token number">8</span>:3    <span class="token number">0</span> <span class="token number">48</span>.4G  <span class="token number">0</span> part
+  ├─rl-root <span class="token number">253</span>:0    <span class="token number">0</span> <span class="token number">44</span>.5G  <span class="token number">0</span> lvm  /
+  └─rl-swap <span class="token number">253</span>:1    <span class="token number">0</span>  <span class="token number">3</span>.9G  <span class="token number">0</span> lvm  <span class="token punctuation">[</span>SWAP<span class="token punctuation">]</span>
+sdb           <span class="token number">8</span>:16   <span class="token number">0</span>   50G  <span class="token number">0</span> disk
+sr0          <span class="token number">11</span>:0    <span class="token number">1</span>  <span class="token number">2</span>.1G  <span class="token number">0</span> rom
+
+<span class="token number">2</span>.扩容vg
+<span class="token comment"># 查询-查询前</span>
+<span class="token punctuation">[</span>root@vm ~<span class="token punctuation">]</span><span class="token comment"># vgs</span>
+  VG <span class="token comment">#PV #LV #SN Attr   VSize  VFree</span>
+  rl   <span class="token number">1</span>   <span class="token number">2</span>   <span class="token number">0</span> wz--n- <span class="token number">48</span>.41g    <span class="token number">0</span>
+  
+<span class="token comment"># 扩容</span>
+<span class="token punctuation">[</span>root@vm ~<span class="token punctuation">]</span><span class="token comment"># vgextend rl /dev/sdb</span>
+  Volume group <span class="token string">"rl"</span> successfully extended
+
+<span class="token comment"># 查询-扩容后</span>
+<span class="token punctuation">[</span>root@vm ~<span class="token punctuation">]</span><span class="token comment"># vgs</span>
+  VG <span class="token comment">#PV #LV #SN Attr   VSize   VFree</span>
+  rl   <span class="token number">2</span>   <span class="token number">2</span>   <span class="token number">0</span> wz--n- <span class="token operator">&lt;</span><span class="token number">98</span>.41g <span class="token operator">&lt;</span><span class="token number">50</span>.00g
+
+<span class="token number">3</span>.扩容根分区所在的lv，注意不要遗漏最后-r参数，不然还得单独扩容文件系统
+<span class="token punctuation">[</span>root@vm ~<span class="token punctuation">]</span><span class="token comment"># lvextend /dev/rl/root -L +40G -r</span>
+  File system xfs found on rl/root mounted at /.
+  Size of logical volume rl/root changed from <span class="token operator">&lt;</span><span class="token number">44.50</span> GiB <span class="token punctuation">(</span><span class="token number">11391</span> extents<span class="token punctuation">)</span> to <span class="token operator">&lt;</span><span class="token number">84.50</span> GiB <span class="token punctuation">(</span><span class="token number">21631</span> extents<span class="token punctuation">)</span>.
+  Extending <span class="token function">file</span> system xfs to <span class="token operator">&lt;</span><span class="token number">84.50</span> GiB <span class="token punctuation">(</span><span class="token number">90726989824</span> bytes<span class="token punctuation">)</span> on rl/root<span class="token punctuation">..</span>.
+xfs_growfs /dev/rl/root
+meta-data<span class="token operator">=</span>/dev/mapper/rl-root    <span class="token assign-left variable">isize</span><span class="token operator">=</span><span class="token number">512</span>    <span class="token assign-left variable">agcount</span><span class="token operator">=</span><span class="token number">4</span>, <span class="token assign-left variable">agsize</span><span class="token operator">=</span><span class="token number">2916096</span> blks
+         <span class="token operator">=</span>                       <span class="token assign-left variable">sectsz</span><span class="token operator">=</span><span class="token number">512</span>   <span class="token assign-left variable">attr</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">projid32bit</span><span class="token operator">=</span><span class="token number">1</span>
+         <span class="token operator">=</span>                       <span class="token assign-left variable">crc</span><span class="token operator">=</span><span class="token number">1</span>        <span class="token assign-left variable">finobt</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">sparse</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">rmapbt</span><span class="token operator">=</span><span class="token number">0</span>
+         <span class="token operator">=</span>                       <span class="token assign-left variable">reflink</span><span class="token operator">=</span><span class="token number">1</span>    <span class="token assign-left variable">bigtime</span><span class="token operator">=</span><span class="token number">1</span> <span class="token assign-left variable">inobtcount</span><span class="token operator">=</span><span class="token number">1</span> <span class="token assign-left variable">nrext64</span><span class="token operator">=</span><span class="token number">0</span>
+data     <span class="token operator">=</span>                       <span class="token assign-left variable">bsize</span><span class="token operator">=</span><span class="token number">4096</span>   <span class="token assign-left variable">blocks</span><span class="token operator">=</span><span class="token number">11664384</span>, <span class="token assign-left variable">imaxpct</span><span class="token operator">=</span><span class="token number">25</span>
+         <span class="token operator">=</span>                       <span class="token assign-left variable">sunit</span><span class="token operator">=</span><span class="token number">0</span>      <span class="token assign-left variable">swidth</span><span class="token operator">=</span><span class="token number">0</span> blks
+naming   <span class="token operator">=</span>version <span class="token number">2</span>              <span class="token assign-left variable">bsize</span><span class="token operator">=</span><span class="token number">4096</span>   ascii-ci<span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">ftype</span><span class="token operator">=</span><span class="token number">1</span>
+log      <span class="token operator">=</span>internal log           <span class="token assign-left variable">bsize</span><span class="token operator">=</span><span class="token number">4096</span>   <span class="token assign-left variable">blocks</span><span class="token operator">=</span><span class="token number">16384</span>, <span class="token assign-left variable">version</span><span class="token operator">=</span><span class="token number">2</span>
+         <span class="token operator">=</span>                       <span class="token assign-left variable">sectsz</span><span class="token operator">=</span><span class="token number">512</span>   <span class="token assign-left variable">sunit</span><span class="token operator">=</span><span class="token number">0</span> blks, lazy-count<span class="token operator">=</span><span class="token number">1</span>
+realtime <span class="token operator">=</span>none                   <span class="token assign-left variable">extsz</span><span class="token operator">=</span><span class="token number">4096</span>   <span class="token assign-left variable">blocks</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">rtextents</span><span class="token operator">=</span><span class="token number">0</span>
+data blocks changed from <span class="token number">11664384</span> to <span class="token number">22150144</span>
+xfs_growfs <span class="token keyword">done</span>
+  Extended <span class="token function">file</span> system xfs on rl/root.
+  Logical volume rl/root successfully resized.
+  
+<span class="token punctuation">[</span>root@vm ~<span class="token punctuation">]</span><span class="token comment"># lvs</span>
+  LV   VG Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  root rl -wi-ao---- <span class="token operator">&lt;</span><span class="token number">84</span>.50g
+  swap rl -wi-ao----   <span class="token number">3</span>.91g<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="15-4-确认扩容效果"><a href="#15-4-确认扩容效果" class="headerlink" title="15.4 确认扩容效果"></a>15.4 确认扩容效果</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@vm ~<span class="token punctuation">]</span><span class="token comment"># df -h</span>
+Filesystem           Size  Used Avail Use% Mounted on
+devtmpfs             <span class="token number">4</span>.0M     <span class="token number">0</span>  <span class="token number">4</span>.0M   <span class="token number">0</span>% /dev
+tmpfs                <span class="token number">1</span>.9G     <span class="token number">0</span>  <span class="token number">1</span>.9G   <span class="token number">0</span>% /dev/shm
+tmpfs                776M  <span class="token number">9</span>.1M  767M   <span class="token number">2</span>% /run
+efivarfs             256K   55K  197K  <span class="token number">22</span>% /sys/firmware/efi/efivars
+/dev/mapper/rl-root   85G   15G   70G  <span class="token number">18</span>% /
+/dev/sda2            960M  281M  680M  <span class="token number">30</span>% /boot
+/dev/sda1            599M  <span class="token number">7</span>.1M  592M   <span class="token number">2</span>% /boot/efi
+tmpfs                388M     <span class="token number">0</span>  388M   <span class="token number">0</span>% /run/user/0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3220,7 +3315,7 @@ updatedb      <span class="token comment">#收集所有文件元数据</span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">128.3k</span>&nbsp;字
+                class="white-color">137.7k</span>&nbsp;字
             
             
             
