@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="nginx入门介绍, Linux技术博客">
+    <meta name="keywords" content="nginx负载均衡配置, Linux技术博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
@@ -20,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>nginx入门介绍 | Linux技术博客</title>
+    <title>nginx负载均衡配置 | Linux技术博客</title>
     <link rel="icon" type="image/png"
         href="/favicon.png">
 
@@ -374,7 +374,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">nginx入门介绍</h1>
+                    <h1 class="description center-align post-title">nginx负载均衡配置</h1>
                 </div>
             </div>
         </div>
@@ -491,8 +491,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/nginx%E5%85%A5%E9%97%A8%E4%BB%8B%E7%BB%8D/">
-                                <span class="chip bg-color">nginx入门介绍</span>
+                            <a href="/tags/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E9%85%8D%E7%BD%AE/">
+                                <span class="chip bg-color">nginx负载均衡配置</span>
                             </a>
                         
                     </div>
@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-09-20
+                    2025-09-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    2.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    12 分
                 </div>
                 
 
@@ -557,7 +557,361 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="1-负载均衡基本概念"><a href="#1-负载均衡基本概念" class="headerlink" title="1 负载均衡基本概念"></a>1 负载均衡基本概念</h1><p>  NGINX不仅是一个高性能的Web服务器，同时还提供了强大的负载均衡功能。它支持基于HTTP、HTTPS、TCP和UDP协议的负载均衡，为不同的应用场景提供了解决方案。在开源版本的NGINX中，提供了被动的健康检查，这有助于减少上游服务器的压力。而在NGINX Plus版本中，除了被动健康检查，还提供了主动健康检查功能。</p>
+<p>  <code>主动健康检查每隔一段时间就会向上游服务器发起连接或请求，以确保服务器的健康状态。这虽然会带来一定的系统负载，但能够更及时地发现问题，并提供更高的服务可用性。</code></p>
+<h1 id="2-环境介绍与架构图"><a href="#2-环境介绍与架构图" class="headerlink" title="2 环境介绍与架构图"></a>2 环境介绍与架构图</h1><table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>IP地址</th>
+<th>主机名</th>
+<th>NGINX版本</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rocky 9.6</td>
+<td>192.168.8.4</td>
+<td>loadbalance.luovip.cn</td>
+<td>1.26.2</td>
+<td>负载均衡</td>
+</tr>
+<tr>
+<td>Rocky 9.6</td>
+<td>192.168.8.5</td>
+<td>web1.luovip.cn</td>
+<td>1.26.2</td>
+<td>普通业务服务器</td>
+</tr>
+<tr>
+<td>Rocky 9.6</td>
+<td>192.168.8.6</td>
+<td>web1.luovip.cn</td>
+<td>1.26.2</td>
+<td>普通业务服务器</td>
+</tr>
+</tbody></table>
+<p><img src="/images/%E7%8E%AF%E5%A2%83%E6%9E%B6%E6%9E%84%E5%9B%BE.png"></p>
+<p>  <code>在这个架构中，NGINX负载均衡器loadbalance.luovip.cn（IP地址192.168.8.4）负责将请求分发到两台普通业务服务器web1.luovip.cn（IP地址192.168.8.5）和web2.luovip.cn（IP地址192.168.8.6）</code></p>
+<h1 id="3-实验先决条件准备"><a href="#3-实验先决条件准备" class="headerlink" title="3 实验先决条件准备"></a>3 实验先决条件准备</h1><h2 id="3-1-准备hosts文件"><a href="#3-1-准备hosts文件" class="headerlink" title="3.1 准备hosts文件"></a>3.1 准备hosts文件</h2><p>  这一步，需要在所有机器上完成准备，以便于大家都能用名称互相解析和访问</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/hosts <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+192.168.8.4 loadbalance.luovip.cn loadbalance
+192.168.8.5 web1.luovip.cn web1
+192.168.8.6 web2.luovip.cn web2
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-2-部署业务服务器"><a href="#3-2-部署业务服务器" class="headerlink" title="3.2 部署业务服务器"></a>3.2 部署业务服务器</h2><p>  快速部署两台业务服务器，需要让每个服务器上的页面显示不同的内容以区分主机，每个主机需开通防火墙</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 部署web1.luovip.cn</span>
+<span class="token punctuation">[</span>root@web1 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/yum.repos.d/</span>
+<span class="token punctuation">[</span>root@web1 yum.repos.d<span class="token punctuation">]</span><span class="token comment"># vim nginx.repo</span>
+<span class="token punctuation">[</span>nginx<span class="token punctuation">]</span>
+<span class="token assign-left variable">name</span><span class="token operator">=</span>nginx repo
+<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>http://nginx.org/packages/centos/9/x86_64/
+<span class="token assign-left variable">gpgcheck</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token assign-left variable">enabled</span><span class="token operator">=</span><span class="token number">1</span>
+
+<span class="token punctuation">[</span>root@web1 ~<span class="token punctuation">]</span><span class="token comment"># dnf makecache</span>
+
+<span class="token punctuation">[</span>root@web1 ~<span class="token punctuation">]</span><span class="token comment"># dnf install nginx-1.26.2 -y</span>
+
+<span class="token punctuation">[</span>root@web1 ~<span class="token punctuation">]</span><span class="token comment"># echo "Hello nginx,I'm Chinese" &gt; /usr/share/nginx/html/index.html</span>
+<span class="token punctuation">[</span>root@web1 ~<span class="token punctuation">]</span><span class="token comment"># cat /usr/share/nginx/html/index.html</span>
+Hello nginx,I<span class="token string">'m Chinese
+
+[root@web1 ~]# systemctl enable nginx --now
+[root@web1 ~]# systemctl status nginx
+
+[root@web1 ~]# firewall-cmd --add-service=http --permanent
+success
+[root@web1 ~]# firewall-cmd --reload
+success
+[root@web1 ~]# curl http://192.168.8.5
+Hello nginx,I'</span>m Chinese
+
+<span class="token comment"># 部署web2.luovip.cn</span>
+<span class="token punctuation">[</span>root@web2 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/yum.repos.d/</span>
+<span class="token punctuation">[</span>root@web2 yum.repos.d<span class="token punctuation">]</span><span class="token comment"># vim nginx.repo</span>
+<span class="token punctuation">[</span>nginx<span class="token punctuation">]</span>
+<span class="token assign-left variable">name</span><span class="token operator">=</span>nginx repo
+<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>http://nginx.org/packages/centos/9/x86_64/
+<span class="token assign-left variable">gpgcheck</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token assign-left variable">enabled</span><span class="token operator">=</span><span class="token number">1</span>
+
+<span class="token punctuation">[</span>root@web2 ~<span class="token punctuation">]</span><span class="token comment"># dnf makecache</span>
+
+<span class="token punctuation">[</span>root@web2 ~<span class="token punctuation">]</span><span class="token comment"># dnf install nginx-1.26.2 -y</span>
+
+<span class="token punctuation">[</span>root@web2 ~<span class="token punctuation">]</span><span class="token comment"># echo "Hello nginx,I'm Country" &gt; /usr/share/nginx/html/index.html</span>
+<span class="token punctuation">[</span>root@web2 ~<span class="token punctuation">]</span><span class="token comment"># cat /usr/share/nginx/html/index.html</span>
+Hello nginx,I<span class="token string">'m Country
+
+[root@web2 ~]# systemctl enable nginx --now
+[root@web2 ~]# systemctl status nginx
+
+[root@web2 ~]# firewall-cmd --add-service=http --permanent
+success
+
+[root@web2 ~]# firewall-cmd --reload
+success
+
+[root@web2 ~]# curl http://192.168.8.6
+Hello nginx,I'</span>m Country<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="4-负载均衡实践"><a href="#4-负载均衡实践" class="headerlink" title="4 负载均衡实践"></a>4 负载均衡实践</h1><h2 id="4-1-HTTP-负载均衡"><a href="#4-1-HTTP-负载均衡" class="headerlink" title="4.1 HTTP 负载均衡"></a>4.1 HTTP 负载均衡</h2><p>  <strong>在这个配置中</strong>：</p>
+<p>   <code>upstream load</code>：定义了一个名为<code>load</code>的上游服务器组。</p>
+<p>   <code>server 192.168.8.5:80 weight=1 max_fails=3 fail_timeout=3s</code>：定义了第一台后端服务器，权重为1，最大失败次数为3，超时时间为3秒。</p>
+<p>   <code>server 192.168.8.6:80 weight=2 max_fails=3 fail_timeout=3s</code>：定义了第二台后端服务器，权重为2，最大失败次数为3，超时时间为3秒。</p>
+<p>   <code>server 192.168.8.7:80 backup max_fails=3 fail_timeout=3s</code>：定义了备份服务器，最大失败次数为3，超时时间为3秒。</p>
+<p>   <code>server_name loadbalance.luovip.cn</code>：设置了虚拟主机名。</p>
+<p>   <code>proxy_pass http://load</code>：将请求转发到上游服务器组。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置文件修改参考 /etc/nginx/conf.d/default.conf</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/nginx/conf.d/httpha.conf</span>
+upstream load <span class="token punctuation">{</span>
+ server <span class="token number">192.168</span>.8.5:80 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">1</span> <span class="token assign-left variable">max_fails</span><span class="token operator">=</span><span class="token number">3</span> <span class="token assign-left variable">fail_timeout</span><span class="token operator">=</span>3s<span class="token punctuation">;</span>
+ server <span class="token number">192.168</span>.8.6:80 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">2</span> <span class="token assign-left variable">max_fails</span><span class="token operator">=</span><span class="token number">3</span> <span class="token assign-left variable">fail_timeout</span><span class="token operator">=</span>3s<span class="token punctuation">;</span>
+ server <span class="token number">192.168</span>.8.7:80 backup <span class="token assign-left variable">max_fails</span><span class="token operator">=</span><span class="token number">3</span> <span class="token assign-left variable">fail_timeout</span><span class="token operator">=</span>3s<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+server <span class="token punctuation">{</span>
+ listen <span class="token number">80</span><span class="token punctuation">;</span>
+ server_name loadbalance.luovip.cn<span class="token punctuation">;</span>
+ location / <span class="token punctuation">{</span>
+ proxy_pass http://load<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># 让nginx重新加载配置文件生效</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -t</span>
+nginx: the configuration <span class="token function">file</span> /etc/nginx/nginx.conf syntax is ok
+nginx: configuration <span class="token function">file</span> /etc/nginx/nginx.conf <span class="token builtin class-name">test</span> is successful
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -s reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>第三个服务器后面的backup可以是以下的几种:</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>down</td>
+<td>目前宕机，不参与负载均衡</td>
+</tr>
+<tr>
+<td>backup</td>
+<td>当具有权重的正常服务器全宕机后，此服务器将启用</td>
+</tr>
+<tr>
+<td>max_fails</td>
+<td>最大请求失败次数</td>
+</tr>
+<tr>
+<td>fail_timeout</td>
+<td>超过最大失败次数后，暂停多长时间</td>
+</tr>
+<tr>
+<td>max_conns</td>
+<td>最大连接数</td>
+</tr>
+</tbody></table>
+<p>  <code>测试负载均衡效果，需要将SELinux的布尔值打开，或者关闭SELinux，不然nginx将无法作为负载均衡工作</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># setsebool -P httpd_can_network_relay on</span>
+
+<span class="token comment"># 当多次访问loadbalance的时候，会返回不同主机上的内容</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># curl http://loadbalance.luovip.cn</span>
+Hello nginx,I<span class="token string">'m Country
+
+[root@loadbalance ~]# curl http://loadbalance.luovip.cn
+Hello nginx,I'</span>m Chinese
+
+<span class="token comment"># 临时关闭SELinux测试</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># setenforce 0</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># curl http://loadbalance.luovip.cn</span>
+Hello nginx,I<span class="token string">'m Country
+
+[root@loadbalance ~]# curl http://loadbalance.luovip.cn
+Hello nginx,I'</span>m Chinese<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-TCP-负载均衡"><a href="#4-2-TCP-负载均衡" class="headerlink" title="4.2 TCP 负载均衡"></a>4.2 TCP 负载均衡</h2><p>  <strong>nginx 使用stream模块来完成TCP端口负载均衡，所以需要在主配置文件中打开stream功能，并将stream配置文件单独存储，方便管理</strong></p>
+<p>  <code>stream代码段不能写到http代码段内，要和http同级</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/nginx/nginx.conf</span>
+
+user  nginx<span class="token punctuation">;</span>
+worker_processes  auto<span class="token punctuation">;</span>
+
+error_log  /var/log/nginx/error.log notice<span class="token punctuation">;</span>
+pid        /var/run/nginx.pid<span class="token punctuation">;</span>
+
+
+events <span class="token punctuation">{</span>
+    worker_connections  <span class="token number">1024</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+stream <span class="token punctuation">{</span>
+    include /etc/nginx/stream.conf.d/*.conf<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+http <span class="token punctuation">{</span>
+    include       /etc/nginx/mime.types<span class="token punctuation">;</span>
+    default_type  application/octet-stream<span class="token punctuation">;</span>
+
+    log_format  main  <span class="token string">'$remote_addr - $remote_user [$time_local] "$request" '</span>
+                      <span class="token string">'$status $body_bytes_sent "$http_referer" '</span>
+                      <span class="token string">'"$http_user_agent" "$http_x_forwarded_for"'</span><span class="token punctuation">;</span>
+
+    access_log  /var/log/nginx/access.log  main<span class="token punctuation">;</span>
+
+    sendfile        on<span class="token punctuation">;</span>
+    <span class="token comment">#tcp_nopush     on;</span>
+
+    keepalive_timeout  <span class="token number">65</span><span class="token punctuation">;</span>
+
+    <span class="token comment">#gzip  on;</span>
+
+    include /etc/nginx/conf.d/*.conf<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># 从配置文件中看出，将stream功能的配置文件放入了/etc/nginx/stream.conf.d/，这个位置需要建出来</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># mkdir /etc/nginx/stream.conf.d/</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/nginx/stream.conf.d/tcp.conf</span>
+upstream backend <span class="token punctuation">{</span>
+    server <span class="token number">192.168</span>.8.5:22 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">1</span> <span class="token assign-left variable">max_fails</span><span class="token operator">=</span><span class="token number">3</span> <span class="token assign-left variable">fail_timeout</span><span class="token operator">=</span>30s<span class="token punctuation">;</span> <span class="token comment"># 业务服务器1，SSH端口22</span>
+    server <span class="token number">192.168</span>.8.6:22 <span class="token assign-left variable">weight</span><span class="token operator">=</span><span class="token number">2</span> <span class="token assign-left variable">max_fails</span><span class="token operator">=</span><span class="token number">3</span> <span class="token assign-left variable">fail_timeout</span><span class="token operator">=</span>30s<span class="token punctuation">;</span> <span class="token comment"># 业务服务器2，SSH端口22</span>
+    server <span class="token number">192.168</span>.8.7:22 backup <span class="token assign-left variable">max_fails</span><span class="token operator">=</span><span class="token number">3</span> <span class="token assign-left variable">fail_timeout</span><span class="token operator">=</span>30s<span class="token punctuation">;</span>   <span class="token comment"># 备份服务器，SSH端口22</span>
+<span class="token punctuation">}</span>
+
+server <span class="token punctuation">{</span>
+    listen <span class="token number">3000</span><span class="token punctuation">;</span> <span class="token comment"># 将负载均衡器监听端口更改为3000或你需要的端口</span>
+    proxy_pass backend<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  这个配置文件主要是用于实现基于 TCP 协议的负载均衡，特别是针对 SSH 流量。NGINX 监听 3000 端口的连接请求，然后根据配置的权重和健康检查机制，将请求转发到后端的 SSH 服务器（<code>192.168.8.5</code>、<code>192.168.8.6</code> 和 <code>192.168.8.7</code>）。</p>
+<p>  <code>upstream backend</code>：定义了一个名为 <code>backend</code> 的上游服务器组。</p>
+<p>  <code>server 192.168.8.5:22 weight=1 max_fails=3 fail_timeout=30s</code>：</p>
+<p>   <code>192.168.8.5:22</code>：服务器的 IP 和端口号（SSH端口 22）。</p>
+<p>   <code>weight=1</code>：设置此服务器的权重为1，表示流量分配到此服务器的比例较低。</p>
+<p>   <code>max_fails=3</code>：如果服务器失败次数超过3次，则认为服务器不可用。</p>
+<p>   <code>fail_timeout=30s</code>：在30秒内，如果服务器连续失败达到 <code>max_fails</code>，则将其标记为不可用。</p>
+<p>  其他服务器配置（<code>192.168.8.6</code> 和 <code>192.168.8.7</code>）类似，只是权重和角色（备份服务器）不同。</p>
+<p>  <code>listen 3000</code>：NGINX 监听 3000 端口，所有进入 3000 端口的 TCP 请求都会被处理。</p>
+<p>  <code>proxy_pass backend</code>：将接收到的流量转发到上游服务器组 <code>backend</code>。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 将以上代码复制粘贴到loadbalance服务器后，让nginx重新加载配置文件生效</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -t</span>
+nginx: the configuration <span class="token function">file</span> /etc/nginx/nginx.conf syntax is ok
+nginx: configuration <span class="token function">file</span> /etc/nginx/nginx.conf <span class="token builtin class-name">test</span> is successful
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -s reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <code>验证效果：用ssh连接负载均衡的3000端口，发现最终登录了web1主机</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># ssh root@loadbalance.xiaohui.cn -p 3000</span>
+root@loadbalance.luovip.cn's password:
+
+<span class="token punctuation">[</span>root@web1 ~<span class="token punctuation">]</span><span class="token comment"># exit</span>
+<span class="token builtin class-name">logout</span>
+Connection to loadbalance.luovip.cn closed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-3-UDP负载均衡"><a href="#4-3-UDP负载均衡" class="headerlink" title="4.3 UDP负载均衡"></a>4.3 UDP负载均衡</h2><p>  listen 的端口号之后指明为UDP即可，基本配置和上面的TCP很像，这里只做示意</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/stream.conf.d/udp-dns.conf <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+upstream dns_servers {
+    server 192.168.8.5:53 weight=1 max_fails=3 fail_timeout=30s; # 业务服务器1，DNS端口53
+    server 192.168.8.6:53 weight=2 max_fails=3 fail_timeout=30s; # 业务服务器2，DNS端口53
+    server 192.168.8.7:53 backup max_fails=3 fail_timeout=30s;   # 备份服务器，DNS端口53
+}
+
+server {
+    listen 53 udp; # 监听 UDP 53 端口
+    proxy_pass dns_servers;
+}
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>upstream dns_servers</strong>：定义一个名为 <code>dns_servers</code> 的上游服务器组，其中包含了三个后端服务器。每个服务器配置了 IP 地址、端口、权重、最大失败次数和失败超时时间。</p>
+<p>  <strong>server</strong>：</p>
+<p>   <code>listen 53 udp</code>：NGINX 监听 UDP 53 端口（通常用于 DNS 服务）。</p>
+<p>   <code>proxy_pass dns_servers</code>：将接收到的 UDP 流量转发到上游服务器组 <code>dns_servers</code>。</p>
+<p>  将以上代码复制粘贴到loadbalance服务器后，让nginx重新加载配置文件生效</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -t</span>
+nginx: the configuration <span class="token function">file</span> /etc/nginx/nginx.conf syntax is ok
+nginx: configuration <span class="token function">file</span> /etc/nginx/nginx.conf <span class="token builtin class-name">test</span> is successful
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -s reload</span>
+
+<span class="token comment"># 不做效果测试，如果要做效果测试，需要在web1和web2上部署dns服务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="5-不同负载均衡类型配置示意"><a href="#5-不同负载均衡类型配置示意" class="headerlink" title="5 不同负载均衡类型配置示意"></a>5 不同负载均衡类型配置示意</h1><p>  <code>NGINX的负载均衡类型：</code>最少连接、最少时间、轮询调度、通用哈希、随机调度、IP哈希</p>
+<p>  NGINX 提供了多种负载均衡算法，使其能够灵活地处理不同的流量分配需求。以下是一些常见的负载均衡类型：</p>
+<h2 id="5-1-最少连接（Least-Connections）"><a href="#5-1-最少连接（Least-Connections）" class="headerlink" title="5.1 最少连接（Least Connections）"></a>5.1 最少连接（Least Connections）</h2><p>  将新请求分配给当前活动连接数最少的后端服务器。适用于请求处理时间较长的场</p>
+<p>  配置示例：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend <span class="token punctuation">{</span>
+    least_conn<span class="token punctuation">;</span>
+    server backend1.example.com<span class="token punctuation">;</span>
+    server backend2.example.com<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-2-最少时间（Least-Time）"><a href="#5-2-最少时间（Least-Time）" class="headerlink" title="5.2 最少时间（Least Time）"></a>5.2 最少时间（Least Time）</h2><p>  根据请求处理时间，将新请求分配给响应时间最短且当前活动连接数最少的后端服务器。适用于需要快速响应的场景。</p>
+<p>  配置示例（需要 NGINX Plus）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend <span class="token punctuation">{</span>
+    least_time header<span class="token punctuation">;</span>
+    server backend1.example.com<span class="token punctuation">;</span>
+    server backend2.example.com<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-3-轮询调度（Round-Robin）"><a href="#5-3-轮询调度（Round-Robin）" class="headerlink" title="5.3 轮询调度（Round Robin）"></a>5.3 轮询调度（Round Robin）</h2><p>  将新请求按照循环顺序分配给后端服务器。适用于大多数场景。</p>
+<p>  配置示例（默认配置）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend <span class="token punctuation">{</span>
+    server backend1.example.com<span class="token punctuation">;</span>
+    server backend2.example.com<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-4-通用哈希（Generic-Hash）"><a href="#5-4-通用哈希（Generic-Hash）" class="headerlink" title="5.4 通用哈希（Generic Hash）"></a>5.4 通用哈希（Generic Hash）</h2><p>  基于用户定义的哈希方法，将请求分配给特定的后端服务器。适用于需要特定规则进行流量分配的场景。</p>
+<p>  配置示例：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend <span class="token punctuation">{</span>
+    <span class="token builtin class-name">hash</span> <span class="token variable">$request_uri</span><span class="token punctuation">;</span>
+    server backend1.example.com<span class="token punctuation">;</span>
+    server backend2.example.com<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-5-随机调度（Random-with-Two-Choices）"><a href="#5-5-随机调度（Random-with-Two-Choices）" class="headerlink" title="5.5 随机调度（Random with Two Choices）"></a>5.5 随机调度（Random with Two Choices）</h2><p>  随机选择两台后端服务器，然后将请求分配给其中负载较小的一台。适用于需要均匀分配负载的场景。</p>
+<p>  配置示例（需要 NGINX Plus）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend <span class="token punctuation">{</span>
+    random two least_conn<span class="token punctuation">;</span>
+    server backend1.example.com<span class="token punctuation">;</span>
+    server backend2.example.com<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-6-IP哈希（IP-Hash）"><a href="#5-6-IP哈希（IP-Hash）" class="headerlink" title="5.6 IP哈希（IP Hash）"></a>5.6 IP哈希（IP Hash）</h2><p>  基于客户端 IP 地址的哈希值，将请求分配给特定的后端服务器。适用于需要保持会话一致性的场景。</p>
+<p>  配置示例：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">upstream backend <span class="token punctuation">{</span>
+    ip_hash<span class="token punctuation">;</span>
+    server backend1.example.com<span class="token punctuation">;</span>
+    server backend2.example.com<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
             </div>
             <hr/>
@@ -583,7 +937,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/09/20/nginx/nginx-ru-men-jie-shao/">https://linuxcenter.icu/2025/09/20/nginx/nginx-ru-men-jie-shao/</a>
+                    <a href="https://linuxcenter.icu/2025/09/20/nginx/nginx-fu-zai-jun-heng-pei-zhi/">https://linuxcenter.icu/2025/09/20/nginx/nginx-fu-zai-jun-heng-pei-zhi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -621,8 +975,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/nginx%E5%85%A5%E9%97%A8%E4%BB%8B%E7%BB%8D/">
-                                    <span class="chip bg-color">nginx入门介绍</span>
+                                <a href="/tags/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E9%85%8D%E7%BD%AE/">
+                                    <span class="chip bg-color">nginx负载均衡配置</span>
                                 </a>
                             
                         </div>
@@ -666,17 +1020,16 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/09/20/nginx/nginx-ru-men-jie-shao/">
+                <a href="/2025/09/20/nginx/nginx-jie-shao-yu-kuai-su-bu-shu/">
                     <div class="card-image">
                         
-                        <img src="/img/nginx.jpg" class="responsive-img" alt="nginx入门介绍">
+                        <img src="/img/nginx.jpg" class="responsive-img" alt="nginx介绍与快速部署">
                         
-                        <span class="card-title">nginx入门介绍</span>
+                        <span class="card-title">nginx介绍与快速部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -686,9 +1039,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-20
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-09-20
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -701,12 +1054,11 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/nginx%E5%85%A5%E9%97%A8%E4%BB%8B%E7%BB%8D/">
-                        <span class="chip bg-color">nginx入门介绍</span>
+                    <a href="/tags/nginx%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2/">
+                        <span class="chip bg-color">nginx介绍与快速部署</span>
                     </a>
                     
                 </div>
@@ -963,7 +1315,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">137.7k</span>&nbsp;字
+                class="white-color">153.5k</span>&nbsp;字
             
             
             

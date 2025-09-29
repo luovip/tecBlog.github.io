@@ -1,0 +1,1815 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="nginx限制请求速率和带宽, Linux技术博客">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>nginx限制请求速率和带宽 | Linux技术博客</title>
+    <link rel="icon" type="image/png"
+        href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css"
+        href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/matery.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/my.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/loading.css">
+
+    <script
+        src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+    
+    <style>
+    body{
+       background-image: url(/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+    
+    <body>
+        <div class="stars-con">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
+        <svg aria-hidden="true"
+            style="position: absolute; overflow: hidden; width: 0; height: 0">
+            <symbol id="icon-sun" viewBox="0 0 1024 1024">
+                <path
+                    d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z"
+                    fill="#FFD878" p-id="8420"></path>
+                <path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z"
+                    fill="#FFE4A9" p-id="8421"></path>
+                <path
+                    d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z"
+                    fill="#4D5152" p-id="8422"></path>
+                <path
+                    d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z"
+                    fill="#4D5152" p-id="8423"></path>
+            </symbol>
+            <symbol id="icon-moon" viewBox="0 0 1024 1024">
+                <path
+                    d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z"
+                    fill="#FFB531" p-id="11345"></path>
+                <path
+                    d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z"
+                    fill="#030835" p-id="11346"></path>
+            </symbol>
+        </svg>
+        <a onclick="switchNightMode()" class="icon-V hidden" title="切换主题">
+            <svg width="48" height="48" viewBox="0 0 1024 1024">
+                <use id="modeicon" xlink:href="#icon-moon"></use>
+            </svg>
+        </a>
+        <script>
+      function checkNightMode() {
+        '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
+      }
+      function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+          setTimeout(function () {
+            $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+              setTimeout(function () {
+                $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                  $(this).remove()
+                })
+              }, 2e3)
+          })
+      }
+      function switchNightModeTop() {
+        $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
+      }
+    </script>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Linux技术博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Linux技术博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/luovip/tecBlog.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/luovip/tecBlog.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/img/nginx.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">nginx限制请求速率和带宽</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet"
+    href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+        background-color: rgb(255, 255, 255,0.7);
+        border-radius: 10px;
+        box-shadow: 0 10px 35px 2px rgba(0, 0, 0, .15), 0 5px 15px rgba(0, 0, 0, .07), 0 2px 5px -5px rgba(0, 0, 0, .1) !important;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+    #toc-content .toc-link:hover {
+        color: #f40;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #f40;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/nginx%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%80%9F%E7%8E%87%E5%92%8C%E5%B8%A6%E5%AE%BD/">
+                                <span class="chip bg-color">nginx限制请求速率和带宽</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/nginx/" class="post-category">
+                                nginx
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-09-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-09-29
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    23 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-环境介绍与架构图"><a href="#1-环境介绍与架构图" class="headerlink" title="1 环境介绍与架构图"></a>1 环境介绍与架构图</h1><table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>IP地址</th>
+<th>主机名</th>
+<th>NGINX版本</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rocky9.6</td>
+<td>192.168.8.4</td>
+<td>loadbalance.luovip.cn</td>
+<td>1.26.2</td>
+<td>负载均衡</td>
+</tr>
+</tbody></table>
+<h1 id="2-限制请求速率和带宽的概念"><a href="#2-限制请求速率和带宽的概念" class="headerlink" title="2 限制请求速率和带宽的概念"></a>2 限制请求速率和带宽的概念</h1><h2 id="2-1-限制请求速率"><a href="#2-1-限制请求速率" class="headerlink" title="2.1 限制请求速率"></a>2.1 限制请求速率</h2><p>  <strong>定义</strong>：限制请求速率是指控制每个客户端在一定时间内可以向服务器发起请求的数量。例如，限制每个IP地址每秒钟只能发起10个请求。</p>
+<p>  <strong>请求速率限制原理</strong>：NGINX 通过 <code>limit_req_zone</code> 和 <code>limit_req</code> 指令来实现请求速率限制。</p>
+<p>   <code>limit_req_zone</code> 指令创建一个共享内存区域，用于存储请求的状态信息。</p>
+<p>   <code>limit_req</code> 指令在特定的服务器块或位置块中应用请求限制。工作原理是NGINX监控每个客户端的请求速率，当请求超过设定的阈值时，会对请求进行丢弃或延迟处理。</p>
+<p>  <strong>使用场景示例</strong>：</p>
+<p>   <code>防止DDoS攻击</code>：通过限制每个客户端的请求速率，可以有效防止恶意用户利用大量请求来攻击服务器。</p>
+<p>   <code>API保护</code>：限制API接口的调用速率，防止用户频繁调用接口，保护服务器资源。</p>
+<p>   <code>流量管理</code>：合理分配服务器资源，避免某些客户端占用过多带宽或处理能力。</p>
+<h2 id="2-2-限制带宽"><a href="#2-2-限制带宽" class="headerlink" title="2.2 限制带宽"></a>2.2 限制带宽</h2><p>  <strong>定义</strong>：限制带宽是指控制每个连接（或请求）的数据传输速率。通过限制带宽，可以有效地管理和分配服务器资源，确保每个客户端获得公平的传输速率。</p>
+<p>  <strong>带宽限制原理</strong>：NGINX 通过 <code>limit_rate</code> 和 <code>limit_rate_after</code> 指令来实现带宽限制。</p>
+<p>   <code>limit_rate</code> 指令设置每个连接的传输速率。</p>
+<p>   <code>limit_rate_after</code> 指令指定在传输一定大小的数据后开始限速。这两个指令可以在服务器块或位置块中使用，控制每个请求的带宽。</p>
+<p>  <strong>使用场景示例</strong>：</p>
+<p>   <code>最大化带宽利用率</code>：通过限制每个请求的带宽，确保所有用户能够公平地使用服务器资源。</p>
+<p>   <code>防止下载滥用</code>：限制文件下载速度，防止客户端过度占用带宽，影响其他用户的访问体验。</p>
+<p>   <code>视频和音频流控制</code>：控制视频和音频流的传输速率，保证流媒体的平稳传输。</p>
+<h1 id="3-限制请求数实践"><a href="#3-限制请求数实践" class="headerlink" title="3 限制请求数实践"></a>3 限制请求数实践</h1><h2 id="3-1-生成配置文件"><a href="#3-1-生成配置文件" class="headerlink" title="3.1 生成配置文件"></a>3.1 生成配置文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/conf.d/limitconn.conf <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+limit_conn_zone $binary_remote_addr zone=limitbyaddr:10m;
+limit_conn_status 429;
+server {
+    listen 80 default_server;
+    limit_conn limitbyaddr 1;
+
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+ }
+}
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-2-配置文件详解"><a href="#3-2-配置文件详解" class="headerlink" title="3.2 配置文件详解"></a>3.2 配置文件详解</h2><p>  1.<code>limit_conn_zone $binary_remote_addr zone=limitbyaddr:10m;</code></p>
+<p>   <strong>解释</strong>：这个指令定义了一个共享内存区域，用来保存客户端连接状态。<code>limitbyaddr</code>是区域名称，可以是任意字符串，<code>10m</code>是分配给这个区域的内存大小（10MB）。<code>$binary_remote_addr</code>表示以客户端的IP地址为键，这样每一个唯一的IP地址都有自己独立的连接计数。</p>
+<p>   <strong>作用</strong>：为每个客户端IP地址创建一个连接状态追踪器。</p>
+<p>  2.<code>limit_conn_status 429;</code></p>
+<p>   <strong>解释</strong>：这个指令设置当客户端连接数超过限制时，返回的HTTP状态码为429（Too Many Requests）。</p>
+<p>   <strong>作用</strong>：当连接数超过规定的数量时，向客户端返回429错误。</p>
+<p>  3.<code>server { ... }</code></p>
+<p>   <strong>解释</strong>：这一部分包含服务器块的配置。在这个服务器块中，有一些重要的指令和设定。</p>
+<p>   <strong>作用</strong>：配置服务器的基本功能和行为。</p>
+<p>  4.<code>listen 80 default_server;</code></p>
+<p>   <strong>解释</strong>：这个指令让服务器监听80端口，并将其设置为默认服务器。它会处理所有发往80端口的请求。</p>
+<p>   <strong>作用</strong>：定义服务器监听的端口和默认服务器的角色。</p>
+<p>  5.<code>limit_conn limitbyaddr 1;</code></p>
+<p>   <strong>解释</strong>：这个指令启用了连接数限制。<code>limitbyaddr</code>是前面定义的共享内存区域的名称，<code>1</code>表示每个客户端（每个IP地址）只允许一个连接。</p>
+<p>   <strong>作用</strong>：限制每个客户端（每个IP地址）同时只能与服务器建立一个连接。</p>
+<h2 id="3-3-创建测试网页"><a href="#3-3-创建测试网页" class="headerlink" title="3.3 创建测试网页"></a>3.3 创建测试网页</h2><p>  echo的小数据可能看不到效果，用dd命令场景一个稍微大点的文件。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># dd if=/dev/random of=/usr/share/nginx/html/index.html bs=10M count=10</span>
+<span class="token number">10</span>+0 records <span class="token keyword">in</span>
+<span class="token number">10</span>+0 records out
+<span class="token number">104857600</span> bytes <span class="token punctuation">(</span><span class="token number">105</span> MB, <span class="token number">100</span> MiB<span class="token punctuation">)</span> copied, <span class="token number">0.614165</span> s, <span class="token number">171</span> MB/s
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -t</span>
+nginx: the configuration <span class="token function">file</span> /etc/nginx/nginx.conf syntax is ok
+nginx: configuration <span class="token function">file</span> /etc/nginx/nginx.conf <span class="token builtin class-name">test</span> is successful
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -s reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-4-访问测试页面"><a href="#3-4-访问测试页面" class="headerlink" title="3.4 访问测试页面"></a>3.4 访问测试页面</h2><p>  必须能正常返回预期的100M数据，如果是返回的别的内容，就是有其他配置文件干扰，需要删除其他配置文件</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># wget http://loadbalance.luovip.cn</span>
+--2025-09-28 <span class="token number">14</span>:47:26--  http://loadbalance.luovip.cn/
+Resolving loadbalance.luovip.cn <span class="token punctuation">(</span>loadbalance.luovip.cn<span class="token punctuation">)</span><span class="token punctuation">..</span>. fe80::20c:29ff:fe45:18b8, <span class="token number">192.168</span>.8.4
+Connecting to loadbalance.luovip.cn <span class="token punctuation">(</span>loadbalance.luovip.cn<span class="token punctuation">)</span><span class="token operator">|</span>fe80::20c:29ff:fe45:18b8<span class="token operator">|</span>:80<span class="token punctuation">..</span>. failed: Connection refused.
+Connecting to loadbalance.luovip.cn <span class="token punctuation">(</span>loadbalance.luovip.cn<span class="token punctuation">)</span><span class="token operator">|</span><span class="token number">192.168</span>.8.4<span class="token operator">|</span>:80<span class="token punctuation">..</span>. connected.
+HTTP request sent, awaiting response<span class="token punctuation">..</span>. <span class="token number">200</span> OK
+Length: <span class="token number">104857600</span> <span class="token punctuation">(</span>100M<span class="token punctuation">)</span> <span class="token punctuation">[</span>text/html<span class="token punctuation">]</span>
+Saving to: ‘index.html’
+
+index.html                           <span class="token number">100</span>%<span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span><span class="token operator">&gt;</span><span class="token punctuation">]</span> <span class="token number">100</span>.00M   305MB/s    <span class="token keyword">in</span> <span class="token number">0</span>.3s
+
+<span class="token number">2025</span>-09-28 <span class="token number">14</span>:47:26 <span class="token punctuation">(</span><span class="token number">305</span> MB/s<span class="token punctuation">)</span> - ‘index.html’ saved <span class="token punctuation">[</span><span class="token number">104857600</span>/104857600<span class="token punctuation">]</span>
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># ls -lh index.html</span>
+-rw-r--r--. <span class="token number">1</span> root root 100M Sep <span class="token number">28</span> <span class="token number">14</span>:44 index.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-5-测试连接数限制"><a href="#3-5-测试连接数限制" class="headerlink" title="3.5 测试连接数限制"></a>3.5 测试连接数限制</h2><p>  用到了<code>ApacheBench</code>压力测试工具，安装<code>httpd-tools</code>即可</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># dnf install httpd-tools -y</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+Installed:
+  apr-1.7.0-12.el9_3.x86_64             apr-util-1.6.1-23.el9.x86_64   apr-util-bdb-1.6.1-23.el9.x86_64   apr-util-openssl-1.6.1-23.el9.x86_64
+  httpd-tools-2.4.62-4.el9_6.4.x86_64
+
+Complete<span class="token operator">!</span>
+
+<span class="token comment"># 一共访问20次，每次并发2个请求，可以看到非2XX开头的失败有19个，只有一个成功，但是每次并发一个请求，就会都成功</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># ab -n 20 -c 2 http://loadbalance.luovip.cn/</span>
+This is ApacheBench, Version <span class="token number">2.3</span> <span class="token operator">&lt;</span><span class="token variable">$Revision</span><span class="token builtin class-name">:</span> <span class="token number">1913912</span> $<span class="token operator">&gt;</span>
+Copyright <span class="token number">1996</span> Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking loadbalance.luovip.cn <span class="token punctuation">(</span>be patient<span class="token punctuation">)</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.done
+
+
+Server Software:        nginx/1.26.2
+Server Hostname:        loadbalance.luovip.cn
+Server Port:            <span class="token number">80</span>
+
+Document Path:          /
+Document Length:        <span class="token number">169</span> bytes
+
+Concurrency Level:      <span class="token number">2</span>
+Time taken <span class="token keyword">for</span> tests:   <span class="token number">0.030</span> seconds
+Complete requests:      <span class="token number">20</span>
+Failed requests:        <span class="token number">1</span>
+   <span class="token punctuation">(</span>Connect: <span class="token number">0</span>, Receive: <span class="token number">0</span>, Length: <span class="token number">1</span>, Exceptions: <span class="token number">0</span><span class="token punctuation">)</span>
+Non-2xx responses:      <span class="token number">19</span>
+Total transferred:      <span class="token number">104864056</span> bytes
+HTML transferred:       <span class="token number">104860811</span> bytes
+Requests per second:    <span class="token number">669.01</span> <span class="token punctuation">[</span><span class="token comment">#/sec] (mean)</span>
+Time per request:       <span class="token number">2.990</span> <span class="token punctuation">[</span>ms<span class="token punctuation">]</span> <span class="token punctuation">(</span>mean<span class="token punctuation">)</span>
+Time per request:       <span class="token number">1.495</span> <span class="token punctuation">[</span>ms<span class="token punctuation">]</span> <span class="token punctuation">(</span>mean, across all concurrent requests<span class="token punctuation">)</span>
+Transfer rate:          <span class="token number">3425532.85</span> <span class="token punctuation">[</span>Kbytes/sec<span class="token punctuation">]</span> received
+
+Connection Times <span class="token punctuation">(</span>ms<span class="token punctuation">)</span>
+              min  mean<span class="token punctuation">[</span>+/-sd<span class="token punctuation">]</span> median   max
+Connect:        <span class="token number">0</span>    <span class="token number">0</span>   <span class="token number">0.0</span>      <span class="token number">0</span>       <span class="token number">0</span>
+Processing:     <span class="token number">0</span>    <span class="token number">2</span>   <span class="token number">6.6</span>      <span class="token number">0</span>      <span class="token number">30</span>
+Waiting:        <span class="token number">0</span>    <span class="token number">0</span>   <span class="token number">0.1</span>      <span class="token number">0</span>       <span class="token number">0</span>
+Total:          <span class="token number">0</span>    <span class="token number">2</span>   <span class="token number">6.6</span>      <span class="token number">0</span>      <span class="token number">30</span>
+
+Percentage of the requests served within a certain <span class="token function">time</span> <span class="token punctuation">(</span>ms<span class="token punctuation">)</span>
+  <span class="token number">50</span>%      <span class="token number">0</span>
+  <span class="token number">66</span>%      <span class="token number">0</span>
+  <span class="token number">75</span>%      <span class="token number">0</span>
+  <span class="token number">80</span>%      <span class="token number">0</span>
+  <span class="token number">90</span>%      <span class="token number">0</span>
+  <span class="token number">95</span>%     <span class="token number">30</span>
+  <span class="token number">98</span>%     <span class="token number">30</span>
+  <span class="token number">99</span>%     <span class="token number">30</span>
+ <span class="token number">100</span>%     <span class="token number">30</span> <span class="token punctuation">(</span>longest request<span class="token punctuation">)</span>
+ 
+ <span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># ab -n 20 -c 1 http://loadbalance.luovip.cn/</span>
+This is ApacheBench, Version <span class="token number">2.3</span> <span class="token operator">&lt;</span><span class="token variable">$Revision</span><span class="token builtin class-name">:</span> <span class="token number">1913912</span> $<span class="token operator">&gt;</span>
+Copyright <span class="token number">1996</span> Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking loadbalance.luovip.cn <span class="token punctuation">(</span>be patient<span class="token punctuation">)</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.done
+
+
+Server Software:        nginx/1.26.2
+Server Hostname:        loadbalance.luovip.cn
+Server Port:            <span class="token number">80</span>
+
+Document Path:          /
+Document Length:        <span class="token number">104857600</span> bytes
+
+Concurrency Level:      <span class="token number">1</span>
+Time taken <span class="token keyword">for</span> tests:   <span class="token number">0.469</span> seconds
+Complete requests:      <span class="token number">20</span>
+Failed requests:        <span class="token number">0</span>
+Total transferred:      <span class="token number">2097156860</span> bytes
+HTML transferred:       <span class="token number">2097152000</span> bytes
+Requests per second:    <span class="token number">42.68</span> <span class="token punctuation">[</span><span class="token comment">#/sec] (mean)</span>
+Time per request:       <span class="token number">23.429</span> <span class="token punctuation">[</span>ms<span class="token punctuation">]</span> <span class="token punctuation">(</span>mean<span class="token punctuation">)</span>
+Time per request:       <span class="token number">23.429</span> <span class="token punctuation">[</span>ms<span class="token punctuation">]</span> <span class="token punctuation">(</span>mean, across all concurrent requests<span class="token punctuation">)</span>
+Transfer rate:          <span class="token number">4370717.85</span> <span class="token punctuation">[</span>Kbytes/sec<span class="token punctuation">]</span> received
+
+Connection Times <span class="token punctuation">(</span>ms<span class="token punctuation">)</span>
+              min  mean<span class="token punctuation">[</span>+/-sd<span class="token punctuation">]</span> median   max
+Connect:        <span class="token number">0</span>    <span class="token number">0</span>   <span class="token number">0.0</span>      <span class="token number">0</span>       <span class="token number">0</span>
+Processing:    <span class="token number">21</span>   <span class="token number">23</span>   <span class="token number">2.0</span>     <span class="token number">23</span>      <span class="token number">30</span>
+Waiting:        <span class="token number">0</span>    <span class="token number">0</span>   <span class="token number">0.1</span>      <span class="token number">0</span>       <span class="token number">0</span>
+Total:         <span class="token number">21</span>   <span class="token number">23</span>   <span class="token number">2.0</span>     <span class="token number">23</span>      <span class="token number">30</span>
+
+Percentage of the requests served within a certain <span class="token function">time</span> <span class="token punctuation">(</span>ms<span class="token punctuation">)</span>
+  <span class="token number">50</span>%     <span class="token number">23</span>
+  <span class="token number">66</span>%     <span class="token number">24</span>
+  <span class="token number">75</span>%     <span class="token number">24</span>
+  <span class="token number">80</span>%     <span class="token number">24</span>
+  <span class="token number">90</span>%     <span class="token number">26</span>
+  <span class="token number">95</span>%     <span class="token number">30</span>
+  <span class="token number">98</span>%     <span class="token number">30</span>
+  <span class="token number">99</span>%     <span class="token number">30</span>
+ <span class="token number">100</span>%     <span class="token number">30</span> <span class="token punctuation">(</span>longest request<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="4-限制客户端请求速率实践"><a href="#4-限制客户端请求速率实践" class="headerlink" title="4 限制客户端请求速率实践"></a>4 限制客户端请求速率实践</h1><h2 id="4-1-简单限制请求速率"><a href="#4-1-简单限制请求速率" class="headerlink" title="4.1 简单限制请求速率"></a>4.1 简单限制请求速率</h2><p>  为了避免干扰，别忘了把其他配置文件都删了</p>
+<p>  此处限速为一秒只能处理一个request: 1r/s，超过就会返回HTTP 429</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/conf.d/limitreq.conf <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+limit_req_zone $binary_remote_addr zone=limitbyaddr:10m rate=1r/s;
+limit_req_status 429;
+server {
+    listen 80 default_server;
+    limit_req zone=limitbyaddr;
+
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+ }
+}
+EOF</span>
+
+<span class="token comment"># 重载nginx服务后</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -t</span>
+nginx: the configuration <span class="token function">file</span> /etc/nginx/nginx.conf syntax is ok
+nginx: configuration <span class="token function">file</span> /etc/nginx/nginx.conf <span class="token builtin class-name">test</span> is successful
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -s reload</span>
+
+
+<span class="token comment"># 测试请求速率   一共快速发起2个请求，但是其中有一个失败了</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># ab -n 2 http://loadbalance.luovip.cn/</span>
+This is ApacheBench, Version <span class="token number">2.3</span> <span class="token operator">&lt;</span><span class="token variable">$Revision</span><span class="token builtin class-name">:</span> <span class="token number">1913912</span> $<span class="token operator">&gt;</span>
+Copyright <span class="token number">1996</span> Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking loadbalance.luovip.cn <span class="token punctuation">(</span>be patient<span class="token punctuation">)</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.done
+
+
+Server Software:        nginx/1.26.2
+Server Hostname:        loadbalance.luovip.cn
+Server Port:            <span class="token number">80</span>
+
+Document Path:          /
+Document Length:        <span class="token number">104857600</span> bytes
+
+Concurrency Level:      <span class="token number">1</span>
+Time taken <span class="token keyword">for</span> tests:   <span class="token number">0.042</span> seconds
+Complete requests:      <span class="token number">2</span>
+Failed requests:        <span class="token number">1</span>
+   <span class="token punctuation">(</span>Connect: <span class="token number">0</span>, Receive: <span class="token number">0</span>, Length: <span class="token number">1</span>, Exceptions: <span class="token number">0</span><span class="token punctuation">)</span>
+Non-2xx responses:      <span class="token number">1</span>
+Total transferred:      <span class="token number">104858170</span> bytes
+HTML transferred:       <span class="token number">104857769</span> bytes
+Requests per second:    <span class="token number">47.80</span> <span class="token punctuation">[</span><span class="token comment">#/sec] (mean)</span>
+Time per request:       <span class="token number">20.921</span> <span class="token punctuation">[</span>ms<span class="token punctuation">]</span> <span class="token punctuation">(</span>mean<span class="token punctuation">)</span>
+Time per request:       <span class="token number">20.921</span> <span class="token punctuation">[</span>ms<span class="token punctuation">]</span> <span class="token punctuation">(</span>mean, across all concurrent requests<span class="token punctuation">)</span>
+Transfer rate:          <span class="token number">2447256.57</span> <span class="token punctuation">[</span>Kbytes/sec<span class="token punctuation">]</span> received
+
+Connection Times <span class="token punctuation">(</span>ms<span class="token punctuation">)</span>
+              min  mean<span class="token punctuation">[</span>+/-sd<span class="token punctuation">]</span> median   max
+Connect:        <span class="token number">0</span>    <span class="token number">0</span>   <span class="token number">0.1</span>      <span class="token number">0</span>       <span class="token number">0</span>
+Processing:     <span class="token number">1</span>   <span class="token number">21</span>  <span class="token number">27.9</span>     <span class="token number">40</span>      <span class="token number">40</span>
+Waiting:        <span class="token number">0</span>    <span class="token number">1</span>   <span class="token number">0.5</span>      <span class="token number">1</span>       <span class="token number">1</span>
+Total:          <span class="token number">1</span>   <span class="token number">21</span>  <span class="token number">28.0</span>     <span class="token number">41</span>      <span class="token number">41</span>
+
+Percentage of the requests served within a certain <span class="token function">time</span> <span class="token punctuation">(</span>ms<span class="token punctuation">)</span>
+  <span class="token number">50</span>%     <span class="token number">41</span>
+  <span class="token number">66</span>%     <span class="token number">41</span>
+  <span class="token number">75</span>%     <span class="token number">41</span>
+  <span class="token number">80</span>%     <span class="token number">41</span>
+  <span class="token number">90</span>%     <span class="token number">41</span>
+  <span class="token number">95</span>%     <span class="token number">41</span>
+  <span class="token number">98</span>%     <span class="token number">41</span>
+  <span class="token number">99</span>%     <span class="token number">41</span>
+ <span class="token number">100</span>%     <span class="token number">41</span> <span class="token punctuation">(</span>longest request<span class="token punctuation">)</span>
+ 
+<span class="token comment"># 查看日志</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># tail /var/log/nginx/error.log</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: signal 17 (SIGCHLD) received from 2102</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: worker process 2102 exited with code 0</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: worker process 2103 exited with code 0</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: signal 29 (SIGIO) received</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: signal 17 (SIGCHLD) received from 2105</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: worker process 2104 exited with code 0</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: worker process 2105 exited with code 0</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: signal 29 (SIGIO) received</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:11:17 <span class="token punctuation">[</span>notice<span class="token punctuation">]</span> <span class="token number">1810</span><span class="token comment">#1810: signal 17 (SIGCHLD) received from 2104</span>
+<span class="token number">2025</span>/09/28 <span class="token number">15</span>:13:10 <span class="token punctuation">[</span>error<span class="token punctuation">]</span> <span class="token number">2141</span><span class="token comment">#2141: *103 limiting requests, excess: 0.959 by zone "limitbyaddr", client: 192.168.8.4, server: , request: "GET / HTTP/1.0", host: "loadbalance.luovip.cn"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-两段式限制请求速率"><a href="#4-2-两段式限制请求速率" class="headerlink" title="4.2 两段式限制请求速率"></a>4.2 两段式限制请求速率</h2><h3 id="4-2-1-什么是两段式限速？"><a href="#4-2-1-什么是两段式限速？" class="headerlink" title="4.2.1 什么是两段式限速？"></a>4.2.1 什么是两段式限速？</h3><p>  在某些情况下，客户端可能需要在短时间内发出大量请求，然后迅速平静下来。这种情况常见于流量激增的瞬间，如电子商务网站上的促销活动、限时抢购、直播实时互动等。为有效应对这种突发流量，NGINX提供了一个名为<code>burst</code>的参数，它允许客户端在超出其速率限制时，继续发送请求而不被直接拒绝。</p>
+<p>  <code>burst</code>参数设置了一个允许超出的请求数量上限。超出速率限制但在<code>burst</code>限度内的请求，将被NGINX排序，按预设速率逐个处理，而不是立即返回错误。这些超出的请求会被暂时延迟处理，从而使系统能更平稳地应对瞬时的请求高峰。例如，可以设置<code>burst</code>参数为10，这意味着在允许速率基础上，最多可超出10个请求，而这些请求会被缓冲处理。</p>
+<p>  可以结合使用<code>nodelay</code>参数，使得这些<code>burst</code>请求不产生延迟，立即按照速率限制处理完毕。在许多高负载的应用场景中，这种设置可以显著改善用户体验，防止因瞬间请求过多而导致服务中断或性能下降。</p>
+<p>  这种策略特别适用于那些需要在关键时间段处理大量请求，然后逐渐恢复到正常流量的场景，如网站流量高峰、API调用激增等。通过合理设置<code>burst</code>和请求速率限制，可以确保服务器在高峰期依然能够稳定、高效地处理用户请求。</p>
+<p>  <code>以下例子中能够限制每个客户端的请求速率，避免恶意用户通过大量请求来攻击服务器。同时，通过允许一定数量的突发请求，能够处理突发流量而不影响用户体验。能够限制每个客户端的请求速率，避免恶意用户通过大量请求来攻击服务器。同时，通过允许一定数量的突发请求，能够处理突发流量而不影响用户体验。将burst设置为10，以允许有10个额外请求作为缓冲地带。</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/conf.d/limitreq.conf <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+limit_req_zone $binary_remote_addr zone=limitbyaddr:10m rate=1r/s;
+limit_req_status 429;
+server {
+    listen 80 default_server;
+    limit_req zone=limitbyaddr burst=10;
+
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+ }
+}
+EOF</span>
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -t</span>
+nginx: the configuration <span class="token function">file</span> /etc/nginx/nginx.conf syntax is ok
+nginx: configuration <span class="token function">file</span> /etc/nginx/nginx.conf <span class="token builtin class-name">test</span> is successful
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -s reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-2-两段式限速配置文件详解"><a href="#4-2-2-两段式限速配置文件详解" class="headerlink" title="4.2.2 两段式限速配置文件详解"></a>4.2.2 两段式限速配置文件详解</h3><p>  1.<code>limit_req_zone $binary_remote_addr zone=limitbyaddr:10m rate=1r/s;</code></p>
+<p>  <strong>解释</strong>：这条指令创建了一个共享内存区域，用于存储请求的速率限制信息。</p>
+<p>   <code>$binary_remote_addr</code>：使用客户端的IP地址作为键，以二进制格式表示。</p>
+<p>   <code>zone=limitbyaddr:10m</code>：定义了一个名为<code>limitbyaddr</code>的共享内存区域，大小为10MB。</p>
+<p>   <code>rate=1r/s</code>：设置速率限制为每秒1个请求。</p>
+<p>  <strong>作用</strong>：确保每个客户端的请求速度不会超过每秒1次。</p>
+<p>  2.<code>limit_req_status 429;</code></p>
+<p>  <strong>解释</strong>：这条指令设置当请求超出速率限制时，返回的HTTP状态码为429（Too Many Requests）。</p>
+<p>  <strong>作用</strong>：当客户端请求速度超过设定的限制时，服务器将返回429错误码，告知客户端请求过多。</p>
+<p>  3.<code>server { ... }</code></p>
+<p>  <strong>解释</strong>：定义一个服务器块，其中包含了服务器配置的具体内容。</p>
+<p>   <code>listen 80 default_server;</code>：服务器监听80端口，并设置为默认服务器。</p>
+<p>   <code>limit_req zone=limitbyaddr burst=10;</code>：应用请求速率限制，允许突发最多10个额外请求。</p>
+<p>   <code>location / { ... }</code>：定义请求路径处理，具体是根路径<code>/</code>的处理方式。</p>
+<p>    <code>root /usr/share/nginx/html;</code>：设置根目录为<code>/usr/share/nginx/html</code>，即服务器会在此目录下查找文件。</p>
+<p>    <code>index index.html;</code>：设置默认主页文件为<code>index.html</code>，即当访问根路径<code>/</code>时，返回该文件。</p>
+<p><strong>深入分析:</strong></p>
+<p>  <strong>1.共享内存区（limit_req_zone）</strong>：</p>
+<p>   <strong>设置背景</strong>：NGINX使用共享内存区域来跟踪每个客户端的请求数，以确定速率是否超过限制。</p>
+<p>   <strong>意义</strong>：通过设置较大的内存区域（10MB），可以支持更多客户端的请求记录。</p>
+<p>  <strong>2.状态码设置（limit_req_status）</strong>：</p>
+<p>   <strong>作用</strong>：通过返回429状态码，通知客户端当前请求过多，避免服务器过载。</p>
+<p>  <strong>3.服务器块配置（server）</strong>：</p>
+<p>   <strong>监听端口</strong>：设置为80端口，常用于HTTP请求。</p>
+<p>   <strong>突发请求（burst）</strong>：突发允许10个多余请求，这些请求会被暂时延迟处理，而不会立即拒绝。</p>
+<p>   <strong>根目录和主页配置</strong>：</p>
+<p>    <strong>根目录</strong>：设置为<code>/usr/share/nginx/html</code>，这是NGINX默认的HTML文件目录。</p>
+<p>    <strong>主页文件</strong>：设置为<code>index.html</code>，当客户端访问根路径<code>/</code>时，会返回这个文件作为响应。</p>
+<h3 id="4-2-3-测试缓冲效果"><a href="#4-2-3-测试缓冲效果" class="headerlink" title="4.2.3 测试缓冲效果"></a>4.2.3 测试缓冲效果</h3><p>  设置了每秒处理一个，然后额外缓冲10个，一共可以有11个不会拒绝，所以一共发起13个请求中，失败了2个</p>
+<p>  而且本次ab测试，明显速度就慢了下来</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># ab -n 13 -c 13 http://loadbalance.luovip.cn/</span>
+This is ApacheBench, Version <span class="token number">2.3</span> <span class="token operator">&lt;</span><span class="token variable">$Revision</span><span class="token builtin class-name">:</span> <span class="token number">1913912</span> $<span class="token operator">&gt;</span>
+Copyright <span class="token number">1996</span> Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking loadbalance.luovip.cn <span class="token punctuation">(</span>be patient<span class="token punctuation">)</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.done
+
+
+Server Software:        nginx/1.26.2
+Server Hostname:        loadbalance.luovip.cn
+Server Port:            <span class="token number">80</span>
+
+Document Path:          /
+Document Length:        <span class="token number">169</span> bytes
+
+Concurrency Level:      <span class="token number">13</span>
+Time taken <span class="token keyword">for</span> tests:   <span class="token number">10.025</span> seconds
+Complete requests:      <span class="token number">13</span>
+Failed requests:        <span class="token number">11</span>
+   <span class="token punctuation">(</span>Connect: <span class="token number">0</span>, Receive: <span class="token number">0</span>, Length: <span class="token number">11</span>, Exceptions: <span class="token number">0</span><span class="token punctuation">)</span>
+Non-2xx responses:      <span class="token number">2</span>
+Total transferred:      <span class="token number">1153436927</span> bytes
+HTML transferred:       <span class="token number">1153433938</span> bytes
+Requests per second:    <span class="token number">1.30</span> <span class="token punctuation">[</span><span class="token comment">#/sec] (mean)</span>
+Time per request:       <span class="token number">10024.544</span> <span class="token punctuation">[</span>ms<span class="token punctuation">]</span> <span class="token punctuation">(</span>mean<span class="token punctuation">)</span>
+Time per request:       <span class="token number">771.119</span> <span class="token punctuation">[</span>ms<span class="token punctuation">]</span> <span class="token punctuation">(</span>mean, across all concurrent requests<span class="token punctuation">)</span>
+Transfer rate:          <span class="token number">112364.54</span> <span class="token punctuation">[</span>Kbytes/sec<span class="token punctuation">]</span> received
+
+Connection Times <span class="token punctuation">(</span>ms<span class="token punctuation">)</span>
+              min  mean<span class="token punctuation">[</span>+/-sd<span class="token punctuation">]</span> median   max
+Connect:        <span class="token number">0</span>    <span class="token number">0</span>   <span class="token number">0.1</span>      <span class="token number">0</span>       <span class="token number">0</span>
+Processing:     <span class="token number">0</span> <span class="token number">4255</span> <span class="token number">3563.3</span>   <span class="token number">4527</span>   <span class="token number">10023</span>
+Waiting:        <span class="token number">0</span> <span class="token number">4233</span> <span class="token number">3563.3</span>   <span class="token number">4504</span>   <span class="token number">10000</span>
+Total:          <span class="token number">0</span> <span class="token number">4256</span> <span class="token number">3563.3</span>   <span class="token number">4527</span>   <span class="token number">10024</span>
+
+Percentage of the requests served within a certain <span class="token function">time</span> <span class="token punctuation">(</span>ms<span class="token punctuation">)</span>
+  <span class="token number">50</span>%   <span class="token number">4027</span>
+  <span class="token number">66</span>%   <span class="token number">6026</span>
+  <span class="token number">75</span>%   <span class="token number">7026</span>
+  <span class="token number">80</span>%   <span class="token number">8026</span>
+  <span class="token number">90</span>%   <span class="token number">9025</span>
+  <span class="token number">95</span>%  <span class="token number">10024</span>
+  <span class="token number">98</span>%  <span class="token number">10024</span>
+  <span class="token number">99</span>%  <span class="token number">10024</span>
+ <span class="token number">100</span>%  <span class="token number">10024</span> <span class="token punctuation">(</span>longest request<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  下面这个配置文件能够有效地控制每个客户端的请求速率，并允许一定数量的突发请求在短时间内被处理。通过配置 <code>burst</code> 和 <code>delay</code> 参数，可以将超出速率的请求平滑地分配在处理时间内，从而防止瞬时高流量对服务器的冲击。</p>
+<p>  <code>burst=20</code>：允许最多20个突发请求。</p>
+<p>  <code>delay=9</code>：请求总量超过限制后，将以每秒1个请求的速率进行延迟处理。</p>
+<p>  <strong>作用</strong>：短时间内，服务器最多可以处理20个超出速率限制的请求，这些请求会被平滑地分配到每秒1个的时间间隔中进行处理，从而防止瞬时请求过多导致服务器过载。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/conf.d/limitreq.conf <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+limit_req_zone $binary_remote_addr zone=limitbyaddr:10m rate=1r/s;
+limit_req_status 429;
+server {
+    listen 80 default_server;
+    limit_req zone=limitbyaddr burst=20 delay=9;
+ 
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+    }
+}
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  虽然burst和delay使得业务流量在突发时不至于拒绝的太猛，但同时也带来了延迟，如果不能有太多延迟，可以使用nodelay参数，见下方例子：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">limit_req <span class="token assign-left variable">zone</span><span class="token operator">=</span>limitbyaddr <span class="token assign-left variable">burst</span><span class="token operator">=</span><span class="token number">20</span> nodelay<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  <strong>解释</strong>：配置请求速率限制，允许20个突发请求并且没有延迟。</p>
+<p>   <code>zone=limitbyaddr</code>：指明使用之前定义的共享内存区域<code>limitbyaddr</code>。</p>
+<p>   <code>burst=20</code>：允许最多20个超出速率限制的突发请求。</p>
+<p>   <code>nodelay</code>：表示这些请求不会被延迟，而是立即进行处理。</p>
+<p>  <strong>作用</strong>：允许短时间内处理最多20个额外请求而不会延迟。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/conf.d/limitreq.conf <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+limit_req_zone $binary_remote_addr zone=limitbyaddr:10m rate=1r/s;
+limit_req_status 429;
+server {
+    listen 80 default_server;
+    limit_req zone=limitbyaddr burst=20 nodelay;
+ 
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+    }
+}
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="5-限制带宽速率"><a href="#5-限制带宽速率" class="headerlink" title="5 限制带宽速率"></a>5 限制带宽速率</h1><h2 id="5-1-带宽限速概述"><a href="#5-1-带宽限速概述" class="headerlink" title="5.1 带宽限速概述"></a>5.1 带宽限速概述</h2><p>  NGINX高度灵活的带宽控制功能使得<code>limit_rate</code>和<code>limit_rate_after</code>这两个参数在流量管理中无比重要。<code>limit_rate</code>参数用于控制每个连接的传输速率，确保不会发生单个连接占用过多带宽的情况。通过设定传输速率，比如<code>limit_rate 50k;</code>，服务器可以将每个连接的传输速率限制为每秒50KB。这在限制大型文件下载速度以及流媒体传输速率时非常有用，有助于避免单一客户端占用资源不当影响其他用户。</p>
+<p>  <code>limit_rate_after</code>参数则允许对连接进行更灵活的带宽管理。在使用这个参数时，可以设定在传输了一定量的数据之后才开始应用带宽限制。例如，配置<code>limit_rate_after 500k;</code>意味着在传输了500KB数据后，服务器才会开始对该连接应用<code>limit_rate</code>设定的限制。这种配置非常适用于需要在早期快速响应用户请求，但随后慢速传输大文件的情况。</p>
+<p>  带宽控制策略不仅可以优化服务器资源分配，还能提升整体用户体验，确保更多用户能够公平地使用服务器资源。通过合理应用<code>limit_rate</code>和<code>limit_rate_after</code>，可以更好地应对高峰流量和防止带宽滥用。</p>
+<h2 id="5-2-配置文件解释"><a href="#5-2-配置文件解释" class="headerlink" title="5.2 配置文件解释"></a>5.2 配置文件解释</h2><p>  针对本网站的/lluovip二级目录做了限速，前10M的速度为满速，超过10M之后，限制为1M</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/conf.d/limitbandw.conf <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+server {
+    listen 80 default_server;
+    location /luovip {
+        limit_rate_after 10m;
+        limit_rate 1m;
+
+        root /usr/share/nginx/html;
+        index index.html;
+    }
+}
+EOF</span>
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -t</span>
+nginx: the configuration <span class="token function">file</span> /etc/nginx/nginx.conf syntax is ok
+nginx: configuration <span class="token function">file</span> /etc/nginx/nginx.conf <span class="token builtin class-name">test</span> is successful
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -s reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  1.<code>server { ... }</code></p>
+<p>   <strong>解释</strong>：定义服务器块，包括服务器的一些基本配置。</p>
+<p>   <strong>作用</strong>：配置服务器的监听端口、位置处理和文件服务等功能。</p>
+<p>  2.<code>listen 80 default_server;</code></p>
+<p>   <strong>解释</strong>：服务器监听80端口，并设置为默认服务器。</p>
+<p>   <strong>作用</strong>：使服务器响应发往80端口的所有请求。</p>
+<p>  3.<code>location /lixiaohui { ... }</code></p>
+<p>   <strong>解释</strong>：定义位置块，用于处理<code>/lixiaohui</code>路径的请求。</p>
+<p>   <strong>作用</strong>：配置该路径下请求的特定处理方式。</p>
+<p>  4.<code>limit_rate_after 10m;</code></p>
+<p>   <strong>解释</strong>：设定在传输了10MB数据之后，开始应用带宽限制。</p>
+<p>   <strong>作用</strong>：初始阶段立即回应大量数据，随后开始限速，有助于在初期快速传输大文件。</p>
+<p>  5.<code>limit_rate 1m;</code></p>
+<p>   <strong>解释</strong>：将带宽限制设置为每秒1MB。</p>
+<p>   <strong>作用</strong>：确保在传输10MB之后，每个连接的传输速率不超过每秒1MB。</p>
+<p>  6.<code>root /usr/share/nginx/html;</code></p>
+<p>   <strong>解释</strong>：设置根目录为<code>/usr/share/nginx/html</code>，服务器会在此目录下查找文件。</p>
+<p>   <strong>作用</strong>：定义文件服务的根目录。</p>
+<p>  7.<code>index index.html;</code></p>
+<p>   <strong>解释</strong>：指定默认主页文件为<code>index.html</code>。</p>
+<p>   <strong>作用</strong>：当客户端访问<code>/lixiaohui</code>路径时，服务器将返回此文件作为响应。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建二级目录，并制作了一个2GB的文件</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># mkdir /usr/share/nginx/html/luovip</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># dd if=/dev/zero of=/usr/share/nginx/html/luovip/index.html bs=1M count=2000</span>
+<span class="token number">2000</span>+0 records <span class="token keyword">in</span>
+<span class="token number">2000</span>+0 records out
+<span class="token number">2097152000</span> bytes <span class="token punctuation">(</span><span class="token number">2.1</span> GB, <span class="token number">2.0</span> GiB<span class="token punctuation">)</span> copied, <span class="token number">3.93077</span> s, <span class="token number">534</span> MB/s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-3-测试带宽速率"><a href="#5-3-测试带宽速率" class="headerlink" title="5.3 测试带宽速率"></a>5.3 测试带宽速率</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 可以看到速度刚开始是满速，后面速度被限制在1.00MB/s</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># wget http://loadbalance.luovip.cn/luovip/index.html</span>
+--2025-09-29 <span class="token number">11</span>:49:46--  http://loadbalance.luovip.cn/luovip/index.html
+Resolving loadbalance.luovip.cn <span class="token punctuation">(</span>loadbalance.luovip.cn<span class="token punctuation">)</span><span class="token punctuation">..</span>. fe80::20c:29ff:fe45:18b8, <span class="token number">192.168</span>.8.4
+Connecting to loadbalance.luovip.cn <span class="token punctuation">(</span>loadbalance.luovip.cn<span class="token punctuation">)</span><span class="token operator">|</span>fe80::20c:29ff:fe45:18b8<span class="token operator">|</span>:80<span class="token punctuation">..</span>. failed: Connection refused.
+Connecting to loadbalance.luovip.cn <span class="token punctuation">(</span>loadbalance.luovip.cn<span class="token punctuation">)</span><span class="token operator">|</span><span class="token number">192.168</span>.8.4<span class="token operator">|</span>:80<span class="token punctuation">..</span>. connected.
+HTTP request sent, awaiting response<span class="token punctuation">..</span>. <span class="token number">200</span> OK
+Length: <span class="token number">2097152000</span> <span class="token punctuation">(</span><span class="token number">2</span>.0G<span class="token punctuation">)</span> <span class="token punctuation">[</span>text/html<span class="token punctuation">]</span>
+Saving to: ‘index.html.1’
+
+index.html.1    <span class="token number">4</span>%<span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">&gt;</span>                                                 <span class="token punctuation">]</span>  <span class="token number">92</span>.00M  <span class="token number">1</span>.00MB/s    eta 28m 23s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">罗宇</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://linuxcenter.icu/2025/09/20/nginx/nginx-xian-zhi-qing-qiu-su-lu-he-dai-kuan/">https://linuxcenter.icu/2025/09/20/nginx/nginx-xian-zhi-qing-qiu-su-lu-he-dai-kuan/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">罗宇</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/nginx%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%80%9F%E7%8E%87%E5%92%8C%E5%B8%A6%E5%AE%BD/">
+                                    <span class="chip bg-color">nginx限制请求速率和带宽</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/09/20/nginx/nginx-ji-yu-ji-yu-cheng-shi-he-guo-jia-de-fang-wen-kong-zhi/">
+                    <div class="card-image">
+                        
+                        <img src="/img/nginx.jpg" class="responsive-img" alt="nginx基于城市和国家的访问控制">
+                        
+                        <span class="card-title">nginx基于城市和国家的访问控制</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            高性能的开源Web服务器、反向代理服务器、负载均衡器和邮件代理服务器。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-09-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/nginx/" class="post-category">
+                                    nginx
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/nginx%E5%9F%BA%E4%BA%8E%E5%9F%8E%E5%B8%82%E5%92%8C%E5%9B%BD%E5%AE%B6%E7%9A%84%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/">
+                        <span class="chip bg-color">nginx基于城市和国家的访问控制</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/09/20/nginx/nginx-shi-xian-huan-cun-fu-wu-qi-cdn/">
+                    <div class="card-image">
+                        
+                        <img src="/img/nginx.jpg" class="responsive-img" alt="nginx实现缓存服务器(CDN)">
+                        
+                        <span class="card-title">nginx实现缓存服务器(CDN)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            高性能的开源Web服务器、反向代理服务器、负载均衡器和邮件代理服务器。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/nginx/" class="post-category">
+                                    nginx
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/nginx%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1%E5%99%A8-CDN/">
+                        <span class="chip bg-color">nginx实现缓存服务器(CDN)</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i
+                    class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script
+    src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+        <footer class="page-footer bg-color">
+    
+    <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="6402467630"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align"
+        style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+            <span id="year">2021-2025</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">罗宇</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/"
+                target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a
+                href="https://github.com/blinkfox/hexo-theme-matery"
+                target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">153.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span
+                    id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span
+                    id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            
+            <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2021";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+<a href="https://github.com/luovip/tecBlog.github.io" class="tooltipped" target="_blank"
+    data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fab fa-github"></i>
+</a>
+
+
+
+<a href="mailto:luovipyu@163.com" class="tooltipped"
+    target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fas fa-envelope-open"></i>
+</a>
+
+
+
+<a
+    href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=252414302"
+    class="tooltipped" target="_blank"
+    data-tooltip="QQ联系我: 252414302" data-position="top"
+    data-delay="50">
+    <i class="fab fa-qq"></i>
+</a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+        <script
+            src="/libs/materialize/materialize.min.js"></script>
+        <script
+            src="/libs/masonry/masonry.pkgd.min.js"></script>
+        <script
+            src="/libs/aos/aos.js"></script>
+        <script
+            src="/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script
+            src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script
+            src="/js/matery.js"></script>
+
+        <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+        <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+        
+        <script
+            src="/libs/others/clicklove.js"
+            async="async"></script>
+        
+        
+        <script async
+            src="/libs/others/busuanzi.pure.mini.js"></script>
+        
+
+        
+
+        
+
+        
+        
+        <script type="text/javascript" color="64,224,208"
+            pointColor="0,0,255"
+            opacity='0.5'
+            zIndex="-1"
+            count="100"
+            src="/libs/background/canvas-nest.js"></script>
+        
+
+        
+        
+        <script type="text/javascript" size="150"
+            alpha='0.6'
+            zIndex="-1"
+            src="/libs/background/ribbon.min.js"
+            async="async"></script>
+        
+
+        
+        <script type="text/javascript"
+            src="/libs/background/ribbon-dynamic.js"
+            async="async"></script>
+        
+
+        
+        <script
+            src="/libs/instantpage/instantpage.js"
+            type="module"></script>
+        
+        <!-- 冒泡 -->
+        
+        <script type="text/javascript">
+        // 只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        document.write(
+            '<script type="text/javascript" src="/libs/others/buble.js"><\/script>'
+        );
+    </script>
+        
+        <script type="text/javascript">
+    var a_idx = 0;
+jQuery(document).ready(function ($) {
+    $("body").click(function (e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+            y = e.pageY;
+        $i.css({
+            "z-index": 5,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": "#FF0000"
+        });
+        $("body").append($i);
+        $i.animate({
+                "top": y - 180,
+                "opacity": 0
+            },
+            3000,
+            function () {
+                $i.remove();
+            });
+    });
+    setTimeout('delay()', 2000);
+});
+ 
+function delay() {
+    $(".buryit").removeAttr("onclick");
+}
+ 
+    </script>
+        <script type="text/javascript" src="/js/mouse_snow.js"></script>
+
+        <!-- 动态标签栏 -->
+        <script type="text/javascript">
+      var OriginTitile = document.title, st; 
+      document.addEventListener("visibilitychange", function () { 
+        document.hidden ? (document.title = "爱我，别走！", clearTimeout(st)) : (document.title = "咦，你来啦！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) 
+    </script>
+
+    </body>
+
+</html>
