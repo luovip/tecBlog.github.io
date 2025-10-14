@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="nginx实现缓存服务器(CDN), Linux技术博客">
+    <meta name="keywords" content="开启HTTP2.0和HTTP3.0功能, Linux技术博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
@@ -20,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>nginx实现缓存服务器(CDN) | Linux技术博客</title>
+    <title>开启HTTP2.0和HTTP3.0功能 | Linux技术博客</title>
     <link rel="icon" type="image/png"
         href="/favicon.png">
 
@@ -374,7 +374,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">nginx实现缓存服务器(CDN)</h1>
+                    <h1 class="description center-align post-title">开启HTTP2.0和HTTP3.0功能</h1>
                 </div>
             </div>
         </div>
@@ -491,8 +491,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/nginx%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1%E5%99%A8-CDN/">
-                                <span class="chip bg-color">nginx实现缓存服务器(CDN)</span>
+                            <a href="/tags/%E5%BC%80%E5%90%AFHTTP2-0%E5%92%8CHTTP3-0%E5%8A%9F%E8%83%BD/">
+                                <span class="chip bg-color">开启HTTP2.0和HTTP3.0功能</span>
                             </a>
                         
                     </div>
@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-09-29
+                    2025-10-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    640
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    7 分
                 </div>
                 
 
@@ -572,35 +572,162 @@
 <td>192.168.8.4</td>
 <td>loadbalance.luovip.cn</td>
 <td>1.26.2</td>
-<td>CDN缓存服务器</td>
-</tr>
-<tr>
-<td>Rocky9.6</td>
-<td>192.168.8.5</td>
-<td>web1.luovip.cn</td>
-<td>1.26.2</td>
-<td>普通业务服务器/源站</td>
-</tr>
-<tr>
-<td>Rocky9.6</td>
-<td>192.168.8.6</td>
-<td>web2.luovip.cn</td>
-<td>1.26.2</td>
-<td>普通业务服务器/源站</td>
+<td>负载均衡</td>
 </tr>
 </tbody></table>
-<h1 id="2-什么是内容分发网络-CDN"><a href="#2-什么是内容分发网络-CDN" class="headerlink" title="2 什么是内容分发网络(CDN)"></a>2 什么是内容分发网络(CDN)</h1><p>  CDN，内容分发网络，是一种分布式的服务器系统，旨在提高网站内容的传输速度和可靠性。它通过将内容复制并存储到多个地理位置的服务器上，让用户能够从离自己最近的服务器获取内容，从而提高访问速度。</p>
-<p>  在CDN中，有一些术语需要了解：<strong>CDN节点</strong>和<strong>源站</strong>是内容分发网络（CDN）中的两个重要概念。</p>
-<h2 id="2-1-CDN节点"><a href="#2-1-CDN节点" class="headerlink" title="2.1 CDN节点"></a>2.1 CDN节点</h2><p>  <strong>CDN节点</strong>（或称边缘节点）是分布在全球各地的服务器，这些服务器缓存网站内容并将其传输给靠近用户的设备。通过将内容存储在多个地理位置的节点上，CDN能够显著减少延迟，提升内容加载速度。例如，当你在中国访问一个位于美国的服务器上的网站时，CDN节点可以将内容从一个离你更近的节点传输给你，从而加快访问速度。</p>
-<p>  CDN节点的主要优点包括：</p>
-<p>   <strong>减少延迟</strong>：由于节点靠近用户，数据传输距离短，因此响应时间更快。</p>
-<p>   <strong>提高可靠性</strong>：多个节点可以提供冗余，避免单点故障。</p>
-<p>   <strong>分担负载</strong>：通过将流量分布到不同节点上，减轻源站的负载压力。</p>
-<h2 id="2-2-源站"><a href="#2-2-源站" class="headerlink" title="2.2 源站"></a>2.2 源站</h2><p>  <strong>源站</strong>是网站内容的原始服务器，它存储和提供所有的内容。当CDN节点无法从缓存中获取所需内容时，会向源站请求这些内容并将其缓存到节点中。源站通常位于数据中心，负责处理所有内容的更新和管理。例如，源站可能位于一个网站的主服务器上，负责存储所有的网页、图片和视频文件。</p>
-<p>  源站的主要职责包括：</p>
-<p>   <strong>提供原始内容</strong>：当CDN节点没有缓存内容时，源站是内容的唯一来源。</p>
-<p>   <strong>内容管理</strong>：源站负责所有内容的更新、修改和删除。</p>
-<p>   <strong>处理请求</strong>：在缓存失效或更新时，源站接收并处理来自CDN节点的请求。</p>
+<p>  本文中将深入探讨如何在NGINX服务器中启用HTTP/2.0和HTTP/3.0。通过启用这些新一代的HTTP协议，可以显著提升网站的加载速度和安全性。HTTP/2.0引入了多路复用、首部压缩等技术，而HTTP/3.0更是基于QUIC协议，进一步减少延迟，提高传输效率。</p>
+<h1 id="2-HTTP2-0"><a href="#2-HTTP2-0" class="headerlink" title="2 HTTP2.0"></a>2 HTTP2.0</h1><h2 id="2-1-HTTP2-0的概念"><a href="#2-1-HTTP2-0的概念" class="headerlink" title="2.1 HTTP2.0的概念"></a>2.1 HTTP2.0的概念</h2><p>  HTTP/2是HTTP协议的主流版本，旨在提高Web性能和效率。与其前身HTTP/1.1相比，HTTP/2引入了多项技术改进，使得数据传输更加高效。以下是HTTP/2的一些关键优势：</p>
+<p>  <strong>多路复用</strong>：允许多个请求同时通过一个TCP连接进行传输，减少延迟。</p>
+<p>  <strong>头部压缩</strong>：通过HPACK算法对HTTP头部进行压缩，降低数据传输量。</p>
+<p>  <strong>服务器推送</strong>：允许服务器在客户端请求之前预先推送资源，提升加载速度。</p>
+<p>  <strong>二进制分帧</strong>：将HTTP消息分成更小的二进制帧，提高解析效率。</p>
+<p>  这些改进使得HTTP/2在提升网页加载速度、减少延迟和优化网络带宽利用方面表现尤为出色。通过在NGINX中启用HTTP/2，可以充分发挥其性能优势，为用户提供更快速和流畅的访问体验。</p>
+<p>  HTTP/2的主要设计目的是通过HTTPS（也就是HTTP over TLS）进行加密传输。虽然在技术上可以在HTTP（非加密）上启用HTTP/2，但主流浏览器普遍要求HTTP/2必须在HTTPS上运行。这主要是为了确保数据传输的安全性和隐私性。所以，如果打算在NGINX中启用HTTP/2，通常需要先配置SSL/TLS证书并启用HTTPS。这样不仅能够利用HTTP/2的性能优势，还能确保数据传输的安全性。</p>
+<p>  <code>离线测试就用自己生成的自签名证书就好，关于如何生成自签名证书，可参考前面的文章</code></p>
+<h2 id="2-2-配置文件案例"><a href="#2-2-配置文件案例" class="headerlink" title="2.2 配置文件案例"></a>2.2 配置文件案例</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/conf.d/http2.conf <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+server {
+    listen 443 ssl http2;
+
+    ssl_certificate /etc/pki/tls/certs/nginx.crt;
+    ssl_certificate_key /etc/pki/tls/private/nginx.key;
+
+    server_name loadbalance.luovip.cn;
+
+    # 其他SSL配置
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers 'HIGH:!aNULL:!MD5';
+
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+    }
+}
+EOF</span>
+
+<span class="token comment"># 重启和重载NGINX</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart nginx</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># nginx -s reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-3-配置文件详解"><a href="#2-3-配置文件详解" class="headerlink" title="2.3 配置文件详解"></a>2.3 配置文件详解</h2><p>  <code>1.listen 443 ssl http2;</code></p>
+<p>   这个指令表示服务器将监听443端口（通常用于HTTPS），并启用SSL（TLS）和HTTP/2协议。</p>
+<p>  <code>2.ssl_certificate 和 ssl_certificate_key</code></p>
+<p>   <code>ssl_certificate</code> 指定服务器的SSL证书文件路径，路径为 <code>/etc/pki/tls/certs/nginx.crt</code>。</p>
+<p>   <code>ssl_certificate_key</code> 指定SSL证书的私钥文件路径，路径为 <code>/etc/pki/tls/private/nginx.key</code>。</p>
+<p>  <code>3.server_name loadbalance.luovip.cn</code></p>
+<p>   <code>server_name</code> 指定服务器的域名，域名为 <code>loadbalance.luovip.cn</code>。</p>
+<p>  <code>4.ssl_protocols TLSv1.2 TLSv1.3;</code></p>
+<p>   <code>ssl_protocols</code> 指定服务器支持的SSL/TLS协议版本，服务器仅支持TLSv1.2和TLSv1.3，以确保更高的安全性。</p>
+<p>  <code>5.ssl_ciphers ‘HIGH:!aNULL:!MD5’;</code></p>
+<p>   <code>ssl_ciphers</code> 指定服务器支持的加密套件，使用了高强度加密套件并排除了不安全的套件（如NULL和MD5）。</p>
+<p>  <code>6.location /</code></p>
+<p>   <code>location</code> 指令定义了与特定URL路径匹配的配置，匹配所有以 <code>/</code> 开头的请求路径。</p>
+<p>  <code>7.root /usr/share/nginx/html;</code></p>
+<p>   <code>root</code> 指令指定了请求的根目录，根目录为 <code>/usr/share/nginx/html</code>。</p>
+<p>  <code>8.index index.html;</code></p>
+<p>   <code>index</code> 指令指定了默认的索引文件，默认索引文件为 <code>index.html</code>。</p>
+<h2 id="2-4-测试效果"><a href="#2-4-测试效果" class="headerlink" title="2.4 测试效果"></a>2.4 测试效果</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 可以看到已经提示HTTP/2 200</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># curl -I -k https://loadbalance.luovip.cn</span>
+HTTP/2 <span class="token number">200</span>
+server: nginx/1.26.2
+date: Tue, <span class="token number">14</span> Oct <span class="token number">2025</span> 05:33:17 GMT
+content-type: text/html
+content-length: <span class="token number">18</span>
+last-modified: Sun, <span class="token number">12</span> Oct <span class="token number">2025</span> 05:16:25 GMT
+etag: <span class="token string">"68eb39a9-12"</span>
+accept-ranges: bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="3-HTTP3-0"><a href="#3-HTTP3-0" class="headerlink" title="3 HTTP3.0"></a>3 HTTP3.0</h1><p>  HTTP/3.0是HTTP协议的最新版本，主要基于Google开发的QUIC协议。相比于之前的HTTP/2，HTTP/3带来了一些显著的改进和优势：</p>
+<h2 id="3-1-主要特点"><a href="#3-1-主要特点" class="headerlink" title="3.1 主要特点"></a>3.1 主要特点</h2><p>  1.<strong>基于QUIC协议</strong></p>
+<p>   HTTP/3使用QUIC（快速UDP互联网连接）协议，而不是传统的TCP。QUIC基于UDP，可以减少连接建立的延迟，提高网络速度1。</p>
+<p>  2.<strong>0-RTT连接</strong></p>
+<p>   HTTP/3支持0-RTT（零往返时间）连接，可以在建立连接时减少延迟。</p>
+<p>  3.<strong>多路复用</strong></p>
+<p>   HTTP/3继续支持HTTP/2的多路复用功能，但在传输层上更加高效。</p>
+<p>  4.<strong>连接迁移</strong></p>
+<p>   HTTP/3支持连接迁移，即在网络地址变化时，可以保持连接，减少重连的开销。</p>
+<p>  5.<strong>内置TLS</strong></p>
+<p>   HTTP/3内置了TLS（传输层安全协议），确保数据传输的安全性。</p>
+<p>  6.<strong>头部压缩</strong></p>
+<p>   HTTP/3使用QPACK进行头部压缩，优化了乱序发送的支持和压缩率。</p>
+<h2 id="3-2-优势"><a href="#3-2-优势" class="headerlink" title="3.2 优势"></a>3.2 优势</h2><p>  <strong>减少网络延迟</strong>：通过0-RTT连接和QUIC协议，HTTP/3可以显著减少网络延迟。</p>
+<p>  <strong>提高网络速度</strong>：QUIC协议的高效传输机制和多路复用功能，使得HTTP/3在高延迟和高拥塞网络环境下表现更好。</p>
+<p>  <strong>提升网络安全</strong>：内置的TLS机制确保了数据传输的安全性。</p>
+<h2 id="3-3-应用场景"><a href="#3-3-应用场景" class="headerlink" title="3.3 应用场景"></a>3.3 应用场景</h2><p>  HTTP/3适用于高延迟网络、高拥塞网络和高并发场景。例如，移动网络、视频流媒体、在线游戏等应用场景</p>
+<h2 id="3-4-配置文件案例"><a href="#3-4-配置文件案例" class="headerlink" title="3.4 配置文件案例"></a>3.4 配置文件案例</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/nginx/conf.d/http3.conf <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+server {
+    # 为了提高兼容性，建议对 QUIC 和 TCP 使用相同的端口号
+    listen 443 quic reuseport; # QUIC
+    listen 443 ssl;            # TCP
+
+    ssl_certificate /etc/pki/tls/certs/nginx.crt;
+    ssl_certificate_key /etc/pki/tls/private/nginx.key;
+
+    ssl_protocols TLSv1.3;
+
+    server_name loadbalance.luovip.cn;
+
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+
+    location / {
+        # 告知 QUIC 在配置端口上可用
+        add_header Alt-Svc 'h3=":$server_port"; ma=86400';
+        # 其他配置
+    }
+}
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-5-配置文件详解"><a href="#3-5-配置文件详解" class="headerlink" title="3.5 配置文件详解"></a>3.5 配置文件详解</h2><p>  <code>1.listen 443 quic reuseport;</code></p>
+<p>   监听 443 端口上的 QUIC 协议，<code>reuseport</code> 可以提高并发处理性能。</p>
+<p>  <code>2.listen 443 ssl;</code></p>
+<p>   监听 443 端口上的 TCP 协议（用于 HTTP/1.1 和 HTTP/2）。</p>
+<p>  <code>3.ssl_certificate 和 ssl_certificate_key</code></p>
+<p>   指定 SSL 证书和私钥的文件路径。</p>
+<p>  <code>4.ssl_protocols TLSv1.3;</code></p>
+<p>   指定支持的 SSL/TLS 协议版本。HTTP/3 要求启用 TLS 1.3。</p>
+<p>  <code>5.server_name 192.168.8.3;</code></p>
+<p>   指定服务器名称（IP 地址或域名）。</p>
+<p>  <code>6.location /</code></p>
+<p>   定义与根路径匹配的配置。</p>
+<p>  <code>7.add_header Alt-Svc ‘h3=”:$server_port”; ma=86400’;</code></p>
+<p>   向客户端广告 HTTP/3 服务的可用性。<code>ma=86400</code> 表示这个服务可用性将在客户端缓存 86400 秒（即 1 天）。</p>
+<h2 id="3-6-测试效果"><a href="#3-6-测试效果" class="headerlink" title="3.6 测试效果"></a>3.6 测试效果</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 重启服务失败</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart nginx</span>
+Job <span class="token keyword">for</span> nginx.service failed because the control process exited with error code.
+See <span class="token string">"systemctl status nginx.service"</span> and <span class="token string">"journalctl -xeu nginx.service"</span> <span class="token keyword">for</span> details.
+
+<span class="token comment"># 启用SELinux的443端口</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># semanage port -a -t http_port_t -p udp 443</span>
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart nginx</span>
+
+<span class="token punctuation">[</span>root@loadbalance ~<span class="token punctuation">]</span><span class="token comment"># curl -I -k https://loadbalance.luovip.cn</span>
+HTTP/1.1 <span class="token number">200</span> OK
+Server: nginx/1.26.2
+Date: Tue, <span class="token number">14</span> Oct <span class="token number">2025</span> 05:54:56 GMT
+Content-Type: text/html
+Content-Length: <span class="token number">18</span>
+Last-Modified: Sun, <span class="token number">12</span> Oct <span class="token number">2025</span> 05:16:25 GMT
+Connection: keep-alive
+ETag: <span class="token string">"68eb39a9-12"</span>
+Alt-Svc: <span class="token assign-left variable">h3</span><span class="token operator">=</span><span class="token string">":443"</span><span class="token punctuation">;</span> <span class="token assign-left variable">ma</span><span class="token operator">=</span><span class="token number">86400</span>
+Accept-Ranges: bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 
             </div>
@@ -627,7 +754,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/09/20/nginx/nginx-shi-xian-huan-cun-fu-wu-qi-cdn/">https://linuxcenter.icu/2025/09/20/nginx/nginx-shi-xian-huan-cun-fu-wu-qi-cdn/</a>
+                    <a href="https://linuxcenter.icu/2025/09/20/nginx/kai-qi-http2.0-he-http3.0-gong-neng/">https://linuxcenter.icu/2025/09/20/nginx/kai-qi-http2.0-he-http3.0-gong-neng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -665,8 +792,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/nginx%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1%E5%99%A8-CDN/">
-                                    <span class="chip bg-color">nginx实现缓存服务器(CDN)</span>
+                                <a href="/tags/%E5%BC%80%E5%90%AFHTTP2-0%E5%92%8CHTTP3-0%E5%8A%9F%E8%83%BD/">
+                                    <span class="chip bg-color">开启HTTP2.0和HTTP3.0功能</span>
                                 </a>
                             
                         </div>
@@ -714,12 +841,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/09/20/nginx/nginx-xian-zhi-qing-qiu-su-lu-he-dai-kuan/">
+                <a href="/2025/09/20/nginx/ti-gong-ip-fang-wen-kong-zhi-he-https-an-quan/">
                     <div class="card-image">
                         
-                        <img src="/img/nginx.jpg" class="responsive-img" alt="nginx限制请求速率和带宽">
+                        <img src="/img/nginx.jpg" class="responsive-img" alt="提供IP访问控制和HTTPS安全">
                         
-                        <span class="card-title">nginx限制请求速率和带宽</span>
+                        <span class="card-title">提供IP访问控制和HTTPS安全</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -747,8 +874,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/nginx%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%80%9F%E7%8E%87%E5%92%8C%E5%B8%A6%E5%AE%BD/">
-                        <span class="chip bg-color">nginx限制请求速率和带宽</span>
+                    <a href="/tags/%E6%8F%90%E4%BE%9BIP%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8CHTTPS%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">提供IP访问控制和HTTPS安全</span>
                     </a>
                     
                 </div>
@@ -1005,7 +1132,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">153.5k</span>&nbsp;字
+                class="white-color">161.3k</span>&nbsp;字
             
             
             
