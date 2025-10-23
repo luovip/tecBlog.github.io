@@ -379,9 +379,9 @@
     
     
     <entry>
-      <title>部署Harbor私有仓库</title>
-      <link href="/2025/06/01/kubernetes/bu-shu-harbor-si-you-cang-ku/"/>
-      <url>/2025/06/01/kubernetes/bu-shu-harbor-si-you-cang-ku/</url>
+      <title>部署Harbor私有镜像仓库</title>
+      <link href="/2025/06/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/"/>
+      <url>/2025/06/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -395,7 +395,7 @@
       
         <tags>
             
-            <tag> 部署Harbor私有仓库 </tag>
+            <tag> 部署Harbor私有镜像仓库 </tag>
             
         </tags>
       
