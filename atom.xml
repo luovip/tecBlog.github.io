@@ -246,7 +246,7 @@
     <link href="https://linuxcenter.icu/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/"/>
     <id>https://linuxcenter.icu/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/</id>
     <published>2025-08-03T13:48:00.000Z</published>
-    <updated>2025-09-17T08:44:59.635Z</updated>
+    <updated>2025-10-14T09:00:40.197Z</updated>
     
     
     
@@ -259,43 +259,18 @@
   </entry>
   
   <entry>
-    <title>containerd容器</title>
-    <link href="https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/"/>
-    <id>https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/</id>
-    <published>2025-06-03T13:48:00.000Z</published>
-    <updated>2025-09-24T14:11:20.501Z</updated>
+    <title>搭建Kubernetes集群</title>
+    <link href="https://linuxcenter.icu/2025/07/01/kubernetes/da-jian-kubernetes-ji-qun/"/>
+    <id>https://linuxcenter.icu/2025/07/01/kubernetes/da-jian-kubernetes-ji-qun/</id>
+    <published>2025-07-01T04:36:00.000Z</published>
+    <updated>2025-10-23T13:02:19.899Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;1-云原生与容器运行时&quot;&gt;&lt;a href=&quot;#1-云原生与容器运行时&quot; class=&quot;headerlink&quot; title=&quot;1 云原生与容器运行时&quot;&gt;&lt;/a&gt;1 云原生与容器运行时&lt;/h1&gt;&lt;h2 id=&quot;1-1-云原生概述&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="containerd容器" scheme="https://linuxcenter.icu/tags/containerd%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes企业级运维</title>
-    <link href="https://linuxcenter.icu/2025/06/01/kubernetes/kubernetes-qi-ye-ji-yun-wei/"/>
-    <id>https://linuxcenter.icu/2025/06/01/kubernetes/kubernetes-qi-ye-ji-yun-wei/</id>
-    <published>2025-06-01T04:34:00.000Z</published>
-    <updated>2025-09-16T06:55:25.308Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-Kubernetes概述&quot;&gt;&lt;a href=&quot;#1-Kubernetes概述&quot; class=&quot;headerlink&quot; title=&quot;1 Kubernetes概述&quot;&gt;&lt;/a&gt;1</summary>
+    <summary type="html">&lt;h1 id=&quot;1-基础准备&quot;&gt;&lt;a href=&quot;#1-基础准备&quot; class=&quot;headerlink&quot; title=&quot;1 基础准备&quot;&gt;&lt;/a&gt;1 基础准备&lt;/h1&gt;&lt;h2 id=&quot;1-1-集群环境介绍&quot;&gt;&lt;a href=&quot;#1-1-集群环境介绍&quot;</summary>
         
       
     
@@ -304,16 +279,41 @@
     <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
     
     
-    <category term="Kubernetes企业级运维" scheme="https://linuxcenter.icu/tags/Kubernetes%E4%BC%81%E4%B8%9A%E7%BA%A7%E8%BF%90%E7%BB%B4/"/>
+    <category term="搭建Kubernetes集群" scheme="https://linuxcenter.icu/tags/%E6%90%AD%E5%BB%BAKubernetes%E9%9B%86%E7%BE%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kubernetes与Docker</title>
+    <link href="https://linuxcenter.icu/2025/06/29/kubernetes/kubernetes-yu-docker/"/>
+    <id>https://linuxcenter.icu/2025/06/29/kubernetes/kubernetes-yu-docker/</id>
+    <published>2025-06-29T04:35:00.000Z</published>
+    <updated>2025-10-22T03:39:24.075Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-架构的发展与微服务&quot;&gt;&lt;a href=&quot;#1-架构的发展与微服务&quot; class=&quot;headerlink&quot; title=&quot;1 架构的发展与微服务&quot;&gt;&lt;/a&gt;1 架构的发展与微服务&lt;/h1&gt;&lt;p&gt;  &lt;strong&gt;微服务&lt;/strong&gt;:</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes与Docker" scheme="https://linuxcenter.icu/tags/Kubernetes%E4%B8%8EDocker/"/>
     
   </entry>
   
   <entry>
     <title>Kubernetes网络系统原理</title>
-    <link href="https://linuxcenter.icu/2025/05/30/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/"/>
-    <id>https://linuxcenter.icu/2025/05/30/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/</id>
-    <published>2025-05-30T04:34:00.000Z</published>
-    <updated>2025-09-16T06:55:32.091Z</updated>
+    <link href="https://linuxcenter.icu/2025/06/28/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/"/>
+    <id>https://linuxcenter.icu/2025/06/28/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/</id>
+    <published>2025-06-28T04:34:00.000Z</published>
+    <updated>2025-10-14T08:58:04.243Z</updated>
     
     
       
@@ -334,11 +334,78 @@
   </entry>
   
   <entry>
+    <title>Kubernetes企业级运维</title>
+    <link href="https://linuxcenter.icu/2025/06/27/kubernetes/kubernetes-qi-ye-ji-yun-wei/"/>
+    <id>https://linuxcenter.icu/2025/06/27/kubernetes/kubernetes-qi-ye-ji-yun-wei/</id>
+    <published>2025-06-27T04:34:00.000Z</published>
+    <updated>2025-10-14T08:58:10.271Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-Kubernetes概述&quot;&gt;&lt;a href=&quot;#1-Kubernetes概述&quot; class=&quot;headerlink&quot; title=&quot;1 Kubernetes概述&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    
+    
+    <category term="Kubernetes企业级运维" scheme="https://linuxcenter.icu/tags/Kubernetes%E4%BC%81%E4%B8%9A%E7%BA%A7%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>containerd容器</title>
+    <link href="https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/"/>
+    <id>https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/</id>
+    <published>2025-06-03T13:48:00.000Z</published>
+    <updated>2025-10-14T08:44:23.271Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-云原生与容器运行时&quot;&gt;&lt;a href=&quot;#1-云原生与容器运行时&quot; class=&quot;headerlink&quot; title=&quot;1 云原生与容器运行时&quot;&gt;&lt;/a&gt;1 云原生与容器运行时&lt;/h1&gt;&lt;h2 id=&quot;1-1-云原生概述&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="containerd容器" scheme="https://linuxcenter.icu/tags/containerd%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>部署Harbor私有仓库</title>
+    <link href="https://linuxcenter.icu/2025/06/01/kubernetes/bu-shu-harbor-si-you-cang-ku/"/>
+    <id>https://linuxcenter.icu/2025/06/01/kubernetes/bu-shu-harbor-si-you-cang-ku/</id>
+    <published>2025-06-01T04:30:00.000Z</published>
+    <updated>2025-10-23T13:45:18.746Z</updated>
+    
+    
+    
+    
+    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    
+    
+    <category term="部署Harbor私有仓库" scheme="https://linuxcenter.icu/tags/%E9%83%A8%E7%BD%B2Harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
     <title>podman容器</title>
     <link href="https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/"/>
     <id>https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/</id>
     <published>2025-05-28T13:12:00.000Z</published>
-    <updated>2025-09-16T06:57:08.323Z</updated>
+    <updated>2025-10-14T09:00:46.870Z</updated>
     
     
       
@@ -355,31 +422,6 @@
     
     
     <category term="podman容器" scheme="https://linuxcenter.icu/tags/podman%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes与Docker</title>
-    <link href="https://linuxcenter.icu/2025/05/28/kubernetes/kubernetes-yu-docker/"/>
-    <id>https://linuxcenter.icu/2025/05/28/kubernetes/kubernetes-yu-docker/</id>
-    <published>2025-05-28T04:34:00.000Z</published>
-    <updated>2025-09-16T06:58:36.111Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-架构的发展与微服务&quot;&gt;&lt;a href=&quot;#1-架构的发展与微服务&quot; class=&quot;headerlink&quot; title=&quot;1 架构的发展与微服务&quot;&gt;&lt;/a&gt;1 架构的发展与微服务&lt;/h1&gt;&lt;p&gt;  &lt;strong&gt;微服务&lt;/strong&gt;:</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes与Docker" scheme="https://linuxcenter.icu/tags/Kubernetes%E4%B8%8EDocker/"/>
     
   </entry>
   
@@ -439,48 +481,6 @@
     
     
     <category term="常见的Linux软件包仓库" scheme="https://linuxcenter.icu/tags/%E5%B8%B8%E8%A7%81%E7%9A%84Linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E4%BB%93%E5%BA%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据库的基本操作</title>
-    <link href="https://linuxcenter.icu/2024/05/14/shu-ju-ku/shu-ju-ku-de-ji-ben-cao-zuo/"/>
-    <id>https://linuxcenter.icu/2024/05/14/shu-ju-ku/shu-ju-ku-de-ji-ben-cao-zuo/</id>
-    <published>2024-05-14T13:12:00.000Z</published>
-    <updated>2025-08-07T06:27:55.335Z</updated>
-    
-    
-    
-    
-    <category term="数据库" scheme="https://linuxcenter.icu/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="数据库的基本操作" scheme="https://linuxcenter.icu/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ansible的原理与实战</title>
-    <link href="https://linuxcenter.icu/2024/04/28/ansible/ansible-de-yuan-li-yu-shi-zhan/"/>
-    <id>https://linuxcenter.icu/2024/04/28/ansible/ansible-de-yuan-li-yu-shi-zhan/</id>
-    <published>2024-04-28T13:12:00.000Z</published>
-    <updated>2025-09-20T07:33:14.028Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-介绍Ansible&quot;&gt;&lt;a href=&quot;#1-介绍Ansible&quot; class=&quot;headerlink&quot; title=&quot;1 介绍Ansible&quot;&gt;&lt;/a&gt;1</summary>
-        
-      
-    
-    
-    
-    <category term="Ansible" scheme="https://linuxcenter.icu/categories/Ansible/"/>
-    
-    
-    <category term="Ansible的原理与实战" scheme="https://linuxcenter.icu/tags/Ansible%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
