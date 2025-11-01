@@ -1,0 +1,1829 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="部署Harbor私有镜像仓库, Linux技术博客">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>部署Harbor私有镜像仓库 | Linux技术博客</title>
+    <link rel="icon" type="image/png"
+        href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css"
+        href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/matery.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/my.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/loading.css">
+
+    <script
+        src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+    
+    <style>
+    body{
+       background-image: url(/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+    
+    <body>
+        <div class="stars-con">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
+        <svg aria-hidden="true"
+            style="position: absolute; overflow: hidden; width: 0; height: 0">
+            <symbol id="icon-sun" viewBox="0 0 1024 1024">
+                <path
+                    d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z"
+                    fill="#FFD878" p-id="8420"></path>
+                <path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z"
+                    fill="#FFE4A9" p-id="8421"></path>
+                <path
+                    d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z"
+                    fill="#4D5152" p-id="8422"></path>
+                <path
+                    d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z"
+                    fill="#4D5152" p-id="8423"></path>
+            </symbol>
+            <symbol id="icon-moon" viewBox="0 0 1024 1024">
+                <path
+                    d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z"
+                    fill="#FFB531" p-id="11345"></path>
+                <path
+                    d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z"
+                    fill="#030835" p-id="11346"></path>
+            </symbol>
+        </svg>
+        <a onclick="switchNightMode()" class="icon-V hidden" title="切换主题">
+            <svg width="48" height="48" viewBox="0 0 1024 1024">
+                <use id="modeicon" xlink:href="#icon-moon"></use>
+            </svg>
+        </a>
+        <script>
+      function checkNightMode() {
+        '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
+      }
+      function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+          setTimeout(function () {
+            $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+              setTimeout(function () {
+                $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                  $(this).remove()
+                })
+              }, 2e3)
+          })
+      }
+      function switchNightModeTop() {
+        $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
+      }
+    </script>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Linux技术博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Linux技术博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/luovip/tecBlog.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/luovip/tecBlog.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/img/Harbor-icon.jpeg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">部署Harbor私有镜像仓库</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet"
+    href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+        background-color: rgb(255, 255, 255,0.7);
+        border-radius: 10px;
+        box-shadow: 0 10px 35px 2px rgba(0, 0, 0, .15), 0 5px 15px rgba(0, 0, 0, .07), 0 2px 5px -5px rgba(0, 0, 0, .1) !important;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+    #toc-content .toc-link:hover {
+        color: #f40;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #f40;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E9%83%A8%E7%BD%B2Harbor%E7%A7%81%E6%9C%89%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/">
+                                <span class="chip bg-color">部署Harbor私有镜像仓库</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-07-01
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-10-27
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    26 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1 准备工作"></a>1 准备工作</h1><p>  服务器(云主机)：一台运行Rocky Linux操作系统的服务器</p>
+<p>  硬件配置：至少2个CPU核心，4GB内存和40GB硬盘空间</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>配置</th>
+<th>ip</th>
+<th>主机名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rocky Linux 9.5</td>
+<td>2核4G</td>
+<td>10.0.0.125(内网)<br>203.15.9.197(公网)</td>
+<td>Harbor</td>
+</tr>
+</tbody></table>
+<h1 id="2-Harbor介绍"><a href="#2-Harbor介绍" class="headerlink" title="2 Harbor介绍"></a>2 Harbor介绍</h1><p>  官网：<a target="_blank" rel="noopener" href="https://goharbor.io/">https://goharbor.io/</a></p>
+<p>  Harbor 是一个开源的注册中心，它通过策略和基于角色的访问控制来保护工件，确保镜像经过扫描且无漏洞，并对镜像进行签名以表明其可信度。Harbor 是一个 CNCF 毕业项目，提供了合规性、性能和互操作性，帮助在 Kubernetes 和 Docker 等云原生计算平台上始终如一且安全地管理工件。</p>
+<p>  在现代软件开发中，容器化应用已经成为主流，而容器镜像仓库则是确保容器镜像安全、管理和分发的重要工具。Harbor 作为一款开源的企业级容器镜像仓库管理工具，不仅支持多种认证方式，还提供镜像复制、漏洞扫描和用户访问控制等功能，为企业提供了一个安全、高效的镜像管理方案。</p>
+<p>  本文将详细介绍如何搭建Harbor，并演示如何使用Harbor进行镜像的推送、拉取和管理操作。</p>
+<h1 id="3-创建自签发SSL"><a href="#3-创建自签发SSL" class="headerlink" title="3 创建自签发SSL"></a>3 创建自签发SSL</h1><p>  <code>创建一个自签名的根证书，用于后续签发服务器证书。</code></p>
+<p>  <code>有效期设置为 10 年（3650 天），适合长期使用。</code></p>
+<h2 id="3-1-生成根证书颁发机构-CA"><a href="#3-1-生成根证书颁发机构-CA" class="headerlink" title="3.1 生成根证书颁发机构(CA)"></a>3.1 生成根证书颁发机构(CA)</h2><p>  有的人直接就生成服务器证书，这是不对的，需要先生成根证书颁发机构，然后用这个CA去签名证书，以后可以让客户端信任这个CA，所有用这个CA生产的证书都会自动信任。</p>
+<p>  这条命令生成一个 4096 位的 RSA 私钥，并将其存储在 /usr/local/harbor/certs/ca.key 文件中。私钥是用于签署证书的核心部分。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@Harbor ~<span class="token punctuation">]</span><span class="token comment"># mkdir -p /usr/local/harbor/certs</span>
+<span class="token punctuation">[</span>root@Harbor ~<span class="token punctuation">]</span><span class="token comment"># cd /usr/local/harbor/certs</span>
+
+<span class="token comment"># 创建私钥</span>
+openssl genrsa <span class="token parameter variable">-out</span> /usr/local/harbor/certs <span class="token number">4096</span>
+
+<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl genrsa -out ca.key 4096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  下面这条命令生成一个自签名证书，并将其存储在 <code> /usr/local/harbor/certs/ca.crt</code>文件中。以下是各参数的解释：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 自签名机构生成CA证书</span>
+openssl req <span class="token parameter variable">-x509</span> <span class="token parameter variable">-new</span> <span class="token parameter variable">-nodes</span> <span class="token parameter variable">-sha512</span> <span class="token parameter variable">-days</span> <span class="token number">3650</span> <span class="token parameter variable">-subj</span> <span class="token string">"/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net"</span> <span class="token parameter variable">-key</span> /usr/local/harbor/certs/ca.key  <span class="token parameter variable">-out</span> /usr/local/harbor/certs/ca.crt
+
+<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl req -x509 -new -nodes -sha512 -days 3650 -subj "/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net" -key ca.key -out ca.crt</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>参数说明:</code></p>
+<p>  -x509：生成一个自签名证书，而不是证书请求（CSR）。</p>
+<p>  -new：生成一个新的证书。</p>
+<p>  -nodes：不加密私钥文件。</p>
+<p>  -sha512：使用 SHA-512 哈希算法。</p>
+<p>  -days 3650：证书有效期为 3650 天（约 10 年）。</p>
+<p>  -subj “/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net”，指定证书的主题信息：</p>
+<p>   国家（C）、州/省（ST）、城市（L）、组织（O）、组织单位（OU）和通用名称（CN）。</p>
+<p>  -key /usr/local/harbor/certs/ca.key：使用之前生成的私钥。</p>
+<p>  -out /usr/local/harbor/certs/ca.crt：指定输出的证书文件路径。</p>
+<p><code>用openssl命令查询证书文件，也可以复制到Windows上，直接双击也可以看。</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@Harbor ~<span class="token punctuation">]</span><span class="token comment"># openssl x509 -in /usr/local/harbor/certs/ca.crt -text -noout</span>
+Certificate:
+    Data:
+        Version: <span class="token number">3</span> <span class="token punctuation">(</span>0x2<span class="token punctuation">)</span>
+        Serial Number:
+            5d:0b:06:2a:f8:00:7c:73:22:19:cb:50:6e:9f:c0:69:90:09:31:aa
+        Signature Algorithm: sha512WithRSAEncryption
+        Issuer: <span class="token assign-left variable">C</span><span class="token operator">=</span>CN, <span class="token assign-left variable">ST</span><span class="token operator">=</span>SiChuan, <span class="token assign-left variable">L</span><span class="token operator">=</span>Chengdu, <span class="token assign-left variable">O</span><span class="token operator">=</span>Company, <span class="token assign-left variable">OU</span><span class="token operator">=</span>CD, <span class="token assign-left variable">CN</span><span class="token operator">=</span>cncf.net
+        Validity
+            Not Before: Oct <span class="token number">25</span> 05:37:56 <span class="token number">2025</span> GMT
+            Not After <span class="token builtin class-name">:</span> Oct <span class="token number">23</span> 05:37:56 <span class="token number">2035</span> GMT
+        Subject: <span class="token assign-left variable">C</span><span class="token operator">=</span>CN, <span class="token assign-left variable">ST</span><span class="token operator">=</span>SiChuan, <span class="token assign-left variable">L</span><span class="token operator">=</span>Chengdu, <span class="token assign-left variable">O</span><span class="token operator">=</span>Company, <span class="token assign-left variable">OU</span><span class="token operator">=</span>CD, <span class="token assign-left variable">CN</span><span class="token operator">=</span>cncf.net
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: <span class="token punctuation">(</span><span class="token number">4096</span> bit<span class="token punctuation">)</span>
+                Modulus:
+                    00:ba:0d:13:6d:06:4b:70:e3:40:98:3d:0d:21:3b:
+                    <span class="token number">11</span>:91:e3:58:16:fb:a3:f4:fd:e4:06:7f:64:18:d9:
+                    <span class="token number">53</span>:cd:19:31:3e:28:5c:d4:83:5a:97:b7:87:fa:27:
+                    f6:b9:ea:d0:d5:5d:96:27:38:94:cb:92:de:9c:75:
+                    d0:0f:e0:bf:b2:1d:e9:3b:03:42:6c:dd:c1:40:c4:
+                    <span class="token number">12</span>:6b:9b:c7:1d:86:b1:a4:d4:d7:fb:5d:0d:cc:9c:
+                    e9:5c:59:91:2b:cf:cf:33:2a:89:c3:60:e9:ff:56:
+                    <span class="token number">46</span>:1e:92:88:a5:cc:e5:ff:cc:a9:f6:0d:18:9b:cb:
+                    bc:23:77:8f:f5:1d:e7:34:6d:11:bd:1e:b8:90:6f:
+                    <span class="token number">70</span>:2f:b6:93:1c:61:57:5c:2d:84:f1:2f:b7:a5:bf:
+                    <span class="token number">88</span>:cb:8b:aa:05:0e:51:cd:27:69:fd:f0:de:39:95:
+                    d3:b0:50:3b:cb:77:b4:46:3c:22:52:fa:41:ca:5f:
+                    <span class="token number">78</span>:f4:56:16:12:8f:b2:13:22:bf:f6:03:eb:1d:66:
+                    5f:08:0e:b5:3a:36:ed:fd:23:fd:86:d8:37:2f:92:
+                    e7:ce:95:5d:df:de:df:58:2d:59:0f:23:d1:9d:22:
+                    5a:18:b3:2f:75:8f:5d:44:e1:c6:df:e5:81:71:d2:
+                    a9:f1:f4:25:88:0b:06:d3:91:2f:c2:37:11:75:7b:
+                    <span class="token number">59</span>:00:48:8b:d2:54:20:65:28:94:a2:43:62:89:cb:
+                    <span class="token number">52</span>:db:1d:a8:d1:3d:88:34:ee:40:0a:ca:63:18:08:
+                    <span class="token number">91</span>:7b:22:2e:bf:ce:4d:a4:fc:22:14:e8:83:4a:ca:
+                    <span class="token number">73</span>:ef:4c:db:6d:02:44:89:72:a3:b3:d8:d7:80:7e:
+                    0a:f0:15:40:df:90:d2:2f:f5:96:ff:c3:5b:26:d6:
+                    f8:83:77:48:ec:d3:bf:bf:dc:50:3c:91:db:d9:e2:
+                    f9:4c:cc:33:47:2c:d7:a5:99:03:a5:c1:e1:51:1e:
+                    <span class="token number">17</span>:73:13:f1:4a:a9:0f:41:ab:d9:bc:74:6a:cd:e3:
+                    d3:40:35:c6:4e:0d:f8:07:8d:52:a4:ad:b5:80:19:
+                    a2:94:80:0b:eb:24:0a:80:e0:10:dc:a9:08:49:84:
+                    <span class="token number">40</span>:d9:fa:6e:16:0d:bd:cd:db:ae:48:fe:07:ba:0d:
+                    fc:fe:30:29:c3:40:48:e1:77:ef:95:0e:39:b0:cd:
+                    a6:e0:fd:a7:de:0a:67:58:56:cd:2d:bd:69:80:e0:
+                    cc:c2:f7:da:74:d2:03:52:96:3f:5f:4b:5b:87:5c:
+                    07:bc:30:31:98:43:ec:9c:47:7d:73:6f:c6:e2:f1:
+                    7a:02:1a:02:48:57:ce:e1:b7:dd:0d:ae:70:bc:56:
+                    <span class="token number">13</span>:8b:37:86:1f:e6:49:3b:c3:fa:18:da:a8:e8:57:
+                    f8:90:f7
+                Exponent: <span class="token number">65537</span> <span class="token punctuation">(</span>0x10001<span class="token punctuation">)</span>
+        X509v3 extensions:
+            X509v3 Subject Key Identifier:
+                B1:49:34:EF:7C:E5:A5:79:FC:D0:3A:D1:9F:65:D2:90:D8:1D:B9:64
+            X509v3 Authority Key Identifier:
+                B1:49:34:EF:7C:E5:A5:79:FC:D0:3A:D1:9F:65:D2:90:D8:1D:B9:64
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+    Signature Algorithm: sha512WithRSAEncryption
+    Signature Value:
+        0e:1b:45:83:ae:13:84:f8:76:5c:66:95:82:63:e9:82:89:90:
+        <span class="token number">74</span>:37:c4:06:16:23:36:ee:79:eb:55:23:f4:7f:fd:78:f8:57:
+        bf:73:b2:d3:5c:6a:a8:2c:97:22:b7:b7:86:66:50:ec:22:cb:
+        f2:1c:f5:45:1d:10:1b:20:76:fc:93:a2:8d:5a:16:91:1e:40:
+        8e:0f:d7:08:4b:6f:10:cb:10:85:51:67:d4:0a:31:14:a3:65:
+        f6:f2:3c:25:85:7c:a8:2c:46:fa:17:60:c2:14:4a:88:e7:b8:
+        <span class="token number">73</span>:30:1a:34:83:fa:96:8b:76:3b:61:6d:03:16:18:ee:10:9b:
+        f4:d5:2f:1d:04:52:4f:c1:c8:bf:c7:53:47:98:5a:d7:6f:6e:
+        f5:a7:c4:33:03:9d:e6:03:f1:70:2f:68:48:57:8f:a6:04:5c:
+        7f:f1:10:2e:3b:bc:5e:1c:14:16:e1:c6:2b:3c:d8:ca:fc:e2:
+        4b:5f:2a:67:73:30:64:03:03:c9:90:2c:18:b4:17:31:52:e5:
+        2a:a0:3d:cb:c3:cd:9d:d3:bd:07:9b:ba:71:c9:ae:a4:22:ca:
+        3f:f8:57:b5:ee:c5:b2:4a:9b:65:96:8b:d6:ad:cb:ec:4a:15:
+        f0:34:8a:3a:52:b1:ea:93:97:1a:59:cf:82:3f:26:4a:41:ce:
+        3a:2b:16:5a:03:58:86:c2:40:fc:d8:0f:64:d3:2f:a5:4b:49:
+        <span class="token number">19</span>:d7:df:73:6d:38:c8:9c:c8:d7:ae:a5:c9:f1:57:68:6b:2a:
+        ae:03:a6:fd:ab:08:9c:79:76:98:c4:41:03:c5:69:35:81:08:
+        c0:a1:21:92:1c:31:65:ae:df:10:b2:bf:4f:92:42:9a:40:8e:
+        <span class="token number">35</span>:9f:bf:86:e9:66:29:90:1b:cb:a4:d8:4c:36:ef:1d:6e:e5:
+        7e:e0:f8:af:04:8c:3a:d6:6a:31:2d:3d:13:62:7f:f7:bb:65:
+        ea:ed:9b:8a:cd:81:e8:76:bb:11:34:4a:b6:00:ea:48:f9:45:
+        9e:b3:db:33:b5:fc:2f:fa:b4:2b:dd:8a:00:fa:07:57:f1:76:
+        5b:33:bd:f2:78:e2:69:38:cb:08:50:49:ed:88:26:df:6d:fa:
+        c7:2b:ef:8e:fe:f8:ef:0e:f6:50:06:29:61:35:0c:a4:c5:93:
+        3e:98:c4:aa:fa:c3:8b:99:2e:7b:bd:db:33:74:8f:91:89:e5:
+        da:66:b5:c0:0f:18:0c:43:07:96:67:e8:fb:4c:76:68:fb:32:
+        <span class="token number">38</span>:06:da:3a:36:f4:43:3a:c5:dc:a0:bb:dd:a4:88:75:20:8b:
+        1a:7d:27:43:8e:71:4a:72:bc:42:99:82:83:9a:6c:05:3a:4a:
+        07:5a:77:65:f9:70:59:a8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  运行以下命令更新 CA 信任存储库，使系统信任新的根证书：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.Ubuntu系统
+  update-ca-certificates  
+  
+<span class="token number">2</span>.RHEL/CentOS <span class="token number">7</span>及更高版本）
+  update-ca-trust<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-2-生成服务器私钥及证书请求文件"><a href="#3-2-生成服务器私钥及证书请求文件" class="headerlink" title="3.2 生成服务器私钥及证书请求文件"></a>3.2 生成服务器私钥及证书请求文件</h2><p>  为 Harbor 仓库生成专属私钥和证书请求文件。</p>
+<p>  <code>CN=cncf.net</code> 是证书绑定的域名，后续 Harbor 将使用该域名访问。</p>
+<h3 id="3-2-1-生成服务器私钥文件"><a href="#3-2-1-生成服务器私钥文件" class="headerlink" title="3.2.1 生成服务器私钥文件"></a>3.2.1 生成服务器私钥文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 服务器私钥文件生成</span>
+openssl genrsa <span class="token parameter variable">-out</span> /usr/local/harbor/certs/cncf.net.key <span class="token number">4096</span>
+<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl genrsa -out cncf.net.key 4096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-2-2-生成证书请求文件"><a href="#3-2-2-生成证书请求文件" class="headerlink" title="3.2.2 生成证书请求文件"></a>3.2.2 生成证书请求文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openssl req <span class="token parameter variable">-sha512</span> <span class="token parameter variable">-new</span> <span class="token parameter variable">-subj</span> <span class="token string">"/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net"</span> <span class="token parameter variable">-key</span> /usr/local/harbor/certs/cncf.net.key <span class="token parameter variable">-out</span> /usr/local/harbor/certs/cncf.net.csr
+
+<span class="token comment"># 客户端私钥证书生成</span>
+<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl req -sha512 -new -subj "/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net" -key cncf.net.key -out cncf.net.csr</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>参数说明:</code></p>
+<p>  openssl req -sha512 -new：使用 SHA-512 哈希算法生成一个新的 CSR。</p>
+<p>  -subj “/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net”：指定 CSR 的主题信息：</p>
+<p>   /C=CN：国家代码，CN 表示中国。</p>
+<p>   /ST=SiChuan：州/省，SiChuan 表示四川。</p>
+<p>   /L=Chengdu：城市，Chengdu 表示成都。</p>
+<p>   /O=Company：组织名称，Company 表示公司。</p>
+<p>   /OU=CD：组织单位，CD 表示成都分部。</p>
+<p>   /CN=cncf.net：通用名称，表示证书的域名。</p>
+<p>  -key /usr/local/harbor/certs/cncf.net.key：使用之前生成的私钥，存储在 /usr/local/harbor/certs/cncf.net.key 文件中。</p>
+<p>  -out /usr/local/harbor/certs/cncf.net.csr：指定输出的 CSR 文件路径为 /usr/local/harbor/certs/cncf.net.csr。</p>
+<h2 id="3-3-多个域名请求"><a href="#3-3-多个域名请求" class="headerlink" title="3.3 多个域名请求"></a>3.3 多个域名请求</h2><p>  定义证书扩展信息，包括使用场景、密钥用途和域名绑定。</p>
+<p>  为刚才的证书颁发请求扩充请求内容，额外增加<code>cncf.com</code>等多个验证域名</p>
+<p>  <code>subjectAltName</code> 中的 <code>DNS.1 = cncf.com、DNS.2=harbor.cncf.net、DNS.3=harbor.cncf.local</code>是 Harbor 的访问域名。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 生成多个域名请求</span>
+<span class="token function">cat</span> <span class="token operator">&gt;</span> v3.ext <span class="token operator">&lt;&lt;-</span><span class="token string">EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+ 
+[alt_names]
+DNS.1=cncf.com
+DNS.2=harbor.cncf.net
+DNS.3=harbor.cncf.local
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-4-签发证书"><a href="#3-4-签发证书" class="headerlink" title="3.4 签发证书"></a>3.4 签发证书</h2><p>  使用自签名根证书为 Harbor 签发正式证书</p>
+<p>  证书有效期同样为 10 年</p>
+<p>  用创建的CA机构为证书颁发请求做最终的证书颁发</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#使用自签名CA签发证书</span>
+openssl x509 <span class="token parameter variable">-req</span> <span class="token parameter variable">-sha512</span> <span class="token parameter variable">-days</span> <span class="token number">3650</span> <span class="token parameter variable">-extfile</span> v3.ext <span class="token parameter variable">-CA</span> /usr/local/harbor/certs/ca.crt <span class="token parameter variable">-CAkey</span> /usr/local/harbor/certs/ca.ckey <span class="token parameter variable">-CAcreateserial</span> <span class="token parameter variable">-in</span> /usr/local/harbor/certs/cncf.net.csr <span class="token parameter variable">-out</span> /usr/local/harbor/certs/cncf.net.crt
+
+<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl x509 -req -sha512 -days 3650 -extfile v3.ext -CA ca.crt -CAkey ca.key -CAcreateserial -in cncf.net.csr -out cncf.net.crt</span>
+Certificate request self-signature ok
+<span class="token assign-left variable">subject</span><span class="token operator">=</span>C<span class="token operator">=</span>CN, <span class="token assign-left variable">ST</span><span class="token operator">=</span>SiChuan, <span class="token assign-left variable">L</span><span class="token operator">=</span>Chengdu, <span class="token assign-left variable">O</span><span class="token operator">=</span>Company, <span class="token assign-left variable">OU</span><span class="token operator">=</span>CD, <span class="token assign-left variable">CN</span><span class="token operator">=</span>cncf.net<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-5-信任根证书"><a href="#3-5-信任根证书" class="headerlink" title="3.5 信任根证书"></a>3.5 信任根证书</h2><p>  由于CA机构是自建的，所以在所有使用此CA颁发的证书位置，都需要信任此CA，才能自动信任由它颁发的证书</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.Ubuntu系统
+  update-ca-certificates  
+  
+<span class="token number">2</span>.RHEL/CentOS <span class="token number">7</span>及更高版本）
+  update-ca-trust<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="4-部署Harbor仓库"><a href="#4-部署Harbor仓库" class="headerlink" title="4 部署Harbor仓库"></a>4 部署Harbor仓库</h1><h2 id="4-1-部署Docker-CE"><a href="#4-1-部署Docker-CE" class="headerlink" title="4.1 部署Docker CE"></a>4.1 部署Docker CE</h2><h3 id="4-1-1-卸载旧版本"><a href="#4-1-1-卸载旧版本" class="headerlink" title="4.1.1 卸载旧版本"></a>4.1.1 卸载旧版本</h3><p>  在安装 Docker Engine 之前，需要卸载任何冲突的软件包。</p>
+<p>  Linux 发行版可能会提供非官方的 Docker 包，这可能会发生冲突 使用 Docker 提供的官方软件包。必须卸载这些包在安装正式版 Docker Engine 之前。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># dnf可能会报告您没有安装这些软件包。</span>
+<span class="token comment"># 存储在 卸载 Docker 时自动删除。/var/lib/docker/</span>
+<span class="token function">sudo</span> dnf remove <span class="token function">docker</span> <span class="token punctuation">\</span>
+                  docker-client <span class="token punctuation">\</span>
+                  docker-client-latest <span class="token punctuation">\</span>
+                  docker-common <span class="token punctuation">\</span>
+                  docker-latest <span class="token punctuation">\</span>
+                  docker-latest-logrotate <span class="token punctuation">\</span>
+                  docker-logrotate <span class="token punctuation">\</span>
+                  docker-engine <span class="token punctuation">\</span>
+                  <span class="token function">podman</span> <span class="token punctuation">\</span>
+                  runc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-1-2-使用-rpm-存储库安装"><a href="#4-1-2-使用-rpm-存储库安装" class="headerlink" title="4.1.2 使用 rpm 存储库安装"></a>4.1.2 使用 rpm 存储库安装</h3><p>  可以根据需要以不同的方式安装 Docker Engine：</p>
+<p>   可以<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/rhel/#install-using-the-repository">设置 Docker 的存储库</a>并安装，从他们那里方便安装和升级任务。这是推荐的方法。</p>
+<p>   可以下载 RPM 包，<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/rhel/#install-from-a-package">手动安装</a>，然后管理完全手动升级。适合在无法访问互联网的的系统上安装Docker。</p>
+<p>   在测试和开发环境中，可以使用自动化<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/rhel/#install-using-the-convenience-script">便利脚本</a>来安装 Docker。</p>
+<p><code>1.设置存储库</code></p>
+<p>  在首次在新主机上安装 Docker Engine 之前，需要设置 Docker 存储库。之后可以从存储库安装和更新 Docker 。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># yum install -y yum-utils device-mapper-persistent-data lvm2</span>
+<span class="token comment"># yum-config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo</span>
+
+<span class="token function">sudo</span> dnf <span class="token parameter variable">-y</span> <span class="token function">install</span> dnf-plugins-core
+<span class="token function">sudo</span> dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>2.安装 Docker 引擎</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.安装 Docker 包
+  <span class="token comment"># yum install -y docker-ce docker-ce-cli containerd.io</span>
+  <span class="token function">sudo</span> dnf <span class="token function">install</span> docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  
+<span class="token number">2</span>.启动 Docker 引擎
+  <span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> <span class="token function">docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-Docker-镜像加速器"><a href="#4-2-Docker-镜像加速器" class="headerlink" title="4.2 Docker 镜像加速器"></a>4.2 Docker 镜像加速器</h2><p>  添加Docker 镜像加速器，这里只限在国内部署时才需要加速，在国外这样加速反而缓慢</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/docker
+<span class="token function">sudo</span> <span class="token function">tee</span> /etc/docker/daemon.json <span class="token operator">&lt;&lt;-</span><span class="token string">'EOF'
+{
+  "registry-mirrors": [
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://mirror.baidubce.com",
+        "https://docker.m.daocloud.io",
+        "https://mirror.ccs.tencentyun.com",
+        "https://docker.nju.edu.cn",
+        "https://docker.mirrors.sjtug.sjtu.edu.cn",
+        "https://mirror.gcr.io",
+        "https://docker.registry.cyou",
+        "https://docker-cf.registry.cyou",
+        "https://dockercf.jsdelivr.fyi",
+        "https://docker.jsdelivr.fyi",
+        "https://dockertest.jsdelivr.fyi",
+        "https://mirror.aliyuncs.com",
+        "https://dockerproxy.com"
+   ],
+   "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF</span>
+
+systemctl daemon-reload
+systemctl restart <span class="token function">docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-3-添加Compose支持"><a href="#4-3-添加Compose支持" class="headerlink" title="4.3 添加Compose支持"></a>4.3 添加Compose支持</h2><p>  下载并安装 Docker Compose 二进制文件，重载 systemd 并重启 Docker 服务，确保配置生效。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token string">"https://github.com/docker/compose/releases/download/v2.40.2/docker-compose-linux-x86_64"</span> <span class="token parameter variable">-o</span> /usr/local/bin/docker-compose
+
+<span class="token comment"># 对二进制文件赋可执行权限</span>
+<span class="token function">chmod</span> +x /usr/local/bin/docker-compose
+<span class="token function">sudo</span> systemctl daemon-reload
+<span class="token function">sudo</span> systemctl restart <span class="token function">docker</span>
+
+
+<span class="token comment"># 测试docker-compose是否安装成功</span>
+<span class="token punctuation">[</span>root@Harbor ~<span class="token punctuation">]</span><span class="token comment"># docker-compose version</span>
+Docker Compose version v2.40.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-4-下载并安装Harbor"><a href="#4-4-下载并安装Harbor" class="headerlink" title="4.4 下载并安装Harbor"></a>4.4 下载并安装Harbor</h2><p>  下载 Harbor 离线安装包，解压到指定目录，并加载 Harbor 所需的镜像。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://github.com/goharbor/harbor/releases/download/v2.14.0/harbor-offline-installer-v2.14.0.tgz
+<span class="token function">tar</span> xf harbor-offline-installer-v2.14.0.tgz <span class="token parameter variable">-C</span> /usr/local/bin
+<span class="token builtin class-name">cd</span> /usr/local/bin/harbor
+
+<span class="token comment"># 将名为harbor.v2.14.0.tar.gz的Docker镜像归档文件加载到本地镜像库</span>
+<span class="token function">docker</span> load <span class="token parameter variable">-i</span> harbor.v2.14.0.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  在harbor.yml中，修改以下参数，定义了网址、证书、密码:</p>
+<p>   设置 Harbor 的访问域名为 <code>registry.luoharbor.cn</code>。</p>
+<p>   指定 HTTPS 使用的证书和私钥路径。</p>
+<p>   设置管理员密码为 <code>admin</code>。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@Harbor harbor<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">656308</span>
+-rw-r--r-- <span class="token number">1</span> root root      <span class="token number">3646</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 common.sh
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">672014938</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 harbor.v2.14.0.tar.gz
+-rw-r--r-- <span class="token number">1</span> root root     <span class="token number">14688</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 harbor.yml.tmpl
+-rwxr-xr-x <span class="token number">1</span> root root      <span class="token number">1975</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 install.sh
+-rw-r--r-- <span class="token number">1</span> root root     <span class="token number">11347</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 LICENSE
+-rwxr-xr-x <span class="token number">1</span> root root      <span class="token number">2211</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 prepare
+<span class="token punctuation">[</span>root@Harbor harbor<span class="token punctuation">]</span><span class="token comment"># mv harbor.yml.tmpl harbor.yml</span>
+<span class="token punctuation">[</span>root@Harbor harbor<span class="token punctuation">]</span><span class="token comment"># vim harbor.yml</span>
+<span class="token number">1</span>.修改hostname为harbor.cncf.net
+<span class="token number">2</span>.修改https处的certificate为/usr/local/harbor/certs/cncf.net.crt
+<span class="token number">3</span>.修改https处的private_key为/usr/local/harbor/certs/cncf.net.key
+<span class="token number">4</span>.修改harbor_admin_password为admin
+<span class="token number">5</span>.修改https访问时端口号为447
+<span class="token number">6</span>.修改 data_volume: /data/harbor_data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  prepare 会检查配置并生成必要的文件。</p>
+<p>  install.sh 执行 Harbor 的安装过程，启动所有服务组件。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./prepare
+./install.sh
+
+<span class="token punctuation">[</span>root@Harbor harbor<span class="token punctuation">]</span><span class="token comment"># ./install.sh</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token punctuation">[</span>Step <span class="token number">5</span><span class="token punctuation">]</span>: starting Harbor <span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Running <span class="token number">10</span>/10
+ ✔ Network harbor_harbor        Created                                                             <span class="token number">0</span>.1s
+ ✔ Container harbor-log         Started                                                             <span class="token number">0</span>.3s
+ ✔ Container registry           Started                                                             <span class="token number">0</span>.8s
+ ✔ Container harbor-db          Started                                                             <span class="token number">0</span>.7s
+ ✔ Container harbor-portal      Started                                                             <span class="token number">0</span>.9s
+ ✔ Container redis              Started                                                             <span class="token number">0</span>.9s
+ ✔ Container registryctl        Started                                                             <span class="token number">0</span>.6s
+ ✔ Container harbor-core        Started                                                             <span class="token number">1</span>.1s
+ ✔ Container harbor-jobservice  Started                                                             <span class="token number">1</span>.6s
+ ✔ Container nginx              Started                                                             <span class="token number">1</span>.6s
+✔ ----Harbor has been installed and started successfully.----<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-5-生成服务文件"><a href="#4-5-生成服务文件" class="headerlink" title="4.5 生成服务文件"></a>4.5 生成服务文件</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/systemd/system/harbor.service <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+[Unit]
+Description=Harbor
+After=docker.service systemd-networkd.service systemd-resolved.service
+Requires=docker.service
+Documentation=http://github.com/vmware/harbor
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/local/bin/docker-compose -f /usr/local/bin/harbor/docker-compose.yml up
+ExecStop=/usr/local/bin/docker-compose -f /usr/local/bin/harbor/docker-compose.yml down
+[Install]
+WantedBy=multi-user.target
+EOF</span>
+<span class="token function">sudo</span> systemctl daemon-reload
+systemctl <span class="token builtin class-name">enable</span> harbor <span class="token parameter variable">--now</span>
+
+
+<span class="token comment"># harbor修改配置文件后重启</span>
+<span class="token function">docker-compose</span> down
+./prepare
+<span class="token function">docker-compose</span> up –d　<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-6-页面访问测试"><a href="#4-6-页面访问测试" class="headerlink" title="4.6 页面访问测试"></a>4.6 页面访问测试</h2><p>  地址: <a href="https://203.15.9.197:447、https://harbor.cncf.net:447">https://203.15.9.197:447、https://harbor.cncf.net:447</a></p>
+<p><img src="/images/harbor%E4%B8%BB%E9%A1%B5%E9%9D%A2.png"></p>
+<p>  <code>Windows在hosts文件配置域名解析后，可实现域名访问</code></p>
+<h1 id="5-推送镜像到harbor"><a href="#5-推送镜像到harbor" class="headerlink" title="5 推送镜像到harbor"></a>5 推送镜像到harbor</h1><p>  登录 Harbor 仓库。</p>
+<p>  使用 <code>tag</code> 命令将本地镜像重命名为符合 Harbor 格式的路径。</p>
+<p>  使用 <code>push</code> 命令将镜像上传到 Harbor 仓库。</p>
+<p><code>上传前请确保所有机器 </code>/etc/hosts<code>文件中已添加</code>harbor.cncf.net<code> 的 IP 映射。</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cat /etc/hosts</span>
+<span class="token number">127.0</span>.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+<span class="token number">192.168</span>.8.4 k8s-master
+<span class="token number">192.168</span>.8.5 k8s-node1
+<span class="token number">192.168</span>.8.6 k8s-node2
+<span class="token number">203.15</span>.9.197 harbor.cncf.net
+<span class="token number">203.15</span>.9.197 cncf.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-1-Containerd容器"><a href="#5-1-Containerd容器" class="headerlink" title="5.1 Containerd容器"></a>5.1 Containerd容器</h2><h3 id="5-1-1-配置harbor证书"><a href="#5-1-1-配置harbor证书" class="headerlink" title="5.1.1 配置harbor证书"></a>5.1.1 配置harbor证书</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建证书目录</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># sudo mkdir -p /etc/containerd/certs.d/harbor.cncf.net:447</span>
+
+<span class="token comment"># 将Harbor的CA证书复制到该目录</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># sudo cp ca.crt /etc/containerd/certs.d/harbor.cncf.net:447</span>
+
+<span class="token comment"># 重启containerd服务</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart containerd.service</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-2-登录harbor"><a href="#5-1-2-登录harbor" class="headerlink" title="5.1.2 登录harbor"></a>5.1.2 登录harbor</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl login harbor.cncf.net:447 -u admin -p admin</span>
+WARN<span class="token punctuation">[</span>0000<span class="token punctuation">]</span> WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+
+WARNING<span class="token operator">!</span> Your credentials are stored unencrypted <span class="token keyword">in</span> <span class="token string">'/root/.docker/config.json'</span><span class="token builtin class-name">.</span>
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-3-标记与推送镜像"><a href="#5-1-3-标记与推送镜像" class="headerlink" title="5.1.3 标记与推送镜像"></a>5.1.3 标记与推送镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl tag nginx:latest harbor.cncf.net:447/library/nginx:latest</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl images</span>
+REPOSITORY                  TAG        IMAGE ID        CREATED          PLATFORM       SIZE       BLOB SIZE
+harbor.cncf.net:447/library/nginx   latest  33e0bbc7ca9e  <span class="token number">3</span> seconds ago    linux/amd64    <span class="token number">203</span>.9MB    <span class="token number">72</span>.31MB
+nginx                               latest  33e0bbc7ca9e  <span class="token number">3</span> days ago       linux/amd64    <span class="token number">203</span>.9MB    <span class="token number">72</span>.31MB
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl push harbor.cncf.net:447/library/nginx:latest</span>
+INFO<span class="token punctuation">[</span>0000<span class="token punctuation">]</span> pushing as a reduced-platform image <span class="token punctuation">(</span>application/vnd.oci.image.index.v1+json, sha256:3b248d21c1607a559f28263c7675dbf412234c938bdcb3a04b1c808a48b57fc9<span class="token punctuation">)</span>
+index-sha256:3b248d21c1607a559f28263c7675dbf412234c938bdcb3a04b1c808a48b57fc9:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+manifest-sha256:f15190cd0aed34df2541e6a569d349858dd83fe2a519d7c0ec023133b6d3c4f7: <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:c3741b707ce659db0b820eef3d7277607c8fcc73494e162cb6d349f5799b16c8:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:b1badc6e50664185acfaa0ca255d8076061c2a9d881cecaaad281ae11af000ce:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:e5d9bb0b85cc4679fa056599af85512f519647fc66ac34366bfe010a35655d05:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:14a859b5ba2476efceab3febd8bbb2a45d9e4512e3dc517ace62011249bb25bc:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:716cdf61af5980e38ce793a90c1add1c40c93cc9371c2370705497ed3c48a77a:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:14e422fd20a0170c368a8b40a1d145de07fcf31cf075f77861f2231fa5bd7936:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:a2da0c0f2353a40d540821152b3b9453660db34259766b1ce68b0b1f708435fd:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+config-sha256:ad5708199ec7d169c6837fe46e1646603d0f7d0a0f54d3cd8d07bc1c818d0224:   <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+elapsed: <span class="token number">5.5</span> s                                                                   total:  <span class="token number">69.0</span> M <span class="token punctuation">(</span><span class="token number">12.5</span> MiB/s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-4-拉取镜像"><a href="#5-1-4-拉取镜像" class="headerlink" title="5.1.4 拉取镜像"></a>5.1.4 拉取镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl rmi 8532d21c0c85</span>
+Untagged: harbor.cncf.net:447/library/calico/node:v1.38.7@sha256:8532d21c0c85ca22e337c3125e84c575d77b6d59faae181e2cdd0adfd3abd1bf
+Deleted: sha256:cbd5904e5fe4dc542c6005841bd8de76534dc402d6788fed3014057b89ef8069
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl images</span>
+REPOSITORY                  TAG        IMAGE ID        CREATED         PLATFORM       SIZE       BLOB SIZE
+harbor.cncf.net:447/library/nginx  latest 33e0bbc7ca9e    <span class="token number">38</span> hours ago    linux/amd64    <span class="token number">203</span>.9MB    <span class="token number">72</span>.31MB
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl pull harbor.cncf.net:447/library/calico/node:v1.38.7</span>
+harbor.cncf.net:447/library/calico/node:v1.38.7:                                  resolved       <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+index-sha256:8532d21c0c85ca22e337c3125e84c575d77b6d59faae181e2cdd0adfd3abd1bf:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+manifest-sha256:b6c92e535b935575f48092edadcfaec716ebce53f1fbc56d312744e86ce0fb17: <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+config-sha256:833e8e11d9dc187377eab6f31e275114a6b0f8f0afc3bf578a2a00507e85afc9:   <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+elapsed: <span class="token number">1.2</span> s                                                                    total:   <span class="token number">0.0</span> B <span class="token punctuation">(</span><span class="token number">0.0</span> B/s<span class="token punctuation">)</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl images</span>
+REPOSITORY       TAG        IMAGE ID        CREATED          PLATFORM       SIZE       BLOB SIZE
+harbor.cncf.net:447/library/calico/node v1.38.7 8532d21c0c85 <span class="token number">3</span> seconds ago linux/amd64    <span class="token number">403</span>.9MB    <span class="token number">156</span>.9MB
+harbor.cncf.net:447/library/nginx  latest     33e0bbc7ca9e    <span class="token number">38</span> hours ago linux/amd64    <span class="token number">203</span>.9MB    <span class="token number">72</span>.31MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-2-Docker容器"><a href="#5-2-Docker容器" class="headerlink" title="5.2 Docker容器"></a>5.2 Docker容器</h2><h3 id="5-2-1-docker镜像操作"><a href="#5-2-1-docker镜像操作" class="headerlink" title="5.2.1 docker镜像操作"></a>5.2.1 docker镜像操作</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.拉取镜像
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull httpd</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull nginx</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull registry.myk8s.cn/library/httpd</span>
+
+<span class="token number">2</span>.查看镜像
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
+REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
+nginx                             latest    657fdcd1c365   <span class="token number">2</span> weeks ago    152MB
+httpd                             latest    4613a77dcb46   <span class="token number">2</span> months ago   117MB
+registry.myk8s.cn/library/httpd   latest    199e3a035264   <span class="token number">2</span> months ago   117MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-2-配置harbor证书"><a href="#5-2-2-配置harbor证书" class="headerlink" title="5.2.2 配置harbor证书"></a>5.2.2 配置harbor证书</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># sudo mkdir -p /etc/docker/certs.d/harbor.cncf.net:447</span>
+
+<span class="token comment"># 将Harbor的CA证书复制到该目录</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># sudo cp ca.crt /etc/docker/certs.d/harbor.cncf.net:447</span>
+
+<span class="token comment"># 重启docker服务</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-3-登录harbor"><a href="#5-2-3-登录harbor" class="headerlink" title="5.2.3 登录harbor"></a>5.2.3 登录harbor</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker login harbor.cncf.net:447 -u admin -p admin</span>
+WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-4-标记与推送镜像"><a href="#5-2-4-标记与推送镜像" class="headerlink" title="5.2.4 标记与推送镜像"></a>5.2.4 标记与推送镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.标记镜像
+  <span class="token function">docker</span> tag SOURCE_IMAGE<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span> harbor.cncf.net:447/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
+REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
+nginx                             latest    657fdcd1c365   <span class="token number">2</span> weeks ago    152MB
+httpd                             latest    4613a77dcb46   <span class="token number">2</span> months ago   117MB
+registry.myk8s.cn/library/httpd   latest    199e3a035264   <span class="token number">2</span> months ago   117MB
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker tag httpd:latest harbor.cncf.net:447/library/httpd:v1</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
+REPOSITORY                          TAG       IMAGE ID       CREATED        SIZE
+nginx                               latest    657fdcd1c365   <span class="token number">2</span> weeks ago    152MB
+registry.myk8s.cn/library/httpd     latest    199e3a035264   <span class="token number">2</span> months ago   117MB
+httpd                               latest    4613a77dcb46   <span class="token number">2</span> months ago   117MB
+harbor.cncf.net:447/library/httpd   v1        4613a77dcb46   <span class="token number">2</span> months ago   117MB
+
+<span class="token number">2</span>.推送镜像到harbor
+  <span class="token function">docker</span> push harbor.cncf.net:447/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span>
+  
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker push harbor.cncf.net:447/library/httpd:v1</span>
+The push refers to repository <span class="token punctuation">[</span>harbor.cncf.net:447/library/httpd<span class="token punctuation">]</span>
+dfc51b2a5ad4: Pushed
+f8c308326eb4: Pushed
+9b9125eabbd9: Pushed
+5f70bf18a086: Pushed
+1a46d6e7f73c: Pushed
+d7c97cb6f1fe: Pushed
+v1: digest: sha256:103310f78680698fafe7ac7bbf654a7024b3cdb7e43a33e873318a510489618f size: <span class="token number">1572</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-5-拉取镜像"><a href="#5-2-5-拉取镜像" class="headerlink" title="5.2.5 拉取镜像"></a>5.2.5 拉取镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull harbor.cncf.net:447/library/calico/node:v1.38.7</span>
+v1.38.7: Pulling from library/calico/node
+44c2028a3ff8: Pull complete
+Digest: sha256:8532d21c0c85ca22e337c3125e84c575d77b6d59faae181e2cdd0adfd3abd1bf
+Status: Downloaded newer image <span class="token keyword">for</span> harbor.cncf.net:447/library/calico/node:v1.38.7
+harbor.cncf.net:447/library/calico/node:v1.38.7
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
+REPOSITORY                                TAG       IMAGE ID       CREATED        SIZE
+harbor.cncf.net:447/library/calico/node   v1.38.7   833e8e11d9dc   <span class="token number">11</span> days ago    401MB
+nginx                                     latest    657fdcd1c365   <span class="token number">2</span> weeks ago    152MB
+httpd                                     latest    4613a77dcb46   <span class="token number">2</span> months ago   117MB
+harbor.cncf.net:447/library/httpd         v1        4613a77dcb46   <span class="token number">2</span> months ago   117MB
+registry.myk8s.cn/library/httpd           latest    199e3a035264   <span class="token number">2</span> months ago   117MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">罗宇</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://linuxcenter.icu/2025/07/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/">https://linuxcenter.icu/2025/07/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">罗宇</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E9%83%A8%E7%BD%B2Harbor%E7%A7%81%E6%9C%89%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/">
+                                    <span class="chip bg-color">部署Harbor私有镜像仓库</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/07/01/kubernetes/da-jian-kubernetes-ji-qun/">
+                    <div class="card-image">
+                        
+                        <img src="/img/k8s-icon.jpg" class="responsive-img" alt="搭建Kubernetes集群">
+                        
+                        <span class="card-title">搭建Kubernetes集群</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            在企业级项目中，Kubernetes与Spring Boot和Spring Cloud结合使用，帮助企业快速构建高效、可扩展、可维护的微服务系统
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%90%AD%E5%BB%BAKubernetes%E9%9B%86%E7%BE%A4/">
+                        <span class="chip bg-color">搭建Kubernetes集群</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/29/kubernetes/kubernetes-guan-li-gong-ju/">
+                    <div class="card-image">
+                        
+                        <img src="/img/k8s%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86.jpeg" class="responsive-img" alt="Kubernetes管理工具">
+                        
+                        <span class="card-title">Kubernetes管理工具</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Kubernetes管理工具主要分为部署、运维、可视化三大类，可以方便、快捷的部署与管理k8s平台，支持集群创建、运维等各种复杂场景的使用。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">Kubernetes管理工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i
+                    class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script
+    src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+        <footer class="page-footer bg-color">
+    
+    <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="6402467630"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align"
+        style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+            <span id="year">2021-2025</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">罗宇</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/"
+                target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a
+                href="https://github.com/blinkfox/hexo-theme-matery"
+                target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">183.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span
+                    id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span
+                    id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            
+            <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2021";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+<a href="https://github.com/luovip/tecBlog.github.io" class="tooltipped" target="_blank"
+    data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fab fa-github"></i>
+</a>
+
+
+
+<a href="mailto:luovipyu@163.com" class="tooltipped"
+    target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fas fa-envelope-open"></i>
+</a>
+
+
+
+<a
+    href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=252414302"
+    class="tooltipped" target="_blank"
+    data-tooltip="QQ联系我: 252414302" data-position="top"
+    data-delay="50">
+    <i class="fab fa-qq"></i>
+</a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+        <script
+            src="/libs/materialize/materialize.min.js"></script>
+        <script
+            src="/libs/masonry/masonry.pkgd.min.js"></script>
+        <script
+            src="/libs/aos/aos.js"></script>
+        <script
+            src="/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script
+            src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script
+            src="/js/matery.js"></script>
+
+        <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+        <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+        
+        <script
+            src="/libs/others/clicklove.js"
+            async="async"></script>
+        
+        
+        <script async
+            src="/libs/others/busuanzi.pure.mini.js"></script>
+        
+
+        
+
+        
+
+        
+        
+        <script type="text/javascript" color="64,224,208"
+            pointColor="0,0,255"
+            opacity='0.5'
+            zIndex="-1"
+            count="100"
+            src="/libs/background/canvas-nest.js"></script>
+        
+
+        
+        
+        <script type="text/javascript" size="150"
+            alpha='0.6'
+            zIndex="-1"
+            src="/libs/background/ribbon.min.js"
+            async="async"></script>
+        
+
+        
+        <script type="text/javascript"
+            src="/libs/background/ribbon-dynamic.js"
+            async="async"></script>
+        
+
+        
+        <script
+            src="/libs/instantpage/instantpage.js"
+            type="module"></script>
+        
+        <!-- 冒泡 -->
+        
+        <script type="text/javascript">
+        // 只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        document.write(
+            '<script type="text/javascript" src="/libs/others/buble.js"><\/script>'
+        );
+    </script>
+        
+        <script type="text/javascript">
+    var a_idx = 0;
+jQuery(document).ready(function ($) {
+    $("body").click(function (e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+            y = e.pageY;
+        $i.css({
+            "z-index": 5,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": "#FF0000"
+        });
+        $("body").append($i);
+        $i.animate({
+                "top": y - 180,
+                "opacity": 0
+            },
+            3000,
+            function () {
+                $i.remove();
+            });
+    });
+    setTimeout('delay()', 2000);
+});
+ 
+function delay() {
+    $(".buryit").removeAttr("onclick");
+}
+ 
+    </script>
+        <script type="text/javascript" src="/js/mouse_snow.js"></script>
+
+        <!-- 动态标签栏 -->
+        <script type="text/javascript">
+      var OriginTitile = document.title, st; 
+      document.addEventListener("visibilitychange", function () { 
+        document.hidden ? (document.title = "爱我，别走！", clearTimeout(st)) : (document.title = "咦，你来啦！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) 
+    </script>
+
+    </body>
+
+</html>

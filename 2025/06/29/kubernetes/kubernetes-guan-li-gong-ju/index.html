@@ -1,0 +1,1978 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Kubernetes管理工具, Linux技术博客">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Kubernetes管理工具 | Linux技术博客</title>
+    <link rel="icon" type="image/png"
+        href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css"
+        href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/matery.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/my.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/loading.css">
+
+    <script
+        src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+    
+    <style>
+    body{
+       background-image: url(/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+    
+    <body>
+        <div class="stars-con">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
+        <svg aria-hidden="true"
+            style="position: absolute; overflow: hidden; width: 0; height: 0">
+            <symbol id="icon-sun" viewBox="0 0 1024 1024">
+                <path
+                    d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z"
+                    fill="#FFD878" p-id="8420"></path>
+                <path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z"
+                    fill="#FFE4A9" p-id="8421"></path>
+                <path
+                    d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z"
+                    fill="#4D5152" p-id="8422"></path>
+                <path
+                    d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z"
+                    fill="#4D5152" p-id="8423"></path>
+            </symbol>
+            <symbol id="icon-moon" viewBox="0 0 1024 1024">
+                <path
+                    d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z"
+                    fill="#FFB531" p-id="11345"></path>
+                <path
+                    d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z"
+                    fill="#030835" p-id="11346"></path>
+            </symbol>
+        </svg>
+        <a onclick="switchNightMode()" class="icon-V hidden" title="切换主题">
+            <svg width="48" height="48" viewBox="0 0 1024 1024">
+                <use id="modeicon" xlink:href="#icon-moon"></use>
+            </svg>
+        </a>
+        <script>
+      function checkNightMode() {
+        '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
+      }
+      function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+          setTimeout(function () {
+            $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+              setTimeout(function () {
+                $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                  $(this).remove()
+                })
+              }, 2e3)
+          })
+      }
+      function switchNightModeTop() {
+        $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
+      }
+    </script>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Linux技术博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Linux技术博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/luovip/tecBlog.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/luovip/tecBlog.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/img/k8s%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86.jpeg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Kubernetes管理工具</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet"
+    href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+        background-color: rgb(255, 255, 255,0.7);
+        border-radius: 10px;
+        box-shadow: 0 10px 35px 2px rgba(0, 0, 0, .15), 0 5px 15px rgba(0, 0, 0, .07), 0 2px 5px -5px rgba(0, 0, 0, .1) !important;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+    #toc-content .toc-link:hover {
+        color: #f40;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #f40;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+                                <span class="chip bg-color">Kubernetes管理工具</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                Kubernetes
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-29
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-11-01
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    32 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-Rancher"><a href="#1-Rancher" class="headerlink" title="1 Rancher"></a>1 Rancher</h1><p>  Rancher是一个开源软件平台，使组织能够在生产中运行和管理Docker和Kubernetes。使用Rancher，组织不再需要使用一套独特的开源技术从头开始构建<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/tke?from_column=20065&amp;from=20065">容器服务</a>平台。Rancher提供了管理生产中的容器所需的整个软件堆栈。</p>
+<p>  在 Kubernetes 环境中部署 Rancher 是构建企业级容器管理平台的重要一步。以云服务器环境为介绍如何使用 Helm 安装 Rancher，包括准备 Helm 工具、配置 Ingress Controller、安装 cert-manager 以及部署 Rancher Server 的完整流程。通过自签名证书方式实现安全访问。</p>
+<p>  官网：<a target="_blank" rel="noopener" href="https://www.rancher.com/">https://www.rancher.com/</a></p>
+<p>  中文官网：<a target="_blank" rel="noopener" href="https://www.rancher.cn/">https://www.rancher.cn/</a></p>
+<h2 id="1-1-什么是-Rancher？"><a href="#1-1-什么是-Rancher？" class="headerlink" title="1.1 什么是 Rancher？"></a>1.1 什么是 Rancher？</h2><p>  Rancher 是一个 Kubernetes 管理工具，能在任何地方和任何提供商上部署和运行集群。</p>
+<p>  <strong>Rancher UI</strong>‌：支持多语言（含中文），覆盖企业级复杂场景</p>
+<p>  Rancher 可以创建来自 Kubernetes 托管服务提供商的集群，创建节点并安装 Kubernetes，或者导入在任何地方运行的现有 Kubernetes 集群。开源企业级平台，支持多集群管理和生产级容器运维。</p>
+<p>  Rancher 基于 Kubernetes 添加了新的功能，包括统一所有集群的身份验证和 RBAC，让系统管理员从一个位置控制全部集群的访问。</p>
+<p>  Rancher 可以为集群和资源提供更精细的监控和告警，将日志发送到外部提供商，并通过应用商店（Application Catalog）直接集成 Helm。如果拥有外部 CI/CD 系统，可以将其与 Rancher 对接。没有的话，你也可以使用 Rancher 提供的 Fleet 自动部署和升级工作负载。</p>
+<p>  Rancher 是一个<code>全栈式</code>的 Kubernetes 容器管理平台，是一个在任何地方都能成功运行 Kubernetes 的工具。</p>
+<h2 id="1-2-Rancher概述"><a href="#1-2-Rancher概述" class="headerlink" title="1.2 Rancher概述"></a>1.2 Rancher概述</h2><p>  Rancher 是一个为使用容器的公司打造的容器管理平台。Rancher 使得开发者可以随处运行 Kubernetes（Run Kubernetes Everywhere），满足 IT 需求规范，赋能 DevOps 团队。</p>
+<h3 id="1-2-1-Run-Kubernetes-Everywhere"><a href="#1-2-1-Run-Kubernetes-Everywhere" class="headerlink" title="1.2.1 Run Kubernetes Everywhere"></a>1.2.1 Run Kubernetes Everywhere</h3><p>  Kubernetes已经成为容器编排标准。现在，大多数云和虚拟化提供商都提供容器编排服务。</p>
+<p>  Rancher 用户可以选择使用 Rancher Kubernetes distributions（RKE2/K3s）或云 Kubernetes 服务（例如 GKE、AKS 和 EKS）创建 Kubernetes 集群，还可以导入和管理使用任何 Kubernetes 发行版或安装程序创建的现有 Kubernetes 集群。</p>
+<h3 id="1-2-2-满足-IT-需求规范"><a href="#1-2-2-满足-IT-需求规范" class="headerlink" title="1.2.2 满足 IT 需求规范"></a>1.2.2 满足 IT 需求规范</h3><p>  <code>Rancher 支持对其控制的所有 Kubernetes 集群进行集中认证、访问控制和监控。例如：</code></p>
+<p>   使用 Active Directory 凭证访问由云提供商（例如 GKE）托管的 Kubernetes 集群。</p>
+<p>   设置所有用户、组、项目、集群和云服务的权限控制策略和安全策略。</p>
+<p>   一站式查看 Kubernetes 集群的运行状况和容量。</p>
+<h3 id="1-2-3-赋能-DevOps-团队"><a href="#1-2-3-赋能-DevOps-团队" class="headerlink" title="1.2.3 赋能 DevOps 团队"></a>1.2.3 赋能 DevOps 团队</h3><p>  Rancher 为 DevOps 工程师提供简单直接的用户界面，以管理其应用负载。不需要对 Kubernetes 有非常深入的了解，即可使用 Rancher。</p>
+<p>  Rancher 应用商店包含一套实用的 DevOps 开发工具。Rancher 获得了多种云原生生态系统产品的认证，包括安全工具、监控系统、容器镜像仓库、存储和网络驱动等。</p>
+<p>  <code>下图讲述了 Rancher 在 IT 管理团队和 DevOps 开发团队之间扮演的角色。DevOps 团队把应用部署在选择的公有云或私有云上。IT 管理员负责查看并管理用户、集群、云服务的权限。</code></p>
+<p><img src="/images/%E8%B5%8B%E8%83%BDDevOps.png"></p>
+<h3 id="1-2-4-Rancher-API-Server-的功能"><a href="#1-2-4-Rancher-API-Server-的功能" class="headerlink" title="1.2.4 Rancher API Server 的功能"></a>1.2.4 Rancher API Server 的功能</h3><p>  Rancher API Server 是基于嵌入式 Kubernetes API Server 和 etcd 数据库建立的，提供了以下功能：</p>
+<p>  <code>1.授权和基于角色的权限控制（RBAC）</code></p>
+<p>   <strong>用户管理</strong>：Rancher API Server 除了管理本地用户，还<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/authentication-permissions-and-global-configuration/authentication-config">管理用户用来访问外部服务所需的认证信息</a>，如登录 Active Directory 和  GitHub 所需的账号密码。</p>
+<p>   <strong>授权</strong>：Rancher API Server 可以管理<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/authentication-permissions-and-global-configuration/manage-role-based-access-control-rbac">访问控制策略</a>和<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/authentication-permissions-and-global-configuration/pod-security-standards">安全标准</a>。</p>
+<p>  <code>2.使用 Kubernetes 的功能</code></p>
+<p>   <strong>配置 Kubernetes 集群</strong>：Rancher API Server 可以在已有节点上<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup">配置 Kubernetes</a>，或进行 <a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/getting-started/installation-and-upgrade/upgrade-and-roll-back-kubernetes">Kubernetes 版本升级</a>。</p>
+<p>   <strong>管理应用商店</strong>：Rancher 支持使用 <a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/helm-charts-in-rancher">Helm Chart 应用商店</a>实现轻松重复部署应用。</p>
+<p>   <strong>管理项目</strong>：项目由集群中多个命名空间和访问控制策略组成，是 Rancher 中的一个概念，Kubernetes 中并没有这个概念。可以使用项目实现以组为单位，管理多个命名空间，并进行 Kubernetes 相关操作。Rancher UI 提供用于<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/advanced-user-guides/manage-projects">项目管理</a>和<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/kubernetes-resources-setup">项目内应用管理</a>的功能。</p>
+<p>   <strong>Fleet 持续交付</strong>：Rancher中可以使用 <a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/integrations-in-rancher/fleet">Fleet 持续交付</a>将应用程序从 Git 仓库部署到目标下游 Kubernetes 集群，无需任何手动操作。</p>
+<p>   <strong>Istio</strong>：<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/integrations-in-rancher/istio">Rancher 与 Istio 集成</a>使得管理员或集群所有者可以将 Istio 交给开发者，然后开发者使用 Istio 执行安全策略，排查问题，或为蓝绿部署、金丝雀部署，和 A/B 测试进行流量管理。</p>
+<p>  <code>3.配置云基础设施</code></p>
+<p>   <strong>同步节点信息</strong>：Rancher API Server 可以同步所有集群中全部<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/nodes-and-node-pools">节点</a>的信息。</p>
+<p>   <strong>配置云基础设施</strong>：如果为 Rancher 配置了云提供商，Rancher 可以在云端动态配置<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/launch-kubernetes-with-rancher/use-new-nodes-in-an-infra-provider">新节点</a>和<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/create-kubernetes-persistent-storage">持久化存储</a>。</p>
+<p>  <code>4.查看集群信息</code></p>
+<p>   <strong>日志管理</strong>：Rancher 可以与多种 Kubernetes 集群之外的主流日志管理工具集成。</p>
+<p>   <strong>监控</strong>：可以使用 Rancher，通过业界领先并开源的 Prometheus 来监控集群节点、Kubernetes 组件和软件部署的状态和进程。</p>
+<p>   <strong>告警</strong>：为了保证集群和应用的正常运行，提高公司的生产效率，需要随时了解集群和项目的计划内和非计划事件。</p>
+<p>  <code>5.使用 Rancher 编辑下游集群</code></p>
+<p>   对于已有集群而言，可提供的选项和设置取决于配置集群的方法。</p>
+<p>   使用 Rancher 创建集群后，集群管理员可以管理集群成员，管理节点池，或进行<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/reference-guides/cluster-configuration">其他操作</a>。</p>
+<p>   下表总结了每一种类型的集群和对应的可编辑的选项和设置：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Rancher 启动的 Kubernetes 集群</th>
+<th>EKS、GKE 和 AKS 集群1</th>
+<th>其他托管的 Kubernetes 集群</th>
+<th>非 EKS 或 GKE 注册集群</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/access-clusters/use-kubectl-and-kubeconfig">使用 kubectl 和 kubeconfig 文件来访问集群</a></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/access-clusters/add-users-to-clusters">管理集群成员</a></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/reference-guides/cluster-configuration">编辑和升级集群</a></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓2</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/nodes-and-node-pools">管理节点</a></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓3</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/create-kubernetes-persistent-storage">管理持久卷和存储类</a></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/projects-and-namespaces">管理项目、命名空间和工作负载</a></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/helm-charts-in-rancher">使用应用目录</a></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>配置工具（<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/integrations-in-rancher/monitoring-and-alerting">Alerts、Notifiers、Monitoring</a>、<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/integrations-in-rancher/logging">Logging</a> 和 <a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/integrations-in-rancher/istio">Istio</a>）</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/advanced-user-guides/cis-scan-guides/cis-scan-guides.md">运行安全扫描</a></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/rotate-certificates">轮换证书</a></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/backup-restore-and-disaster-recovery/back-up-rancher-launched-kubernetes-clusters">备份</a>和<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/backup-restore-and-disaster-recovery/restore-rancher-launched-kubernetes-clusters-from-backup">恢复</a> Rancher 启动的集群</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓4</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/manage-clusters/clean-cluster-nodes">在 Rancher 无法访问集群时清理 Kubernetes 组件</a></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>  1.注册的 EKS、GKE 和 AKS 集群与从 Rancher UI 创建的 EKS、GKE 和 AKS 集群的可用选项一致。不同之处是，从 Rancher UI 中删除已注册的集群后，集群不会被销毁。</p>
+<p>  2.无法编辑已注册的集群的集群配置选项（<a target="_blank" rel="noopener" href="https://ranchermanager.docs.rancher.com/zh/how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/register-existing-clusters">K3s 和 RKE2 集群</a>除外）。</p>
+<p>  3.Rancher UI 为已注册的集群节点提供了封锁、清空和编辑节点的功能。</p>
+<p>  4.对于使用 etcd 作为 controlplane 的注册集群，必须在 Rancher UI 之外手动创建快照以用于备份和恢复。</p>
+<h2 id="1-3-为什么要用-Rancher？"><a href="#1-3-为什么要用-Rancher？" class="headerlink" title="1.3 为什么要用 Rancher？"></a>1.3 为什么要用 Rancher？</h2><table>
+<thead>
+<tr>
+<th>优势点</th>
+<th>描述说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>多集群统一管理</td>
+<td>支持集中管理本地、云端、边缘等多个 Kubernetes 集群，简化运维流程</td>
+</tr>
+<tr>
+<td>图形化操作界面</td>
+<td>提供直观的 Web UI，降低使用门槛，提升操作效率</td>
+</tr>
+<tr>
+<td>权限与安全控制</td>
+<td>内置 RBAC、审计日志等功能，满足企业安全合规要求</td>
+</tr>
+<tr>
+<td>应用部署与 Helm 支持</td>
+<td>集成 Helm Chart，可一键部署常用应用，加速 DevOps 流程</td>
+</tr>
+<tr>
+<td>多租户与项目隔离</td>
+<td>支持按项目划分资源，适合多团队协作又相互隔离的场景</td>
+</tr>
+</tbody></table>
+<h2 id="1-4-部署环境信息"><a href="#1-4-部署环境信息" class="headerlink" title="1.4 部署环境信息"></a>1.4 部署环境信息</h2><p>  <strong>操作系统</strong>: Rocky Linux release 9.6 (Blue Onyx)</p>
+<p>  <strong>Kubernetes 版本</strong>：v1.34.x</p>
+<p>  <strong>部署方式</strong>：云服务器环境，使用 Helm 安装 Rancher</p>
+<p>  <strong>网络组件</strong>：ingress-nginx，以 DaemonSet 模式部署并启用主机网络</p>
+<p>  <strong>证书方案</strong>：Rancher 自签名证书，依赖 cert-manager 自动签发</p>
+<p>  <strong>容器运行时</strong>：使用Docker(Docker version 28.5.1, build e180ab8)</p>
+<h2 id="1-5-关于安装的说明"><a href="#1-5-关于安装的说明" class="headerlink" title="1.5 关于安装的说明"></a>1.5 关于安装的说明</h2><p>  安装Rancher‌<strong>不需要</strong>‌先安装Kubernetes（K8S），但推荐在Kubernetes集群上安装以实现更高效的管理。 ‌</p>
+<p>  <code>安装方式选择：</code></p>
+<p>   1.<strong>独立Docker安装</strong>‌：通过Docker运行Rancher容器时，Rancher会自动创建本地K3s或RKE2集群供其管理，无需提前安装K8S。 ‌</p>
+<p>   2‌.<strong>Kubernetes集群安装</strong>‌：在生产环境中，建议将Rancher部署在K8S集群上，可实现更高效的资源管理和高可用性。 ‌</p>
+<p>  <code>关键配置说明：</code></p>
+<p>   1.离线安装时需手动准备镜像仓库并配置registries.yaml文件，确保K3s或RKE2节点能访问私有镜像。 ‌</p>
+<p>   2.容器化部署需通过Helm Chart仓库安装Rancher，需提前配置Helm环境。 ‌</p>
+<h2 id="1-6-准备Helm环境"><a href="#1-6-准备Helm环境" class="headerlink" title="1.6 准备Helm环境"></a>1.6 准备Helm环境</h2><p>  Helm 在安装 Rancher 时充当自动化部署工具的角色，将 Rancher 的所有 Kubernetes 资源（包括 Deployment、Service、Ingress、配置等）打包为一个可复用的 Chart，使用户能够通过一条命令快速部署、配置和管理 Rancher，同时支持版本控制、参数定制和后续升级，极大简化了企业级容器平台的部署流程。</p>
+<p>  下载helm工具，最新版可从<a target="_blank" rel="noopener" href="https://github.com/helm/helm/releases">此页面</a>下载。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># wget https://get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz</span>
+--2025-10-30 <span class="token number">22</span>:11:13--  https://get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz
+Resolving get.helm.sh <span class="token punctuation">(</span>get.helm.sh<span class="token punctuation">)</span><span class="token punctuation">..</span>. <span class="token number">13.107</span>.246.73, <span class="token number">13.107</span>.213.73, <span class="token number">2620</span>:1ec:bdf::73, <span class="token punctuation">..</span>.
+Connecting to get.helm.sh <span class="token punctuation">(</span>get.helm.sh<span class="token punctuation">)</span><span class="token operator">|</span><span class="token number">13.107</span>.246.73<span class="token operator">|</span>:443<span class="token punctuation">..</span>. connected.
+HTTP request sent, awaiting response<span class="token punctuation">..</span>. <span class="token number">200</span> OK
+Length: <span class="token number">18019607</span> <span class="token punctuation">(</span>17M<span class="token punctuation">)</span> <span class="token punctuation">[</span>application/x-tar<span class="token punctuation">]</span>
+Saving to: ‘helm-v3.19.0-linux-amd64.tar.gz’
+
+helm-v3.19.0-linux-amd64.tar.gz          <span class="token number">100</span>%<span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">&gt;</span><span class="token punctuation">]</span>  <span class="token number">17</span>.18M  <span class="token number">17</span>.6MB/s    <span class="token keyword">in</span> <span class="token number">1</span>.0s
+
+<span class="token number">2025</span>-10-30 <span class="token number">22</span>:11:15 <span class="token punctuation">(</span><span class="token number">17.6</span> MB/s<span class="token punctuation">)</span> - ‘helm-v3.19.0-linux-amd64.tar.gz’ saved <span class="token punctuation">[</span><span class="token number">18019607</span>/18019607<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  将helm工具安装到用户的<code>$PATH</code>路径中</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># tar xf helm-v3.19.0-linux-amd64.tar.gz</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># ls</span>
+anaconda-ks.cfg  custom-resources.yaml  helm-v3.19.0-linux-amd64.tar.gz  kubeadm.yaml  linux-amd64  nerdctl-full-2.1.6-linux-amd64.tar.gz
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># mv linux-amd64/helm /usr/bin/</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm version</span>
+version.BuildInfo<span class="token punctuation">{</span>Version:<span class="token string">"v3.19.0"</span>, GitCommit:<span class="token string">"3d8990f0836691f0229297773f3524598f46bda6"</span>, GitTreeState:<span class="token string">"clean"</span>, GoVersion:<span class="token string">"go1.24.7"</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  添加helm命令补齐功能</p>
+<p>  执行以下命令后，可以退出ssh，并重新登录或者执行<code>sudo -i</code>，即可使用helm的tab补齐功能</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">helm completion <span class="token function">bash</span> <span class="token operator">&gt;</span> /etc/bash_completion.d/helm
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm completion bash &gt; /etc/bash_completion.d/helm</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-7-Ingress-Controller"><a href="#1-7-Ingress-Controller" class="headerlink" title="1.7 Ingress Controller"></a>1.7 Ingress Controller</h2><p>  在安装 Rancher 时，Ingress Controller 的作用是为 Rancher 提供外部访问入口。它负责监听集群中的 Ingress 资源，并将来自外部的 HTTP/HTTPS 请求路由到 Rancher 的服务组件。由于 Rancher 默认不会在 Ingress 中设置 <code>ingressClassName</code>，通常需要配置 Ingress Controller 为默认类，以确保它能自动接管这些 Ingress 并实现 Web UI 的访问。</p>
+<p>  为了提升 Ingress Controller 的可达性，希望让每个节点都运行一个 Ingress Controller 实例，并直接暴露主机网络端口。为此，对官方部署清单进行如下调整：</p>
+<p>  1.<strong>下载官方部署清单：</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.3/deploy/static/provider/baremetal/deploy.yaml
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.3/deploy/static/provider/baremetal/deploy.yaml</span>
+--2025-10-31 09:50:31--  https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.3/deploy/static/provider/baremetal/deploy.yaml
+Resolving raw.githubusercontent.com <span class="token punctuation">(</span>raw.githubusercontent.com<span class="token punctuation">)</span><span class="token punctuation">..</span>. <span class="token number">185.199</span>.109.133, <span class="token number">185.199</span>.111.133, <span class="token number">185.199</span>.108.133, <span class="token punctuation">..</span>.
+Connecting to raw.githubusercontent.com <span class="token punctuation">(</span>raw.githubusercontent.com<span class="token punctuation">)</span><span class="token operator">|</span><span class="token number">185.199</span>.109.133<span class="token operator">|</span>:443<span class="token punctuation">..</span>. failed: Connection refused.
+Connecting to raw.githubusercontent.com <span class="token punctuation">(</span>raw.githubusercontent.com<span class="token punctuation">)</span><span class="token operator">|</span><span class="token number">185.199</span>.111.133<span class="token operator">|</span>:443<span class="token punctuation">..</span>. failed: Connection refused.
+Connecting to raw.githubusercontent.com <span class="token punctuation">(</span>raw.githubusercontent.com<span class="token punctuation">)</span><span class="token operator">|</span><span class="token number">185.199</span>.108.133<span class="token operator">|</span>:443<span class="token punctuation">..</span>. failed: Connection refused.
+Connecting to raw.githubusercontent.com <span class="token punctuation">(</span>raw.githubusercontent.com<span class="token punctuation">)</span><span class="token operator">|</span><span class="token number">185.199</span>.110.133<span class="token operator">|</span>:443<span class="token punctuation">..</span>. connected.
+HTTP request sent, awaiting response<span class="token punctuation">..</span>. <span class="token number">200</span> OK
+Length: <span class="token number">16279</span> <span class="token punctuation">(</span>16K<span class="token punctuation">)</span> <span class="token punctuation">[</span>text/plain<span class="token punctuation">]</span>
+Saving to: ‘deploy.yaml’
+
+deploy.yaml                              <span class="token number">100</span>%<span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">&gt;</span><span class="token punctuation">]</span>  <span class="token number">15</span>.90K  --.-KB/s    <span class="token keyword">in</span> <span class="token number">0</span>.1s
+
+<span class="token number">2025</span>-10-31 09:51:35 <span class="token punctuation">(</span><span class="token number">109</span> KB/s<span class="token punctuation">)</span> - ‘deploy.yaml’ saved <span class="token punctuation">[</span><span class="token number">16279</span>/16279<span class="token punctuation">]</span>
+
+<span class="token comment"># 备份deploy.yaml</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># ls</span>
+anaconda-ks.cfg  custom-resources.yaml  deploy.yaml  helm-v3.19.0-linux-amd64.tar.gz  kubeadm.yaml  linux-amd64  nerdctl-full-2.1.6-linux-amd64.tar.gz
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cp deploy.yaml deploy.yaml.bak</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># ls</span>
+anaconda-ks.cfg        deploy.yaml      helm-v3.19.0-linux-amd64.tar.gz  linux-amd64
+custom-resources.yaml  deploy.yaml.bak  kubeadm.yaml                     nerdctl-full-2.1.6-linux-amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  2.<strong>修改控制器的部署方式：</strong></p>
+<p>   将清单中的 <code>Deployment</code> 类型修改为 <code>DaemonSet</code>，以便在每个节点上运行一个副本。</p>
+<p>  3.<strong>启用主机网络访问：</strong></p>
+<p>   在 <code>spec.template.spec</code> 中添加字段 <code>hostNetwork: true</code>，使每个 Pod 直接使用宿主机网络，便于外部访问。</p>
+<p>  4.<strong>修改更新机制</strong></p>
+<p>   Deployment 使用 <code>strategy</code> 来控制滚动更新，而 DaemonSet 使用的是 <code>updateStrategy</code>。两者字段名不同但语义类似，因此在将控制器类型从 Deployment 改为 DaemonSet 时，必须同步调整字段名以避免配置错误。</p>
+<p>  完成修改后，Yaml文件中的原Deployment被改成：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@k8s<span class="token punctuation">-</span>master ~<span class="token punctuation">]</span><span class="token comment"># vim deploy.yaml</span>
+<span class="token punctuation">...</span><span class="token punctuation">...</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> DaemonSet
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app.kubernetes.io/component</span><span class="token punctuation">:</span> controller
+    <span class="token key atrule">app.kubernetes.io/instance</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+    <span class="token key atrule">app.kubernetes.io/name</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+    <span class="token key atrule">app.kubernetes.io/part-of</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+    <span class="token key atrule">app.kubernetes.io/version</span><span class="token punctuation">:</span> 1.13.3
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx<span class="token punctuation">-</span>controller
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">minReadySeconds</span><span class="token punctuation">:</span> <span class="token number">0</span>
+  <span class="token key atrule">revisionHistoryLimit</span><span class="token punctuation">:</span> <span class="token number">10</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app.kubernetes.io/component</span><span class="token punctuation">:</span> controller
+      <span class="token key atrule">app.kubernetes.io/instance</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+      <span class="token key atrule">app.kubernetes.io/name</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+  <span class="token key atrule">updateStrategy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">rollingUpdate</span><span class="token punctuation">:</span>
+      <span class="token key atrule">maxUnavailable</span><span class="token punctuation">:</span> <span class="token number">1</span>
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> RollingUpdate
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app.kubernetes.io/component</span><span class="token punctuation">:</span> controller
+        <span class="token key atrule">app.kubernetes.io/instance</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+        <span class="token key atrule">app.kubernetes.io/name</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+        <span class="token key atrule">app.kubernetes.io/part-of</span><span class="token punctuation">:</span> ingress<span class="token punctuation">-</span>nginx
+        <span class="token key atrule">app.kubernetes.io/version</span><span class="token punctuation">:</span> 1.13.3
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hostNetwork</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token key atrule">automountServiceAccountToken</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+<span class="token punctuation">...</span><span class="token punctuation">...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  修改完成后，将Ingress控制器部署到kubernetes集群中</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 镜像处理</span>
+<span class="token number">1.445</span>行:
+  registry.k8s.io/ingress-nginx/controller:v1.13.3@sha256:1b044f6dcac3afbb59e05d98463f1dec6f3d3fb99940bc12ca5d80270358e3bd
+  harbor.cncf.net:447/ingress-nginx/controller:v1.13.3
+
+<span class="token number">2.548</span>行:
+  registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.6.3@sha256:3d671cf20a35cd94efc5dcd484970779eb21e7938c98fbc3673693b8a117cf39
+
+  harbor.cncf.net:447/ingress-nginx/kube-webhook-certgen:v1.6.3
+
+<span class="token number">3.604</span>行
+  registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.6.3@sha256:3d671cf20a35cd94efc5dcd484970779eb21e7938c98fbc3673693b8a117cf39
+
+  harbor.cncf.net:447/ingress-nginx/kube-webhook-certgen:v1.6.3
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl create -f deploy.yaml</span>
+namespace/ingress-nginx created
+serviceaccount/ingress-nginx created
+serviceaccount/ingress-nginx-admission created
+role.rbac.authorization.k8s.io/ingress-nginx created
+role.rbac.authorization.k8s.io/ingress-nginx-admission created
+clusterrole.rbac.authorization.k8s.io/ingress-nginx created
+clusterrole.rbac.authorization.k8s.io/ingress-nginx-admission created
+rolebinding.rbac.authorization.k8s.io/ingress-nginx created
+rolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx created
+clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+configmap/ingress-nginx-controller created
+service/ingress-nginx-controller created
+service/ingress-nginx-controller-admission created
+daemonset.apps/ingress-nginx-controller created
+job.batch/ingress-nginx-admission-create created
+job.batch/ingress-nginx-admission-patch created
+ingressclass.networking.k8s.io/nginx created
+validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  查看状态:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pod -n ingress-nginx</span>
+NAME                             READY   STATUS    RESTARTS   AGE
+ingress-nginx-controller-f8tms   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m11s
+ingress-nginx-controller-mfnr2   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m11s
+ingress-nginx-controller-rfx9f   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m11s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>如何使用kubectl proxy强制删除命名空间？</code></p>
+<p>  使用kubectl proxy强制删除处于Terminating状态的命名空间，主要通过绕过finalizers机制来实现。以下是详细步骤：</p>
+<p>  1.检查命名空间状态</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 确认命名空间确实处于Terminating状态</span>
+kubectl get namespaces<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  2.导出命名空间配置</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 将目标命名空间的配置导出为JSON文件</span>
+<span class="token comment"># 将&lt;namespace-name&gt;替换为要删除的命名空间名称。</span>
+kubectl get namespace <span class="token operator">&lt;</span>namespace-name<span class="token operator">&gt;</span> <span class="token parameter variable">-o</span> json <span class="token operator">&gt;</span> temp.json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  3.编辑配置文件</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 打开temp.json文件，找到spec.finalizers字段，将其值设置为空数组或者直接将整个spec字段删除</span>
+
+<span class="token string">"spec"</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+  <span class="token string">"finalizers"</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  4.启动API代理</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在一个终端中启动Kubernetes API代理</span>
+<span class="token comment"># 此命令会在http://127.0.0.1:8001启动本地代理服务器。</span>
+kubectl proxy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  5.发送删除请求</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在另一个终端中，通过API接口发送修改后的配置</span>
+<span class="token function">curl</span> <span class="token parameter variable">-k</span> <span class="token parameter variable">-H</span> <span class="token string">"Content-Type: application/json"</span> <span class="token parameter variable">-X</span> PUT <span class="token punctuation">\</span>
+  --data-binary @temp.json <span class="token punctuation">\</span>
+  http://127.0.0.1:8001/api/v1/namespaces/<span class="token operator">&lt;</span>namespace-name<span class="token operator">&gt;</span>/finalize<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  6.验证删除结果</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 确认命名空间已被成功删除</span>
+kubectl get namespaces<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  Rancher Helm Chart 默认情况下不会在 Ingress 上设置 ingressClassName。因此，必须将 Ingress Controller 配置为在没有 ingressClassName 的情况下也可以监视 Ingress，所以在部署好ingress控制器后，用patch命令添加一个<code>annotations</code>标记为默认。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl patch ingressclass nginx <span class="token punctuation">\</span>
+  <span class="token parameter variable">--type</span><span class="token operator">=</span><span class="token string">'merge'</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">-p</span> <span class="token string">'{"metadata":{"annotations":{"ingressclass.kubernetes.io/is-default-class":"true"}}}'</span>
+  
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl patch ingressclass nginx --type='merge' -p '{"metadata":{"annotations":{"ingressclass.kubernetes.io/is-default-class":"true"}}}'</span>
+ingressclass.networking.k8s.io/nginx patched
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pod -A</span>
+NAMESPACE         NAME                                       READY   STATUS    RESTARTS   AGE
+calico-system     calico-apiserver-69cbdcdcf5-gbgts          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     calico-apiserver-69cbdcdcf5-rnd5r          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     calico-kube-controllers-85d75d757c-j2mq4   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     calico-node-6zmpq                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     calico-node-95brq                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     calico-node-lvljl                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     calico-node-q7ptn                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     calico-typha-9bfd898b7-7q9st               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     calico-typha-9bfd898b7-t85vm               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     csi-node-driver-4fwxj                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          24h
+calico-system     csi-node-driver-d7x5w                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          24h
+calico-system     csi-node-driver-dwxk9                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          24h
+calico-system     csi-node-driver-kqxq6                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          24h
+calico-system     goldmane-5cfbfbffd6-8lmkw                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+calico-system     whisker-84c887fc48-d8vqm                   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          24h
+ingress-nginx     ingress-nginx-controller-f8tms             <span class="token number">1</span>/1     Running   <span class="token number">0</span>          11m
+ingress-nginx     ingress-nginx-controller-mfnr2             <span class="token number">1</span>/1     Running   <span class="token number">0</span>          11m
+ingress-nginx     ingress-nginx-controller-rfx9f             <span class="token number">1</span>/1     Running   <span class="token number">0</span>          11m
+kube-system       coredns-746c97786-h8mnt                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       coredns-746c97786-ndcwk                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       etcd-k8s-master                            <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       kube-apiserver-k8s-master                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       kube-controller-manager-k8s-master         <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       kube-proxy-fwx7d                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       kube-proxy-qp87t                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       kube-proxy-rhxls                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       kube-proxy-sjrxc                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+kube-system       kube-scheduler-k8s-master                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h
+tigera-operator   tigera-operator-75f6548d76-j4qzq           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          24h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-8-安装-Rancher-Helm-Chart"><a href="#1-8-安装-Rancher-Helm-Chart" class="headerlink" title="1.8 安装 Rancher Helm Chart"></a>1.8 安装 Rancher Helm Chart</h2><p>  Rancher 是通过 Kubernetes 的 Helm 包管理器进行安装的。Helm Chart 为原始的 YAML 清单提供了模板化能力，使用户能够根据参数动态生成资源配置，从而实现灵活、可定制的部署方式，而不再依赖于固定的静态文件。</p>
+<p>  使用 Helm 安装 Rancher 相比手工编写 YAML 文件的方式，具有显著优势：它通过模板化和参数化机制简化了部署流程，避免了繁琐的资源定义和版本兼容问题；同时支持一键安装、升级、回滚和卸载，便于统一管理和持续维护，大幅提升了部署效率与可控性，尤其适合企业级环境中的标准化运维。</p>
+<h3 id="1-8-1-添加-Helm-Chart-仓库"><a href="#1-8-1-添加-Helm-Chart-仓库" class="headerlink" title="1.8.1 添加 Helm Chart 仓库"></a>1.8.1 添加 Helm Chart 仓库</h3><p>  在安装 Rancher 前，需通过 <code>helm repo add</code> 命令添加官方 Helm Chart 仓库。根据使用场景选择合适的版本源：</p>
+<p>  <code>Latest：用于体验最新功能</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">helm repo <span class="token function">add</span> rancher-latest https://releases.rancher.com/server-charts/latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  <code>Stable：推荐用于生产环境</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">helm repo <span class="token function">add</span> rancher-stable https://releases.rancher.com/server-charts/stable
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm repo add rancher-stable https://releases.rancher.com/server-charts/stable</span>
+<span class="token string">"rancher-stable"</span> has been added to your repositories<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <code>Alpha：实验性预览版本，适合探索即将发布的功能</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">helm repo <span class="token function">add</span> rancher-alpha https://releases.rancher.com/server-charts/alpha<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>⚠️ 注意：Alpha 版本不支持升级或版本间切换，仅适用于临时测试。</p>
+<p>  选择仓库时应根据稳定性需求和功能预期权衡，确保部署策略与环境匹配，本次安装选择<code>stable</code></p>
+<p>  看看仓库是否添加完毕</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm repo list</span>
+NAME            URL
+rancher-stable  https://releases.rancher.com/server-charts/stable<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-8-2-为-Rancher-创建命名空间"><a href="#1-8-2-为-Rancher-创建命名空间" class="headerlink" title="1.8.2 为 Rancher 创建命名空间"></a>1.8.2 为 Rancher 创建命名空间</h3><p>  在安装 Rancher 之前，必须先创建一个专用的 Kubernetes 命名空间，用于隔离和管理 Rancher 所部署的资源。</p>
+<p>  推荐使用命名空间名称 <code>cattle-system</code>，执行以下命令即可创建：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl create namespace cattle-system
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl create namespace cattle-system</span>
+namespace/cattle-system created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这样可以确保 Helm 安装的所有组件都集中在该命名空间中，便于后续的运维与权限控制。</p>
+<h3 id="1-8-3-SSL-证书配置"><a href="#1-8-3-SSL-证书配置" class="headerlink" title="1.8.3 SSL 证书配置"></a>1.8.3 SSL 证书配置</h3><p>  Rancher 默认需要 TLS 证书来保护访问安全。可选择三种方式终止 TLS：</p>
+<p>   <strong>Rancher 自签证书</strong>：需安装 cert-manager，自动生成和管理证书</p>
+<p>   <strong>Let’s Encrypt 公共证书</strong>：也需 cert-manager，通过 HTTP 验证自动申请</p>
+<p>   <strong>已有证书</strong>：手动上传 <code>tls.crt</code> 和 <code>tls.key</code>，无需 cert-manager</p>
+<p>  通过 Helm 设置 <code>ingress.tls.source</code> 参数即可指定证书来源，这里选择自签名证书的方式，所以先完成<code>cert-manager</code>的安装。</p>
+<p><code>1.安装CRD</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> https://hub.gitmirror.com/https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.crds.yaml
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl apply -f https://hub.gitmirror.com/https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.crds.yaml</span>
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>2.添加 Jetstack Helm 仓库</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">helm repo <span class="token function">add</span> jetstack https://charts.jetstack.io
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm repo add jetstack https://charts.jetstack.io</span>
+<span class="token string">"jetstack"</span> has been added to your repositories<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>3.看看仓库是否添加完毕</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">helm repo list
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm repo list</span>
+NAME            URL
+rancher-stable  https://releases.rancher.com/server-charts/stable
+jetstack        https://charts.jetstack.io<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>4.更新本地 Helm Chart 仓库缓存</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">helm repo update
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm repo update</span>
+Hang tight <span class="token keyword">while</span> we grab the latest from your chart repositories<span class="token punctuation">..</span>.
+<span class="token punctuation">..</span>.Successfully got an update from the <span class="token string">"rancher-stable"</span> chart repository
+<span class="token punctuation">..</span>.Successfully got an update from the <span class="token string">"jetstack"</span> chart repository
+Update Complete. ⎈Happy Helming<span class="token operator">!</span>⎈<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>5.查看cert-manager可用的版本</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看可用版本</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm search repo jetstack/cert-manager</span>
+NAME                                    CHART VERSION   APP VERSION     DESCRIPTION
+jetstack/cert-manager                   v1.19.1         v1.19.1         A Helm chart <span class="token keyword">for</span> cert-manager
+jetstack/cert-manager-approver-policy   v0.22.2         v0.22.2         approver-policy is a CertificateRequest approve<span class="token punctuation">..</span>.
+jetstack/cert-manager-csi-driver        v0.11.1         v0.11.1         cert-manager csi-driver enables issuing secretl<span class="token punctuation">..</span>.
+jetstack/cert-manager-csi-driver-spiffe v0.10.1         v0.10.1         csi-driver-spiffe is a Kubernetes CSI plugin wh<span class="token punctuation">..</span>.
+jetstack/cert-manager-google-cas-issuer v0.10.1         v0.10.1         A Helm chart <span class="token keyword">for</span> jetstack/google-cas-issuer
+jetstack/cert-manager-istio-csr         v0.14.3         v0.14.3         istio-csr enables the use of cert-manager <span class="token keyword">for</span> i<span class="token punctuation">..</span>.
+jetstack/cert-manager-trust             v0.2.1          v0.2.0          DEPRECATED: The old name <span class="token keyword">for</span> trust-manager. Use<span class="token punctuation">..</span>.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>6.安装 cert-manager Helm Chart</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在cert-manager命令空间已存在同名的Helm Release</span>
+<span class="token comment"># 查看命名空间中所有的(包括失败的)Release</span>
+  helm list <span class="token parameter variable">-n</span> cert-manager <span class="token parameter variable">-a</span>
+<span class="token comment"># 删除冲突的Release</span>
+helm uninstall cert-manager <span class="token parameter variable">-n</span> cert-manager
+helm delete cert-manager <span class="token parameter variable">-n</span> cert-manager
+
+helm <span class="token function">install</span> cert-manager jetstack/cert-manager <span class="token punctuation">\</span>
+  <span class="token parameter variable">--namespace</span> cert-manager <span class="token punctuation">\</span>
+  --create-namespace
+  
+helm <span class="token function">install</span> cert-manager jetstack/cert-manager <span class="token punctuation">\</span>
+  <span class="token parameter variable">--namespace</span> cert-manager <span class="token punctuation">\</span>
+  --create-namespace <span class="token punctuation">\</span>
+  <span class="token parameter variable">--version</span> v1.19.1 <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">installCRDs</span><span class="token operator">=</span>true
+  
+<span class="token comment"># 应用CRD</span>
+kubectl apply <span class="token parameter variable">-f</span> https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.crds.yaml
+
+<span class="token comment"># 部署cert-manager</span>
+kubectl apply <span class="token parameter variable">-f</span> https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  这个安装过程要拉取一些镜像，可能需要一定的时间，耐心等待即可，安装好之后，看看<code>cert-manager</code>的pod</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pod -n cert-manager</span>
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-77b74755d9-v8b8k              <span class="token number">1</span>/1     Running   <span class="token number">0</span>          9m29s
+cert-manager-cainjector-65fcfd6ccf-hs2ds   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          9m29s
+cert-manager-webhook-9b4dd78-hnxg4         <span class="token number">1</span>/1     Running   <span class="token number">0</span>          9m29s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-8-4-通过-Helm-安装-Rancher"><a href="#1-8-4-通过-Helm-安装-Rancher" class="headerlink" title="1.8.4 通过 Helm 安装 Rancher"></a>1.8.4 通过 Helm 安装 Rancher</h3><p>  采用的是自签名证书方式，因此 Rancher 会默认生成 CA，并通过 cert-manager 自动签发用于访问 Rancher Server 的 TLS 证书。由于 <code>ingress.tls.source=rancher</code> 是 Helm Chart 的默认配置项，安装时无需显式指定该参数。这样可以简化部署流程，同时确保接口通信具备基础的加密保护。</p>
+<p>  在使用 Helm 安装 Rancher 时，请确保设置以下关键参数：</p>
+<p>   <code>hostname</code>：指定解析到负载均衡器的 DNS 名称或使用分配给ingress的域名，用于外部访问 Rancher UI，打算用<code>rancher.k8s.cn</code>作为访问域名，不过这需要做hosts解析，因为这域名并不属于我</p>
+<p>   <code>bootstrapPassword</code>：为 admin 用户设置初始登录密码，确保安全性，在下面的例子中用的是<code>rancher</code></p>
+<p>   <code>--version</code>：如需安装特定版本的 Rancher，可通过该标志指定版本号，例如 <code>--version 2.12.3</code></p>
+<p>  这些参数可通过 <code>--set</code> 传入 Helm 命令，实现定制化部署。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 更新 Helm 仓库</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm repo update rancher-stable</span>
+Hang tight <span class="token keyword">while</span> we grab the latest from your chart repositories<span class="token punctuation">..</span>.
+<span class="token punctuation">..</span>.Successfully got an update from the <span class="token string">"rancher-stable"</span> chart repository
+Update Complete. ⎈Happy Helming<span class="token operator">!</span>⎈
+
+<span class="token comment"># 查看可用的 Rancher 版本</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm search repo rancher-stable/rancher -l</span>
+
+
+<span class="token comment"># 临时禁用Webhook</span>
+  <span class="token number">1</span>.禁用 NGINX Ingress webhook
+    kubectl delete validatingwebhookconfiguration ingress-nginx-admission
+    
+  <span class="token number">2</span>.禁用 cert-manager webhook
+    kubectl delete validatingwebhookconfiguration cert-manager-webhook
+
+helm <span class="token function">install</span> rancher rancher-stable/rancher <span class="token punctuation">\</span>
+  <span class="token parameter variable">--namespace</span> cattle-system <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">hostname</span><span class="token operator">=</span>rancher.k8s.cn <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">bootstrapPassword</span><span class="token operator">=</span>rancher
+  
+  <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># helm install rancher rancher-stable/rancher \</span>
+  <span class="token parameter variable">--namespace</span> cattle-system <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">hostname</span><span class="token operator">=</span>rancher.k8s.cn <span class="token punctuation">\</span>
+  <span class="token parameter variable">--set</span> <span class="token assign-left variable">bootstrapPassword</span><span class="token operator">=</span>rancher
+NAME: rancher
+LAST DEPLOYED: Sat Nov  <span class="token number">1</span> <span class="token number">20</span>:47:58 <span class="token number">2025</span>
+NAMESPACE: cattle-system
+STATUS: deployed
+REVISION: <span class="token number">1</span>
+TEST SUITE: None
+NOTES:
+Rancher Server has been installed. Rancher may take several minutes to fully initialize.
+
+Please standby <span class="token keyword">while</span> Certificates are being issued, Containers are started and the Ingress rule comes up.
+
+Check out our docs at https://rancher.com/docs/
+
+<span class="token comment">## First Time Login</span>
+
+If you provided your own bootstrap password during installation, browse to https://rancher.k8s.cn to get started.
+If this is the first <span class="token function">time</span> you installed Rancher, get started by running this <span class="token builtin class-name">command</span> and clicking the URL it generates:
+
+``<span class="token variable"><span class="token variable">`</span>
+<span class="token builtin class-name">echo</span> https://rancher.k8s.cn/dashboard/?setup<span class="token operator">=</span><span class="token punctuation">$(</span>kubectl get secret <span class="token parameter variable">--namespace</span> cattle-system bootstrap-secret <span class="token parameter variable">-o</span> go-template<span class="token operator">=</span><span class="token string">'{{.data.bootstrapPassword|base64decode}}'</span><span class="token punctuation">)</span>
+<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>
+
+To get just the bootstrap password on its own, run:
+
+<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>
+kubectl get secret <span class="token parameter variable">--namespace</span> cattle-system bootstrap-secret <span class="token parameter variable">-o</span> go-template<span class="token operator">=</span><span class="token string">'{{.data.bootstrapPassword|base64decode}}{{ "\n" }}'</span>
+<span class="token variable">`</span></span>``
+
+
+Happy Containering<span class="token operator">!</span>
+ 
+<span class="token comment"># 以上信息告诉我们，如果需要，可以用secret的方法找到我们的密码。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-8-5-验证-Rancher-Server-是否部署成功"><a href="#1-8-5-验证-Rancher-Server-是否部署成功" class="headerlink" title="1.8.5 验证 Rancher Server 是否部署成功"></a>1.8.5 验证 Rancher Server 是否部署成功</h3><p>  用一下命令观察rancher的deployment是否部署成功，卡住不动说明还没有成功</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl -n cattle-system rollout status deploy/rancher</span>
+deployment <span class="token string">"rancher"</span> successfully rolled out
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pod -A</span>
+NAMESPACE         NAME                                       READY   STATUS    RESTARTS   AGE
+calico-system     calico-apiserver-69cbdcdcf5-gbgts          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     calico-apiserver-69cbdcdcf5-rnd5r          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     calico-kube-controllers-85d75d757c-j2mq4   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     calico-node-6zmpq                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     calico-node-95brq                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     calico-node-lvljl                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     calico-node-q7ptn                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     calico-typha-9bfd898b7-7q9st               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     calico-typha-9bfd898b7-t85vm               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     csi-node-driver-4fwxj                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          25h
+calico-system     csi-node-driver-d7x5w                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          25h
+calico-system     csi-node-driver-dwxk9                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          25h
+calico-system     csi-node-driver-kqxq6                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          25h
+calico-system     goldmane-5cfbfbffd6-8lmkw                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+calico-system     whisker-84c887fc48-d8vqm                   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          25h
+cattle-system     helm-operation-8f6rf                       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m20s
+cattle-system     helm-operation-l7k5l                       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          16s
+cattle-system     helm-operation-wth4k                       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          78s
+cattle-system     rancher-86984c6d89-2bhwp                   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m36s
+cattle-system     rancher-86984c6d89-64qdw                   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m36s
+cattle-system     rancher-86984c6d89-f4mqv                   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m36s
+cert-manager      cert-manager-77b74755d9-5tjxg              <span class="token number">1</span>/1     Running   <span class="token number">0</span>          10m
+cert-manager      cert-manager-cainjector-65fcfd6ccf-bl9gv   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          10m
+cert-manager      cert-manager-webhook-9b4dd78-jbdr7         <span class="token number">1</span>/1     Running   <span class="token number">0</span>          10m
+ingress-nginx     ingress-nginx-controller-f8tms             <span class="token number">1</span>/1     Running   <span class="token number">0</span>          53m
+ingress-nginx     ingress-nginx-controller-mfnr2             <span class="token number">1</span>/1     Running   <span class="token number">0</span>          53m
+ingress-nginx     ingress-nginx-controller-rfx9f             <span class="token number">1</span>/1     Running   <span class="token number">0</span>          53m
+kube-system       coredns-746c97786-h8mnt                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       coredns-746c97786-ndcwk                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       etcd-k8s-master                            <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       kube-apiserver-k8s-master                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       kube-controller-manager-k8s-master         <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       kube-proxy-fwx7d                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       kube-proxy-qp87t                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       kube-proxy-rhxls                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       kube-proxy-sjrxc                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+kube-system       kube-scheduler-k8s-master                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h
+tigera-operator   tigera-operator-75f6548d76-j4qzq           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          25h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  一切正常后，试试访问rancher看看，在访问前，需要看看是否创建了ingress供我们访问</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get ingress -n cattle-system</span>
+NAME      CLASS   HOSTS            ADDRESS                               PORTS     AGE
+rancher   nginx   rancher.k8s.cn   <span class="token number">192.168</span>.8.5,192.168.8.6,192.168.8.7   <span class="token number">80</span>, <span class="token number">443</span>   4m52s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  在Windows上的<code>C:\Windows\System32\drivers\etc\hosts</code>文件中，添加域名和地址的解析，即可打开web ui</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">192.168</span>.8.5,192.168.8.6,192.168.8.7 rancher.k8s.cn<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1 id="2-KubeSphere"><a href="#2-KubeSphere" class="headerlink" title="2 KubeSphere"></a>2 KubeSphere</h1><p>  KubeSphere 是一个以 Kubernetes为内核的 云原生分布式操作系统，它的架构可以非常方便地使第三方应用与云原生生态组件进行即插即用（plug-and-play）的集成，支持云原生应用在多云与多集群的统一分发和运维管理。</p>
+<p>  KubeSphere 也是一个多租户容器平台，提供全栈的 IT 自动化运维的能力，简化企业的 DevOps 工作流。</p>
+<p>  KubeSphere 提供了运维友好的向导式操作界面，帮助企业快速构建一个强大和功能丰富的容器云平台。</p>
+<p>  官网：<a target="_blank" rel="noopener" href="https://kubesphere.io/">https://kubesphere.io/</a></p>
+<p>提供全栈运维能力，支持多云/多集群统一管理，可通过命令快速安装</p>
+<h1 id="3-kuboard"><a href="#3-kuboard" class="headerlink" title="3 kuboard"></a>3 kuboard</h1><p>‌<strong>Kuboard</strong>‌：免费图形化界面，专注微服务快速落地 ‌2</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">罗宇</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://linuxcenter.icu/2025/06/29/kubernetes/kubernetes-guan-li-gong-ju/">https://linuxcenter.icu/2025/06/29/kubernetes/kubernetes-guan-li-gong-ju/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">罗宇</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+                                    <span class="chip bg-color">Kubernetes管理工具</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/07/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/">
+                    <div class="card-image">
+                        
+                        <img src="/img/Harbor-icon.jpeg" class="responsive-img" alt="部署Harbor私有镜像仓库">
+                        
+                        <span class="card-title">部署Harbor私有镜像仓库</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Harbor是一个开源注册中心，通过策略和基于角色的访问控制来保护工件，确保镜像经过扫描且无漏洞，并对镜像进行签名以表明其可信。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%83%A8%E7%BD%B2Harbor%E7%A7%81%E6%9C%89%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/">
+                        <span class="chip bg-color">部署Harbor私有镜像仓库</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/06/29/kubernetes/kubernetes-yu-docker/">
+                    <div class="card-image">
+                        
+                        <img src="/img/docker&k8s.jpg" class="responsive-img" alt="Kubernetes与Docker">
+                        
+                        <span class="card-title">Kubernetes与Docker</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            容器编排是指自动化地部署、扩展、管理和协调容器化应用的过程,它涉及到多个方面，如容器的调度、资源分配、容器之间的通信、故障恢复等
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Kubernetes%E4%B8%8EDocker/">
+                        <span class="chip bg-color">Kubernetes与Docker</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i
+                    class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script
+    src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+        <footer class="page-footer bg-color">
+    
+    <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="6402467630"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align"
+        style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+            <span id="year">2021-2025</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">罗宇</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/"
+                target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a
+                href="https://github.com/blinkfox/hexo-theme-matery"
+                target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">183.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span
+                    id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span
+                    id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            
+            <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2021";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+<a href="https://github.com/luovip/tecBlog.github.io" class="tooltipped" target="_blank"
+    data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fab fa-github"></i>
+</a>
+
+
+
+<a href="mailto:luovipyu@163.com" class="tooltipped"
+    target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fas fa-envelope-open"></i>
+</a>
+
+
+
+<a
+    href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=252414302"
+    class="tooltipped" target="_blank"
+    data-tooltip="QQ联系我: 252414302" data-position="top"
+    data-delay="50">
+    <i class="fab fa-qq"></i>
+</a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+        <script
+            src="/libs/materialize/materialize.min.js"></script>
+        <script
+            src="/libs/masonry/masonry.pkgd.min.js"></script>
+        <script
+            src="/libs/aos/aos.js"></script>
+        <script
+            src="/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script
+            src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script
+            src="/js/matery.js"></script>
+
+        <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+        <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+        
+        <script
+            src="/libs/others/clicklove.js"
+            async="async"></script>
+        
+        
+        <script async
+            src="/libs/others/busuanzi.pure.mini.js"></script>
+        
+
+        
+
+        
+
+        
+        
+        <script type="text/javascript" color="64,224,208"
+            pointColor="0,0,255"
+            opacity='0.5'
+            zIndex="-1"
+            count="100"
+            src="/libs/background/canvas-nest.js"></script>
+        
+
+        
+        
+        <script type="text/javascript" size="150"
+            alpha='0.6'
+            zIndex="-1"
+            src="/libs/background/ribbon.min.js"
+            async="async"></script>
+        
+
+        
+        <script type="text/javascript"
+            src="/libs/background/ribbon-dynamic.js"
+            async="async"></script>
+        
+
+        
+        <script
+            src="/libs/instantpage/instantpage.js"
+            type="module"></script>
+        
+        <!-- 冒泡 -->
+        
+        <script type="text/javascript">
+        // 只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        document.write(
+            '<script type="text/javascript" src="/libs/others/buble.js"><\/script>'
+        );
+    </script>
+        
+        <script type="text/javascript">
+    var a_idx = 0;
+jQuery(document).ready(function ($) {
+    $("body").click(function (e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+            y = e.pageY;
+        $i.css({
+            "z-index": 5,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": "#FF0000"
+        });
+        $("body").append($i);
+        $i.animate({
+                "top": y - 180,
+                "opacity": 0
+            },
+            3000,
+            function () {
+                $i.remove();
+            });
+    });
+    setTimeout('delay()', 2000);
+});
+ 
+function delay() {
+    $(".buryit").removeAttr("onclick");
+}
+ 
+    </script>
+        <script type="text/javascript" src="/js/mouse_snow.js"></script>
+
+        <!-- 动态标签栏 -->
+        <script type="text/javascript">
+      var OriginTitile = document.title, st; 
+      document.addEventListener("visibilitychange", function () { 
+        document.hidden ? (document.title = "爱我，别走！", clearTimeout(st)) : (document.title = "咦，你来啦！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) 
+    </script>
+
+    </body>
+
+</html>

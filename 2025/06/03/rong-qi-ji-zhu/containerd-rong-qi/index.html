@@ -44,10 +44,10 @@
     <script
         src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
     
@@ -832,23 +832,23 @@ Server:
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/06/27/kubernetes/kubernetes-qi-ye-ji-yun-wei/">
+                <a href="/2025/06/26/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/">
                     <div class="card-image">
                         
-                        <img src="/img/K8S.jpg" class="responsive-img" alt="Kubernetes企业级运维">
+                        <img src="/img/k8s&network.jpg" class="responsive-img" alt="Kubernetes网络系统原理">
                         
-                        <span class="card-title">Kubernetes企业级运维</span>
+                        <span class="card-title">Kubernetes网络系统原理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在企业级项目中，Kubernetes与Spring Boot和Spring Cloud结合使用，帮助企业快速构建高效、可扩展、可维护的微服务系统
+                            Kubernetes网络采用的是CNI标准，CNI的基本思想是：在创建容器时，先创建好网络命名空间，然后调用CNI插件为这个命名空间配置网络，最后再启动容器内的进程
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-27
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-26
                         </span>
                         <span class="publish-author">
                             
@@ -865,8 +865,8 @@ Server:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Kubernetes%E4%BC%81%E4%B8%9A%E7%BA%A7%E8%BF%90%E7%BB%B4/">
-                        <span class="chip bg-color">Kubernetes企业级运维</span>
+                    <a href="/tags/Kubernetes%E7%BD%91%E7%BB%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">
+                        <span class="chip bg-color">Kubernetes网络系统原理</span>
                     </a>
                     
                 </div>
@@ -880,30 +880,30 @@ Server:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/06/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/">
+                <a href="/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/">
                     <div class="card-image">
                         
-                        <img src="/img/Harbor-icon.jpeg" class="responsive-img" alt="部署Harbor私有镜像仓库">
+                        <img src="/img/podman.jpg" class="responsive-img" alt="podman容器">
                         
-                        <span class="card-title">部署Harbor私有镜像仓库</span>
+                        <span class="card-title">podman容器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Harbor是一个开源注册中心，通过策略和基于角色的访问控制来保护工件，确保镜像经过扫描且无漏洞，并对镜像进行签名以表明其可信。
+                            容器是由一个或多个与系统其余部分隔离的进程组成的集合，软件容器是打包应用以简化其部署和管理的一种方式
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-05-28
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Kubernetes/" class="post-category">
-                                    Kubernetes
+                            <a href="/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    容器技术
                                 </a>
                             
                             
@@ -913,8 +913,8 @@ Server:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%83%A8%E7%BD%B2Harbor%E7%A7%81%E6%9C%89%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/">
-                        <span class="chip bg-color">部署Harbor私有镜像仓库</span>
+                    <a href="/tags/podman%E5%AE%B9%E5%99%A8/">
+                        <span class="chip bg-color">podman容器</span>
                     </a>
                     
                 </div>
@@ -1123,7 +1123,7 @@ Server:
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">171.5k</span>&nbsp;字
+                class="white-color">183.5k</span>&nbsp;字
             
             
             

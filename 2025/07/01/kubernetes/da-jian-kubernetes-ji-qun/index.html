@@ -44,10 +44,10 @@
     <script
         src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
     
@@ -523,7 +523,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-10-23
+                    2025-10-31
                 </div>
                 
 
@@ -574,7 +574,7 @@
 <td>k8s-master</td>
 <td>192.168.8.4</td>
 <td>master节点</td>
-<td>1.33.1</td>
+<td>1.33.5</td>
 <td>v2.1.4</td>
 <td>4核4G</td>
 </tr>
@@ -583,7 +583,7 @@
 <td>k8s-node1</td>
 <td>192.168.8.5</td>
 <td>node1节点</td>
-<td>1.33.1</td>
+<td>1.33.5</td>
 <td>v2.1.4</td>
 <td>4核4G</td>
 </tr>
@@ -592,7 +592,16 @@
 <td>k8s-node2</td>
 <td>192.168.8.6</td>
 <td>node2节点</td>
-<td>1.33.1</td>
+<td>1.33.5</td>
+<td>v2.1.4</td>
+<td>4核4G</td>
+</tr>
+<tr>
+<td>Rocky Linux 9.6</td>
+<td>k8s-node3</td>
+<td>192.168.8.7</td>
+<td>node3节点</td>
+<td>1.33.5</td>
 <td>v2.1.4</td>
 <td>4核4G</td>
 </tr>
@@ -603,18 +612,22 @@
 systemctl disable <span class="token parameter variable">--now</span> firewalld
 
 <span class="token comment"># 关闭SELinux</span>
-<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">"s/SELINUX=enforcing/SELINUX=disabled/g"</span> /etc/selinux/config
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/selinux/config 
+
 <span class="token comment"># 临时关闭SELinux</span>
-setenforce <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+setenforce <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="1-3-修改主机名"><a href="#1-3-修改主机名" class="headerlink" title="1.3 修改主机名"></a>1.3 修改主机名</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># master节点</span>
-hostnamectl set-hostname k8s-master
+  hostnamectl set-hostname k8s-master
 
 <span class="token comment"># node1节点</span>
-hostnamectl set-hostname k8s-node1
+  hostnamectl set-hostname k8s-node1
 
 <span class="token comment"># node2节点</span>
-hostnamectl set-hostname k8s-node2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  hostnamectl set-hostname k8s-node2
+
+<span class="token comment"># node3节点</span>
+  hostnamectl set-hostname k8s-node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="2-Containerd部署"><a href="#2-Containerd部署" class="headerlink" title="2 Containerd部署"></a>2 Containerd部署</h1><h2 id="2-1-安装Containerd"><a href="#2-1-安装Containerd" class="headerlink" title="2.1 安装Containerd"></a>2.1 安装Containerd</h2><p>  下载包含 <code>containerd</code> 和 <code>nerdctl</code> 的完整工具包。</p>
 <p>  解压到 <code>/usr/local</code> 目录，安装所有组件。</p>
@@ -624,6 +637,7 @@ hostnamectl set-hostname k8s-node2<span aria-hidden="true" class="line-numbers-r
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
 
 <span class="token comment"># 下载nerdctl工具，这个工具使用containerd作为底层运行时，命令行高度兼容docker，是首选方案，下载好之后，把压缩包解压到 /usr/local 目录下，这样就可以方便后面使用</span>
+
 <span class="token function">wget</span> https://github.com/containerd/nerdctl/releases/download/v2.1.6/nerdctl-full-2.1.6-linux-amd64.tar.gz
 <span class="token function">tar</span> Cxzvvf /usr/local nerdctl-full-2.1.6-linux-amd64.tar.gz
 
@@ -635,7 +649,10 @@ containerd github.com/containerd/containerd/v2 v2.1.4 75cb2b7193e4e490e9fbdc236c
 containerd github.com/containerd/containerd/v2 v2.1.4 75cb2b7193e4e490e9fbdc236c0e811ccaba3376
 
 <span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># containerd -v</span>
-containerd github.com/containerd/containerd/v2 v2.1.4 75cb2b7193e4e490e9fbdc236c0e811ccaba3376<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+containerd github.com/containerd/containerd/v2 v2.1.4 75cb2b7193e4e490e9fbdc236c0e811ccaba3376
+
+<span class="token punctuation">[</span>root@k8s-node3 ~<span class="token punctuation">]</span><span class="token comment"># containerd -v</span>
+containerd github.com/containerd/containerd/v2 v2.1.4 75cb2b7193e4e490e9fbdc236c0e811ccaba3376<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-2-生成配置文件"><a href="#2-2-生成配置文件" class="headerlink" title="2.2 生成配置文件"></a>2.2 生成配置文件</h2><p>  创建配置目录并生成默认配置文件。</p>
 <p>  替换 pause 镜像为国内源，这里的国内源可以是任何你能访问的源。</p>
@@ -661,7 +678,7 @@ EOF</span>
   <span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">"s|sandbox = 'registry.k8s.io/pause:3.10'|sandbox = 'registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.10'|"</span> /etc/containerd/config.toml
 
 <span class="token number">2</span>.将 sandbox_image 镜像源设置为阿里云google_containers镜像源
-  <span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">"s#registry.k8s.io/pause:3.8#registry.aliyuncs.com/google_containers/pause:3.10#g"</span>       /etc/containerd/config.toml
+  <span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">"s#registry.k8s.io/pause:3.8#registry.aliyuncs.com/google_containers/pause:3.10#g"</span> /etc/containerd/config.toml
 
 <span class="token comment"># 设置镜像仓库的配置路径，让containerd知道去哪里找镜像之类的，如果有容器镜像加速器，就应该配置在这个路径下。</span>
 <span class="token comment"># containerd的1.X版本和containerd的2.X版本，这里的路径是不一样的</span>
@@ -670,15 +687,50 @@ EOF</span>
 <span class="token comment"># 配置containerd cgroup 驱动程序为systemd</span>
 <span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'s#SystemdCgroup = false#SystemdCgroup = true#g'</span> /etc/containerd/config.toml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="2-3-使用镜像加速器"><a href="#2-3-使用镜像加速器" class="headerlink" title="2.3 使用镜像加速器"></a>2.3 使用镜像加速器</h2><p>  在中国需要设置国内镜像加速器，提升拉取镜像的速度</p>
+<h2 id="2-3-使用镜像加速器"><a href="#2-3-使用镜像加速器" class="headerlink" title="2.3 使用镜像加速器"></a>2.3 使用镜像加速器</h2><p> 在中国需要设置国内镜像加速器，提升拉取镜像的速度</p>
 <p>  为了能让 containerd 正常拉取镜像，还要配置一下镜像仓库的证书信息。首先，创建一个目录来存放证书，创建一个配置文件，告诉 containerd 我们要使用一个国内的镜像代理地址，这样拉取镜像会更快。</p>
+<p>  Containerd容器可用的免费镜像加速器配置方法。Containerd的配置方式与Docker不同，主要分为旧版本（1.5之前）和新版本（1.5及以上）两种方法‌：</p>
+<p>  1.旧版本配置方法（1.5之前）</p>
+<p>   对于Containerd 1.5版本之前的配置，需要直接修改<code>/etc/containerd/config.toml</code>文件‌：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">tomlCopy Code<span class="token punctuation">[</span>plugins.<span class="token string">"io.containerd.grpc.v1.cri"</span>.registry.mirrors<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>plugins.<span class="token string">"io.containerd.grpc.v1.cri"</span>.registry.mirrors.<span class="token string">"docker.io"</span><span class="token punctuation">]</span>
+endpoint <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"https://docker.m.daocloud.io"</span>, <span class="token string">"https://hub-mirror.c.163.com"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  修改后需要重启Containerd服务。</p>
+<p>  2.新版本配置方法（1.5及以上）</p>
+<p>   新版本推荐使用<code>/etc/containerd/certs.d/</code>目录进行配置，这种方式支持热加载，无需重启服务‌：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
 <span class="token function">mkdir</span> /etc/containerd/certs.d/docker.io <span class="token parameter variable">-p</span>
 <span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/containerd/certs.d/docker.io/hosts.toml <span class="token operator">&lt;&lt;-</span><span class="token string">'EOF'
-server = "https://registry.myk8s.cn"
-[host."https://registry.myk8s.cn"]
+server = "https://docker-0.unsee.tech"
+[host."https://docker-0.unsee.tech"]
   capabilities = ["pull", "resolve", "push"]
 EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  3.常用免费加速器地址</p>
+<p>   以下是一些可用的免费镜像加速器地址，可以根据需要选择使用‌：</p>
+<p>   阿里云镜像加速器：<code>https://&lt;your_id&gt;.mirror.aliyuncs.com</code>（需替换为您的ID）</p>
+<p>    <a target="_blank" rel="noopener" href="https://1016220537097033.mirror.aliyuncs.com/">https://1016220537097033.mirror.aliyuncs.com</a></p>
+<p>   DaoCloud镜像加速器：<code>https://docker.m.daocloud.io</code></p>
+<p>  <code>优先推荐（就近+稳定）:</code></p>
+<p>   <a target="_blank" rel="noopener" href="https://docker.1ms.run/">https://docker.1ms.run</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://docker-0.unsee.tech/">https://docker-0.unsee.tech</a></p>
+<p>  <code>其他备选（均正常）:</code></p>
+<p>   <a target="_blank" rel="noopener" href="https://docker.m.daocloud.io/">https://docker.m.daocloud.io</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://ccr.ccs.tencentyun.com/">https://ccr.ccs.tencentyun.com</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://hub.xdark.top/">https://hub.xdark.top</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://dhub.kubesre.xyz/">https://dhub.kubesre.xyz</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://docker.kejilion.pro/">https://docker.kejilion.pro</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://docker.xuanyuan.me/">https://docker.xuanyuan.me</a></p>
+<p>  4.测试拉取镜像</p>
+<p>   配置完成后，可以使用以下命令测试加速器是否生效‌：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl pull calico/node:v3.30.4</span>
+docker.io/calico/node:v3.30.4:                                                    resolved       <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+index-sha256:362f10b69142fcc654c0ab65a5f371923f9a1d8f7772eac0ff223b9dc67704de:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+manifest-sha256:b6c92e535b935575f48092edadcfaec716ebce53f1fbc56d312744e86ce0fb17: <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+config-sha256:833e8e11d9dc187377eab6f31e275114a6b0f8f0afc3bf578a2a00507e85afc9:   <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:44c2028a3ff8d71676da71a6c671786584592f991e0eea338c6de86237383ff7:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+elapsed: <span class="token number">10</span>.1s                                                                  total:  <span class="token number">149.6</span>  <span class="token punctuation">(</span><span class="token number">14.8</span> MiB/s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="2-4-启动Containerd服务"><a href="#2-4-启动Containerd服务" class="headerlink" title="2.4 启动Containerd服务"></a>2.4 启动Containerd服务</h2><p>  启动并设置 containerd 和 buildkit 服务为开机自启。</p>
 <p>   containerd 是一个高性能的容器运行时，负责管理容器的生命周期，包括镜像拉取、容器创建、运行、停止等，是 Kubernetes 支持的主流运行时之一。</p>
@@ -705,7 +757,8 @@ nerdctl completion <span class="token function">bash</span> <span class="token o
 192.168.8.4 k8s-master
 192.168.8.5 k8s-node1
 192.168.8.6 k8s-node2
-EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+192.168.8.7 k8s-node3
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="4-操作Containerd容器"><a href="#4-操作Containerd容器" class="headerlink" title="4 操作Containerd容器"></a>4 操作Containerd容器</h1><h2 id="4-1-镜像操作"><a href="#4-1-镜像操作" class="headerlink" title="4.1 镜像操作"></a>4.1 镜像操作</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.拉取镜像
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span>~<span class="token comment"># nerdctl pull registry.myk8s.cn/library/httpd</span>
@@ -889,15 +942,37 @@ eb4c803b8104    docker.io/library/nginx:v1    <span class="token string">"/docke
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
 
 yum <span class="token function">install</span> <span class="token parameter variable">-y</span> chrony
-<span class="token function">sed</span> <span class="token parameter variable">-ri</span> <span class="token string">'s/^pool.*/#&amp;/'</span> /etc/chrony.conf
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'s/^pool.*/#&amp;/'</span> /etc/chrony.conf
+
 <span class="token function">cat</span> <span class="token operator">&gt;&gt;</span> /etc/chrony.conf <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
 pool ntp1.aliyun.com iburst
 EOF</span>
+
 systemctl restart chronyd
 chronyc sources
 <span class="token comment"># 修改时区，如果之前是这个时区就不用修改</span>
 <span class="token function">ln</span> <span class="token parameter variable">-sf</span> /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-<span class="token builtin class-name">echo</span> <span class="token string">'Asia/Shanghai'</span> <span class="token operator">&gt;</span> /etc/timezone<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token builtin class-name">echo</span> <span class="token string">'Asia/Shanghai'</span> <span class="token operator">&gt;</span> /etc/timezone
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># date</span>
+Wed Oct <span class="token number">29</span> <span class="token number">15</span>:57:38 CST <span class="token number">2025</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cat /etc/timezone</span>
+Asia/Shanghai
+
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># date</span>
+Wed Oct <span class="token number">29</span> <span class="token number">15</span>:58:19 CST <span class="token number">2025</span>
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># cat /etc/timezone</span>
+Asia/Shanghai
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># date</span>
+Wed Oct <span class="token number">29</span> <span class="token number">15</span>:59:21 CST <span class="token number">2025</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># cat /etc/timezone</span>
+Asia/Shanghai
+
+<span class="token punctuation">[</span>root@k8s-node3 ~<span class="token punctuation">]</span><span class="token comment"># date</span>
+Wed Oct <span class="token number">29</span> 03:55:43 PM CST <span class="token number">2025</span>
+<span class="token punctuation">[</span>root@k8s-node3 ~<span class="token punctuation">]</span><span class="token comment"># cat /etc/timezone</span>
+Asia/Shanghai<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="5-2-关闭交换分区"><a href="#5-2-关闭交换分区" class="headerlink" title="5.2 关闭交换分区"></a>5.2 关闭交换分区</h2><p>  Kubernetes 在<code>1.34版本</code>之前要求禁用 swap 分区，否则 kubelet 会拒绝启动。第一条命令临时关闭 swap，第二条命令注释掉 <code>/etc/fstab</code> 中的 swap 配置，防止重启后自动启用</p>
 <p>  1.34以上的版本还是推荐禁用swap分区以提升稳定性</p>
@@ -947,7 +1022,11 @@ bridge                <span class="token number">417792</span>  <span class="tok
 
 <span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># lsmod | grep br_netfilter</span>
 br_netfilter           <span class="token number">36864</span>  <span class="token number">0</span>
-bridge                <span class="token number">417792</span>  <span class="token number">1</span> br_netfilter<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+bridge                <span class="token number">417792</span>  <span class="token number">1</span> br_netfilter
+
+<span class="token punctuation">[</span>root@k8s-node3 ~<span class="token punctuation">]</span><span class="token comment"># lsmod | grep br_netfilter</span>
+br_netfilter           <span class="token number">36864</span>  <span class="token number">0</span>
+bridge                <span class="token number">417792</span>  <span class="token number">1</span> br_netfilter<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="5-4-配置免密登录"><a href="#5-4-配置免密登录" class="headerlink" title="5.4 配置免密登录"></a>5.4 配置免密登录</h2><p>  可选操作，主要便于批量管理</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 以下步骤仅在master节点完成即可</span>
@@ -956,6 +1035,7 @@ ssh-keygen  <span class="token comment"># 连续回车三次</span>
 ssh-copy-id <span class="token parameter variable">-i</span> ~/.ssh/id_rsa.pub root@192.168.8.4
 ssh-copy-id <span class="token parameter variable">-i</span> ~/.ssh/id_rsa.pub root@192.168.8.5
 ssh-copy-id <span class="token parameter variable">-i</span> ~/.ssh/id_rsa.pub root@192.168.8.6
+ssh-copy-id <span class="token parameter variable">-i</span> ~/.ssh/id_rsa.pub root@192.168.8.7
 
 <span class="token comment"># 测试登录</span>
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># ssh root@192.168.8.5</span>
@@ -968,7 +1048,13 @@ Last login: Wed Oct <span class="token number">22</span> <span class="token numb
 Activate the web console with: systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> cockpit.socket
 
 Last login: Wed Oct <span class="token number">22</span> <span class="token number">15</span>:05:27 <span class="token number">2025</span> from <span class="token number">192.168</span>.8.4
-<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment">#</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># ssh root@192.168.8.7</span>
+Activate the web console with: systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> cockpit.socket
+
+Last login: Wed Oct <span class="token number">29</span> <span class="token number">14</span>:44:48 <span class="token number">2025</span> from <span class="token number">192.168</span>.8.1
+<span class="token punctuation">[</span>root@k8s-node3 ~<span class="token punctuation">]</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="5-5-安装ipvs转发支持"><a href="#5-5-安装ipvs转发支持" class="headerlink" title="5.5 安装ipvs转发支持"></a>5.5 安装ipvs转发支持</h2><p>  在kubernetes中Service有两种代理模型，一种是基于iptables的，一种是基于ipvs，两者对比ipvs的性能要高。默认使用iptables，所以要手动加载ipvs。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
@@ -1017,7 +1103,16 @@ ip_vs_rr               <span class="token number">12288</span>  <span class="tok
 ip_vs                 <span class="token number">237568</span>  <span class="token number">6</span> ip_vs_rr,ip_vs_sh,ip_vs_wrr
 nf_conntrack          <span class="token number">229376</span>  <span class="token number">3</span> nf_nat,nft_ct,ip_vs
 nf_defrag_ipv6         <span class="token number">24576</span>  <span class="token number">2</span> nf_conntrack,ip_vs
-libcrc32c              <span class="token number">12288</span>  <span class="token number">5</span> nf_conntrack,nf_nat,nf_tables,xfs,ip_vs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+libcrc32c              <span class="token number">12288</span>  <span class="token number">5</span> nf_conntrack,nf_nat,nf_tables,xfs,ip_vs
+
+<span class="token punctuation">[</span>root@k8s-node3 ~<span class="token punctuation">]</span><span class="token comment"># lsmod | grep -e ip_vs -e nf_conntrack_ipv4</span>
+ip_vs_sh               <span class="token number">12288</span>  <span class="token number">0</span>
+ip_vs_wrr              <span class="token number">12288</span>  <span class="token number">0</span>
+ip_vs_rr               <span class="token number">12288</span>  <span class="token number">0</span>
+ip_vs                 <span class="token number">237568</span>  <span class="token number">6</span> ip_vs_rr,ip_vs_sh,ip_vs_wrr
+nf_conntrack          <span class="token number">229376</span>  <span class="token number">3</span> nf_nat,nft_ct,ip_vs
+nf_defrag_ipv6         <span class="token number">24576</span>  <span class="token number">2</span> nf_conntrack,ip_vs
+libcrc32c              <span class="token number">12288</span>  <span class="token number">5</span> nf_conntrack,nf_nat,nf_tables,xfs,ip_vs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="5-6-安装Docker、Containerd"><a href="#5-6-安装Docker、Containerd" class="headerlink" title="5.6 安装Docker、Containerd"></a>5.6 安装Docker、Containerd</h2><p>  dockerd实际真实调用的还是containerd的api接口，containerd是dockerd和runC之间的一个中间交流组件。所以启动docker服务的时候，也会启动containerd服务的。</p>
 <p>  kubernets自ｖ1.24.0后，就不再使用docker.shim，替换采用containerd作为容器运行时端点。因此需要安装containerd（在docker的基础下安装），上面安装docker的时候就自动安装了containerd了。这里的docker只是作为客户端而已。容器引擎还是containerd。</p>
@@ -1069,106 +1164,32 @@ systemctl <span class="token builtin class-name">enable</span> <span class="toke
 <span class="token comment"># 查看</span>
 systemctl status <span class="token function">docker</span> containerd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="5-7-配置k8s在国内的yum源"><a href="#5-7-配置k8s在国内的yum源" class="headerlink" title="5.7 配置k8s在国内的yum源"></a>5.7 配置k8s在国内的yum源</h2><p>  <code>1.配置阿里云上k8s的yum源</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
-
-<span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/yum.repos.d/kubernetes.repo <span class="token operator">&lt;&lt;</span><span class="token string">EOF
-[kubernetes]
-name=Kubernetes
-baseurl=https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.34/rpm/
-enabled=1
-gpgcheck=0
-EOF</span>
-
-<span class="token comment"># 查看所有的可用版本</span>
-yum list kubelet <span class="token parameter variable">--showduplicates</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-r</span> <span class="token operator">|</span><span class="token function">grep</span> <span class="token number">1.34</span>
-
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># yum list kubelet --showduplicates | sort -r |grep 1.34</span>
-kubelet.x86_64                    <span class="token number">1.34</span>.1-150500.1.1                   kubernetes
-kubelet.x86_64                    <span class="token number">1.34</span>.0-150500.1.1                   kubernetes
-kubelet.src                       <span class="token number">1.34</span>.1-150500.1.1                   kubernetes
-kubelet.src                       <span class="token number">1.34</span>.0-150500.1.1                   kubernetes
-kubelet.s390x                     <span class="token number">1.34</span>.1-150500.1.1                   kubernetes
-kubelet.s390x                     <span class="token number">1.34</span>.0-150500.1.1                   kubernetes
-kubelet.ppc64le                   <span class="token number">1.34</span>.1-150500.1.1                   kubernetes
-kubelet.ppc64le                   <span class="token number">1.34</span>.0-150500.1.1                   kubernetes
-kubelet.aarch64                   <span class="token number">1.34</span>.1-150500.1.1                   kubernetes
-kubelet.aarch64                   <span class="token number">1.34</span>.0-150500.1.1                   kubernetes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>  <code>2.配置南京大学软件仓库进行加速，本次安装的k8s版本是1.34</code></p>
+<h2 id="5-7-配置k8s在国内的yum源"><a href="#5-7-配置k8s在国内的yum源" class="headerlink" title="5.7 配置k8s在国内的yum源"></a>5.7 配置k8s在国内的yum源</h2><p>  <code>配置南京大学软件仓库进行加速，本次安装的k8s版本是1.34</code></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
 
 <span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/yum.repos.d/kubernetes.repo</span>
 [kubernetes]
 name=Kubernetes
-baseurl=https://mirrors.nju.edu.cn/kubernetes/core%3A/stable%3A/v1.34/rpm/
+baseurl=https://mirrors.nju.edu.cn/kubernetes/core%3A/stable%3A/v1.33/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://mirrors.nju.edu.cn/kubernetes/core%3A/stable%3A/v1.34/rpm/repodata/repomd.xml.key
+gpgkey=https://mirrors.nju.edu.cn/kubernetes/core%3A/stable%3A/v1.33/rpm/repodata/repomd.xml.key
 exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
-EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+EOF</span>
 
-<h2 id="5-8-安装kubectl、kubelet和kubeadm"><a href="#5-8-安装kubectl、kubelet和kubeadm" class="headerlink" title="5.8 安装kubectl、kubelet和kubeadm"></a>5.8 安装kubectl、kubelet和kubeadm</h2><p>  <code>1.指定版本安装</code></p>
+yum clean all
+yum makecache
+
+<span class="token comment"># 查看所有的可用版本</span>
+yum list kubelet <span class="token parameter variable">--showduplicates</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-r</span> <span class="token operator">|</span><span class="token function">grep</span> <span class="token number">1.34</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># yum list kubelet --showduplicates | sort -r |grep 1.34</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-8-安装kubectl、kubelet和kubeadm"><a href="#5-8-安装kubectl、kubelet和kubeadm" class="headerlink" title="5.8 安装kubectl、kubelet和kubeadm"></a>5.8 安装kubectl、kubelet和kubeadm</h2><p>  <code>安装kubelet kubeadm kubectl这三个包，把kubelet服务启动一下</code></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
 
 <span class="token comment"># 安装指定版本</span>
 yum <span class="token function">install</span> <span class="token parameter variable">-y</span> kubectl-1.34.1 kubelet-1.34.1 kubeadm-1.34.1
-
-<span class="token comment"># kubectl是命令行工具。kubeadm仅是一个集群搭建工具，不涉及启动。kubelet是一个守护进程程序，由kubeadm在搭建过程中自动启动，这里仅设置开机启动即可。</span>
-
-systemctl <span class="token builtin class-name">enable</span> kubelet
-
-<span class="token comment"># 准备k8s-1.34.1 所需要的镜像</span>
-kubeadm config images list --kubernetes-version<span class="token operator">=</span>v1.34.1
-
-<span class="token comment"># 可以提前把镜像下载好，这样安装快（可选步骤）</span>
-crictl pull registry.aliyuncs.com/google_containers/kube-apiserver:v1.34.1
-crictl pull registry.aliyuncs.com/google_containers/kube-controller-manager:v1.34.1
-crictl pull registry.aliyuncs.com/google_containers/kube-scheduler:v1.34.1
-crictl pull registry.aliyuncs.com/google_containers/kube-proxy:v1.34.1
-crictl pull registry.aliyuncs.com/google_containers/pause:3.10
-crictl pull registry.aliyuncs.com/google_containers/etcd:3.5.16-0
-crictl pull registry.aliyuncs.com/google_containers/coredns:v1.11.3
-
-<span class="token comment"># 集群初始化</span>
-kubeadm init --kubernetes-version<span class="token operator">=</span>v1.32.9 <span class="token punctuation">\</span>
---pod-network-cidr<span class="token operator">=</span><span class="token number">192.168</span>.0.0/16  <span class="token punctuation">\</span>
---apiserver-advertise-address<span class="token operator">=</span><span class="token number">10.0</span>.0.210 <span class="token punctuation">\</span>
---service-cidr<span class="token operator">=</span><span class="token number">10.224</span>.0.0/16 <span class="token punctuation">\</span>
---image-repository<span class="token operator">=</span>registry.aliyuncs.com/google_containers
-
-<span class="token comment"># 参数说明</span>
-  <span class="token number">1</span>.--apiserver-advertise-address 集群apiServer地址<span class="token punctuation">(</span>master节点IP即可<span class="token punctuation">)</span> 
-  <span class="token number">2</span>.--image-repository 由于默认拉取镜像地址k8s.gcr.io国内无法访问，这里指定阿里云镜像仓库地址 
-  <span class="token number">3</span>.--kubernetes-version K8s版本，与上面安装的一致 
-  <span class="token number">4</span>.--service-cidr 集群内部虚拟网络，Pod统一访问入口 
-  <span class="token number">5</span>.--pod-network-cidr Pod网络，，与下面部署的CNI网络组件yaml中保持一致
-  
-  
-<span class="token comment"># 安装成功会输出以下内容</span>
-Your Kubernetes control-plane has initialized successfully<span class="token operator">!</span>
-
-To start using your cluster, you need to run the following as a regular user:
-
-  <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> <span class="token environment constant">$HOME</span>/.kube
-  <span class="token function">sudo</span> <span class="token function">cp</span> <span class="token parameter variable">-i</span> /etc/kubernetes/admin.conf <span class="token environment constant">$HOME</span>/.kube/config
-  <span class="token function">sudo</span> <span class="token function">chown</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> <span class="token parameter variable">-u</span><span class="token variable">)</span></span><span class="token builtin class-name">:</span><span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> <span class="token parameter variable">-g</span><span class="token variable">)</span></span> <span class="token environment constant">$HOME</span>/.kube/config
-
-Alternatively, <span class="token keyword">if</span> you are the root user, you can run:
-
-<span class="token builtin class-name">export</span> <span class="token assign-left variable">KUBECONFIG</span><span class="token operator">=</span>/etc/kubernetes/admin.conf
-
-You should now deploy a pod network to the cluster.
-Run <span class="token string">"kubectl apply -f [podnetwork].yaml"</span> with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
-
-Then you can <span class="token function">join</span> any number of worker nodes by running the following on each as root:
-
-kubeadm <span class="token function">join</span> <span class="token number">10.0</span>.0.210:6443 <span class="token parameter variable">--token</span> 8nlzcn.iq9ohzqjcfefdp0g <span class="token punctuation">\</span>
- --discovery-token-ca-cert-hash sha256:6c1d9a8cd03ac34de32226f78316f0d3b3b30322704d7845365e94f63f27eff1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>  <code>2.安装kubelet kubeadm kubectl这三个包，把kubelet服务启动一下</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
 
 <span class="token comment"># 若不指定版本默认安装最高版本</span>
 <span class="token function">sudo</span> yum <span class="token function">install</span> <span class="token parameter variable">-y</span> kubelet kubeadm kubectl <span class="token parameter variable">--disableexcludes</span><span class="token operator">=</span>kubernetes
@@ -1177,7 +1198,7 @@ kubeadm <span class="token function">join</span> <span class="token number">10.0
   <span class="token number">1</span>.kubectl是命令行工具
   <span class="token number">2</span>.kubeadm仅是一个集群搭建工具，不涉及启动
   <span class="token number">3</span>.kubelet是一个守护进程程序，由kubeadm在搭建过程中自动启动，这里仅设置开机启动即可
-<span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> kubelet<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> kubelet<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="5-9-添加命令自动补齐功能"><a href="#5-9-添加命令自动补齐功能" class="headerlink" title="5.9 添加命令自动补齐功能"></a>5.9 添加命令自动补齐功能</h2><p>  启用 bash 自动补齐，提高命令行效率，避免拼写错误。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
@@ -1218,9 +1239,12 @@ IMAGE               TAG                 IMAGE ID            SIZE
 <span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># crictl images</span>
 IMAGE               TAG                 IMAGE ID            SIZE
 
+<span class="token punctuation">[</span>root@k8s-node3 ~<span class="token punctuation">]</span><span class="token comment"># crictl images</span>
+IMAGE               TAG                 IMAGE ID            SIZE
+
 <span class="token comment"># 顺便给crictl做一个命令补齐功能</span>
 crictl completion <span class="token function">bash</span> <span class="token operator">&gt;</span> /etc/bash_completion.d/crictl
-<span class="token builtin class-name">source</span> /etc/bash_completion.d/crictl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token builtin class-name">source</span> /etc/bash_completion.d/crictl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="5-11-开通防火墙"><a href="#5-11-开通防火墙" class="headerlink" title="5.11 开通防火墙"></a>5.11 开通防火墙</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下列步骤需要在集群中所有机器上完成</span>
 
@@ -1329,8 +1353,7 @@ Run <span class="token string">"kubectl apply -f [podnetwork].yaml"</span> with 
 Then you can <span class="token function">join</span> any number of worker nodes by running the following on each as root:
 
 kubeadm <span class="token function">join</span> <span class="token number">192.168</span>.8.4:6443 <span class="token parameter variable">--token</span> abcdef.0123456789abcdef <span class="token punctuation">\</span>
-        --discovery-token-ca-cert-hash sha256:e58b76217b4b65a0db0ca647ad04bdf542546c4916cf6631cd8ab8c13811cdad
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        --discovery-token-ca-cert-hash sha256:cdef263e1fe962f26a37ac949b28b78f83f2c84cbd43461006a0bb72cc63edfc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  授权管理权限,将集群配置文件复制到当前用户目录，使 <code>kubectl</code> 能正常访问和管理集群。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 以下步骤仅在master节点完成即可</span>
@@ -1349,7 +1372,7 @@ nerdctl pull calico/node:v3.30.4
 nerdctl pull calico/cni:v3.30.4
 nerdctl pull calico/apiserver:v3.30.4
 nerdctl pull calico/kube-controllers:v3.30.4
-nerdctl pull calico/envoy-gateway:v3.30.4
+nerdctl pull calico/envoy-gateway:v3.30.4 
 nerdctl pull calico/envoy-proxy:v3.30.4
 nerdctl pull calico/envoy-ratelimit:v3.30.4
 nerdctl pull calico/dikastes:v3.30.4
@@ -1361,32 +1384,33 @@ nerdctl pull calico/whisker-backend:v3.30.4
 
 <span class="token number">2</span>.Retag the images with the name of your registry <span class="token variable">$REGISTRY</span><span class="token builtin class-name">.</span>
 
-nerdctl tag quay.io/tigera/operator:v1.38.7 <span class="token variable">$REGISTRY</span>/tigera/operator:v1.38.7
-nerdctl tag calico/node:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/node:v3.30.4
-nerdctl tag calico/cni:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/cni:v3.30.4
-nerdctl tag calico/apiserver:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/apiserver:v3.30.4
-nerdctl tag calico/kube-controllers:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/kube-controllers:v3.30.4
-nerdctl tag calico/envoy-gateway:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/envoy-gateway:v3.30.4
-nerdctl tag calico/envoy-proxy:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/envoy-proxy:v3.30.4
-nerdctl tag calico/envoy-ratelimit:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/envoy-ratelimit:v3.30.4
-nerdctl tag calico/dikastes:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/dikastes:v3.30.4
-nerdctl tag calico/pod2daemon-flexvol:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/pod2daemon-flexvol:v3.30.4
-nerdctl tag calico/key-cert-provisioner:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/key-cert-provisioner:v3.30.4
-nerdctl tag calico/goldmane:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/goldmane:v3.30.4
-nerdctl tag calico/whisker:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/whisker:v3.30.4
-<span class="token function">docker</span> tag calico/whisker-backend:v3.30.4 <span class="token variable">$REGISTRY</span>/calico/whisker-backend:v3.30.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+nerdctl tag quay.io/tigera/operator:v1.38.7 harbor.cncf.net:447/library/quay.io/tigera/operator:v1.38.7
+nerdctl tag calico/node:v3.30.4 harbor.cncf.net:447/library/calico/node:v3.30.4
+nerdctl tag calico/cni:v3.30.4 harbor.cncf.net:447/library/calico/cni:v3.30.4
+nerdctl tag calico/apiserver:v3.30.4 harbor.cncf.net:447/library/calico/apiserver:v3.30.4
+nerdctl tag calico/kube-controllers:v3.30.4 harbor.cncf.net:447/library/calico/kube-controllers:v3.30.4
+nerdctl tag calico/envoy-gateway:v3.30.4 harbor.cncf.net:447/library/calico/envoy-gateway:v3.30.4
+nerdctl tag calico/envoy-proxy:v3.30.4 harbor.cncf.net:447/library/calico/envoy-proxy:v3.30.4
+nerdctl tag calico/envoy-ratelimit:v3.30.4 harbor.cncf.net:447/library/calico/envoy-ratelimit:v3.30.4
+nerdctl tag calico/dikastes:v3.30.4 harbor.cncf.net:447/library/calico/dikastes:v3.30.4
+nerdctl tag calico/pod2daemon-flexvol:v3.30.4 harbor.cncf.net:447/library/calico/pod2daemon-flexvol:v3.30.4
+nerdctl tag calico/key-cert-provisioner:v3.30.4 harbor.cncf.net:447/library/calico/key-cert-provisioner:v3.30.4
+nerdctl tag calico/goldmane:v3.30.4 harbor.cncf.net:447/library/calico/goldmane:v3.30.4
+nerdctl tag calico/whisker:v3.30.4 harbor.cncf.net:447/library/calico/whisker:v3.30.4
+nerdctl tag calico/whisker-backend:v3.30.4 harbor.cncf.net:447/library/calico/whisker-backend:v3.30.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>镜像下载后，用下面这个operator把calico组件给安装上:</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl create <span class="token parameter variable">-f</span> https://raw.gitmirror.com/projectcalico/calico/v3.30.3/manifests/operator-crds.yaml
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl create <span class="token parameter variable">-f</span> https://raw.gitmirror.com/projectcalico/calico/v3.31.0/manifests/operator-crds.yaml
+kubectl create <span class="token parameter variable">-f</span> https://raw.gitmirror.com/projectcalico/calico/v3.31.0/manifests/tigera-operator.yaml
 
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/refs/tags/v3.30.0/manifests/tigera-operator.yaml</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl create -f https://raw.gitmirror.com/projectcalico/calico/v3.31.0/manifests/tigera-operator.yaml</span>
 namespace/tigera-operator created
 serviceaccount/tigera-operator created
 clusterrole.rbac.authorization.k8s.io/tigera-operator-secrets created
 clusterrole.rbac.authorization.k8s.io/tigera-operator created
 clusterrolebinding.rbac.authorization.k8s.io/tigera-operator created
 rolebinding.rbac.authorization.k8s.io/tigera-operator-secrets created
-deployment.apps/tigera-operator created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+deployment.apps/tigera-operator created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  1.<code>operator-crds.yaml</code> 的作用</p>
 <p>   这个文件用于部署 <strong>Calico Operator 的 CRDs（Custom Resource Definitions，自定义资源定义）</strong>。</p>
@@ -1401,7 +1425,9 @@ deployment.apps/tigera-operator created<span aria-hidden="true" class="line-numb
 <p>   应用该文件后，Calico Operator 会根据这些配置自动部署 Calico 的核心组件（如 <code>calico-node</code>、<code>typha</code> 等）。</p>
 <p>   简单来说：这是告诉 Calico Operator“怎么部署”，包括网络范围、组件行为等。</p>
 <p><code>用下面的自定义资源设置一下calico在集群中的网段:</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://raw.githubusercontent.com/projectcalico/calico/refs/tags/v3.30.0/manifests/custom-resources.yaml
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://raw.gitmirror.com/projectcalico/calico/v3.31.0/manifests/custom-resources.yaml
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># wget https://raw.gitmirror.com/projectcalico/calico/v3.31.0/manifests/custom-resources.yaml</span>
 
 <span class="token comment"># 修改 custom-resources.yaml 中的 cidr 字段，确保与 kubeadm.yaml 中的 podSubnet 保持一致</span>
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># vim custom-resources.yaml</span>
@@ -1420,7 +1446,7 @@ spec:
       encapsulation: VXLANCrossSubnet
       natOutgoing: Enabled
       nodeSelector: all<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>将自定义资源发布到集群中:</code></p>
 <p>  应用配置后，Calico 会自动部署网络组件，确保 Pod 间通信正常。</p>
@@ -1431,24 +1457,29 @@ goldmane.operator.tigera.io/default created
 whisker.operator.tigera.io/default created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>查询集群组件是否工作正常，正常应该都处于running:</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pod -A</span>
-NAMESPACE          NAME                                      READY   STATUS    RESTARTS      AGE
-calico-apiserver   calico-apiserver-58688b698d-6xkzx         <span class="token number">1</span>/1     Running   <span class="token number">0</span>             4m7s
-calico-apiserver   calico-apiserver-58688b698d-z5z6j         <span class="token number">1</span>/1     Running   <span class="token number">0</span>             4m7s
-calico-system      calico-kube-controllers-b46c76d75-dwmhr   <span class="token number">1</span>/1     Running   <span class="token number">0</span>             4m4s
-calico-system      calico-node-zllf7                         <span class="token number">1</span>/1     Running   <span class="token number">0</span>             4m5s
-calico-system      calico-typha-6d8bc4c486-vs45l             <span class="token number">1</span>/1     Running   <span class="token number">0</span>             4m5s
-calico-system      csi-node-driver-d64bs                     <span class="token number">2</span>/2     Running   <span class="token number">0</span>             4m4s
-calico-system      goldmane-744d5c978b-26khr                 <span class="token number">1</span>/1     Running   <span class="token number">0</span>             4m5s
-calico-system      whisker-6745894f65-5b2zm                  <span class="token number">2</span>/2     Running   <span class="token number">0</span>             2m23s
-kube-system        coredns-7ddb67b59b-bfvr4                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>             46m
-kube-system        coredns-7ddb67b59b-f4rgv                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>             46m
-kube-system        etcd-k8s-master                           <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>23m ago<span class="token punctuation">)</span>   46m
-kube-system        kube-apiserver-k8s-master                 <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>23m ago<span class="token punctuation">)</span>   46m
-kube-system        kube-controller-manager-k8s-master        <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>23m ago<span class="token punctuation">)</span>   46m
-kube-system        kube-proxy-qqztr                          <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>23m ago<span class="token punctuation">)</span>   46m
-kube-system        kube-scheduler-k8s-master                 <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>23m ago<span class="token punctuation">)</span>   46m
-tigera-operator    tigera-operator-6b5584d9cb-xfqrg          <span class="token number">1</span>/1     Running   <span class="token number">0</span>             10m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get nodes</span>
+NAME         STATUS   ROLES           AGE   VERSION
+k8s-master   Ready    control-plane   21m   v1.33.5
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pod -A</span>
+NAMESPACE         NAME                                       READY   STATUS    RESTARTS   AGE
+calico-system     calico-apiserver-69cbdcdcf5-gbgts          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          110s
+calico-system     calico-apiserver-69cbdcdcf5-rnd5r          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          110s
+calico-system     calico-kube-controllers-85d75d757c-j2mq4   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          109s
+calico-system     calico-node-6zmpq                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          109s
+calico-system     calico-typha-9bfd898b7-t85vm               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          109s
+calico-system     csi-node-driver-dwxk9                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          109s
+calico-system     goldmane-5cfbfbffd6-8lmkw                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          110s
+calico-system     whisker-84c887fc48-d8vqm                   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          64s
+kube-system       coredns-746c97786-h8mnt                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          20m
+kube-system       coredns-746c97786-ndcwk                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          20m
+kube-system       etcd-k8s-master                            <span class="token number">1</span>/1     Running   <span class="token number">0</span>          20m
+kube-system       kube-apiserver-k8s-master                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          20m
+kube-system       kube-controller-manager-k8s-master         <span class="token number">1</span>/1     Running   <span class="token number">0</span>          20m
+kube-system       kube-proxy-rhxls                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          20m
+kube-system       kube-scheduler-k8s-master                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          20m
+tigera-operator   tigera-operator-75f6548d76-j4qzq           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8m23s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="6-加入node节点"><a href="#6-加入node节点" class="headerlink" title="6 加入node节点"></a>6 加入node节点</h1><p>  <code>加入节点操作需在所有的worker节点完成，这里要注意，Worker节点需要完成以下先决条件才能执行kubeadm join:</code></p>
 <p>   1.Containerd部署</p>
@@ -1459,56 +1490,40 @@ tigera-operator    tigera-operator-6b5584d9cb-xfqrg          <span class="token 
 <p>   6.所有节点的/etc/hosts中互相添加对方的解析</p>
 <p>  如果时间长忘记了join参数，可以在<strong>master节点</strong>上用以下方法重新生成</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubeadm token create --print-join-command</span>
-kubeadm <span class="token function">join</span> <span class="token number">192.168</span>.8.4:6443 <span class="token parameter variable">--token</span> ut5yec.hq4nhn7a2219s4sl --discovery-token-ca-cert-hash sha256:e58b76217b4b65a0db0ca647ad04bdf542546c4916cf6631cd8ab8c13811cdad<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+kubeadm <span class="token function">join</span> <span class="token number">192.168</span>.8.4:6443 <span class="token parameter variable">--token</span> kquj54.8tqxdkslnhiq75pt --discovery-token-ca-cert-hash sha256:cdef263e1fe962f26a37ac949b28b78f83f2c84cbd43461006a0bb72cc63edfc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>  如果有多个CRI对象，在<strong>worker节点</strong>上执行以下命令加入节点时，指定CRI对象，案例如下：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubeadm <span class="token function">join</span> <span class="token number">192.168</span>.8.4:6443 <span class="token parameter variable">--token</span> ut5yec.hq4nhn7a2219s4sl --discovery-token-ca-cert-hash sha256:e58b76217b4b65a0db0ca647ad04bdf542546c4916cf6631cd8ab8c13811cdad --cri-socket<span class="token operator">=</span>unix:///run/containerd/containerd.sock
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubeadm <span class="token function">join</span> <span class="token number">192.168</span>.8.4:6443 <span class="token parameter variable">--token</span> kquj54.8tqxdkslnhiq75pt --discovery-token-ca-cert-hash sha256:cdef263e1fe962f26a37ac949b28b78f83f2c84cbd43461006a0bb72cc63edfc --cri-socket<span class="token operator">=</span>unix:///run/containerd/containerd.sock
 
-
-<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># kubeadm join 192.168.8.4:6443 --token ut5yec.hq4nhn7a2219s4sl --discovery-token-ca-cert-hash sha256:e58b76217b4b65a0db0ca647ad04bdf542546c4916cf6631cd8ab8c13811cdad --cri-socket=unix:///run/containerd/containerd.sock</span>
-<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Running pre-flight checks
-        <span class="token punctuation">[</span>WARNING SystemVerification<span class="token punctuation">]</span>: kernel release <span class="token number">5.14</span>.0-570.17.1.el9_6.x86_64 is unsupported. Supported LTS versions from the <span class="token number">5</span>.x series are <span class="token number">5.4</span>, <span class="token number">5.10</span> and <span class="token number">5.15</span>. Any <span class="token number">6</span>.x version is also supported. For cgroups v2 support, the recommended version is <span class="token number">5.10</span> or newer
-<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Reading configuration from the <span class="token string">"kubeadm-config"</span> ConfigMap <span class="token keyword">in</span> namespace <span class="token string">"kube-system"</span><span class="token punctuation">..</span>.
-<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Use <span class="token string">'kubeadm init phase upload-config kubeadm --config your-config-file'</span> to re-upload it.
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Writing kubelet configuration to <span class="token function">file</span> <span class="token string">"/var/lib/kubelet/instance-config.yaml"</span>
-<span class="token punctuation">[</span>patches<span class="token punctuation">]</span> Applied patch of <span class="token builtin class-name">type</span> <span class="token string">"application/strategic-merge-patch+json"</span> to target <span class="token string">"kubeletconfiguration"</span>
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Writing kubelet configuration to <span class="token function">file</span> <span class="token string">"/var/lib/kubelet/config.yaml"</span>
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Writing kubelet environment <span class="token function">file</span> with flags to <span class="token function">file</span> <span class="token string">"/var/lib/kubelet/kubeadm-flags.env"</span>
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Starting the kubelet
-<span class="token punctuation">[</span>kubelet-check<span class="token punctuation">]</span> Waiting <span class="token keyword">for</span> a healthy kubelet at http://127.0.0.1:10248/healthz. This can take up to 4m0s
-<span class="token punctuation">[</span>kubelet-check<span class="token punctuation">]</span> The kubelet is healthy after <span class="token number">502</span>.654815ms
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Waiting <span class="token keyword">for</span> the kubelet to perform the TLS Bootstrap
-
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># kubeadm join 192.168.8.4:6443 --token kquj54.8tqxdkslnhiq75pt --discovery-token-ca-cert-hash sha256:cdef263e1fe962f26a37ac949b28b78f83f2c84cbd43461006a0bb72cc63edfc --cri-socket=unix:///run/containerd/containerd.sock</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
 This <span class="token function">node</span> has joined the cluster:
 * Certificate signing request was sent to apiserver and a response was received.
 * The Kubelet was informed of the new secure connection details.
 
 Run <span class="token string">'kubectl get nodes'</span> on the control-plane to see this <span class="token function">node</span> <span class="token function">join</span> the cluster.
 
-<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># kubeadm join 192.168.8.4:6443 --token ut5yec.hq4nhn7a2219s4sl --discovery-token-ca-cert-hash sha256:e58b76217b4b65a0db0ca647ad04bdf542546c4916cf6631cd8ab8c13811cdad --cri-socket=unix:///run/containerd/containerd.sock</span>
-<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Running pre-flight checks
-        <span class="token punctuation">[</span>WARNING SystemVerification<span class="token punctuation">]</span>: kernel release <span class="token number">5.14</span>.0-570.17.1.el9_6.x86_64 is unsupported. Supported LTS versions from the <span class="token number">5</span>.x series are <span class="token number">5.4</span>, <span class="token number">5.10</span> and <span class="token number">5.15</span>. Any <span class="token number">6</span>.x version is also supported. For cgroups v2 support, the recommended version is <span class="token number">5.10</span> or newer
-<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Reading configuration from the <span class="token string">"kubeadm-config"</span> ConfigMap <span class="token keyword">in</span> namespace <span class="token string">"kube-system"</span><span class="token punctuation">..</span>.
-<span class="token punctuation">[</span>preflight<span class="token punctuation">]</span> Use <span class="token string">'kubeadm init phase upload-config kubeadm --config your-config-file'</span> to re-upload it.
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Writing kubelet configuration to <span class="token function">file</span> <span class="token string">"/var/lib/kubelet/instance-config.yaml"</span>
-<span class="token punctuation">[</span>patches<span class="token punctuation">]</span> Applied patch of <span class="token builtin class-name">type</span> <span class="token string">"application/strategic-merge-patch+json"</span> to target <span class="token string">"kubeletconfiguration"</span>
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Writing kubelet configuration to <span class="token function">file</span> <span class="token string">"/var/lib/kubelet/config.yaml"</span>
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Writing kubelet environment <span class="token function">file</span> with flags to <span class="token function">file</span> <span class="token string">"/var/lib/kubelet/kubeadm-flags.env"</span>
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Starting the kubelet
-<span class="token punctuation">[</span>kubelet-check<span class="token punctuation">]</span> Waiting <span class="token keyword">for</span> a healthy kubelet at http://127.0.0.1:10248/healthz. This can take up to 4m0s
-<span class="token punctuation">[</span>kubelet-check<span class="token punctuation">]</span> The kubelet is healthy after <span class="token number">502</span>.217315ms
-<span class="token punctuation">[</span>kubelet-start<span class="token punctuation">]</span> Waiting <span class="token keyword">for</span> the kubelet to perform the TLS Bootstrap
-
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># kubeadm join 192.168.8.4:6443 --token kquj54.8tqxdkslnhiq75pt --discovery-token-ca-cert-hash sha256:cdef263e1fe962f26a37ac949b28b78f83f2c84cbd43461006a0bb72cc63edfc --cri-socket=unix:///run/containerd/containerd.sock</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
 This <span class="token function">node</span> has joined the cluster:
 * Certificate signing request was sent to apiserver and a response was received.
 * The Kubelet was informed of the new secure connection details.
 
-Run <span class="token string">'kubectl get nodes'</span> on the control-plane to see this <span class="token function">node</span> <span class="token function">join</span> the cluster.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Run <span class="token string">'kubectl get nodes'</span> on the control-plane to see this <span class="token function">node</span> <span class="token function">join</span> the cluster.
+
+<span class="token punctuation">[</span>root@k8s-node3 ~<span class="token punctuation">]</span><span class="token comment"># kubeadm join 192.168.8.4:6443 --token kquj54.8tqxdkslnhiq75pt --discovery-token-ca-cert-hash sha256:cdef263e1fe962f26a37ac949b28b78f83f2c84cbd43461006a0bb72cc63edfc --cri-socket=unix:///run/containerd/containerd.sock</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+This <span class="token function">node</span> has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run <span class="token string">'kubectl get nodes'</span> on the control-plane to see this <span class="token function">node</span> <span class="token function">join</span> the cluster.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  <strong>注意上描述命令最后的–cri-socket参数，在系统中部署了docker和cri-docker时，必须明确指明此参数，并将此参数指向我们的cri-docker，不然命令会报告有两个重复的CRI的错误，而我们部署的是containerd，就没这个问题</strong></p>
 <p>  在master机器上执行以下内容给节点打上node角色标签，便于资源调度和管理。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl label nodes k8s-node1 node-role.kubernetes.io/node<span class="token operator">=</span>
 kubectl label nodes k8s-node2 node-role.kubernetes.io/node<span class="token operator">=</span>
+kubectl label nodes k8s-node3 node-role.kubernetes.io/node<span class="token operator">=</span>
 kubectl get nodes
 
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl label nodes k8s-node1 node-role.kubernetes.io/node=</span>
@@ -1517,11 +1532,15 @@ node/k8s-node1 labeled
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl label nodes k8s-node2 node-role.kubernetes.io/node=</span>
 node/k8s-node2 labeled
 
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get nodes</span>
-NAME         STATUS   ROLES           AGE     VERSION
-k8s-master   Ready    control-plane   6h15m   v1.34.1
-k8s-node1    Ready    node,worker     12m     v1.34.1
-k8s-node2    Ready    node,worker     11m     v1.34.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl label nodes k8s-node3 node-role.kubernetes.io/node=</span>
+node/k8s-node3 labeled
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get nodes -o wide</span>
+NAME  STATUS   ROLES  AGE VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE KERNEL-VERSION   CONTAINER-RUNTIME
+k8s-master   Ready    control-plane   25m    v1.33.5   <span class="token number">192.168</span>.8.4   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        Rocky Linux <span class="token number">9.6</span> <span class="token punctuation">(</span>Blue Onyx<span class="token punctuation">)</span>   <span class="token number">5.14</span>.0-570.42.2.el9_6.x86_64   containerd://2.1.4
+k8s-node1    Ready    <span class="token function">node</span>            2m3s   v1.33.5   <span class="token number">192.168</span>.8.5   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        Rocky Linux <span class="token number">9.6</span> <span class="token punctuation">(</span>Blue Onyx<span class="token punctuation">)</span>   <span class="token number">5.14</span>.0-570.17.1.el9_6.x86_64   containerd://2.1.4
+k8s-node2    Ready    <span class="token function">node</span>            119s   v1.33.5   <span class="token number">192.168</span>.8.6   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        Rocky Linux <span class="token number">9.6</span> <span class="token punctuation">(</span>Blue Onyx<span class="token punctuation">)</span>   <span class="token number">5.14</span>.0-570.17.1.el9_6.x86_64   containerd://2.1.4
+k8s-node3    Ready    <span class="token function">node</span>            116s   v1.33.5   <span class="token number">192.168</span>.8.7   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        Rocky Linux <span class="token number">9.6</span> <span class="token punctuation">(</span>Blue Onyx<span class="token punctuation">)</span>   <span class="token number">5.14</span>.0-570.17.1.el9_6.x86_64   containerd://2.1.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  <strong>开放node节点的防火墙:</strong></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 开启 IP 隧道协议（IP-in-IP）</span>
@@ -1593,38 +1612,40 @@ W0523 09:26:26.393216    <span class="token number">4264</span> warnings.go:70<s
 <span class="token number">2025</span>-05-23 09:26:26.393 <span class="token punctuation">[</span>FATAL<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">4264</span><span class="token punctuation">]</span> tunnel-ip-allocator/startsyncerclient.go <span class="token number">86</span>: Failed to connect to Typha <span class="token assign-left variable">error</span><span class="token operator">=</span>failed to load next Typha address to try: tried all available discovered addresses<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="7-确认集群状态"><a href="#7-确认集群状态" class="headerlink" title="7 确认集群状态"></a>7 确认集群状态</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#这里的pod必须是全部running   到此已经成功部署了k8s集群</span>
-
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get nodes</span>
 NAME         STATUS   ROLES           AGE     VERSION
-k8s-master   Ready    control-plane   6h15m   v1.34.1
-k8s-node1    Ready    node,worker     12m     v1.34.1
-k8s-node2    Ready    node,worker     11m     v1.34.1
-
+k8s-master   Ready    control-plane   26m     v1.33.5
+k8s-node1    Ready    <span class="token function">node</span>            3m15s   v1.33.5
+k8s-node2    Ready    <span class="token function">node</span>            3m11s   v1.33.5
+k8s-node3    Ready    <span class="token function">node</span>            3m8s    v1.33.5
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pod -A</span>
-NAMESPACE          NAME                                      READY   STATUS    RESTARTS        AGE
-calico-apiserver   calico-apiserver-58688b698d-6xkzx         <span class="token number">1</span>/1     Running   <span class="token number">0</span>               5h32m
-calico-apiserver   calico-apiserver-58688b698d-z5z6j         <span class="token number">1</span>/1     Running   <span class="token number">0</span>               5h32m
-calico-system      calico-kube-controllers-b46c76d75-dwmhr   <span class="token number">1</span>/1     Running   <span class="token number">0</span>               5h32m
-calico-system      calico-node-dwpf5                         <span class="token number">1</span>/1     Running   <span class="token number">0</span>               12m
-calico-system      calico-node-rlhsr                         <span class="token number">1</span>/1     Running   <span class="token number">0</span>               11m
-calico-system      calico-node-zllf7                         <span class="token number">1</span>/1     Running   <span class="token number">0</span>               5h32m
-calico-system      calico-typha-6d8bc4c486-v68jv             <span class="token number">1</span>/1     Running   <span class="token number">0</span>               11m
-calico-system      calico-typha-6d8bc4c486-vs45l             <span class="token number">1</span>/1     Running   <span class="token number">0</span>               5h32m
-calico-system      csi-node-driver-d64bs                     <span class="token number">2</span>/2     Running   <span class="token number">0</span>               5h32m
-calico-system      csi-node-driver-qt4mt                     <span class="token number">2</span>/2     Running   <span class="token number">0</span>               11m
-calico-system      csi-node-driver-wrf6j                     <span class="token number">2</span>/2     Running   <span class="token number">0</span>               12m
-calico-system      goldmane-744d5c978b-26khr                 <span class="token number">1</span>/1     Running   <span class="token number">0</span>               5h32m
-calico-system      whisker-6745894f65-5b2zm                  <span class="token number">2</span>/2     Running   <span class="token number">0</span>               5h31m
-kube-system        coredns-7ddb67b59b-bfvr4                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>               6h15m
-kube-system        coredns-7ddb67b59b-f4rgv                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>               6h15m
-kube-system        etcd-k8s-master                           <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>5h51m ago<span class="token punctuation">)</span>   6h15m
-kube-system        kube-apiserver-k8s-master                 <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>5h51m ago<span class="token punctuation">)</span>   6h15m
-kube-system        kube-controller-manager-k8s-master        <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>5h51m ago<span class="token punctuation">)</span>   6h15m
-kube-system        kube-proxy-5p7cj                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>               11m
-kube-system        kube-proxy-lknkh                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>               12m
-kube-system        kube-proxy-qqztr                          <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>5h51m ago<span class="token punctuation">)</span>   6h15m
-kube-system        kube-scheduler-k8s-master                 <span class="token number">1</span>/1     Running   <span class="token number">1</span> <span class="token punctuation">(</span>5h51m ago<span class="token punctuation">)</span>   6h15m
-tigera-operator    tigera-operator-6b5584d9cb-xfqrg          <span class="token number">1</span>/1     Running   <span class="token number">0</span>               5h38m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+NAMESPACE         NAME                                       READY   STATUS    RESTARTS   AGE
+calico-system     calico-apiserver-69cbdcdcf5-gbgts          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8m45s
+calico-system     calico-apiserver-69cbdcdcf5-rnd5r          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8m45s
+calico-system     calico-kube-controllers-85d75d757c-j2mq4   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8m44s
+calico-system     calico-node-6zmpq                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8m44s
+calico-system     calico-node-95brq                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m15s
+calico-system     calico-node-lvljl                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m18s
+calico-system     calico-node-q7ptn                          <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m22s
+calico-system     calico-typha-9bfd898b7-7q9st               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m15s
+calico-system     calico-typha-9bfd898b7-t85vm               <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8m44s
+calico-system     csi-node-driver-4fwxj                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          3m15s
+calico-system     csi-node-driver-d7x5w                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          3m18s
+calico-system     csi-node-driver-dwxk9                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          8m44s
+calico-system     csi-node-driver-kqxq6                      <span class="token number">2</span>/2     Running   <span class="token number">0</span>          3m22s
+calico-system     goldmane-5cfbfbffd6-8lmkw                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8m45s
+calico-system     whisker-84c887fc48-d8vqm                   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          7m59s
+kube-system       coredns-746c97786-h8mnt                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          26m
+kube-system       coredns-746c97786-ndcwk                    <span class="token number">1</span>/1     Running   <span class="token number">0</span>          26m
+kube-system       etcd-k8s-master                            <span class="token number">1</span>/1     Running   <span class="token number">0</span>          27m
+kube-system       kube-apiserver-k8s-master                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          27m
+kube-system       kube-controller-manager-k8s-master         <span class="token number">1</span>/1     Running   <span class="token number">0</span>          27m
+kube-system       kube-proxy-fwx7d                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m15s
+kube-system       kube-proxy-qp87t                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m18s
+kube-system       kube-proxy-rhxls                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          26m
+kube-system       kube-proxy-sjrxc                           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          3m22s
+kube-system       kube-scheduler-k8s-master                  <span class="token number">1</span>/1     Running   <span class="token number">0</span>          27m
+tigera-operator   tigera-operator-75f6548d76-j4qzq           <span class="token number">1</span>/1     Running   <span class="token number">0</span>          15m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="8-重置集群"><a href="#8-重置集群" class="headerlink" title="8 重置集群"></a>8 重置集群</h1><p>  如果在安装好集群的情况下，想重复练习初始化集群，或者包括初始化集群报错在内的任何原因，想重新初始化集群时，可以用下面的方法重置集群，重置后，集群就会被删除，可以用于重新部署，一般来说，这个命令仅用于k8s-master这个节点</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.kubeadm reset 清除集群配置。
@@ -1652,6 +1673,16 @@ Please, check the contents of the <span class="token environment constant">$HOME
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># rm -rf $HOME/.kube/config</span>
 
 <span class="token comment"># 清理后就可以重新部署集群了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1818,23 +1849,23 @@ Please, check the contents of the <span class="token environment constant">$HOME
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/06/29/kubernetes/kubernetes-yu-docker/">
+                <a href="/2025/07/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/">
                     <div class="card-image">
                         
-                        <img src="/img/docker&k8s.jpg" class="responsive-img" alt="Kubernetes与Docker">
+                        <img src="/img/Harbor-icon.jpeg" class="responsive-img" alt="部署Harbor私有镜像仓库">
                         
-                        <span class="card-title">Kubernetes与Docker</span>
+                        <span class="card-title">部署Harbor私有镜像仓库</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            容器编排是指自动化地部署、扩展、管理和协调容器化应用的过程,它涉及到多个方面，如容器的调度、资源分配、容器之间的通信、故障恢复等
+                            Harbor是一个开源注册中心，通过策略和基于角色的访问控制来保护工件，确保镜像经过扫描且无漏洞，并对镜像进行签名以表明其可信。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-01
                             </span>
                         <span class="publish-author">
                             
@@ -1851,8 +1882,8 @@ Please, check the contents of the <span class="token environment constant">$HOME
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Kubernetes%E4%B8%8EDocker/">
-                        <span class="chip bg-color">Kubernetes与Docker</span>
+                    <a href="/tags/%E9%83%A8%E7%BD%B2Harbor%E7%A7%81%E6%9C%89%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/">
+                        <span class="chip bg-color">部署Harbor私有镜像仓库</span>
                     </a>
                     
                 </div>
@@ -2061,7 +2092,7 @@ Please, check the contents of the <span class="token environment constant">$HOME
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">171.5k</span>&nbsp;字
+                class="white-color">183.5k</span>&nbsp;字
             
             
             
