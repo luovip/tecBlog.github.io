@@ -259,11 +259,36 @@
   </entry>
   
   <entry>
-    <title>搭建Kubernetes集群</title>
-    <link href="https://linuxcenter.icu/2025/07/01/kubernetes/da-jian-kubernetes-ji-qun/"/>
-    <id>https://linuxcenter.icu/2025/07/01/kubernetes/da-jian-kubernetes-ji-qun/</id>
-    <published>2025-07-01T04:36:00.000Z</published>
-    <updated>2025-10-31T07:26:01.915Z</updated>
+    <title>搭建Kubernetes集群(本地)</title>
+    <link href="https://linuxcenter.icu/2025/07/10/kubernetes/da-jian-kubernetes-ji-qun-ben-di/"/>
+    <id>https://linuxcenter.icu/2025/07/10/kubernetes/da-jian-kubernetes-ji-qun-ben-di/</id>
+    <published>2025-07-10T04:36:00.000Z</published>
+    <updated>2025-11-10T13:10:26.387Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-基础准备&quot;&gt;&lt;a href=&quot;#1-基础准备&quot; class=&quot;headerlink&quot; title=&quot;1 基础准备&quot;&gt;&lt;/a&gt;1 基础准备&lt;/h1&gt;&lt;h2 id=&quot;1-1-集群环境介绍&quot;&gt;&lt;a href=&quot;#1-1-集群环境介绍&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    
+    
+    <category term="搭建Kubernetes集群" scheme="https://linuxcenter.icu/tags/%E6%90%AD%E5%BB%BAKubernetes%E9%9B%86%E7%BE%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建Kubernetes集群(云主机)</title>
+    <link href="https://linuxcenter.icu/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun-yun-zhu-ji/"/>
+    <id>https://linuxcenter.icu/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun-yun-zhu-ji/</id>
+    <published>2025-07-09T04:35:00.000Z</published>
+    <updated>2025-11-10T13:10:30.836Z</updated>
     
     
       
@@ -285,10 +310,10 @@
   
   <entry>
     <title>部署Harbor私有镜像仓库</title>
-    <link href="https://linuxcenter.icu/2025/07/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/"/>
-    <id>https://linuxcenter.icu/2025/07/01/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/</id>
-    <published>2025-07-01T04:35:00.000Z</published>
-    <updated>2025-10-27T11:57:59.751Z</updated>
+    <link href="https://linuxcenter.icu/2025/07/08/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/"/>
+    <id>https://linuxcenter.icu/2025/07/08/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/</id>
+    <published>2025-07-08T04:35:00.000Z</published>
+    <updated>2025-11-10T13:10:43.889Z</updated>
     
     
       
@@ -310,10 +335,10 @@
   
   <entry>
     <title>Kubernetes管理工具</title>
-    <link href="https://linuxcenter.icu/2025/06/29/kubernetes/kubernetes-guan-li-gong-ju/"/>
-    <id>https://linuxcenter.icu/2025/06/29/kubernetes/kubernetes-guan-li-gong-ju/</id>
-    <published>2025-06-29T04:30:00.000Z</published>
-    <updated>2025-11-01T13:11:37.903Z</updated>
+    <link href="https://linuxcenter.icu/2025/07/07/kubernetes/kubernetes-guan-li-gong-ju/"/>
+    <id>https://linuxcenter.icu/2025/07/07/kubernetes/kubernetes-guan-li-gong-ju/</id>
+    <published>2025-07-07T04:30:00.000Z</published>
+    <updated>2025-11-10T13:11:01.538Z</updated>
     
     
       
@@ -472,23 +497,6 @@
     
     
     <category term="Shell脚本编程" scheme="https://linuxcenter.icu/tags/Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux的服务</title>
-    <link href="https://linuxcenter.icu/2024/07/28/linux-ji-ben-ji-zhu/linux-de-fu-wu/"/>
-    <id>https://linuxcenter.icu/2024/07/28/linux-ji-ben-ji-zhu/linux-de-fu-wu/</id>
-    <published>2024-07-28T13:12:00.000Z</published>
-    <updated>2025-09-16T07:28:27.491Z</updated>
-    
-    
-    
-    
-    <category term="Linux基本技术" scheme="https://linuxcenter.icu/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="Linux的服务" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E6%9C%8D%E5%8A%A1/"/>
     
   </entry>
   
