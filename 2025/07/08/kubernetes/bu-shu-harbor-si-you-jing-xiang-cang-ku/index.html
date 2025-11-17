@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-11-10
+                    2025-11-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5k
+                    5.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    26 分
+                    28 分
                 </div>
                 
 
@@ -557,22 +557,26 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1 准备工作"></a>1 准备工作</h1><p>  服务器(云主机)：一台运行Rocky Linux操作系统的服务器</p>
-<p>  硬件配置：至少2个CPU核心，4GB内存和40GB硬盘空间</p>
-<table>
+                <h1 id="1-环境介绍"><a href="#1-环境介绍" class="headerlink" title="1 环境介绍"></a>1 环境介绍</h1><table>
 <thead>
 <tr>
 <th>系统</th>
-<th>配置</th>
-<th>ip</th>
 <th>主机名</th>
+<th>配置</th>
+<th>公网IP</th>
+<th>内网IP</th>
+<th>VPN内网IP</th>
+<th>硬盘</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Rocky Linux 9.5</td>
-<td>2核4G</td>
-<td>10.0.0.125(内网)<br>203.15.9.197(公网)</td>
-<td>Harbor</td>
+<td>Rocky Linux 9.4</td>
+<td>k8s-node2</td>
+<td>4核4G</td>
+<td>110.40.154.116</td>
+<td>10.0.0.9</td>
+<td>10.8.0.16</td>
+<td>40GB</td>
 </tr>
 </tbody></table>
 <h1 id="2-Harbor介绍"><a href="#2-Harbor介绍" class="headerlink" title="2 Harbor介绍"></a>2 Harbor介绍</h1><p>  官网：<a target="_blank" rel="noopener" href="https://goharbor.io/">https://goharbor.io/</a></p>
@@ -583,19 +587,19 @@
 <p>  <code>有效期设置为 10 年（3650 天），适合长期使用。</code></p>
 <h2 id="3-1-生成根证书颁发机构-CA"><a href="#3-1-生成根证书颁发机构-CA" class="headerlink" title="3.1 生成根证书颁发机构(CA)"></a>3.1 生成根证书颁发机构(CA)</h2><p>  有的人直接就生成服务器证书，这是不对的，需要先生成根证书颁发机构，然后用这个CA去签名证书，以后可以让客户端信任这个CA，所有用这个CA生产的证书都会自动信任。</p>
 <p>  这条命令生成一个 4096 位的 RSA 私钥，并将其存储在 /usr/local/harbor/certs/ca.key 文件中。私钥是用于签署证书的核心部分。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@Harbor ~<span class="token punctuation">]</span><span class="token comment"># mkdir -p /usr/local/harbor/certs</span>
-<span class="token punctuation">[</span>root@Harbor ~<span class="token punctuation">]</span><span class="token comment"># cd /usr/local/harbor/certs</span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># mkdir -p /usr/local/harbor/certs</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># cd /usr/local/harbor/certs</span>
 
 <span class="token comment"># 创建私钥</span>
-openssl genrsa <span class="token parameter variable">-out</span> /usr/local/harbor/certs <span class="token number">4096</span>
+openssl genrsa <span class="token parameter variable">-out</span> /usr/local/harbor/certs/ca.key <span class="token number">4096</span>
 
-<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl genrsa -out ca.key 4096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-node2 certs<span class="token punctuation">]</span><span class="token comment"># openssl genrsa -out ca.key 4096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  下面这条命令生成一个自签名证书，并将其存储在 <code> /usr/local/harbor/certs/ca.crt</code>文件中。以下是各参数的解释：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 自签名机构生成CA证书</span>
 openssl req <span class="token parameter variable">-x509</span> <span class="token parameter variable">-new</span> <span class="token parameter variable">-nodes</span> <span class="token parameter variable">-sha512</span> <span class="token parameter variable">-days</span> <span class="token number">3650</span> <span class="token parameter variable">-subj</span> <span class="token string">"/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net"</span> <span class="token parameter variable">-key</span> /usr/local/harbor/certs/ca.key  <span class="token parameter variable">-out</span> /usr/local/harbor/certs/ca.crt
 
-<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl req -x509 -new -nodes -sha512 -days 3650 -subj "/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net" -key ca.key -out ca.crt</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-node2 certs<span class="token punctuation">]</span><span class="token comment"># openssl req -x509 -new -nodes -sha512 -days 3650 -subj "/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net" -key ca.key -out ca.crt</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>参数说明:</code></p>
 <p>  -x509：生成一个自签名证书，而不是证书请求（CSR）。</p>
@@ -608,96 +612,34 @@ openssl req <span class="token parameter variable">-x509</span> <span class="tok
 <p>  -key /usr/local/harbor/certs/ca.key：使用之前生成的私钥。</p>
 <p>  -out /usr/local/harbor/certs/ca.crt：指定输出的证书文件路径。</p>
 <p><code>用openssl命令查询证书文件，也可以复制到Windows上，直接双击也可以看。</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@Harbor ~<span class="token punctuation">]</span><span class="token comment"># openssl x509 -in /usr/local/harbor/certs/ca.crt -text -noout</span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># openssl x509 -in /usr/local/harbor/certs/ca.crt -text -noout</span>
 Certificate:
     Data:
         Version: <span class="token number">3</span> <span class="token punctuation">(</span>0x2<span class="token punctuation">)</span>
         Serial Number:
-            5d:0b:06:2a:f8:00:7c:73:22:19:cb:50:6e:9f:c0:69:90:09:31:aa
+            0a:6c:d7:b3:31:d0:d1:17:92:f2:13:f7:c1:f0:25:0d:2e:0d:ff:c8
         Signature Algorithm: sha512WithRSAEncryption
         Issuer: <span class="token assign-left variable">C</span><span class="token operator">=</span>CN, <span class="token assign-left variable">ST</span><span class="token operator">=</span>SiChuan, <span class="token assign-left variable">L</span><span class="token operator">=</span>Chengdu, <span class="token assign-left variable">O</span><span class="token operator">=</span>Company, <span class="token assign-left variable">OU</span><span class="token operator">=</span>CD, <span class="token assign-left variable">CN</span><span class="token operator">=</span>cncf.net
         Validity
-            Not Before: Oct <span class="token number">25</span> 05:37:56 <span class="token number">2025</span> GMT
-            Not After <span class="token builtin class-name">:</span> Oct <span class="token number">23</span> 05:37:56 <span class="token number">2035</span> GMT
+            Not Before: Nov <span class="token number">14</span> 05:58:09 <span class="token number">2025</span> GMT
+            Not After <span class="token builtin class-name">:</span> Nov <span class="token number">12</span> 05:58:09 <span class="token number">2035</span> GMT
         Subject: <span class="token assign-left variable">C</span><span class="token operator">=</span>CN, <span class="token assign-left variable">ST</span><span class="token operator">=</span>SiChuan, <span class="token assign-left variable">L</span><span class="token operator">=</span>Chengdu, <span class="token assign-left variable">O</span><span class="token operator">=</span>Company, <span class="token assign-left variable">OU</span><span class="token operator">=</span>CD, <span class="token assign-left variable">CN</span><span class="token operator">=</span>cncf.net
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: <span class="token punctuation">(</span><span class="token number">4096</span> bit<span class="token punctuation">)</span>
                 Modulus:
-                    00:ba:0d:13:6d:06:4b:70:e3:40:98:3d:0d:21:3b:
-                    <span class="token number">11</span>:91:e3:58:16:fb:a3:f4:fd:e4:06:7f:64:18:d9:
-                    <span class="token number">53</span>:cd:19:31:3e:28:5c:d4:83:5a:97:b7:87:fa:27:
-                    f6:b9:ea:d0:d5:5d:96:27:38:94:cb:92:de:9c:75:
-                    d0:0f:e0:bf:b2:1d:e9:3b:03:42:6c:dd:c1:40:c4:
-                    <span class="token number">12</span>:6b:9b:c7:1d:86:b1:a4:d4:d7:fb:5d:0d:cc:9c:
-                    e9:5c:59:91:2b:cf:cf:33:2a:89:c3:60:e9:ff:56:
-                    <span class="token number">46</span>:1e:92:88:a5:cc:e5:ff:cc:a9:f6:0d:18:9b:cb:
-                    bc:23:77:8f:f5:1d:e7:34:6d:11:bd:1e:b8:90:6f:
-                    <span class="token number">70</span>:2f:b6:93:1c:61:57:5c:2d:84:f1:2f:b7:a5:bf:
-                    <span class="token number">88</span>:cb:8b:aa:05:0e:51:cd:27:69:fd:f0:de:39:95:
-                    d3:b0:50:3b:cb:77:b4:46:3c:22:52:fa:41:ca:5f:
-                    <span class="token number">78</span>:f4:56:16:12:8f:b2:13:22:bf:f6:03:eb:1d:66:
-                    5f:08:0e:b5:3a:36:ed:fd:23:fd:86:d8:37:2f:92:
-                    e7:ce:95:5d:df:de:df:58:2d:59:0f:23:d1:9d:22:
-                    5a:18:b3:2f:75:8f:5d:44:e1:c6:df:e5:81:71:d2:
-                    a9:f1:f4:25:88:0b:06:d3:91:2f:c2:37:11:75:7b:
-                    <span class="token number">59</span>:00:48:8b:d2:54:20:65:28:94:a2:43:62:89:cb:
-                    <span class="token number">52</span>:db:1d:a8:d1:3d:88:34:ee:40:0a:ca:63:18:08:
-                    <span class="token number">91</span>:7b:22:2e:bf:ce:4d:a4:fc:22:14:e8:83:4a:ca:
-                    <span class="token number">73</span>:ef:4c:db:6d:02:44:89:72:a3:b3:d8:d7:80:7e:
-                    0a:f0:15:40:df:90:d2:2f:f5:96:ff:c3:5b:26:d6:
-                    f8:83:77:48:ec:d3:bf:bf:dc:50:3c:91:db:d9:e2:
-                    f9:4c:cc:33:47:2c:d7:a5:99:03:a5:c1:e1:51:1e:
-                    <span class="token number">17</span>:73:13:f1:4a:a9:0f:41:ab:d9:bc:74:6a:cd:e3:
-                    d3:40:35:c6:4e:0d:f8:07:8d:52:a4:ad:b5:80:19:
-                    a2:94:80:0b:eb:24:0a:80:e0:10:dc:a9:08:49:84:
-                    <span class="token number">40</span>:d9:fa:6e:16:0d:bd:cd:db:ae:48:fe:07:ba:0d:
-                    fc:fe:30:29:c3:40:48:e1:77:ef:95:0e:39:b0:cd:
-                    a6:e0:fd:a7:de:0a:67:58:56:cd:2d:bd:69:80:e0:
-                    cc:c2:f7:da:74:d2:03:52:96:3f:5f:4b:5b:87:5c:
-                    07:bc:30:31:98:43:ec:9c:47:7d:73:6f:c6:e2:f1:
-                    7a:02:1a:02:48:57:ce:e1:b7:dd:0d:ae:70:bc:56:
-                    <span class="token number">13</span>:8b:37:86:1f:e6:49:3b:c3:fa:18:da:a8:e8:57:
-                    f8:90:f7
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
                 Exponent: <span class="token number">65537</span> <span class="token punctuation">(</span>0x10001<span class="token punctuation">)</span>
         X509v3 extensions:
             X509v3 Subject Key Identifier:
-                B1:49:34:EF:7C:E5:A5:79:FC:D0:3A:D1:9F:65:D2:90:D8:1D:B9:64
+                DA:52:6B:F1:D5:12:3F:2B:07:2C:5E:E7:2E:8A:05:15:B2:51:47:CB
             X509v3 Authority Key Identifier:
-                B1:49:34:EF:7C:E5:A5:79:FC:D0:3A:D1:9F:65:D2:90:D8:1D:B9:64
+                DA:52:6B:F1:D5:12:3F:2B:07:2C:5E:E7:2E:8A:05:15:B2:51:47:CB
             X509v3 Basic Constraints: critical
                 CA:TRUE
     Signature Algorithm: sha512WithRSAEncryption
     Signature Value:
-        0e:1b:45:83:ae:13:84:f8:76:5c:66:95:82:63:e9:82:89:90:
-        <span class="token number">74</span>:37:c4:06:16:23:36:ee:79:eb:55:23:f4:7f:fd:78:f8:57:
-        bf:73:b2:d3:5c:6a:a8:2c:97:22:b7:b7:86:66:50:ec:22:cb:
-        f2:1c:f5:45:1d:10:1b:20:76:fc:93:a2:8d:5a:16:91:1e:40:
-        8e:0f:d7:08:4b:6f:10:cb:10:85:51:67:d4:0a:31:14:a3:65:
-        f6:f2:3c:25:85:7c:a8:2c:46:fa:17:60:c2:14:4a:88:e7:b8:
-        <span class="token number">73</span>:30:1a:34:83:fa:96:8b:76:3b:61:6d:03:16:18:ee:10:9b:
-        f4:d5:2f:1d:04:52:4f:c1:c8:bf:c7:53:47:98:5a:d7:6f:6e:
-        f5:a7:c4:33:03:9d:e6:03:f1:70:2f:68:48:57:8f:a6:04:5c:
-        7f:f1:10:2e:3b:bc:5e:1c:14:16:e1:c6:2b:3c:d8:ca:fc:e2:
-        4b:5f:2a:67:73:30:64:03:03:c9:90:2c:18:b4:17:31:52:e5:
-        2a:a0:3d:cb:c3:cd:9d:d3:bd:07:9b:ba:71:c9:ae:a4:22:ca:
-        3f:f8:57:b5:ee:c5:b2:4a:9b:65:96:8b:d6:ad:cb:ec:4a:15:
-        f0:34:8a:3a:52:b1:ea:93:97:1a:59:cf:82:3f:26:4a:41:ce:
-        3a:2b:16:5a:03:58:86:c2:40:fc:d8:0f:64:d3:2f:a5:4b:49:
-        <span class="token number">19</span>:d7:df:73:6d:38:c8:9c:c8:d7:ae:a5:c9:f1:57:68:6b:2a:
-        ae:03:a6:fd:ab:08:9c:79:76:98:c4:41:03:c5:69:35:81:08:
-        c0:a1:21:92:1c:31:65:ae:df:10:b2:bf:4f:92:42:9a:40:8e:
-        <span class="token number">35</span>:9f:bf:86:e9:66:29:90:1b:cb:a4:d8:4c:36:ef:1d:6e:e5:
-        7e:e0:f8:af:04:8c:3a:d6:6a:31:2d:3d:13:62:7f:f7:bb:65:
-        ea:ed:9b:8a:cd:81:e8:76:bb:11:34:4a:b6:00:ea:48:f9:45:
-        9e:b3:db:33:b5:fc:2f:fa:b4:2b:dd:8a:00:fa:07:57:f1:76:
-        5b:33:bd:f2:78:e2:69:38:cb:08:50:49:ed:88:26:df:6d:fa:
-        c7:2b:ef:8e:fe:f8:ef:0e:f6:50:06:29:61:35:0c:a4:c5:93:
-        3e:98:c4:aa:fa:c3:8b:99:2e:7b:bd:db:33:74:8f:91:89:e5:
-        da:66:b5:c0:0f:18:0c:43:07:96:67:e8:fb:4c:76:68:fb:32:
-        <span class="token number">38</span>:06:da:3a:36:f4:43:3a:c5:dc:a0:bb:dd:a4:88:75:20:8b:
-        1a:7d:27:43:8e:71:4a:72:bc:42:99:82:83:9a:6c:05:3a:4a:
-        07:5a:77:65:f9:70:59:a8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  运行以下命令更新 CA 信任存储库，使系统信任新的根证书：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.Ubuntu系统
@@ -710,12 +652,12 @@ Certificate:
 <p>  <code>CN=cncf.net</code> 是证书绑定的域名，后续 Harbor 将使用该域名访问。</p>
 <h3 id="3-2-1-生成服务器私钥文件"><a href="#3-2-1-生成服务器私钥文件" class="headerlink" title="3.2.1 生成服务器私钥文件"></a>3.2.1 生成服务器私钥文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 服务器私钥文件生成</span>
 openssl genrsa <span class="token parameter variable">-out</span> /usr/local/harbor/certs/cncf.net.key <span class="token number">4096</span>
-<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl genrsa -out cncf.net.key 4096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-node2 certs<span class="token punctuation">]</span><span class="token comment"># openssl genrsa -out cncf.net.key 4096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="3-2-2-生成证书请求文件"><a href="#3-2-2-生成证书请求文件" class="headerlink" title="3.2.2 生成证书请求文件"></a>3.2.2 生成证书请求文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">openssl req <span class="token parameter variable">-sha512</span> <span class="token parameter variable">-new</span> <span class="token parameter variable">-subj</span> <span class="token string">"/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net"</span> <span class="token parameter variable">-key</span> /usr/local/harbor/certs/cncf.net.key <span class="token parameter variable">-out</span> /usr/local/harbor/certs/cncf.net.csr
 
 <span class="token comment"># 客户端私钥证书生成</span>
-<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl req -sha512 -new -subj "/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net" -key cncf.net.key -out cncf.net.csr</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-node2 certs<span class="token punctuation">]</span><span class="token comment"># openssl req -sha512 -new -subj "/C=CN/ST=SiChuan/L=Chengdu/O=Company/OU=CD/CN=cncf.net" -key cncf.net.key -out cncf.net.csr</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><code>参数说明:</code></p>
 <p>  openssl req -sha512 -new：使用 SHA-512 哈希算法生成一个新的 CSR。</p>
@@ -730,28 +672,29 @@ openssl genrsa <span class="token parameter variable">-out</span> /usr/local/har
 <p>  -out /usr/local/harbor/certs/cncf.net.csr：指定输出的 CSR 文件路径为 /usr/local/harbor/certs/cncf.net.csr。</p>
 <h2 id="3-3-多个域名请求"><a href="#3-3-多个域名请求" class="headerlink" title="3.3 多个域名请求"></a>3.3 多个域名请求</h2><p>  定义证书扩展信息，包括使用场景、密钥用途和域名绑定。</p>
 <p>  为刚才的证书颁发请求扩充请求内容，额外增加<code>cncf.com</code>等多个验证域名</p>
-<p>  <code>subjectAltName</code> 中的 <code>DNS.1 = cncf.com、DNS.2=harbor.cncf.net、DNS.3=harbor.cncf.local</code>是 Harbor 的访问域名。</p>
+<p>  <code>subjectAltName</code> 中的 <code>DNS.1、DNS.2、DNS.3、DNS.4</code>是 Harbor 的访问域名。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 生成多个域名请求</span>
-<span class="token function">cat</span> <span class="token operator">&gt;</span> v3.ext <span class="token operator">&lt;&lt;-</span><span class="token string">EOF
+<span class="token function">cat</span> <span class="token operator">&gt;</span> harbor.ext <span class="token operator">&lt;&lt;-</span><span class="token string">EOF
 authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
 keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 extendedKeyUsage = serverAuth
 subjectAltName = @alt_names
- 
+
 [alt_names]
-DNS.1=cncf.com
-DNS.2=harbor.cncf.net
-DNS.3=harbor.cncf.local
-EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+DNS.1=mirrors.harbor.com
+DNS.2=mirrors.harbor.cn
+DNS.3=mirrors.harbor.net
+DNS.4=mirrors.harbor.local
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="3-4-签发证书"><a href="#3-4-签发证书" class="headerlink" title="3.4 签发证书"></a>3.4 签发证书</h2><p>  使用自签名根证书为 Harbor 签发正式证书</p>
 <p>  证书有效期同样为 10 年</p>
 <p>  用创建的CA机构为证书颁发请求做最终的证书颁发</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#使用自签名CA签发证书</span>
-openssl x509 <span class="token parameter variable">-req</span> <span class="token parameter variable">-sha512</span> <span class="token parameter variable">-days</span> <span class="token number">3650</span> <span class="token parameter variable">-extfile</span> v3.ext <span class="token parameter variable">-CA</span> /usr/local/harbor/certs/ca.crt <span class="token parameter variable">-CAkey</span> /usr/local/harbor/certs/ca.ckey <span class="token parameter variable">-CAcreateserial</span> <span class="token parameter variable">-in</span> /usr/local/harbor/certs/cncf.net.csr <span class="token parameter variable">-out</span> /usr/local/harbor/certs/cncf.net.crt
+openssl x509 <span class="token parameter variable">-req</span> <span class="token parameter variable">-sha512</span> <span class="token parameter variable">-days</span> <span class="token number">3650</span> <span class="token parameter variable">-extfile</span> harbor.ext <span class="token parameter variable">-CA</span> /usr/local/harbor/certs/ca.crt <span class="token parameter variable">-CAkey</span> /usr/local/harbor/certs/ca.key <span class="token parameter variable">-CAcreateserial</span> <span class="token parameter variable">-in</span> /usr/local/harbor/certs/cncf.net.csr <span class="token parameter variable">-out</span> /usr/local/harbor/certs/cncf.net.crt
 
-<span class="token punctuation">[</span>root@Harbor certs<span class="token punctuation">]</span><span class="token comment"># openssl x509 -req -sha512 -days 3650 -extfile v3.ext -CA ca.crt -CAkey ca.key -CAcreateserial -in cncf.net.csr -out cncf.net.crt</span>
+<span class="token punctuation">[</span>root@k8s-node2 certs<span class="token punctuation">]</span><span class="token comment"># openssl x509 -req -sha512 -days 3650 -extfile harbor.ext -CA ca.crt -CAkey ca.key -CAcreateserial -in cncf.net.csr -out cncf.net.crt</span>
 Certificate request self-signature ok
 <span class="token assign-left variable">subject</span><span class="token operator">=</span>C<span class="token operator">=</span>CN, <span class="token assign-left variable">ST</span><span class="token operator">=</span>SiChuan, <span class="token assign-left variable">L</span><span class="token operator">=</span>Chengdu, <span class="token assign-left variable">O</span><span class="token operator">=</span>Company, <span class="token assign-left variable">OU</span><span class="token operator">=</span>CD, <span class="token assign-left variable">CN</span><span class="token operator">=</span>cncf.net<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
@@ -797,6 +740,31 @@ Certificate request self-signature ok
 <span class="token number">2</span>.启动 Docker 引擎
   <span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> <span class="token function">docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p><code>3.关于Docker的完整安装</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.卸载docker旧版本
+  yum remove <span class="token function">docker</span> docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
+
+<span class="token number">2</span>.安装相关工具类
+  yum <span class="token function">install</span> <span class="token parameter variable">-y</span> yum-utils device-mapper-persistent-data lvm2
+
+<span class="token number">3</span>.配置docker仓库<span class="token punctuation">(</span>阿里云<span class="token punctuation">)</span>
+  yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+<span class="token number">4</span>.安装docker
+  yum <span class="token function">install</span> docker-ce
+
+<span class="token number">5</span>.验证docker安装成功
+  <span class="token comment">#启动docker</span>
+   systemctl start <span class="token function">docker</span>
+   
+  <span class="token comment"># 创建开机自启</span>
+   <span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> <span class="token function">docker</span>
+  <span class="token comment">#检查 Docker 服务状态</span>
+   <span class="token function">sudo</span> systemctl status <span class="token function">docker</span>
+
+  <span class="token comment">#验证docker</span>
+   <span class="token function">docker</span> run hello-world<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="4-2-Docker-镜像加速器"><a href="#4-2-Docker-镜像加速器" class="headerlink" title="4.2 Docker 镜像加速器"></a>4.2 Docker 镜像加速器</h2><p>  添加Docker 镜像加速器，这里只限在国内部署时才需要加速，在国外这样加速反而缓慢</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/docker
 <span class="token function">sudo</span> <span class="token function">tee</span> /etc/docker/daemon.json <span class="token operator">&lt;&lt;-</span><span class="token string">'EOF'
@@ -825,7 +793,7 @@ systemctl daemon-reload
 systemctl restart <span class="token function">docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="4-3-添加Compose支持"><a href="#4-3-添加Compose支持" class="headerlink" title="4.3 添加Compose支持"></a>4.3 添加Compose支持</h2><p>  下载并安装 Docker Compose 二进制文件，重载 systemd 并重启 Docker 服务，确保配置生效。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token string">"https://github.com/docker/compose/releases/download/v2.40.2/docker-compose-linux-x86_64"</span> <span class="token parameter variable">-o</span> /usr/local/bin/docker-compose
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token string">"https://github.com/docker/compose/releases/download/v2.40.3/docker-compose-linux-x86_64"</span> <span class="token parameter variable">-o</span> /usr/local/bin/docker-compose
 
 <span class="token comment"># 对二进制文件赋可执行权限</span>
 <span class="token function">chmod</span> +x /usr/local/bin/docker-compose
@@ -834,8 +802,8 @@ systemctl restart <span class="token function">docker</span><span aria-hidden="t
 
 
 <span class="token comment"># 测试docker-compose是否安装成功</span>
-<span class="token punctuation">[</span>root@Harbor ~<span class="token punctuation">]</span><span class="token comment"># docker-compose version</span>
-Docker Compose version v2.40.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># docker-compose version</span>
+Docker Compose version v2.40.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="4-4-下载并安装Harbor"><a href="#4-4-下载并安装Harbor" class="headerlink" title="4.4 下载并安装Harbor"></a>4.4 下载并安装Harbor</h2><p>  下载 Harbor 离线安装包，解压到指定目录，并加载 Harbor 所需的镜像。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://github.com/goharbor/harbor/releases/download/v2.14.0/harbor-offline-installer-v2.14.0.tgz
@@ -843,35 +811,48 @@ Docker Compose version v2.40.2<span aria-hidden="true" class="line-numbers-rows"
 <span class="token builtin class-name">cd</span> /usr/local/bin/harbor
 
 <span class="token comment"># 将名为harbor.v2.14.0.tar.gz的Docker镜像归档文件加载到本地镜像库</span>
-<span class="token function">docker</span> load <span class="token parameter variable">-i</span> harbor.v2.14.0.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># docker load -i harbor.v2.14.0.tar.gz</span>
+Loaded image: goharbor/harbor-db:v2.14.0
+Loaded image: goharbor/harbor-log:v2.14.0
+Loaded image: goharbor/trivy-adapter-photon:v2.14.0
+Loaded image: goharbor/redis-photon:v2.14.0
+Loaded image: goharbor/nginx-photon:v2.14.0
+Loaded image: goharbor/registry-photon:v2.14.0
+Loaded image: goharbor/prepare:v2.14.0
+Loaded image: goharbor/harbor-portal:v2.14.0
+Loaded image: goharbor/harbor-core:v2.14.0
+Loaded image: goharbor/harbor-jobservice:v2.14.0
+Loaded image: goharbor/harbor-registryctl:v2.14.0
+Loaded image: goharbor/harbor-exporter:v2.14.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  在harbor.yml中，修改以下参数，定义了网址、证书、密码:</p>
-<p>   设置 Harbor 的访问域名为 <code>registry.luoharbor.cn</code>。</p>
+<p>   设置 Harbor 的访问域名为 <code>mirrors.harbor.com</code>。</p>
 <p>   指定 HTTPS 使用的证书和私钥路径。</p>
 <p>   设置管理员密码为 <code>admin</code>。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@Harbor harbor<span class="token punctuation">]</span><span class="token comment"># ll</span>
-total <span class="token number">656308</span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">656312</span>
 -rw-r--r-- <span class="token number">1</span> root root      <span class="token number">3646</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 common.sh
 -rw-r--r-- <span class="token number">1</span> root root <span class="token number">672014938</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 harbor.v2.14.0.tar.gz
 -rw-r--r-- <span class="token number">1</span> root root     <span class="token number">14688</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 harbor.yml.tmpl
 -rwxr-xr-x <span class="token number">1</span> root root      <span class="token number">1975</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 install.sh
 -rw-r--r-- <span class="token number">1</span> root root     <span class="token number">11347</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 LICENSE
 -rwxr-xr-x <span class="token number">1</span> root root      <span class="token number">2211</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 prepare
-<span class="token punctuation">[</span>root@Harbor harbor<span class="token punctuation">]</span><span class="token comment"># mv harbor.yml.tmpl harbor.yml</span>
-<span class="token punctuation">[</span>root@Harbor harbor<span class="token punctuation">]</span><span class="token comment"># vim harbor.yml</span>
-<span class="token number">1</span>.修改hostname为harbor.cncf.net
+
+<span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># mv harbor.yml.tmpl harbor.yml</span>
+<span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># vim harbor.yml</span>
+<span class="token number">1</span>.修改hostname为mirrors.harbor.com
 <span class="token number">2</span>.修改https处的certificate为/usr/local/harbor/certs/cncf.net.crt
 <span class="token number">3</span>.修改https处的private_key为/usr/local/harbor/certs/cncf.net.key
 <span class="token number">4</span>.修改harbor_admin_password为admin
-<span class="token number">5</span>.修改https访问时端口号为447
-<span class="token number">6</span>.修改 data_volume: /data/harbor_data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">5</span>.修改https访问时端口号为446
+<span class="token number">6</span>.修改 data_volume: /data/harbor_data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  prepare 会检查配置并生成必要的文件。</p>
 <p>  install.sh 执行 Harbor 的安装过程，启动所有服务组件。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./prepare
 ./install.sh
 
-<span class="token punctuation">[</span>root@Harbor harbor<span class="token punctuation">]</span><span class="token comment"># ./install.sh</span>
+<span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># ./install.sh</span>
 <span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
 <span class="token punctuation">[</span>Step <span class="token number">5</span><span class="token punctuation">]</span>: starting Harbor <span class="token punctuation">..</span>.
 <span class="token punctuation">[</span>+<span class="token punctuation">]</span> Running <span class="token number">10</span>/10
@@ -907,151 +888,314 @@ systemctl <span class="token builtin class-name">enable</span> harbor <span clas
 
 
 <span class="token comment"># harbor修改配置文件后重启</span>
-<span class="token function">docker-compose</span> down
-./prepare
-<span class="token function">docker-compose</span> up –d　<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># cd /usr/local/bin/harbor/</span>
+<span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">656324</span>
+drwxr-xr-x <span class="token number">3</span> root root      <span class="token number">4096</span> Nov <span class="token number">14</span> <span class="token number">16</span>:13 common
+-rw-r--r-- <span class="token number">1</span> root root      <span class="token number">3646</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 common.sh
+-rw-r--r-- <span class="token number">1</span> root root      <span class="token number">6015</span> Nov <span class="token number">14</span> <span class="token number">16</span>:14 docker-compose.yml
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">672014938</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 harbor.v2.14.0.tar.gz
+-rw-r--r-- <span class="token number">1</span> root root     <span class="token number">14724</span> Nov <span class="token number">14</span> <span class="token number">16</span>:12 harbor.yml
+-rwxr-xr-x <span class="token number">1</span> root root      <span class="token number">1975</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 install.sh
+-rw-r--r-- <span class="token number">1</span> root root     <span class="token number">11347</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 LICENSE
+-rwxr-xr-x <span class="token number">1</span> root root      <span class="token number">2211</span> Sep  <span class="token number">9</span> <span class="token number">19</span>:44 prepare
 
-<h2 id="4-6-页面访问测试"><a href="#4-6-页面访问测试" class="headerlink" title="4.6 页面访问测试"></a>4.6 页面访问测试</h2><p>  地址: <a href="https://203.15.9.197:447、https://harbor.cncf.net:447">https://203.15.9.197:447、https://harbor.cncf.net:447</a></p>
+<span class="token comment"># 停止harbor</span>
+<span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># docker-compose down</span>
+               
+<span class="token comment"># 配置文件检查</span>
+<span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># ./prepare</span>
+
+<span class="token comment"># 启动harbor</span>
+<span class="token punctuation">[</span>root@k8s-node2 harbor<span class="token punctuation">]</span><span class="token comment"># docker-compose up -d</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-6-页面访问测试"><a href="#4-6-页面访问测试" class="headerlink" title="4.6 页面访问测试"></a>4.6 页面访问测试</h2><p>  地址: <a href="https://110.40.154.116:447、https://mirrors.harbor.com:446">https://110.40.154.116:447、https://mirrors.harbor.com:446</a></p>
 <p><img src="/images/harbor%E4%B8%BB%E9%A1%B5%E9%9D%A2.png"></p>
 <p>  <code>Windows在hosts文件配置域名解析后，可实现域名访问</code></p>
 <h1 id="5-推送镜像到harbor"><a href="#5-推送镜像到harbor" class="headerlink" title="5 推送镜像到harbor"></a>5 推送镜像到harbor</h1><p>  登录 Harbor 仓库。</p>
 <p>  使用 <code>tag</code> 命令将本地镜像重命名为符合 Harbor 格式的路径。</p>
 <p>  使用 <code>push</code> 命令将镜像上传到 Harbor 仓库。</p>
-<p><code>上传前请确保所有机器 </code>/etc/hosts<code>文件中已添加</code>harbor.cncf.net<code> 的 IP 映射。</code></p>
+<p><code>上传前请确保所有机器 </code>/etc/hosts<code>文件中已添加</code>mirrors.harbor.com<code> 的 IP 映射。</code></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cat /etc/hosts</span>
-<span class="token number">127.0</span>.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-<span class="token number">192.168</span>.8.4 k8s-master
-<span class="token number">192.168</span>.8.5 k8s-node1
-<span class="token number">192.168</span>.8.6 k8s-node2
-<span class="token number">203.15</span>.9.197 harbor.cncf.net
-<span class="token number">203.15</span>.9.197 cncf.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token number">10.8</span>.0.13 k8s-master
+<span class="token number">10.8</span>.0.14 k8s-node1
+<span class="token number">10.8</span>.0.16 k8s-node2
+<span class="token number">10.8</span>.0.17 k3s-master
+<span class="token number">110.40</span>.154.116 mirrors.harbor.com
 
-<h2 id="5-1-Containerd容器"><a href="#5-1-Containerd容器" class="headerlink" title="5.1 Containerd容器"></a>5.1 Containerd容器</h2><h3 id="5-1-1-配置harbor证书"><a href="#5-1-1-配置harbor证书" class="headerlink" title="5.1.1 配置harbor证书"></a>5.1.1 配置harbor证书</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建证书目录</span>
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># sudo mkdir -p /etc/containerd/certs.d/harbor.cncf.net:447</span>
 
-<span class="token comment"># 将Harbor的CA证书复制到该目录</span>
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># sudo cp ca.crt /etc/containerd/certs.d/harbor.cncf.net:447</span>
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># cat /etc/hosts</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token number">10.8</span>.0.13 k8s-master
+<span class="token number">10.8</span>.0.14 k8s-node1
+<span class="token number">10.8</span>.0.16 k8s-node2
+<span class="token number">10.8</span>.0.17 k3s-master
+<span class="token number">110.40</span>.154.116 mirrors.harbor.com
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># cat /etc/hosts</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token number">10.8</span>.0.13 k8s-master
+<span class="token number">10.8</span>.0.14 k8s-node1
+<span class="token number">10.8</span>.0.16 k8s-node2
+<span class="token number">10.8</span>.0.17 k3s-master
+<span class="token number">110.40</span>.154.116 mirrors.harbor.com
+
+<span class="token punctuation">[</span>root@k3s-master ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/hosts</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token number">10.8</span>.0.13 k8s-master
+<span class="token number">10.8</span>.0.14 k8s-node1
+<span class="token number">10.8</span>.0.16 k8s-node2
+<span class="token number">10.8</span>.0.17 k3s-master
+<span class="token number">110.40</span>.154.116 mirrors.harbor.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-1-Containerd容器"><a href="#5-1-Containerd容器" class="headerlink" title="5.1 Containerd容器"></a>5.1 Containerd容器</h2><h3 id="5-1-1-配置harbor证书"><a href="#5-1-1-配置harbor证书" class="headerlink" title="5.1.1 配置harbor证书"></a>5.1.1 配置harbor证书</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.配置k8s-master、k8s-node1、k8s-node2、k3s-master
+<span class="token comment"># 创建证书目录</span>
+<span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/containerd/certs.d/mirrors.harbor.com:446
+
+<span class="token comment"># 将Harbor的CA证书复制到上述目录</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@49.235.53.189:/etc/containerd/certs.d/mirrors.harbor.com:446</span>
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@150.158.57.109:/etc/containerd/certs.d/mirrors.harbor.com:446</span>
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt /etc/containerd/certs.d/mirrors.harbor.com:446</span>
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@124.222.84.111:/etc/containerd/certs.d/mirrors.harbor.com:446</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/containerd/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k8s-master mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">0</span>
+<span class="token punctuation">[</span>root@k8s-master mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:37 ca.crt
+
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># sudo mkdir -p /etc/containerd/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/containerd/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k8s-node1 mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:46 ca.crt
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/containerd/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k8s-node2 mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:50 ca.crt
+
+<span class="token punctuation">[</span>root@k3s-master ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/containerd/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k3s-master mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">17</span> <span class="token number">16</span>:37 ca.crt
+
+
+<span class="token comment"># 复制证书到系统信任目录</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@49.235.53.189:/etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@150.158.57.109:/etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@124.222.84.111:/etc/pki/ca-trust/source/anchors/</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-master anchors<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:40 ca.crt
+
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node1 anchors<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:47 ca.crt
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node2 anchors<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:51 ca.crt
+
+<span class="token punctuation">[</span>root@k3s-master ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k3s-master anchors<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">17</span> <span class="token number">16</span>:39 ca.crt
+
+<span class="token comment"># 信任证书</span>
+update-ca-trust
 
 <span class="token comment"># 重启containerd服务</span>
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart containerd.service</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+systemctl restart containerd.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="5-1-2-登录harbor"><a href="#5-1-2-登录harbor" class="headerlink" title="5.1.2 登录harbor"></a>5.1.2 登录harbor</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl login harbor.cncf.net:447 -u admin -p admin</span>
+<h3 id="5-1-2-登录harbor"><a href="#5-1-2-登录harbor" class="headerlink" title="5.1.2 登录harbor"></a>5.1.2 登录harbor</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl login mirrors.harbor.com:446 -u admin -p admin</span>
 WARN<span class="token punctuation">[</span>0000<span class="token punctuation">]</span> WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
 
 WARNING<span class="token operator">!</span> Your credentials are stored unencrypted <span class="token keyword">in</span> <span class="token string">'/root/.docker/config.json'</span><span class="token builtin class-name">.</span>
 Configure a credential helper to remove this warning. See
 https://docs.docker.com/go/credential-store/
 
-Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Login Succeeded
 
-<h3 id="5-1-3-标记与推送镜像"><a href="#5-1-3-标记与推送镜像" class="headerlink" title="5.1.3 标记与推送镜像"></a>5.1.3 标记与推送镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl tag nginx:latest harbor.cncf.net:447/library/nginx:latest</span>
+
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># nerdctl login mirrors.harbor.com:446 -u admin -p admin</span>
+WARN<span class="token punctuation">[</span>0000<span class="token punctuation">]</span> WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+
+WARNING<span class="token operator">!</span> Your credentials are stored unencrypted <span class="token keyword">in</span> <span class="token string">'/root/.docker/config.json'</span><span class="token builtin class-name">.</span>
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># nerdctl login mirrors.harbor.com:446 -u admin -p admin</span>
+WARN<span class="token punctuation">[</span>0000<span class="token punctuation">]</span> WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+
+WARNING<span class="token operator">!</span> Your credentials are stored unencrypted <span class="token keyword">in</span> <span class="token string">'/root/.docker/config.json'</span><span class="token builtin class-name">.</span>
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+
+
+<span class="token punctuation">[</span>root@k3s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl login mirrors.harbor.com:446 -u admin -p admin</span>
+WARN<span class="token punctuation">[</span>0000<span class="token punctuation">]</span> WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+
+WARNING<span class="token operator">!</span> Your credentials are stored unencrypted <span class="token keyword">in</span> <span class="token string">'/root/.docker/config.json'</span><span class="token builtin class-name">.</span>
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-1-3-标记与推送镜像"><a href="#5-1-3-标记与推送镜像" class="headerlink" title="5.1.3 标记与推送镜像"></a>5.1.3 标记与推送镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl tag calico/whisker-backend:v3.30.4 mirrors.harbor.com:446/calico_image/calico/whisker-backend:v3.30.4</span>
+
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl images</span>
-REPOSITORY                  TAG        IMAGE ID        CREATED          PLATFORM       SIZE       BLOB SIZE
-harbor.cncf.net:447/library/nginx   latest  33e0bbc7ca9e  <span class="token number">3</span> seconds ago    linux/amd64    <span class="token number">203</span>.9MB    <span class="token number">72</span>.31MB
-nginx                               latest  33e0bbc7ca9e  <span class="token number">3</span> days ago       linux/amd64    <span class="token number">203</span>.9MB    <span class="token number">72</span>.31MB
+REPOSITORY         TAG        IMAGE ID        CREATED               PLATFORM       SIZE       BLOB SIZE
+mirrors.harbor.com:446/calico_image/calico/whisker-backend    v3.30.4    e67ef5e60f91    About a minute ago    linux/amd64    <span class="token number">75</span>.49MB    <span class="token number">33</span>.08MB
 
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl push harbor.cncf.net:447/library/nginx:latest</span>
-INFO<span class="token punctuation">[</span>0000<span class="token punctuation">]</span> pushing as a reduced-platform image <span class="token punctuation">(</span>application/vnd.oci.image.index.v1+json, sha256:3b248d21c1607a559f28263c7675dbf412234c938bdcb3a04b1c808a48b57fc9<span class="token punctuation">)</span>
-index-sha256:3b248d21c1607a559f28263c7675dbf412234c938bdcb3a04b1c808a48b57fc9:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-manifest-sha256:f15190cd0aed34df2541e6a569d349858dd83fe2a519d7c0ec023133b6d3c4f7: <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-layer-sha256:c3741b707ce659db0b820eef3d7277607c8fcc73494e162cb6d349f5799b16c8:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-layer-sha256:b1badc6e50664185acfaa0ca255d8076061c2a9d881cecaaad281ae11af000ce:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-layer-sha256:e5d9bb0b85cc4679fa056599af85512f519647fc66ac34366bfe010a35655d05:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-layer-sha256:14a859b5ba2476efceab3febd8bbb2a45d9e4512e3dc517ace62011249bb25bc:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-layer-sha256:716cdf61af5980e38ce793a90c1add1c40c93cc9371c2370705497ed3c48a77a:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-layer-sha256:14e422fd20a0170c368a8b40a1d145de07fcf31cf075f77861f2231fa5bd7936:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-layer-sha256:a2da0c0f2353a40d540821152b3b9453660db34259766b1ce68b0b1f708435fd:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-config-sha256:ad5708199ec7d169c6837fe46e1646603d0f7d0a0f54d3cd8d07bc1c818d0224:   <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-elapsed: <span class="token number">5.5</span> s                                                                   total:  <span class="token number">69.0</span> M <span class="token punctuation">(</span><span class="token number">12.5</span> MiB/s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+calico/whisker-backend         v3.30.4    e67ef5e60f91    <span class="token number">3</span> days ago    linux/amd64    <span class="token number">75</span>.49MB    <span class="token number">33</span>.08MB
 
-<h3 id="5-1-4-拉取镜像"><a href="#5-1-4-拉取镜像" class="headerlink" title="5.1.4 拉取镜像"></a>5.1.4 拉取镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl rmi 8532d21c0c85</span>
-Untagged: harbor.cncf.net:447/library/calico/node:v1.38.7@sha256:8532d21c0c85ca22e337c3125e84c575d77b6d59faae181e2cdd0adfd3abd1bf
-Deleted: sha256:cbd5904e5fe4dc542c6005841bd8de76534dc402d6788fed3014057b89ef8069
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl images</span>
-REPOSITORY                  TAG        IMAGE ID        CREATED         PLATFORM       SIZE       BLOB SIZE
-harbor.cncf.net:447/library/nginx  latest 33e0bbc7ca9e    <span class="token number">38</span> hours ago    linux/amd64    <span class="token number">203</span>.9MB    <span class="token number">72</span>.31MB
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl push mirrors.harbor.com:446/calico_image/calico/whisker-backend:v3.30.4</span>
+INFO<span class="token punctuation">[</span>0000<span class="token punctuation">]</span> pushing as a reduced-platform image <span class="token punctuation">(</span>application/vnd.docker.distribution.manifest.list.v2+json, sha256:ad428c8646c12c0e8a13ed24f0b17ae4909c3f25d1069f66c02ed44fc1468152<span class="token punctuation">)</span>
+index-sha256:ad428c8646c12c0e8a13ed24f0b17ae4909c3f25d1069f66c02ed44fc1468152:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+manifest-sha256:3662f3d27a0ee9498dac2ef7a5c6f421f6008da651156cc75dfa13a7f21ec739: <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+config-sha256:28075ea09dfb6b76cb5a8c5d750213a01dad91895605b685cebafb3badcd1ac8:   <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:2fb7b31fc26f44f47297f3510ccd3eb4188ba9e9cf6e8fca1591dd811f4c8ef5:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+layer-sha256:7617061f80128ccedf4ed90fa70753bca18ad8fed27e6da0c71f90b9db59e24b:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+elapsed: <span class="token number">93</span>.6s                                                               total:  <span class="token number">31.6</span> M <span class="token punctuation">(</span><span class="token number">345.1</span> KiB/s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl pull harbor.cncf.net:447/library/calico/node:v1.38.7</span>
-harbor.cncf.net:447/library/calico/node:v1.38.7:                                  resolved       <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
+<h3 id="5-1-4-拉取镜像"><a href="#5-1-4-拉取镜像" class="headerlink" title="5.1.4 拉取镜像"></a>5.1.4 拉取镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl pull mirrors.harbor.com:446/library/calico/node:v1.38.7</span>
+mirrors.harbor.com:447/library/calico/node:v1.38.7:                                  resolved       <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
 index-sha256:8532d21c0c85ca22e337c3125e84c575d77b6d59faae181e2cdd0adfd3abd1bf:    <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
 manifest-sha256:b6c92e535b935575f48092edadcfaec716ebce53f1fbc56d312744e86ce0fb17: <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
 config-sha256:833e8e11d9dc187377eab6f31e275114a6b0f8f0afc3bf578a2a00507e85afc9:   <span class="token keyword">done</span>           <span class="token operator">|</span>++++++++++++++++++++++++++++++++++++++<span class="token operator">|</span>
-elapsed: <span class="token number">1.2</span> s                                                                    total:   <span class="token number">0.0</span> B <span class="token punctuation">(</span><span class="token number">0.0</span> B/s<span class="token punctuation">)</span>
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># nerdctl images</span>
-REPOSITORY       TAG        IMAGE ID        CREATED          PLATFORM       SIZE       BLOB SIZE
-harbor.cncf.net:447/library/calico/node v1.38.7 8532d21c0c85 <span class="token number">3</span> seconds ago linux/amd64    <span class="token number">403</span>.9MB    <span class="token number">156</span>.9MB
-harbor.cncf.net:447/library/nginx  latest     33e0bbc7ca9e    <span class="token number">38</span> hours ago linux/amd64    <span class="token number">203</span>.9MB    <span class="token number">72</span>.31MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+elapsed: <span class="token number">1.2</span> s                                                                    total:   <span class="token number">0.0</span> B <span class="token punctuation">(</span><span class="token number">0.0</span> B/s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="5-2-Docker容器"><a href="#5-2-Docker容器" class="headerlink" title="5.2 Docker容器"></a>5.2 Docker容器</h2><h3 id="5-2-1-docker镜像操作"><a href="#5-2-1-docker镜像操作" class="headerlink" title="5.2.1 docker镜像操作"></a>5.2.1 docker镜像操作</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.拉取镜像
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull httpd</span>
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull nginx</span>
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull registry.myk8s.cn/library/httpd</span>
-
-<span class="token number">2</span>.查看镜像
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
-REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
-nginx                             latest    657fdcd1c365   <span class="token number">2</span> weeks ago    152MB
-httpd                             latest    4613a77dcb46   <span class="token number">2</span> months ago   117MB
-registry.myk8s.cn/library/httpd   latest    199e3a035264   <span class="token number">2</span> months ago   117MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-2-2-配置harbor证书"><a href="#5-2-2-配置harbor证书" class="headerlink" title="5.2.2 配置harbor证书"></a>5.2.2 配置harbor证书</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># sudo mkdir -p /etc/docker/certs.d/harbor.cncf.net:447</span>
+<h2 id="5-2-Docker容器"><a href="#5-2-Docker容器" class="headerlink" title="5.2 Docker容器"></a>5.2 Docker容器</h2><h3 id="5-2-1-配置harbor证书"><a href="#5-2-1-配置harbor证书" class="headerlink" title="5.2.1 配置harbor证书"></a>5.2.1 配置harbor证书</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/docker/certs.d/mirrors.harbor.com:446
 
 <span class="token comment"># 将Harbor的CA证书复制到该目录</span>
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># sudo cp ca.crt /etc/docker/certs.d/harbor.cncf.net:447</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@49.235.53.189:/etc/docker/certs.d/mirrors.harbor.com:446</span>
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@150.158.57.109:/etc/docker/certs.d/mirrors.harbor.com:446</span>
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt /etc/docker/certs.d/mirrors.harbor.com:446</span>
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@124.222.84.111:/etc/docker/certs.d/mirrors.harbor.com:446</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/docker/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k8s-master mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">15</span>:47 ca.crt
+
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/docker/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k8s-node1 mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">15</span>:50 ca.crt
+
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/docker/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k8s-node2 mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">15</span>:52 ca.crt
+
+<span class="token punctuation">[</span>root@k3s-master ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/docker/certs.d/mirrors.harbor.com:446</span>
+<span class="token punctuation">[</span>root@k3s-master mirrors.harbor.com:446<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">17</span> <span class="token number">16</span>:46 ca.crt
+
+
+<span class="token comment"># 复制证书到系统信任目录</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@49.235.53.189:/etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@150.158.57.109:/etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># scp /usr/local/harbor/certs/ca.crt root@124.222.84.111:/etc/pki/ca-trust/source/anchors/</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-master anchors<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:40 ca.crt
+
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node1 anchors<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:47 ca.crt
+
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k8s-node2 anchors<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">16</span> <span class="token number">14</span>:51 ca.crt
+
+<span class="token punctuation">[</span>root@k3s-master ~<span class="token punctuation">]</span><span class="token comment"># cd /etc/pki/ca-trust/source/anchors/</span>
+<span class="token punctuation">[</span>root@k3s-master anchors<span class="token punctuation">]</span><span class="token comment"># ll</span>
+total <span class="token number">4</span>
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">2021</span> Nov <span class="token number">17</span> <span class="token number">16</span>:47 ca.crt
+
+<span class="token comment"># 信任证书</span>
+update-ca-trust
 
 <span class="token comment"># 重启docker服务</span>
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># systemctl restart docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+systemctl restart <span class="token function">docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="5-2-3-登录harbor"><a href="#5-2-3-登录harbor" class="headerlink" title="5.2.3 登录harbor"></a>5.2.3 登录harbor</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker login harbor.cncf.net:447 -u admin -p admin</span>
+<h3 id="5-2-3-登录harbor"><a href="#5-2-3-登录harbor" class="headerlink" title="5.2.3 登录harbor"></a>5.2.3 登录harbor</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker login mirrors.harbor.com:446 -u admin -p admin</span>
 WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
-Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+Login Succeeded
 
-<h3 id="5-2-4-标记与推送镜像"><a href="#5-2-4-标记与推送镜像" class="headerlink" title="5.2.4 标记与推送镜像"></a>5.2.4 标记与推送镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.标记镜像
-  <span class="token function">docker</span> tag SOURCE_IMAGE<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span> harbor.cncf.net:447/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>root@k8s-node1 ~<span class="token punctuation">]</span><span class="token comment"># docker login mirrors.harbor.com:446 -u admin -p admin</span>
+WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+Login Succeeded
 
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
-REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
-nginx                             latest    657fdcd1c365   <span class="token number">2</span> weeks ago    152MB
-httpd                             latest    4613a77dcb46   <span class="token number">2</span> months ago   117MB
-registry.myk8s.cn/library/httpd   latest    199e3a035264   <span class="token number">2</span> months ago   117MB
+<span class="token punctuation">[</span>root@k8s-node2 ~<span class="token punctuation">]</span><span class="token comment"># docker login mirrors.harbor.com:446 -u admin -p admin</span>
+WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+Login Succeeded
 
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker tag httpd:latest harbor.cncf.net:447/library/httpd:v1</span>
+<span class="token punctuation">[</span>root@k3s-master ~<span class="token punctuation">]</span><span class="token comment"># docker login mirrors.harbor.com:446 -u admin -p admin</span>
+WARNING<span class="token operator">!</span> Using <span class="token parameter variable">--password</span> via the CLI is insecure. Use --password-stdin.
+Login Succeeded<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
-REPOSITORY                          TAG       IMAGE ID       CREATED        SIZE
-nginx                               latest    657fdcd1c365   <span class="token number">2</span> weeks ago    152MB
-registry.myk8s.cn/library/httpd     latest    199e3a035264   <span class="token number">2</span> months ago   117MB
-httpd                               latest    4613a77dcb46   <span class="token number">2</span> months ago   117MB
-harbor.cncf.net:447/library/httpd   v1        4613a77dcb46   <span class="token number">2</span> months ago   117MB
-
-<span class="token number">2</span>.推送镜像到harbor
-  <span class="token function">docker</span> push harbor.cncf.net:447/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span>
-  
-<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker push harbor.cncf.net:447/library/httpd:v1</span>
-The push refers to repository <span class="token punctuation">[</span>harbor.cncf.net:447/library/httpd<span class="token punctuation">]</span>
-dfc51b2a5ad4: Pushed
-f8c308326eb4: Pushed
-9b9125eabbd9: Pushed
-5f70bf18a086: Pushed
-1a46d6e7f73c: Pushed
-d7c97cb6f1fe: Pushed
-v1: digest: sha256:103310f78680698fafe7ac7bbf654a7024b3cdb7e43a33e873318a510489618f size: <span class="token number">1572</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="5-2-5-拉取镜像"><a href="#5-2-5-拉取镜像" class="headerlink" title="5.2.5 拉取镜像"></a>5.2.5 拉取镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull harbor.cncf.net:447/library/calico/node:v1.38.7</span>
-v1.38.7: Pulling from library/calico/node
+<h3 id="5-2-4-标记与推送镜像"><a href="#5-2-4-标记与推送镜像" class="headerlink" title="5.2.4 标记与推送镜像"></a>5.2.4 标记与推送镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull mirrors.harbor.com:446/calico_image/calico/node:v3.30.4</span>
+v3.30.4: Pulling from calico_image/calico/node
 44c2028a3ff8: Pull complete
 Digest: sha256:8532d21c0c85ca22e337c3125e84c575d77b6d59faae181e2cdd0adfd3abd1bf
-Status: Downloaded newer image <span class="token keyword">for</span> harbor.cncf.net:447/library/calico/node:v1.38.7
-harbor.cncf.net:447/library/calico/node:v1.38.7
+Status: Downloaded newer image <span class="token keyword">for</span> mirrors.harbor.com:446/calico_image/calico/node:v3.30.4
+mirrors.harbor.com:446/calico_image/calico/node:v3.30.4
 
 <span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
-REPOSITORY                                TAG       IMAGE ID       CREATED        SIZE
-harbor.cncf.net:447/library/calico/node   v1.38.7   833e8e11d9dc   <span class="token number">11</span> days ago    401MB
-nginx                                     latest    657fdcd1c365   <span class="token number">2</span> weeks ago    152MB
-httpd                                     latest    4613a77dcb46   <span class="token number">2</span> months ago   117MB
-harbor.cncf.net:447/library/httpd         v1        4613a77dcb46   <span class="token number">2</span> months ago   117MB
-registry.myk8s.cn/library/httpd           latest    199e3a035264   <span class="token number">2</span> months ago   117MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                                                                                                                                                                        i Info →   U  In Use
+IMAGE                                                     ID             DISK USAGE   CONTENT SIZE   EXTRA
+mirrors.harbor.com:446/calico_image/calico/node:v3.30.4   8532d21c0c85        563MB          157MB
+
+
+<span class="token number">1</span>.标记镜像
+  <span class="token function">docker</span> tag SOURCE_IMAGE<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span> harbor.cncf.net:446/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker tag mirrors.harbor.com:446/calico_image/calico/node:v3.30.4 mirrors.harbor.com:446/library/calico/node:v3.30.4</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker images</span>
+                                                                                                                                                                        i Info →   U  In Use
+IMAGE                                                     ID             DISK USAGE   CONTENT SIZE   EXTRA
+mirrors.harbor.com:446/calico_image/calico/node:v3.30.4   8532d21c0c85        563MB          157MB
+mirrors.harbor.com:446/library/calico/node:v3.30.4        8532d21c0c85        563MB          157MB
+
+
+<span class="token number">2</span>.推送镜像到harbor
+  <span class="token function">docker</span> push mirrors.harbor.com:446/library/REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span>
+  
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker push mirrors.harbor.com:446/library/calico/node:v3.30.4</span>
+The push refers to repository <span class="token punctuation">[</span>mirrors.harbor.com:446/library/calico/node<span class="token punctuation">]</span>
+44c2028a3ff8: Mounted from calico_image/calico/node
+v3.30.4: digest: sha256:8532d21c0c85ca22e337c3125e84c575d77b6d59faae181e2cdd0adfd3abd1bf size: <span class="token number">317</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-5-拉取镜像"><a href="#5-2-5-拉取镜像" class="headerlink" title="5.2.5 拉取镜像"></a>5.2.5 拉取镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># docker pull mirrors.harbor.com:446/calico_image/calico/cni:v3.30.4</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
@@ -1170,18 +1314,18 @@ registry.myk8s.cn/library/httpd           latest    199e3a035264   <span class="
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun-yun-zhu-ji/">
+                <a href="/2025/07/09/kubernetes/rancher/">
                     <div class="card-image">
                         
-                        <img src="/img/k8s-icon.jpg" class="responsive-img" alt="搭建Kubernetes集群(云主机)">
+                        <img src="/img/k8s%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86.jpeg" class="responsive-img" alt="Rancher">
                         
-                        <span class="card-title">搭建Kubernetes集群(云主机)</span>
+                        <span class="card-title">Rancher</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在企业级项目中，Kubernetes与Spring Boot和Spring Cloud结合使用，帮助企业快速构建高效、可扩展、可维护的微服务系统
+                            Kubernetes管理工具主要分为部署、运维、可视化三大类，可以方便、快捷的部署与管理k8s平台，支持集群创建、运维等各种复杂场景的使用。
                         
                     </div>
                     <div class="publish-info">
@@ -1192,8 +1336,8 @@ registry.myk8s.cn/library/httpd           latest    199e3a035264   <span class="
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Kubernetes/" class="post-category">
-                                    Kubernetes
+                            <a href="/categories/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="post-category">
+                                    Kubernetes管理工具
                                 </a>
                             
                             
@@ -1203,8 +1347,8 @@ registry.myk8s.cn/library/httpd           latest    199e3a035264   <span class="
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%90%AD%E5%BB%BAKubernetes%E9%9B%86%E7%BE%A4/">
-                        <span class="chip bg-color">搭建Kubernetes集群</span>
+                    <a href="/tags/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">Kubernetes管理工具</span>
                     </a>
                     
                 </div>
@@ -1218,12 +1362,12 @@ registry.myk8s.cn/library/httpd           latest    199e3a035264   <span class="
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/07/07/kubernetes/kubernetes-guan-li-gong-ju/">
+                <a href="/2025/07/08/kubernetes/kuboard/">
                     <div class="card-image">
                         
-                        <img src="/img/k8s%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86.jpeg" class="responsive-img" alt="Kubernetes管理工具">
+                        <img src="/img/k8s%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86.jpeg" class="responsive-img" alt="Kuboard">
                         
-                        <span class="card-title">Kubernetes管理工具</span>
+                        <span class="card-title">Kuboard</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1234,14 +1378,14 @@ registry.myk8s.cn/library/httpd           latest    199e3a035264   <span class="
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-08
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Kubernetes/" class="post-category">
-                                    Kubernetes
+                            <a href="/categories/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="post-category">
+                                    Kubernetes管理工具
                                 </a>
                             
                             
@@ -1461,7 +1605,7 @@ registry.myk8s.cn/library/httpd           latest    199e3a035264   <span class="
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">193.7k</span>&nbsp;字
+                class="white-color">189.9k</span>&nbsp;字
             
             
             

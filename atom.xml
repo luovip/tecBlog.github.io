@@ -259,11 +259,11 @@
   </entry>
   
   <entry>
-    <title>搭建Kubernetes集群(本地)</title>
-    <link href="https://linuxcenter.icu/2025/07/10/kubernetes/da-jian-kubernetes-ji-qun-ben-di/"/>
-    <id>https://linuxcenter.icu/2025/07/10/kubernetes/da-jian-kubernetes-ji-qun-ben-di/</id>
-    <published>2025-07-10T04:36:00.000Z</published>
-    <updated>2025-11-10T13:10:26.387Z</updated>
+    <title>搭建Kubernetes集群</title>
+    <link href="https://linuxcenter.icu/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun/"/>
+    <id>https://linuxcenter.icu/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun/</id>
+    <published>2025-07-09T04:35:00.000Z</published>
+    <updated>2025-11-17T08:21:17.054Z</updated>
     
     
       
@@ -284,27 +284,27 @@
   </entry>
   
   <entry>
-    <title>搭建Kubernetes集群(云主机)</title>
-    <link href="https://linuxcenter.icu/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun-yun-zhu-ji/"/>
-    <id>https://linuxcenter.icu/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun-yun-zhu-ji/</id>
-    <published>2025-07-09T04:35:00.000Z</published>
-    <updated>2025-11-10T13:10:30.836Z</updated>
+    <title>Rancher</title>
+    <link href="https://linuxcenter.icu/2025/07/09/kubernetes/rancher/"/>
+    <id>https://linuxcenter.icu/2025/07/09/kubernetes/rancher/</id>
+    <published>2025-07-09T04:30:00.000Z</published>
+    <updated>2025-11-17T09:05:50.813Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;1-基础准备&quot;&gt;&lt;a href=&quot;#1-基础准备&quot; class=&quot;headerlink&quot; title=&quot;1 基础准备&quot;&gt;&lt;/a&gt;1 基础准备&lt;/h1&gt;&lt;h2 id=&quot;1-1-集群环境介绍&quot;&gt;&lt;a href=&quot;#1-1-集群环境介绍&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;1-Rancher简介&quot;&gt;&lt;a href=&quot;#1-Rancher简介&quot; class=&quot;headerlink&quot; title=&quot;1 Rancher简介&quot;&gt;&lt;/a&gt;1</summary>
         
       
     
     
     
-    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    <category term="Kubernetes管理工具" scheme="https://linuxcenter.icu/categories/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="搭建Kubernetes集群" scheme="https://linuxcenter.icu/tags/%E6%90%AD%E5%BB%BAKubernetes%E9%9B%86%E7%BE%A4/"/>
+    <category term="Kubernetes管理工具" scheme="https://linuxcenter.icu/tags/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -313,14 +313,14 @@
     <link href="https://linuxcenter.icu/2025/07/08/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/"/>
     <id>https://linuxcenter.icu/2025/07/08/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/</id>
     <published>2025-07-08T04:35:00.000Z</published>
-    <updated>2025-11-10T13:10:43.889Z</updated>
+    <updated>2025-11-17T09:07:21.642Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;1-准备工作&quot;&gt;&lt;a href=&quot;#1-准备工作&quot; class=&quot;headerlink&quot; title=&quot;1 准备工作&quot;&gt;&lt;/a&gt;1 准备工作&lt;/h1&gt;&lt;p&gt;  服务器(云主机)：一台运行Rocky</summary>
+    <summary type="html">&lt;h1 id=&quot;1-环境介绍&quot;&gt;&lt;a href=&quot;#1-环境介绍&quot; class=&quot;headerlink&quot; title=&quot;1 环境介绍&quot;&gt;&lt;/a&gt;1</summary>
         
       
     
@@ -334,24 +334,49 @@
   </entry>
   
   <entry>
-    <title>Kubernetes管理工具</title>
-    <link href="https://linuxcenter.icu/2025/07/07/kubernetes/kubernetes-guan-li-gong-ju/"/>
-    <id>https://linuxcenter.icu/2025/07/07/kubernetes/kubernetes-guan-li-gong-ju/</id>
+    <title>Kuboard</title>
+    <link href="https://linuxcenter.icu/2025/07/08/kubernetes/kuboard/"/>
+    <id>https://linuxcenter.icu/2025/07/08/kubernetes/kuboard/</id>
+    <published>2025-07-08T04:30:00.000Z</published>
+    <updated>2025-11-15T10:34:59.676Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-kuboard&quot;&gt;&lt;a href=&quot;#1-kuboard&quot; class=&quot;headerlink&quot; title=&quot;1 kuboard&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    <category term="Kubernetes管理工具" scheme="https://linuxcenter.icu/categories/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="Kubernetes管理工具" scheme="https://linuxcenter.icu/tags/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>KubeSphere</title>
+    <link href="https://linuxcenter.icu/2025/07/07/kubernetes/kubesphere/"/>
+    <id>https://linuxcenter.icu/2025/07/07/kubernetes/kubesphere/</id>
     <published>2025-07-07T04:30:00.000Z</published>
-    <updated>2025-11-10T13:11:01.538Z</updated>
+    <updated>2025-11-15T10:34:01.836Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;1-Rancher&quot;&gt;&lt;a href=&quot;#1-Rancher&quot; class=&quot;headerlink&quot; title=&quot;1 Rancher&quot;&gt;&lt;/a&gt;1</summary>
+    <summary type="html">&lt;h1 id=&quot;1-KubeSphere&quot;&gt;&lt;a href=&quot;#1-KubeSphere&quot; class=&quot;headerlink&quot; title=&quot;1 KubeSphere&quot;&gt;&lt;/a&gt;1 KubeSphere&lt;/h1&gt;&lt;p&gt;  KubeSphere 是一个以</summary>
         
       
     
     
     
-    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
+    <category term="Kubernetes管理工具" scheme="https://linuxcenter.icu/categories/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
     
     
     <category term="Kubernetes管理工具" scheme="https://linuxcenter.icu/tags/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
@@ -480,23 +505,6 @@
     
     
     <category term="podman容器" scheme="https://linuxcenter.icu/tags/podman%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Shell脚本编程</title>
-    <link href="https://linuxcenter.icu/2024/08/28/yun-wei-zhong-de-bian-cheng/shell-jiao-ben-bian-cheng/"/>
-    <id>https://linuxcenter.icu/2024/08/28/yun-wei-zhong-de-bian-cheng/shell-jiao-ben-bian-cheng/</id>
-    <published>2024-08-28T13:12:00.000Z</published>
-    <updated>2025-08-07T06:40:29.013Z</updated>
-    
-    
-    
-    
-    <category term="运维中的编程" scheme="https://linuxcenter.icu/categories/%E8%BF%90%E7%BB%B4%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Shell脚本编程" scheme="https://linuxcenter.icu/tags/Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
