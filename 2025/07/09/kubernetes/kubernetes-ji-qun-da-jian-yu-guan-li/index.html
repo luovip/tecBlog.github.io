@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="搭建Kubernetes集群, Linux技术博客">
+    <meta name="keywords" content="Kubernetes集群搭建与管理, Linux技术博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
@@ -20,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>搭建Kubernetes集群 | Linux技术博客</title>
+    <title>Kubernetes集群搭建与管理 | Linux技术博客</title>
     <link rel="icon" type="image/png"
         href="/favicon.png">
 
@@ -374,7 +374,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">搭建Kubernetes集群</h1>
+                    <h1 class="description center-align post-title">Kubernetes集群搭建与管理</h1>
                 </div>
             </div>
         </div>
@@ -491,8 +491,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%90%AD%E5%BB%BAKubernetes%E9%9B%86%E7%BE%A4/">
-                                <span class="chip bg-color">搭建Kubernetes集群</span>
+                            <a href="/tags/Kubernetes%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%AE%A1%E7%90%86/">
+                                <span class="chip bg-color">Kubernetes集群搭建与管理</span>
                             </a>
                         
                     </div>
@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-11-17
+                    2025-11-22
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    13.7k
+                    15.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    68 分
+                    78 分
                 </div>
                 
 
@@ -2264,6 +2264,395 @@ kubectl get pods <span class="token parameter variable">-n</span> kube-system <s
 kubectl cluster-info
 kubectl get cs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h1 id="10-Kubernetes-Dashboard"><a href="#10-Kubernetes-Dashboard" class="headerlink" title="10 Kubernetes Dashboard"></a>10 Kubernetes Dashboard</h1><h2 id="10-1-前置环境检查"><a href="#10-1-前置环境检查" class="headerlink" title="10.1 前置环境检查"></a>10.1 前置环境检查</h2><p>  首先检查集群状态</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查节点状态</span>
+kubectl get nodes <span class="token parameter variable">-o</span> wide
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get nodes -o wide</span>
+NAME STATUS   ROLES  AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE KERNEL-VERSION  CONTAINER-RUNTIME
+k8s-master   Ready    control-plane   8d      v1.33.5   <span class="token number">10.8</span>.0.13     <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        Rocky Linux <span class="token number">9.6</span> <span class="token punctuation">(</span>Blue Onyx<span class="token punctuation">)</span>   <span class="token number">5.14</span>.0-570.58.1.el9_6.x86_64   containerd://2.1.4
+
+k8s-node1    Ready    node1           8d      v1.33.5   <span class="token number">10.8</span>.0.14     <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        Rocky Linux <span class="token number">9.6</span> <span class="token punctuation">(</span>Blue Onyx<span class="token punctuation">)</span>   <span class="token number">5.14</span>.0-570.58.1.el9_6.x86_64   containerd://2.1.4
+
+k8s-node2    Ready    node2           7d20h   v1.33.6   <span class="token number">10.8</span>.0.16     <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        Rocky Linux <span class="token number">9.6</span> <span class="token punctuation">(</span>Blue Onyx<span class="token punctuation">)</span>   <span class="token number">5.14</span>.0-570.58.1.el9_6.x86_64   containerd://2.1.4
+
+
+<span class="token comment"># 检查集群组件状态</span>
+kubectl get cs
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get cs</span>
+Warning: v1 ComponentStatus is deprecated <span class="token keyword">in</span> v1.19+
+NAME                 STATUS    MESSAGE   ERROR
+controller-manager   Healthy   ok
+scheduler            Healthy   ok
+etcd-0               Healthy   ok
+
+
+<span class="token comment"># 检查当前命名空间</span>
+kubectl get ns
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get ns</span>
+NAME                          STATUS   AGE
+calico-system                 Active   8d
+cattle-fleet-system           Active   50m
+cattle-impersonation-system   Active   52m
+cattle-system                 Active   56m
+default                       Active   8d
+kube-node-lease               Active   8d
+kube-public                   Active   8d
+kube-system                   Active   8d
+<span class="token builtin class-name">local</span>                         Active   51m
+tigera-operator               Active   8d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-2-部署-Kubernetes-Dashboard"><a href="#10-2-部署-Kubernetes-Dashboard" class="headerlink" title="10.2 部署 Kubernetes Dashboard"></a>10.2 部署 Kubernetes Dashboard</h2><h3 id="10-2-1-创建专用命名空间"><a href="#10-2-1-创建专用命名空间" class="headerlink" title="10.2.1 创建专用命名空间"></a>10.2.1 创建专用命名空间</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl create namespace kubernetes-dashboard
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl create namespace kubernetes-dashboard</span>
+namespace/kubernetes-dashboard created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-2-2-部署-Dashboard"><a href="#10-2-2-部署-Dashboard" class="headerlink" title="10.2.2 部署 Dashboard"></a>10.2.2 部署 Dashboard</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用最新版本的 Dashboard</span>
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml -O kubernetes-kuboard.yaml</span>
+
+<span class="token comment"># 镜像处理</span>
+<span class="token number">193</span>行：
+image: kubernetesui/dashboard:v2.7.0
+       mirrors.harbor.com:446/kubernetesui/dashboard:v2.7.0
+
+<span class="token number">278</span>行：
+image: kubernetesui/metrics-scraper:v1.0.8
+       mirrors.harbor.com:446/kubernetesui/metrics-scraper:v1.0.8
+
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl apply -f kubernetes-kuboard.yaml</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-2-3-验证部署状态"><a href="#10-2-3-验证部署状态" class="headerlink" title="10.2.3 验证部署状态"></a>10.2.3 验证部署状态</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查 Pod 状态</span>
+kubectl get pods <span class="token parameter variable">-n</span> kubernetes-dashboard
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get pods -n kubernetes-dashboard</span>
+NAME                                         READY   STATUS    RESTARTS   AGE
+dashboard-metrics-scraper-5ff567bc4b-llxz9   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          4h58m
+kubernetes-dashboard-7748c965b6-rwk9t        <span class="token number">1</span>/1     Running   <span class="token number">0</span>          4h54m
+
+
+<span class="token comment"># 检查 Service 状态</span>
+kubectl get svc <span class="token parameter variable">-n</span> kubernetes-dashboard
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get svc -n kubernetes-dashboard</span>
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>    AGE
+dashboard-metrics-scraper   ClusterIP   <span class="token number">10.99</span>.193.99    <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>/TCP   5h10m
+kubernetes-dashboard        ClusterIP   <span class="token number">10.102</span>.116.50   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">443</span>/TCP    5h10m
+
+<span class="token comment"># 查看详细部署信息</span>
+kubectl describe deployment kubernetes-dashboard <span class="token parameter variable">-n</span> kubernetes-dashboard
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl describe deployment kubernetes-dashboard -n kubernetes-dashboard</span>
+Name:                   kubernetes-dashboard
+Namespace:              kubernetes-dashboard
+CreationTimestamp:      Sat, <span class="token number">22</span> Nov <span class="token number">2025</span> <span class="token number">11</span>:25:24 +0800
+Labels:                 k8s-app<span class="token operator">=</span>kubernetes-dashboard
+Annotations:            deployment.kubernetes.io/revision: <span class="token number">1</span>
+Selector:               k8s-app<span class="token operator">=</span>kubernetes-dashboard
+Replicas:               <span class="token number">1</span> desired <span class="token operator">|</span> <span class="token number">1</span> updated <span class="token operator">|</span> <span class="token number">1</span> total <span class="token operator">|</span> <span class="token number">1</span> available <span class="token operator">|</span> <span class="token number">0</span> unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        <span class="token number">0</span>
+RollingUpdateStrategy:  <span class="token number">25</span>% max unavailable, <span class="token number">25</span>% max surge
+Pod Template:
+  Labels:           k8s-app<span class="token operator">=</span>kubernetes-dashboard
+  Service Account:  kubernetes-dashboard
+  Containers:
+   kubernetes-dashboard:
+    Image:      mirrors.harbor.com:446/kubernetesui/dashboard:v2.7.0
+    Port:       <span class="token number">8443</span>/TCP
+    Host Port:  <span class="token number">0</span>/TCP
+    Args:
+      --auto-generate-certificates
+      <span class="token parameter variable">--namespace</span><span class="token operator">=</span>kubernetes-dashboard
+    Liveness:     http-get https://:8443/ <span class="token assign-left variable">delay</span><span class="token operator">=</span>30s <span class="token assign-left variable">timeout</span><span class="token operator">=</span>30s <span class="token assign-left variable">period</span><span class="token operator">=</span>10s <span class="token comment">#success=1 #failure=3</span>
+    Environment:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+    Mounts:
+      /certs from kubernetes-dashboard-certs <span class="token punctuation">(</span>rw<span class="token punctuation">)</span>
+      /tmp from tmp-volume <span class="token punctuation">(</span>rw<span class="token punctuation">)</span>
+  Volumes:
+   kubernetes-dashboard-certs:
+    Type:        Secret <span class="token punctuation">(</span>a volume populated by a Secret<span class="token punctuation">)</span>
+    SecretName:  kubernetes-dashboard-certs
+    Optional:    <span class="token boolean">false</span>
+   tmp-volume:
+    Type:          EmptyDir <span class="token punctuation">(</span>a temporary directory that shares a pod's lifetime<span class="token punctuation">)</span>
+    Medium:
+    SizeLimit:     <span class="token operator">&lt;</span>unset<span class="token operator">&gt;</span>
+  Node-Selectors:  kubernetes.io/os<span class="token operator">=</span>linux
+  Tolerations:     node-role.kubernetes.io/master:NoSchedule
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Progressing    True    NewReplicaSetAvailable
+  Available      True    MinimumReplicasAvailable
+OldReplicaSets:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+NewReplicaSet:   kubernetes-dashboard-7748c965b6 <span class="token punctuation">(</span><span class="token number">1</span>/1 replicas created<span class="token punctuation">)</span>
+Events:          <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-3-配置安全访问"><a href="#10-3-配置安全访问" class="headerlink" title="10.3 配置安全访问"></a>10.3 配置安全访问</h2><h3 id="10-3-1-创建管理员-ServiceAccount"><a href="#10-3-1-创建管理员-ServiceAccount" class="headerlink" title="10.3.1 创建管理员 ServiceAccount"></a>10.3.1 创建管理员 ServiceAccount</h3><p>  创建 dashboard-admin.yaml 文件：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> dashboard<span class="token punctuation">-</span>admin
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRoleBinding
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> dashboard<span class="token punctuation">-</span>admin
+<span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+  <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> cluster<span class="token punctuation">-</span>admin
+<span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">kind</span><span class="token punctuation">:</span> ServiceAccount
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> dashboard<span class="token punctuation">-</span>admin
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  应用配置：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> dashboard-admin.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="10-3-2-获取访问令牌"><a href="#10-3-2-获取访问令牌" class="headerlink" title="10.3.2 获取访问令牌"></a>10.3.2 获取访问令牌</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 获取 token</span>
+<span class="token comment"># 保存输出的 token，后续访问需要使用。</span>
+kubectl <span class="token parameter variable">-n</span> kubernetes-dashboard create token dashboard-admin
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl -n kubernetes-dashboard create token dashboard-admin</span>
+eyJhbGciOiJSUzI1NiIsImtpZCI6Il9DR09yMExLUGNwZVE5bUJ6SkJPbml4QkRWdi1FQmZ3UnBLY3MtMkd2d2MifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzYzODIzODEyLCJpYXQiOjE3NjM4MjAyMTIsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwianRpIjoiNDA2MzliOWYtNGM0MC00MjdlLWE5YjQtZGQyMjMxNTljNTcyIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsInNlcnZpY2VhY2NvdW50Ijp7Im5hbWUiOiJkYXNoYm9hcmQtYWRtaW4iLCJ1aWQiOiI3NzU2ZjczMy03MjcxLTQ2NGEtOTlmNy03NDFlZjhhODJiZGEifX0sIm5iZiI6MTc2MzgyMDIxMiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmVybmV0ZXMtZGFzaGJvYXJkOmRhc2hib2FyZC1hZG1pbiJ9.G1abBHR63pS-RdK_Rkw9g7x4TbAgSBT_aRrqigcUCi5Y3XTU90o5kOajR-KX9bIbeeM7rsG7_FItdCARkn1hRJn2RoEMgfFfYhREcHcVO2xJ253xwJ6YIriYW73hCpEwfWJNTNksaLzsniphgrbAEGsVmyHqoWSZOZUvJyKtp3kBW-tCNYbXp5l8sb-A303KkR1t16gfpssUjDDVob_QPCMWrOMgH04DHV0L5Tw4_o8-YBa0nj9ox7yq8AhkpRSjRYjCGu-Mam6ZxFHNloJE5Ai2eT842iFC6CdJtenzdYgtAtHi2GM-WR77mQGP8N1yLtUJFEitLHrL-LQcBmcOQw<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-4-配置外部访问"><a href="#10-4-配置外部访问" class="headerlink" title="10.4 配置外部访问"></a>10.4 配置外部访问</h2><h3 id="10-4-1-修改-Service-为-NodePort-类型"><a href="#10-4-1-修改-Service-为-NodePort-类型" class="headerlink" title="10.4.1 修改 Service 为 NodePort 类型"></a>10.4.1 修改 Service 为 NodePort 类型</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl patch svc kubernetes-dashboard <span class="token parameter variable">-n</span> kubernetes-dashboard <span class="token parameter variable">-p</span> <span class="token string">'{"spec": {"type": "NodePort"}}'</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl patch svc kubernetes-dashboard -n kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'</span>
+service/kubernetes-dashboard patched<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-4-2-获取访问端口"><a href="#10-4-2-获取访问端口" class="headerlink" title="10.4.2 获取访问端口"></a>10.4.2 获取访问端口</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl get svc kubernetes-dashboard <span class="token parameter variable">-n</span> kubernetes-dashboard
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl get svc kubernetes-dashboard -n kubernetes-dashboard</span>
+NAME                   TYPE       CLUSTER-IP      EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>         AGE
+kubernetes-dashboard   NodePort   <span class="token number">10.102</span>.116.50   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">443</span>:31559/TCP   10h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-4-3-创建-Ingress-资源"><a href="#10-4-3-创建-Ingress-资源" class="headerlink" title="10.4.3 创建 Ingress 资源"></a>10.4.3 创建 Ingress 资源</h3><p>  创建 dashboard-ingress.yaml：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> dashboard<span class="token punctuation">-</span>ingress
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/backend-protocol</span><span class="token punctuation">:</span> <span class="token string">"HTTPS"</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/ssl-passthrough</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+    <span class="token key atrule">nginx.ingress.kubernetes.io/ssl-redirect</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ingressClassName</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> dashboard.k8s.com  <span class="token comment"># 替换为您的域名</span>
+    <span class="token key atrule">http</span><span class="token punctuation">:</span>
+      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">path</span><span class="token punctuation">:</span> /
+        <span class="token key atrule">pathType</span><span class="token punctuation">:</span> Prefix
+        <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+          <span class="token key atrule">service</span><span class="token punctuation">:</span>
+            <span class="token key atrule">name</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+            <span class="token key atrule">port</span><span class="token punctuation">:</span>
+              <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token number">443</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  应用 Ingress：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> dashboard-ingress.yaml
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># kubectl apply -f dashboard-ingress.yaml</span>
+ingress.networking.k8s.io/dashboard-ingress created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-5-安全加固配置"><a href="#10-5-安全加固配置" class="headerlink" title="10.5 安全加固配置"></a>10.5 安全加固配置</h2><h3 id="10-5-1-创建网络策略"><a href="#10-5-1-创建网络策略" class="headerlink" title="10.5.1 创建网络策略"></a>10.5.1 创建网络策略</h3><p>  创建 dashboard-network-policy.yaml：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> dashboard<span class="token punctuation">-</span>network<span class="token punctuation">-</span>policy
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">k8s-app</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Ingress
+  <span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>
+        <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> kubernetes<span class="token punctuation">-</span>dashboard
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8443</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">ipBlock</span><span class="token punctuation">:</span>
+        <span class="token key atrule">cidr</span><span class="token punctuation">:</span> 10.8.0.0/24  <span class="token comment"># 只允许内网访问</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8443</span>
+      
+<span class="token punctuation">[</span>root@k8s<span class="token punctuation">-</span>master ~<span class="token punctuation">]</span><span class="token comment"># kubectl apply -f dashboard-network-policy.yaml</span>
+networkpolicy.networking.k8s.io/dashboard<span class="token punctuation">-</span>network<span class="token punctuation">-</span>policy created<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-5-2-配置资源限制"><a href="#10-5-2-配置资源限制" class="headerlink" title="10.5.2 配置资源限制"></a>10.5.2 配置资源限制</h3><p>  更新 Dashboard 部署的资源限制：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl patch deployment kubernetes-dashboard <span class="token parameter variable">-n</span> kubernetes-dashboard <span class="token parameter variable">-p</span> <span class="token string">'
+{
+  "spec": {
+    "template": {
+      "spec": {
+        "containers": [
+          {
+            "name": "kubernetes-dashboard",
+            "resources": {
+              "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-6-Windows-Chrome-浏览器访问配置"><a href="#10-6-Windows-Chrome-浏览器访问配置" class="headerlink" title="10.6 Windows Chrome 浏览器访问配置"></a>10.6 Windows Chrome 浏览器访问配置</h3><h3 id="10-6-1-配置本地-hosts-文件"><a href="#10-6-1-配置本地-hosts-文件" class="headerlink" title="10.6.1 配置本地 hosts 文件"></a>10.6.1 配置本地 hosts 文件</h3><p>  在 Windows 的 C:\Windows\System32\drivers\etc\hosts 文件中添加：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">49.235</span>.53.189 dashboard.k8s.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="10-6-2-端口转发访问"><a href="#10-6-2-端口转发访问" class="headerlink" title="10.6.2 端口转发访问"></a>10.6.2 端口转发访问</h3><p>  如果使用 NodePort，执行端口转发：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在 k8s-master 上执行</span>
+<span class="token comment"># 创建服务文件</span>
+<span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/systemd/system/dashboard-portforward.service <span class="token operator">&lt;&lt;</span> <span class="token string">'EOF'
+[Unit]
+Description=Kubernetes Dashboard Port Forward
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usrbin/kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 8443:443 --address 0.0.0.0
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOF</span>
+
+<span class="token comment"># 重新加载 systemd</span>
+systemctl daemon-reload
+
+<span class="token comment"># 启动服务</span>
+systemctl start dashboard-portforward
+
+<span class="token comment"># 设置开机自启</span>
+systemctl <span class="token builtin class-name">enable</span> dashboard-portforward
+
+<span class="token comment"># 查看服务状态</span>
+systemctl status dashboard-portforward
+
+<span class="token comment"># 查看服务日志</span>
+journalctl <span class="token parameter variable">-u</span> dashboard-portforward <span class="token parameter variable">-f</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-7-访问-Dashboard"><a href="#10-7-访问-Dashboard" class="headerlink" title="10.7 访问 Dashboard"></a>10.7 访问 Dashboard</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 访问地址：https://49.235.53.189:8443、https://dashboard.k8s.com</span>
+<span class="token number">1</span>.在 Chrome 浏览器中访问：https://dashboard.k8s.com
+<span class="token number">2</span>. 选择 Token 认证方式
+<span class="token number">3</span>.粘贴之前获取的管理员 token
+<span class="token number">4</span>.点击登录
+
+<span class="token number">13</span>. 监控和维护<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-8-创建监控配置"><a href="#10-8-创建监控配置" class="headerlink" title="10.8 创建监控配置"></a>10.8 创建监控配置</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查 Dashboard 运行状态</span>
+kubectl get pods <span class="token parameter variable">-n</span> kubernetes-dashboard <span class="token parameter variable">-w</span>
+
+<span class="token comment"># 查看日志</span>
+kubectl logs <span class="token parameter variable">-n</span> kubernetes-dashboard <span class="token parameter variable">-l</span> k8s-app<span class="token operator">=</span>kubernetes-dashboard<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-9-设置自动重启策略"><a href="#10-9-设置自动重启策略" class="headerlink" title="10.9 设置自动重启策略"></a>10.9 设置自动重启策略</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl patch deployment kubernetes-dashboard <span class="token parameter variable">-n</span> kubernetes-dashboard <span class="token parameter variable">-p</span> <span class="token string">'
+{
+  "spec": {
+    "template": {
+      "spec": {
+        "containers": [
+          {
+            "name": "kubernetes-dashboard",
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/",
+                "port": 9090,
+                "scheme": "HTTP"
+              },
+              "initialDelaySeconds": 30,
+              "timeoutSeconds": 30
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/",
+                "port": 9090,
+                "scheme": "HTTP"
+              },
+              "initialDelaySeconds": 5,
+              "timeoutSeconds": 3
+            }
+          }
+        ]
+      }
+    }
+  }
+}'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-11-关于登录"><a href="#10-11-关于登录" class="headerlink" title="10.11 关于登录"></a>10.11 关于登录</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建 ServiceAccount（如果还没有）</span>
+kubectl <span class="token parameter variable">-n</span> kubernetes-dashboard create serviceaccount dashboard-admin
+
+<span class="token comment"># 创建 ClusterRoleBinding</span>
+kubectl create clusterrolebinding dashboard-admin <span class="token parameter variable">--clusterrole</span><span class="token operator">=</span>cluster-admin <span class="token parameter variable">--serviceaccount</span><span class="token operator">=</span>kubernetes-dashboard:dashboard-admin
+
+<span class="token comment"># 获取 token</span>
+<span class="token assign-left variable">TOKEN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>kubectl <span class="token parameter variable">-n</span> kubernetes-dashboard create token dashboard-admin <span class="token parameter variable">--duration</span><span class="token operator">=</span>87600h<span class="token variable">)</span></span>
+
+<span class="token comment"># 创建 kubeconfig 文件</span>
+<span class="token function">cat</span> <span class="token operator">&gt;</span> /root/dashboard-kubeconfig.yaml <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+apiVersion: v1
+kind: Config
+clusters:
+- name: kubernetes
+  cluster:
+    certificate-authority-data: <span class="token variable"><span class="token variable">$(</span>kubectl get secret <span class="token parameter variable">-n</span> kubernetes-dashboard <span class="token punctuation">$(</span>kubectl get serviceaccount dashboard-admin <span class="token parameter variable">-n</span> kubernetes-dashboard <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">'{.secrets[0].name}'</span><span class="token punctuation">)</span> <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">'{.data.ca\.crt}'</span><span class="token variable">)</span></span>
+    server: https://<span class="token variable"><span class="token variable">$(</span>kubectl get nodes <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">'{.items[0].status.addresses[0].address}'</span><span class="token variable">)</span></span>:6443
+users:
+- name: dashboard-admin
+  user:
+    token: <span class="token variable">$TOKEN</span>
+contexts:
+- name: dashboard-admin@kubernetes
+  context:
+    cluster: kubernetes
+    user: dashboard-admin
+current-context: dashboard-admin@kubernetes
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-12-故障排查"><a href="#10-12-故障排查" class="headerlink" title="10.12 故障排查"></a>10.12 故障排查</h2><p>  常见问题解决：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 检查证书问题</span>
+kubectl get secrets <span class="token parameter variable">-n</span> kubernetes-dashboard
+
+<span class="token comment"># 2. 检查服务发现</span>
+kubectl get endpoints <span class="token parameter variable">-n</span> kubernetes-dashboard
+
+<span class="token comment"># 3. 检查节点端口分配</span>
+kubectl get nodes <span class="token parameter variable">-o</span> wide
+<span class="token function">netstat</span> <span class="token parameter variable">-tlnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token operator">&lt;</span>node-port<span class="token operator">&gt;</span>
+
+<span class="token comment"># 4. 重置 Dashboard（如果需要）</span>
+kubectl delete <span class="token parameter variable">-f</span> https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl apply <span class="token parameter variable">-f</span> https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-13-安全建议"><a href="#10-13-安全建议" class="headerlink" title="10.13 安全建议"></a>10.13 安全建议</h2><ol>
+<li>定期轮换 token</li>
+<li>使用 VPN 访问而非直接暴露公网</li>
+<li>启用审计日志</li>
+<li>配置网络策略限制访问源</li>
+<li>定期更新 Dashboard 版本</li>
+</ol>
 
                 
             </div>
@@ -2290,7 +2679,7 @@ kubectl get cs<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun/">https://linuxcenter.icu/2025/07/09/kubernetes/da-jian-kubernetes-ji-qun/</a>
+                    <a href="https://linuxcenter.icu/2025/07/09/kubernetes/kubernetes-ji-qun-da-jian-yu-guan-li/">https://linuxcenter.icu/2025/07/09/kubernetes/kubernetes-ji-qun-da-jian-yu-guan-li/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -2328,8 +2717,8 @@ kubectl get cs<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%90%AD%E5%BB%BAKubernetes%E9%9B%86%E7%BE%A4/">
-                                    <span class="chip bg-color">搭建Kubernetes集群</span>
+                                <a href="/tags/Kubernetes%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%AE%A1%E7%90%86/">
+                                    <span class="chip bg-color">Kubernetes集群搭建与管理</span>
                                 </a>
                             
                         </div>
@@ -2377,55 +2766,7 @@ kubectl get cs<span aria-hidden="true" class="line-numbers-rows"><span></span><s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/">
-                    <div class="card-image">
-                        
-                        <img src="/img/Docker.jpeg" class="responsive-img" alt="Docker容器">
-                        
-                        <span class="card-title">Docker容器</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Docker是一个用于开发、交付和运行应用程序的开放平台。 Docker能够将应用程序与基础架构分开，因此，可以快速交付软件。
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-08-03
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    容器技术
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Docker%E5%AE%B9%E5%99%A8/">
-                        <span class="chip bg-color">Docker容器</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2025/07/09/kubernetes/rancher/">
+                <a href="/2025/07/11/kubernetes/rancher/">
                     <div class="card-image">
                         
                         <img src="/img/k8s%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86.jpeg" class="responsive-img" alt="Rancher">
@@ -2440,9 +2781,9 @@ kubectl get cs<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-09
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-07-11
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -2460,6 +2801,54 @@ kubectl get cs<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     
                     <a href="/tags/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
                         <span class="chip bg-color">Kubernetes管理工具</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/07/08/kubernetes/bu-shu-harbor-si-you-jing-xiang-cang-ku/">
+                    <div class="card-image">
+                        
+                        <img src="/img/Harbor-icon.jpeg" class="responsive-img" alt="部署Harbor私有镜像仓库">
+                        
+                        <span class="card-title">部署Harbor私有镜像仓库</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Harbor是一个开源注册中心，通过策略和基于角色的访问控制来保护工件，确保镜像经过扫描且无漏洞，并对镜像进行签名以表明其可信。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%83%A8%E7%BD%B2Harbor%E7%A7%81%E6%9C%89%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/">
+                        <span class="chip bg-color">部署Harbor私有镜像仓库</span>
                     </a>
                     
                 </div>
@@ -2668,7 +3057,7 @@ kubectl get cs<span aria-hidden="true" class="line-numbers-rows"><span></span><s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">189.9k</span>&nbsp;字
+                class="white-color">194.5k</span>&nbsp;字
             
             
             
