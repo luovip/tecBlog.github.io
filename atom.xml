@@ -6,7 +6,7 @@
   <link href="https://linuxcenter.icu/atom.xml" rel="self"/>
   
   <link href="https://linuxcenter.icu/"/>
-  <updated>2025-09-24T08:25:47.208Z</updated>
+  <updated>2025-12-31T08:05:25.807Z</updated>
   <id>https://linuxcenter.icu/</id>
   
   <author>
@@ -15,6 +15,124 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>网络技术进阶</title>
+    <link href="https://linuxcenter.icu/2025/12/31/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-jin-jie/wang-luo-ji-zhu-jin-jie/"/>
+    <id>https://linuxcenter.icu/2025/12/31/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-jin-jie/wang-luo-ji-zhu-jin-jie/</id>
+    <published>2025-12-31T13:48:00.000Z</published>
+    <updated>2025-12-31T08:05:25.807Z</updated>
+    
+    
+    
+    
+    <category term="网络技术进阶" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E8%BF%9B%E9%98%B6/"/>
+    
+    
+    <category term="网络技术进阶" scheme="https://linuxcenter.icu/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E8%BF%9B%E9%98%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据通信网络基础</title>
+    <link href="https://linuxcenter.icu/2025/11/30/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shu-ju-tong-xin-wang-luo-ji-chu/"/>
+    <id>https://linuxcenter.icu/2025/11/30/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shu-ju-tong-xin-wang-luo-ji-chu/</id>
+    <published>2025-11-30T14:49:00.000Z</published>
+    <updated>2025-12-31T07:34:45.115Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/images/%E5%8D%8E%E4%B8%BA%E8%AE%BE%E5%A4%87%E5%9B%BE%E6%A0%87.png&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;1-通信与网络&quot;&gt;&lt;a href=&quot;#1-通信与网络&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络技术基础" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="数据通信网络基础" scheme="https://linuxcenter.icu/tags/%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络参考模型</title>
+    <link href="https://linuxcenter.icu/2025/11/29/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-can-kao-mo-xing/"/>
+    <id>https://linuxcenter.icu/2025/11/29/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-can-kao-mo-xing/</id>
+    <published>2025-11-29T14:48:00.000Z</published>
+    <updated>2025-12-31T07:34:51.529Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-应用和数据&quot;&gt;&lt;a href=&quot;#1-应用和数据&quot; class=&quot;headerlink&quot; title=&quot;1 应用和数据&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    <category term="网络技术基础" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="网络参考模型" scheme="https://linuxcenter.icu/tags/%E7%BD%91%E7%BB%9C%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>华为VRP系统</title>
+    <link href="https://linuxcenter.icu/2025/11/28/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/hua-wei-vrp-xi-tong/"/>
+    <id>https://linuxcenter.icu/2025/11/28/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/hua-wei-vrp-xi-tong/</id>
+    <published>2025-11-28T13:48:00.000Z</published>
+    <updated>2025-12-31T07:51:11.081Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-VRP系统概述&quot;&gt;&lt;a href=&quot;#1-VRP系统概述&quot; class=&quot;headerlink&quot; title=&quot;1 VRP系统概述&quot;&gt;&lt;/a&gt;1 VRP系统概述&lt;/h1&gt;&lt;h2 id=&quot;1-1-什么是VRP&quot;&gt;&lt;a href=&quot;#1-1-什么是VRP&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络技术基础" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="华为VRP系统" scheme="https://linuxcenter.icu/tags/%E5%8D%8E%E4%B8%BAVRP%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络层协议及IP编址</title>
+    <link href="https://linuxcenter.icu/2025/11/27/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-ceng-xie-yi-ji-ip-bian-zhi/"/>
+    <id>https://linuxcenter.icu/2025/11/27/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-ceng-xie-yi-ji-ip-bian-zhi/</id>
+    <published>2025-11-27T13:48:00.000Z</published>
+    <updated>2025-12-31T08:03:46.491Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-网络层协议&quot;&gt;&lt;a href=&quot;#1-网络层协议&quot; class=&quot;headerlink&quot; title=&quot;1 网络层协议&quot;&gt;&lt;/a&gt;1 网络层协议&lt;/h1&gt;&lt;p&gt;  网络层经常被称为IP层。但网络层协议并不只是IP协议，还包括ICMP(Internet</summary>
+        
+      
+    
+    
+    
+    <category term="网络技术基础" scheme="https://linuxcenter.icu/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="网络层协议及IP编址" scheme="https://linuxcenter.icu/tags/%E7%BD%91%E7%BB%9C%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%8F%8AIP%E7%BC%96%E5%9D%80/"/>
+    
+  </entry>
   
   <entry>
     <title>nginx介绍与快速部署</title>
@@ -380,115 +498,6 @@
     
     
     <category term="Kubernetes企业级运维" scheme="https://linuxcenter.icu/tags/Kubernetes%E4%BC%81%E4%B8%9A%E7%BA%A7%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kubernetes网络系统原理</title>
-    <link href="https://linuxcenter.icu/2025/06/26/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/"/>
-    <id>https://linuxcenter.icu/2025/06/26/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/</id>
-    <published>2025-06-26T04:34:00.000Z</published>
-    <updated>2025-10-27T11:59:38.817Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-网络通信基础&quot;&gt;&lt;a href=&quot;#1-网络通信基础&quot; class=&quot;headerlink&quot; title=&quot;1 网络通信基础&quot;&gt;&lt;/a&gt;1</summary>
-        
-      
-    
-    
-    
-    <category term="Kubernetes" scheme="https://linuxcenter.icu/categories/Kubernetes/"/>
-    
-    
-    <category term="Kubernetes网络系统原理" scheme="https://linuxcenter.icu/tags/Kubernetes%E7%BD%91%E7%BB%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>containerd容器</title>
-    <link href="https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/"/>
-    <id>https://linuxcenter.icu/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/</id>
-    <published>2025-06-03T13:48:00.000Z</published>
-    <updated>2025-10-14T08:44:23.271Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-云原生与容器运行时&quot;&gt;&lt;a href=&quot;#1-云原生与容器运行时&quot; class=&quot;headerlink&quot; title=&quot;1 云原生与容器运行时&quot;&gt;&lt;/a&gt;1 云原生与容器运行时&lt;/h1&gt;&lt;h2 id=&quot;1-1-云原生概述&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="containerd容器" scheme="https://linuxcenter.icu/tags/containerd%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>podman容器</title>
-    <link href="https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/"/>
-    <id>https://linuxcenter.icu/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/</id>
-    <published>2025-05-28T13:12:00.000Z</published>
-    <updated>2025-10-14T09:00:46.870Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-容器的概念&quot;&gt;&lt;a href=&quot;#1-容器的概念&quot; class=&quot;headerlink&quot; title=&quot;1 容器的概念&quot;&gt;&lt;/a&gt;1 容器的概念&lt;/h1&gt;&lt;h2 id=&quot;1-1-容器技术介绍&quot;&gt;&lt;a href=&quot;#1-1-容器技术介绍&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="容器技术" scheme="https://linuxcenter.icu/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="podman容器" scheme="https://linuxcenter.icu/tags/podman%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Shell脚本编程</title>
-    <link href="https://linuxcenter.icu/2024/08/28/yun-wei-zhong-de-bian-cheng/shell-jiao-ben-bian-cheng/"/>
-    <id>https://linuxcenter.icu/2024/08/28/yun-wei-zhong-de-bian-cheng/shell-jiao-ben-bian-cheng/</id>
-    <published>2024-08-28T13:12:00.000Z</published>
-    <updated>2025-08-07T06:40:29.013Z</updated>
-    
-    
-    
-    
-    <category term="运维中的编程" scheme="https://linuxcenter.icu/categories/%E8%BF%90%E7%BB%B4%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A8%8B/"/>
-    
-    
-    <category term="Shell脚本编程" scheme="https://linuxcenter.icu/tags/Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux的服务</title>
-    <link href="https://linuxcenter.icu/2024/07/28/linux-ji-ben-ji-zhu/linux-de-fu-wu/"/>
-    <id>https://linuxcenter.icu/2024/07/28/linux-ji-ben-ji-zhu/linux-de-fu-wu/</id>
-    <published>2024-07-28T13:12:00.000Z</published>
-    <updated>2025-09-16T07:28:27.491Z</updated>
-    
-    
-    
-    
-    <category term="Linux基本技术" scheme="https://linuxcenter.icu/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="Linux的服务" scheme="https://linuxcenter.icu/tags/Linux%E7%9A%84%E6%9C%8D%E5%8A%A1/"/>
     
   </entry>
   
