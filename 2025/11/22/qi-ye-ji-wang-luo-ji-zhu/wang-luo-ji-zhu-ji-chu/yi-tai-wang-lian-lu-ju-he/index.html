@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-01-08
+                    2026-01-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    125
+                    3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    11 分
                 </div>
                 
 
@@ -557,12 +557,191 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-什么是VLAN"><a href="#1-什么是VLAN" class="headerlink" title="1 什么是VLAN"></a>1 什么是VLAN</h1><h2 id="1-1-划分VLAN的背景"><a href="#1-1-划分VLAN的背景" class="headerlink" title="1.1 划分VLAN的背景"></a>1.1 划分VLAN的背景</h2><p>  在典型交换网络中，当某台主机发送一个广播帧或未知单播帧时，该数据帧会被泛洪，甚至传递到整个广播域。</p>
-<p>  广播域越大，产生的网络安全问题、垃圾流量问题，就越严重。</p>
-<p><img src="/images/%E4%BC%A0%E7%BB%9F%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84%E9%97%AE%E9%A2%98.png"></p>
-<h2 id="1-2-虚拟局域网-VLAN"><a href="#1-2-虚拟局域网-VLAN" class="headerlink" title="1.2 虚拟局域网(VLAN)"></a>1.2 虚拟局域网(VLAN)</h2><p>  虚拟局域网VLAN可以隔离广播域。</p>
-<p>  特点：不受地域限制、同一VLAN内的设备才能直接二层通信</p>
-<p><img src="/images/%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91.png"></p>
+                <h1 id="1-网络可靠性需求"><a href="#1-网络可靠性需求" class="headerlink" title="1 网络可靠性需求"></a>1 网络可靠性需求</h1><h2 id="1-1-设备可靠性"><a href="#1-1-设备可靠性" class="headerlink" title="1.1 设备可靠性"></a>1.1 设备可靠性</h2><p><img src="/images/%E8%AE%BE%E5%A4%87%E5%8F%AF%E9%9D%A0%E6%80%A7.png"></p>
+<p>  设备无冗余设计的网络中，下游交换机采用单上行接入，上行交换机的接口故障或设备故障会导致下游网络全部中断。</p>
+<p>  设备冗余设计的网络中，下游交换机双上行接入，采用链路一主一备的方式，主链路上行接口、设备故障可以切换到备份链路，通过备份设备转发。</p>
+<h2 id="1-2-链路可靠性"><a href="#1-2-链路可靠性" class="headerlink" title="1.2 链路可靠性"></a>1.2 链路可靠性</h2><p><img src="/images/%E9%93%BE%E8%B7%AF%E5%8F%AF%E9%9D%A0%E6%80%A7.png"></p>
+<p>  为保证设备间链路可靠性，在设备间部署多条物理线路，为防止环路STP只保留一条链路转发流量，其余链路成为备份链路。</p>
+<h1 id="2-链路聚合技术原理"><a href="#2-链路聚合技术原理" class="headerlink" title="2 链路聚合技术原理"></a>2 链路聚合技术原理</h1><h2 id="2-1-基本原理"><a href="#2-1-基本原理" class="headerlink" title="2.1 基本原理"></a>2.1 基本原理</h2><h3 id="2-1-1-提升链路带宽"><a href="#2-1-1-提升链路带宽" class="headerlink" title="2.1.1 提升链路带宽"></a>2.1.1 提升链路带宽</h3><p>  设备之间存在多条链路时，由于STP的存在，实际只会有一条链路转发流量，设备间链路带宽无法得到提升。</p>
+<p><img src="/images/%E6%8F%90%E5%8D%87%E9%93%BE%E8%B7%AF%E5%B8%A6%E5%AE%BD.png"></p>
+<h3 id="2-1-2-以太网链路聚合"><a href="#2-1-2-以太网链路聚合" class="headerlink" title="2.1.2 以太网链路聚合"></a>2.1.2 以太网链路聚合</h3><p>  以太网链路聚合Eth-Trunk：简称链路聚合，通过将多个物理接口捆绑成为一个逻辑接口，可以在不进行硬件升级的条件下，达到增加链路带宽的目的。</p>
+<p><img src="/images/%E4%BB%A5%E5%A4%AA%E7%BD%91%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88.png"></p>
+<h3 id="2-1-3-链路聚合基本术语-概念"><a href="#2-1-3-链路聚合基本术语-概念" class="headerlink" title="2.1.3 链路聚合基本术语(概念)"></a>2.1.3 链路聚合基本术语(概念)</h3><p>  <strong>聚合组(Link Aggregation Group,LAG)</strong></p>
+<p>   若干条链路捆绑在一起所形成的的逻辑链路。</p>
+<p>   每个聚合组唯一对应着一个逻辑接口，这个逻辑接口又被称为链路聚合接口或Eth-Trunk接口。</p>
+<p>  <strong>成员接口和成员链路</strong></p>
+<p>   组成Eth-Trunk接口的各个物理接口称为成员接口。</p>
+<p>   成员接口对应的链路称为成员链路。</p>
+<p>  <strong>活动接口和活动链路</strong></p>
+<p>   活动接口又叫选中(Selected)接口，是参与数据转发的成员接口。</p>
+<p>   活动接口对应的链路被称为活动链路(ActiveTink)。</p>
+<p>  <strong>非活动接口和非活动链路</strong></p>
+<p>   又叫非选中(Unselected)接口，是不参与转发数据的成员接口。</p>
+<p>   非活动接口对应的链路被称为非活动链路(Inactive link)。</p>
+<p>  <strong>聚合模式</strong></p>
+<p>   根据是否开启LACP(Link Aggregation Control Protocol,链路聚合控制协议)，链路聚合可以分为手工模式和LACP模式。</p>
+<p>  <strong>其他概念</strong></p>
+<p>   活动接口上限阈值和活动接口下限阈值。</p>
+<p><img src="/images/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E5%9F%BA%E6%9C%AC%E6%9C%AF%E8%AF%AD.png"></p>
+<h2 id="2-2-手工模式"><a href="#2-2-手工模式" class="headerlink" title="2.2 手工模式"></a>2.2 手工模式</h2><p><img src="/images/%E6%89%8B%E5%B7%A5%E6%A8%A1%E5%BC%8F.png"></p>
+<p>  <strong>手工模式</strong>：Eth-Trunk的建立、成员接口的加入均由手动配置，双方系统之间不使用LACP进行协商。</p>
+<p>  正常情况下所有链路都是活动链路，该模式下所有活动链路都参与数据的转发，平均分担流量，如果某条活动链路故障，链路聚合组自动在剩余的活动链路中平均分担流量。</p>
+<p>  当聚合的两端设备中存在一个不支持LACP协议时，可以使用手工模式。</p>
+<p><code>手工模式缺陷：</code></p>
+<p><img src="/images/%E6%89%8B%E5%B7%A5%E6%A8%A1%E5%BC%8F%E7%BC%BA%E9%99%B71.png"></p>
+<p>  为了使链路聚合接口正常工作，必须保证本端链路聚合接口中所有成员接口的对端接口:</p>
+<p>   属于同一设备</p>
+<p>   加入同一链路聚合接口</p>
+<p>  手工模式下，设备间没有报文交互，因此只能通过管理员人工确认。</p>
+<p><img src="/images/%E6%89%8B%E5%B7%A5%E6%A8%A1%E5%BC%8F%E7%BC%BA%E9%99%B72.png"></p>
+<p>  手动模式下，设备只能通过物理层状态判断对端接口是否正常工作。</p>
+<h2 id="2-3-LACP模式"><a href="#2-3-LACP模式" class="headerlink" title="2.3 LACP模式"></a>2.3 LACP模式</h2><p><img src="/images/LACPDU.png"></p>
+<p>  <strong>LACP模式</strong>：采用LACP协议的一种链路聚合模式。设备间通过链路聚合控制协议数据单元(Link Aggregation Control Protocol Data Unit，LACPDU)进行交互，通过协议协商确保对端是同一台设备、同一个聚合接口的成员接口。</p>
+<p>  LACPDU报文中包含设备优先级、MAC地址、接口优先级、接口号等。</p>
+<h3 id="2-3-1-系统优先级"><a href="#2-3-1-系统优先级" class="headerlink" title="2.3.1 系统优先级"></a>2.3.1 系统优先级</h3><p>  LACP模式下，两端设备所选择的活动接口数目必须保持一致，否则链路聚合组就无法建立。此时可以使其中一端成为主动端，另一端(被动端)根据主动端选择活动接口。</p>
+<p>  通过系统LACP优先级确定主动端，值越小优先级越高。</p>
+<p><img src="/images/%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%85%88%E7%BA%A7.png"></p>
+<h3 id="2-3-2-接口优先级"><a href="#2-3-2-接口优先级" class="headerlink" title="2.3.2 接口优先级"></a>2.3.2 接口优先级</h3><p>  选出主动端后，两端都会以主动端的接口优先级来选择活动接口，优先级高的接口将优先被选为活动接口。</p>
+<p>  接口LACP优先级值越小，优先级越高。</p>
+<p><img src="/images/%E6%8E%A5%E5%8F%A3%E4%BC%98%E5%85%88%E7%BA%A7.png"></p>
+<h3 id="2-3-3-最大活动接口数"><a href="#2-3-3-最大活动接口数" class="headerlink" title="2.3.3 最大活动接口数"></a>2.3.3 最大活动接口数</h3><p>  LACP模式支持配置最大活动接口数目，当成员接口数目超过最大活动接口数目时会通过比较接口优先级、接口号选举出较优的接口成为活动接口，其余的则成为备份端口(非活动接口)，同时对应的链路分别成为活动链路、非活动链路。</p>
+<p>  交换机只会从活动接口中发送、接收报文。</p>
+<p><img src="/images/%E6%9C%80%E5%A4%A7%E6%B4%BB%E5%8A%A8%E6%8E%A5%E5%8F%A3%E6%95%B01.png"></p>
+<p>  当活动链路中出现链路故障时，可以从非活动链路中找出一条优先级最高(接口优先级、接口编号比较)的链路替换故障链路，实现总体带宽不发生变化、业务的不间断转发。</p>
+<p><img src="/images/%E6%9C%80%E5%A4%A7%E6%B4%BB%E5%8A%A8%E6%8E%A5%E5%8F%A3%E6%95%B02.png"></p>
+<h3 id="2-3-4-活动链路选举"><a href="#2-3-4-活动链路选举" class="headerlink" title="2.3.4 活动链路选举"></a>2.3.4 活动链路选举</h3><p>  <strong>第一步</strong>：</p>
+<p>   SW1、SW2配置LACP模式的链路聚合。两端都设置最大活跃接口数为2。</p>
+<p>   通过LACPDU选举出优先级较高的交换机SW1，作为LACP协商过程的主动端。</p>
+<p><img src="/images/%E6%B4%BB%E5%8A%A8%E9%93%BE%E8%B7%AF%E9%80%89%E4%B8%BE1.png"></p>
+<p>  <strong>第二步</strong>：</p>
+<p>   SW1在本端通过比较接口优先级、接口编号选举出活动接口，其中1、2号接口在相同的接口优先级下拥有更小的接口编号，成为活动接口。</p>
+<p><img src="/images/%E6%B4%BB%E5%8A%A8%E9%93%BE%E8%B7%AF%E9%80%89%E4%B8%BE2.png"></p>
+<p>  <strong>第三步</strong>：</p>
+<p>   SW1通过LACPDU将本端活动端口选举结果告知对端。</p>
+<p><img src="/images/%E6%B4%BB%E5%8A%A8%E9%93%BE%E8%B7%AF%E9%80%89%E4%B8%BE3.png"></p>
+<p>  <strong>第四步</strong>：</p>
+<p>   SW2依据SW1的选举结果，明确本端的活动接口，同时对应的链路成为活动链路。至此，Eth-Trunk的活动链路选举过程完成。</p>
+<p><img src="/images/%E6%B4%BB%E5%8A%A8%E9%93%BE%E8%B7%AF%E9%80%89%E4%B8%BE4.png"></p>
+<h3 id="2-3-5-负载分担"><a href="#2-3-5-负载分担" class="headerlink" title="2.3.5 负载分担"></a>2.3.5 负载分担</h3><p><img src="/images/%E8%B4%9F%E8%BD%BD%E5%88%86%E6%8B%85.png"></p>
+<p>  在使用Eth-Trunk转发数据时，由于聚合组两端设备之间有多条物理链路，如果每个数据帧在不同的链路上转发，则有可能导致数据帧到达对端时间不一致，从而引起数据乱序。</p>
+<p>  Eth-Trunk推荐采用逐流负载分担的方式，即一条相同的流负载到一条链路，这样既保证了同一数据流的数据帧在同一条物理链路转发，又实现了流量在聚合组内各物理链路上的负载分担。</p>
+<p><code>负载分担模式：</code></p>
+<p>  Eth-trunk支持基于报文的IP地址或MAC地址来进行负载分担，可以配置不同的模式(本地有效，对出方向报文生效)将数据流分担到不同的成员接口上。</p>
+<p>  常见的模式有：源IP、源MAC、目的IP、目的MAC、源目IP、源目MAC。</p>
+<p>  实际业务中用户需要根据业务流量特征选择配置合适的负载分担方式。</p>
+<p>  业务流量中某种参数变化越频繁，选择与此参数相关的负载分担方式就越容易实现负载均衡。</p>
+<p><img src="/images/%E8%B4%9F%E8%BD%BD%E5%88%86%E6%8B%85%E6%A8%A1%E5%BC%8F.png"></p>
+<h1 id="3-链路聚合使用场景"><a href="#3-链路聚合使用场景" class="headerlink" title="3 链路聚合使用场景"></a>3 链路聚合使用场景</h1><p><code>1.交换机之间、交换机与服务器之间</code></p>
+<p>  为保证交换机之间的链路带宽以及可靠性，可以在交换机之间部署多条物理链路并使用Eth-Trunk。</p>
+<p>  为了提高服务器的接入带宽和可靠性，将两个或者更多的物理网卡聚合成一个网卡组，与交换机建立链路聚合。</p>
+<p><img src="/images/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF1.png"></p>
+<p><code>2.交换机与堆叠系统、防火墙双机热备心跳线</code></p>
+<p>  堆叠系统使得两台交换机成为一台逻辑上的设备，交换机与堆叠系统通过链路聚合互联可以组建高可靠、无环的网络。</p>
+<p>  防火墙双机热备组网中使用心跳线来检测对端设备的状态，为防止单端口、单链路故障导致的状态监测错误可以部署Eth-Trunk，使用Eth-Trunk作为检测状态的心跳线。</p>
+<p><img src="/images/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF2.png"></p>
+<h1 id="4-链路聚合的配置"><a href="#4-链路聚合的配置" class="headerlink" title="4 链路聚合的配置"></a>4 链路聚合的配置</h1><h2 id="4-1-配置命令"><a href="#4-1-配置命令" class="headerlink" title="4.1 配置命令"></a>4.1 配置命令</h2><p>  1.创建链路聚合组</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建Eth-Trunk接口，并进入Eth-Trunk接口视图。</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> interface eth-trunk trunk-id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  2.配置链路聚合模式</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Mode lacp配置链路聚合模式为lacp模式、mode manual load-balance配置链路聚合模式为手工模式。</span>
+<span class="token comment"># 需要保持两端链路聚合模式一致。</span>
+<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> mode <span class="token punctuation">{</span> lacp <span class="token operator">|</span> manual load-balance <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  3.将接口加入链路聚合组中(以太网接口视图)</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，把接口加入到Eth-Trunk中。</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> eth-trunk trunk-id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  4.将接口加入链路聚合组中(Eth-Trunk视图)</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在Eth-Trunk视图中将接口加入到链路聚合组中。</span>
+<span class="token comment"># 3、4两种方式都可以将接口加入到链路聚合组中。</span>
+<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> trunkport interface-type <span class="token punctuation">{</span> interface-number <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>  5.使能允许不同速率端口加入同一Eth-Trunk接口的功能</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 缺省情况下，设备未使能允许不同速率端口加入同一Eth-Trunk接口的功能，只能相同速率的接口加入到同一个Eth-Trunk接口中。</span>
+<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> mixed-rate <span class="token function">link</span> <span class="token builtin class-name">enable</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  6.配置系统LACP优先级</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 系统LACP优先级值越小优先级越高，缺省情况下，系统LACP优先级为32768。</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> lacp priority priority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  7.配置接口LACP优先级</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 接口视图下配置接口LACP优先级。</span>
+<span class="token comment"># 缺省情况下，接口的LACP优先级是32768。</span>
+<span class="token comment"># 接口优先级取值越小，接口的LACP优先级越高。</span>
+<span class="token comment"># 只有在接口已经加入到链路聚合中才可以配置该命令。</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> lacp priority priority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  8.配置最大活动接口数</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置时需注意保持本端和对端的最大活动接口数一致，只有LACP模式支持配置最大活动接口数</span>
+<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> max active-linknumber <span class="token punctuation">{</span> number <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  9.配置最小活动接口数</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 本端和对端设备的活动接口数下限阈值可以不同，手动模式、LACP模式都支持配置最小活动接口数。</span>
+<span class="token comment"># 配置最小活动接口数目的是为了保证最小带宽，当前活动链路数目小于下限阈值时，Eth-Trunk接口的状态转为Down。</span>
+<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> least active-linknumber <span class="token punctuation">{</span> number <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-链路聚合配置"><a href="#4-2-链路聚合配置" class="headerlink" title="4.2 链路聚合配置"></a>4.2 链路聚合配置</h2><p><code>1.手工模式链路聚合配置</code></p>
+<p><img src="/images/%E6%89%8B%E5%B7%A5%E6%A8%A1%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E9%85%8D%E7%BD%AE.png"></p>
+<p>  <strong>需求描述</strong>:</p>
+<p>   SW1、SW2都连接着VLAN10、VLAN20的网络。</p>
+<p>   SW1和SW2之间通过两根以太网链路互联，为了提供链路冗余以及保证传输可靠性，在SW1、SW2之间配置手工模式的链路聚合。</p>
+<p>  SW1的配置如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> interface eth-trunk <span class="token number">1</span>
+<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> trunkport gigabitethernet <span class="token number">0</span>/0/1 to <span class="token number">0</span>/0/2
+<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> port link-type trunk
+<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token number">10</span> <span class="token number">20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  SW2的配置如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW2<span class="token punctuation">]</span> interface eth-trunk <span class="token number">1</span>
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> trunkport gigabitethernet <span class="token number">0</span>/0/1 to <span class="token number">0</span>/0/2
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> port link-type trunk
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token number">10</span> <span class="token number">20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>2.LACP模式链路聚合配置</code></p>
+<p><img src="/images/LACP%E6%A8%A1%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E9%85%8D%E7%BD%AE.png"></p>
+<p>  <strong>需求描述:</strong></p>
+<p>   SW1、SW2都连接着VLAN10、VLAN20的网络。</p>
+<p>   SW1和SW2之间通过三根以太网链路互联，为了提供链路冗余以及保证传输可靠性，在SW1、SW2之间配置LACP模式的链路聚合，并且手动调整优先级让SW1成为主动端，并配置最大活跃端口为2，另外一条链路作为备份。</p>
+<p>  SW1的配置如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> interface eth-trunk <span class="token number">1</span>
+<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> mode lacp
+<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> max active-linknumber <span class="token number">2</span>
+<span class="token punctuation">[</span>SWi-Eth-Trunk1<span class="token punctuation">]</span> trunkport gigabitethernet <span class="token number">0</span>/0/1 to <span class="token number">0</span>/0/3
+<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> port Iink-type trunk
+<span class="token punctuation">[</span>SWi-Eth-Trunk1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token number">10</span> <span class="token number">20</span>
+<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> quit
+<span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> lacp priority <span class="token number">30000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  SW2的配置如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW2<span class="token punctuation">]</span> interface eth-trunk <span class="token number">1</span>
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> mode lacp
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> max active-linknumber <span class="token number">2</span>
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> trunkport gigabitethernet <span class="token number">0</span>/0/1 to <span class="token number">0</span>/0/3
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> port link-type trunk
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token number">10</span> <span class="token number">20</span>
+<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> quit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 
             </div>
@@ -589,7 +768,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/11/22/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-lian-lu-ju-he/">https://linuxcenter.icu/2025/11/22/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-lian-lu-ju-he/</a>
+                    <a href="https://linuxtech.top/2025/11/22/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-lian-lu-ju-he/">https://linuxtech.top/2025/11/22/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-lian-lu-ju-he/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -676,23 +855,23 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/11/23/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shi-xian-vlan-jian-tong-xin/">
+                <a href="/2025/11/22/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-lian-shou-suan-fa/">
                     <div class="card-image">
                         
-                        <img src="/img/network.jpeg" class="responsive-img" alt="实现VLAN间通信">
+                        <img src="/img/network.jpeg" class="responsive-img" alt="以太网链路聚合">
                         
-                        <span class="card-title">实现VLAN间通信</span>
+                        <span class="card-title">以太网链路聚合</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            实现VLAN间通信、使用路由器(物理接口、子接口)实现VLAN间通信、使用三层交换机实现VLAN间通信、掌握报文三层转发过程。
+                            链路聚合的作用、链路聚合的分类、LACP模式的链路聚合协商过程、iStack和CSS的优点与原理、链路聚合与堆叠技术常见应用与组网。
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-11-23
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-11-22
                         </span>
                         <span class="publish-author">
                             
@@ -709,8 +888,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%AE%9E%E7%8E%B0VLAN%E9%97%B4%E9%80%9A%E4%BF%A1/">
-                        <span class="chip bg-color">实现VLAN间通信</span>
+                    <a href="/tags/%E4%BB%A5%E5%A4%AA%E7%BD%91%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">
+                        <span class="chip bg-color">以太网链路聚合</span>
                     </a>
                     
                 </div>
@@ -724,30 +903,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/09/20/nginx/nginx-jie-shao-yu-kuai-su-bu-shu/">
+                <a href="/2025/11/21/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/ip-lu-you-ji-chu/">
                     <div class="card-image">
                         
-                        <img src="/img/nginx.jpg" class="responsive-img" alt="nginx介绍与快速部署">
+                        <img src="/img/network.jpeg" class="responsive-img" alt="IP路由基础">
                         
-                        <span class="card-title">nginx介绍与快速部署</span>
+                        <span class="card-title">IP路由基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            高性能的开源Web服务器、反向代理服务器、负载均衡器和邮件代理服务器。
+                            路由器的基本工作原理、路由器选择最优路由的方法、路由表的具体内容、路由转发高级特性。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-21
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/nginx/" class="post-category">
-                                    nginx
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    网络技术基础
                                 </a>
                             
                             
@@ -757,8 +936,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/nginx%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2/">
-                        <span class="chip bg-color">nginx介绍与快速部署</span>
+                    <a href="/tags/IP%E8%B7%AF%E7%94%B1%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">IP路由基础</span>
                     </a>
                     
                 </div>
@@ -967,7 +1146,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">215.1k</span>&nbsp;字
+                class="white-color">242.4k</span>&nbsp;字
             
             
             

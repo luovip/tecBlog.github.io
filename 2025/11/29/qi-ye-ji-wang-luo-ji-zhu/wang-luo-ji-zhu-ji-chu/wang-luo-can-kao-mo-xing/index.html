@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-12-31
+                    2026-02-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.7k
+                    5.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    16 分
+                    18 分
                 </div>
                 
 
@@ -557,15 +557,38 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-应用和数据"><a href="#1-应用和数据" class="headerlink" title="1 应用和数据"></a>1 应用和数据</h1><p>  应用的存在，是为了满足人们的各种需求，比如访问网页，在线游戏，在线视频等。</p>
+                <h1 id="1-应用和数据"><a href="#1-应用和数据" class="headerlink" title="1 应用和数据"></a>1 应用和数据</h1><h2 id="1-1-应用"><a href="#1-1-应用" class="headerlink" title="1.1 应用"></a>1.1 应用</h2><p>  应用的存在，是为了满足人们的各种需求，比如访问网页，在线游戏，在线视频等。</p>
 <p>  伴随着应用会有信息的产生。比如文本，图片，视频等都是信息的不同呈现方式。</p>
-<p>  <strong>应用的实现-数据：</strong></p>
+<h2 id="1-2-数据"><a href="#1-2-数据" class="headerlink" title="1.2 数据"></a>1.2 数据</h2><p>  <strong>应用的实现-数据：</strong></p>
 <p>   <code>数据的产生</code>：在计算机领域，数据是各种信息的载体。</p>
 <p>   <code>数据传输</code>：大部分应用程序所产生的数据需要在不同的设备之间传递。</p>
 <p><img src="/images/%E5%BA%94%E7%94%A8%E5%92%8C%E6%95%B0%E6%8D%AE.png"></p>
-<h1 id="2-OSI参考模型"><a href="#2-OSI参考模型" class="headerlink" title="2 OSI参考模型"></a>2 OSI参考模型</h1><table>
+<h1 id="2-网络参考模型"><a href="#2-网络参考模型" class="headerlink" title="2 网络参考模型"></a>2 网络参考模型</h1><h2 id="2-1-网络参考模型的意义"><a href="#2-1-网络参考模型的意义" class="headerlink" title="2.1 网络参考模型的意义"></a>2.1 网络参考模型的意义</h2><p>  在OSI参考模型没出现之前，网络存在如下问题：</p>
+<table>
 <thead>
 <tr>
+<th>网络存在的问题</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>网络设备是一个整体</td>
+<td>买了一台路由器，如果CPU坏掉了，需要更换整台路由器，因为在设计时就是一个整体。</td>
+</tr>
+<tr>
+<td>各个厂商之间的设备不兼容</td>
+<td>一家公司买了一台思科的交换机，然后又买了一台华为的交换机，思科和华为的交换机是不能进行通信的。</td>
+</tr>
+<tr>
+<td>不利于开发和排错</td>
+<td>由于没有统一的标准，所以开发和排错的难度相当大。</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-OSI参考模型"><a href="#2-2-OSI参考模型" class="headerlink" title="2.2 OSI参考模型"></a>2.2 OSI参考模型</h2><table>
+<thead>
+<tr>
+<th>层数名</th>
+<th>作用</th>
 <th>层数名</th>
 <th>作用</th>
 </tr>
@@ -573,33 +596,29 @@
 <tbody><tr>
 <td>7.应用层</td>
 <td>对应用程序提供接口</td>
+<td>3.网络层</td>
+<td>定义逻辑地址;实现数据从源到目的地转发<br>网络层有IP地址<br>网络层中6代表TCP、17代表UDP<br>路由器在网络层</td>
 </tr>
 <tr>
 <td>6.表示层</td>
 <td>进行数据格式的转换<br>确保系统生成的应用层数据能够被另外系统的应用层所识别和理解</td>
+<td>2.数据链路层</td>
+<td>将分组数据封装成帧<br>实现数据点到点、或点到多点方式的直接通信<br>差错检测<br>数据链路层有MAC地址<br>交换机在数据链路层</td>
 </tr>
 <tr>
 <td>5会话层</td>
 <td>在通信双方之问建立、管理和终止会话</td>
+<td>1.物理层</td>
+<td>在媒介上传输比特流;提供机械的和电气的规约</td>
 </tr>
 <tr>
 <td>4.传输层</td>
 <td>建立、维护和取消一次端到端的数据传输过程<br>控制传输节奏的快慢，调整数据的排序等等<br>TCP和UDP在传输层</td>
-</tr>
-<tr>
-<td>3.网络层</td>
-<td>定义逻辑地址;实现数据从源到目的地的转发<br>网络层有IP地址<br>网络层中6代表TCP、17代表UDP<br>路由器在网络层</td>
-</tr>
-<tr>
-<td>2.数据链路层</td>
-<td>将分组数据封装成帧<br>在数据链路上实现数据的点到点、或点到多点方式的直接通信<br>差错检测<br>数据链路层有MAC地址<br>交换机在数据链路层</td>
-</tr>
-<tr>
-<td>1.物理层</td>
-<td>在媒介上传输比特流;提供机械的和电气的规约</td>
+<td></td>
+<td></td>
 </tr>
 </tbody></table>
-<h1 id="3-TCP-IP参考模型"><a href="#3-TCP-IP参考模型" class="headerlink" title="3 TCP/IP参考模型"></a>3 TCP/IP参考模型</h1><p>  因为OSI协议栈比较复杂，且TCP和IP两大协议在业界被广泛使用，所以TCP/IP参考模型成为了互联网的主流参考模型。</p>
+<h2 id="2-3-TCP-IP参考模型"><a href="#2-3-TCP-IP参考模型" class="headerlink" title="2.3 TCP/IP参考模型"></a>2.3 TCP/IP参考模型</h2><p>  因为OSI协议栈比较复杂，且TCP和IP两大协议在业界被广泛使用，所以TCP/IP参考模型成为了互联网的主流参考模型。</p>
 <p><img src="/images/TCP&amp;IP.png"></p>
 <p>  <strong>TCP/IP常见协议:</strong></p>
 <p><img src="/images/TCP&amp;IP%E5%B8%B8%E8%A7%81%E5%8D%8F%E8%AE%AE.png"></p>
@@ -612,10 +631,11 @@
 <p>   IEEE制定了全世界电子、电气和计算机科学领域30%左右的标准，比较知名的有IEEE802.3(Ethernet)、IEEE802.11(Wi-Fi)等。</p>
 <p>  <code>ISO(International Organization for Standardization)</code></p>
 <p>   在制定计算机网络标准方面，1S0是起着重大作用的国际组织，如0SI模型，定义于IS0/IEC 7498-1。</p>
-<h2 id="3-1-应用层"><a href="#3-1-应用层" class="headerlink" title="3.1 应用层"></a>3.1 应用层</h2><p>  应用层为应用软件提供接口，使应用程序能够使用网络服务。</p>
+<h3 id="2-3-1-应用层"><a href="#2-3-1-应用层" class="headerlink" title="2.3.1 应用层"></a>2.3.1 应用层</h3><p>  应用层是人类和计算机相互沟通的桥梁，计算机只能识别二进制数据，如010101，而人类能识别声音、图形、文字等数据。应用层相当于一个翻译，将人类使用的语言与计算机能识别的语言进行互译，让计算机和人类可以相互通信。</p>
+<p>  应用层为应用软件提供接口，使应用程序能够使用网络服务。</p>
 <p>  应用层协议会指定使用相应的传输层协议，以及传输层所使用的端口等。</p>
 <p>  应用层的PDU(协议数据单元)被称为Data(数据)。</p>
-<p>  应用层协议：</p>
+<p>  <strong>常见的应用层协议</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -704,7 +724,8 @@
 <td>建立在应用层和传输层基础上的安全协议</td>
 </tr>
 </tbody></table>
-<h3 id="3-1-1-应用层协议-FTP"><a href="#3-1-1-应用层协议-FTP" class="headerlink" title="3.1.1 应用层协议-FTP"></a>3.1.1 应用层协议-FTP</h3><p>   FTP是一个用于从一台主机传送文件到另一台主机的协议，用于文件的”下载”和”上传”，采用C/S(Client/Server)结构。</p>
+<p>  <code>1.应用层协议-FTP</code></p>
+<p>   FTP是用于从一台主机传送文件到另一台主机，用于文件的”下载”和”上传”，采用C/S(Client/Server)结构。</p>
 <p>  <strong>FTP客户端：</strong></p>
 <p>   提供本地设备对远程服务器的文件进行操作的命令。</p>
 <p>   用户在PC上通过应用程序作为FTP Client，并与FTP服务器建立连接后，对FTP Server上的文件进行操作。</p>
@@ -712,31 +733,41 @@
 <p>   运行FTP服务的设备。</p>
 <p>   提供远程客户端访问和操作的功能，用户可以通过FTP客户端程序登录到服务器上，访问设备上的文件。</p>
 <p><img src="/images/FTP.png"></p>
-<h3 id="3-1-2-应用层协议-Telnet"><a href="#3-1-2-应用层协议-Telnet" class="headerlink" title="3.1.2 应用层协议-Telnet"></a>3.1.2 应用层协议-Telnet</h3><p>   Telnet是数据网络中提供远程登录服务的标准协议。</p>
+<p>  <code>2.应用层协议-Telnet</code></p>
+<p>   Telnet是数据网络中提供远程登录服务的标准协议。</p>
 <p>   Telnet为用户提供了在本地计算机上完成远程设备工作的能力。</p>
 <p>   用户通过Telnet客户端程序连接到TeInet服务器。用户在Telnet客户端中输入命令，这些命令会在服务器端运行，就像直接在服务端的控制台上输入一样。</p>
 <p><img src="/images/Telnet.png"></p>
-<h3 id="3-1-3-应用层协议-HTTP"><a href="#3-1-3-应用层协议-HTTP" class="headerlink" title="3.1.3 应用层协议-HTTP"></a>3.1.3 应用层协议-HTTP</h3><p>   HTTP是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
+<p>  <code>3.应用层协议-HTTP</code></p>
+<p>   HTTP是互联网上应用最为广泛的一种网络协议。</p>
+<p>  设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
 <p><img src="/images/HTTP.png"></p>
-<h2 id="3-2-传输层"><a href="#3-2-传输层" class="headerlink" title="3.2 传输层"></a>3.2 传输层</h2><p>  传输层协议接收来自应用层协议的数据，封装上相应的传输层头部，帮助其建立”端到端”(Port to Port)的连接。</p>
+<h3 id="2-3-2-传输层"><a href="#2-3-2-传输层" class="headerlink" title="2.3.2 传输层"></a>2.3.2 传输层</h3><p>  传输层将数据分段并重组为数据流(data stream)。TCP、UDP都工作在传输层，当采用TCP/IP时，程序开发者可以在这两者之间作出选择。传输层负责为实现上层应用程序的多路复用、建立会话连接和断开虚电路提供机制。通过提供透明的数据传输，对高层隐藏了所有与网络有关的细节信息。</p>
+<p>  传输层协议接收来自应用层协议的数据，封装上相应的传输层头部，帮助其建立”端到端”(Port to Port)的连接。</p>
 <p>  传输层的PDU被称为Segment(段)。</p>
-<p>  传输层协议：</p>
-<p>   TCP:一种面向连接的、可靠的传输层通信协议。TCP又被称为传输控制协议。</p>
-<p>   UDP:一种简单的无连接的传输层协议。UDP又被称为用户数据包协议。</p>
-<h3 id="3-2-1-TCP和UDP-报文格式"><a href="#3-2-1-TCP和UDP-报文格式" class="headerlink" title="3.2.1 TCP和UDP-报文格式"></a>3.2.1 TCP和UDP-报文格式</h3><p>   TCP头部：</p>
+<p>  <strong>传输层协议</strong>：</p>
+<p>   <code>TCP</code>:一种面向连接的、可靠的传输层通信协议。TCP又被称为传输控制协议。</p>
+<p>   <code>UDP</code>:一种简单的无连接的传输层协议。UDP又被称为用户数据包协议。</p>
+<p>  <strong>TCP和UDP的解释</strong>:</p>
+<p>  <code>1.TCP和UDP-报文格式</code></p>
+<p>   TCP头部：</p>
 <p><img src="/images/TCP%E5%A4%B4%E9%83%A8.png"></p>
 <p>   UDP尾部：</p>
 <p><img src="/images/UDP%E5%B0%BE%E9%83%A8.png"></p>
-<h3 id="3-2-2-TCP和UDP-端口号"><a href="#3-2-2-TCP和UDP-端口号" class="headerlink" title="3.2.2 TCP和UDP-端口号"></a>3.2.2 TCP和UDP-端口号</h3><p><img src="/images/TCP%E5%92%8CUDP%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7.png"></p>
+<p>  <code>2.TCP和UDP-端口号</code></p>
+<p><img src="/images/TCP%E5%92%8CUDP%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7.png"></p>
 <p>   客户端使用的源端口一般随机分配，目标端口则由服务器的应用指定;</p>
-<p>   源端口号一般为系统中未使用的，且大于1023;</p>
+<p>   源端口号一般为系统中未使用，且大于1023;</p>
 <p>   目的端口号为服务端开启的应用(服务)所侦听的端口，如HTTP缺省使用80。</p>
-<h3 id="3-2-3-TCP建立-三次握手"><a href="#3-2-3-TCP建立-三次握手" class="headerlink" title="3.2.3 TCP建立-三次握手"></a>3.2.3 TCP建立-三次握手</h3><p>   任何基于TCP的应用，在发送数据之前，都需要由TCP进行“三次握手”建立连接。</p>
+<p>  <strong>三次握手与四次挥手：</strong></p>
+<p>  <code>1.TCP建立-三次握手</code></p>
+<p>   任何基于TCP的应用，在发送数据之前，都需要由TCP进行“三次握手”建立连接。</p>
 <p><img src="/images/TCP%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png"></p>
 <p>  1.由TCP连接发起方(PC1)发送第一个SYN位置1的TCP报文。初始序列号(Seq)a 为一个随机生成的数字，因为没收到过来自PC2的任何报文，所以确认序列号(Ack)为0</p>
 <p>  2.接收方(PC2)接收到合法的SYN报文之后，回复一个 SYN 和 Ack 置 1 的TCP报文。初始序列号b为一个随机生成的数字，同时因为此报文是回复给PC1的报文，所以确认序列号为a+1</p>
 <p>  3.PC1接收到 PC2发送的SYN和Ack置位的TCP报文后，回复一个Ack置位的报文，此时序列号为a+1，确认序列号为b+1。PC2接收到报文后，TCP双向连接建立。</p>
-<h3 id="3-2-4-TCP序列号与确认序列号"><a href="#3-2-4-TCP序列号与确认序列号" class="headerlink" title="3.2.4 TCP序列号与确认序列号"></a>3.2.4 TCP序列号与确认序列号</h3><p>   TCP使用序列号和确认序列号字段实现数据的可靠和有序传输。</p>
+<p>  <code>2.TCP序列号与确认序列号</code></p>
+<p>   TCP使用序列号和确认序列号字段实现数据的可靠和有序传输。</p>
 <p>  <strong>在此期间PC2没有向PC1发送新的数据，所以PC1的确认号(AcK)保持不变。</strong></p>
 <p><img src="/images/TCP%E7%9A%84%E5%BA%8F%E5%88%97%E5%8F%B7%E5%92%8C%E7%A1%AE%E8%AE%A4%E5%BA%8F%E5%88%97%E5%8F%B7.png"></p>
 <p>  <strong>假设PC1要给PC2发送一段数据，传输过程如下</strong>：</p>
@@ -744,23 +775,26 @@
 <p>   2.PC1会把每段数据的第一个字节的编号作为序列号，然后将TCP报文发送出去。</p>
 <p>   3.PC2在收到PC1发送米的TCP报文后，需要给予确认，同时请求下一段数据，下一段数据的第一个字节的确认序列号(a+1+12)=序列号(a+1)+载荷长度。</p>
 <p>   4.PC1在收到PC2发送来的TCP报文后，发现确认序列号为a+1+12，说明a+1到 a+12这一段的数据已经被接收，需要从a+1+12处开始发送</p>
-<h3 id="3-2-5-TCP的窗口滑动机制"><a href="#3-2-5-TCP的窗口滑动机制" class="headerlink" title="3.2.5 TCP的窗口滑动机制"></a>3.2.5 TCP的窗口滑动机制</h3><p>   TCP通过窗口滑动机制来控制数据的传输速率。</p>
+<p>  <code>3.TCP的窗口滑动机制</code></p>
+<p>   TCP通过窗口滑动机制来控制数据的传输速率。</p>
 <p><img src="/images/TCP%E7%9A%84%E7%AA%97%E5%8F%A3%E6%BB%91%E5%8A%A8%E6%9C%BA%E5%88%B6.png"></p>
 <p>  <strong>PC1在发送这三个数据段时，尚未收到PC2的窗口更新通知，所以继续使用之前协商的窗口大小(win=3)</strong></p>
-<p>  TCP通过窗口滑动机制控制数据传输速率的流程如下：</p>
+<p>  <code>TCP通过窗口滑动机制控制数据传输速率的流程如下：</code></p>
 <p>   1.在TCP通过三次握手建立连接时，双方通过win字段告诉对方本端最大能够接收的字节数(缓冲区大小)。</p>
 <p>   2.连接建立成功之后，发送方会根据接收方宣告的win字段大小发送相应字节数的数据。</p>
 <p>   3.接收方接收到数据之后会存放在缓冲区内，等待上层应用取走缓冲区中的数据。若数据被上层取走，则相应的缓冲空间将被释放。</p>
 <p>   4.接收方根据自身的缓存空间大小通告当前可以接收的数据大小(win)。</p>
 <p>   5.发送方根据接收方当前的win字段大小发送相应数量的数据。</p>
-<h3 id="3-2-6-TCP关闭-四次挥手"><a href="#3-2-6-TCP关闭-四次挥手" class="headerlink" title="3.2.6 TCP关闭-四次挥手"></a>3.2.6 TCP关闭-四次挥手</h3><p>   当数据传输完成，TCP需要通过”四次挥手”机制断开TCP连接，释放系统资源。</p>
+<p>  <code>4.TCP关闭-四次挥手</code></p>
+<p>   当数据传输完成，TCP需要通过”四次挥手”机制断开TCP连接，释放系统资源。</p>
 <p><img src="/images/TCP%E7%9A%84%E5%85%B3%E9%97%AD-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png"></p>
 <p>  TCP支持全双工模式传输数据，意味着同一时刻两个方向都可以进行数据传输。在传输数据之前，TCP通过三次握手建立的连接实际上是两个方向的连接，因此在数据传输完毕后、两个方向的连接必须都关闭。流程如下：</p>
 <p>   1.由PC1发送一个FIN字段置1的不带数据的TCP报文。</p>
 <p>   2.PC2收到PC1发送的FIN置位的TCP报文后，会回复一个Ack置位的TCP报文。</p>
 <p>   3.若 PC2 没有需要发送的数据，则直接发送 FIN置位的TCP报文。假设此时 PC2还有数据要发送，那么当PC2发送完这些数据之后，会发送一个FIN置位的TCP报文关闭连接。</p>
 <p>   4.PC1收到FIN置位的TCP报文后，回复Ack报文，TCP双向连接断开。</p>
-<h2 id="3-3-网络层"><a href="#3-3-网络层" class="headerlink" title="3.3 网络层"></a>3.3 网络层</h2><p>  传输层负责建立主机之间进程与进程之间的连接，而网络层则负责数据从一台主机到另外一台主机之间的传递。</p>
+<h3 id="2-3-3-网络层"><a href="#2-3-3-网络层" class="headerlink" title="2.3.3 网络层"></a>2.3.3 网络层</h3><p>网络层主要功能是通过逻辑寻址，跟踪设备在网络中的位置并依靠路径选择算法确定节点间的传递路径。使数据分组从源端选择一条最佳路径传递到目的端。</p>
+<p>  传输层负责建立主机之间进程与进程之间的连接，而网络层则负责数据从一台主机到另外一台主机之间的传递。</p>
 <p>  网络层的PDU被称为Packet(包)。</p>
 <p>  网络层也叫Interet层，负责将分组报文从源主机发送到目的主机。</p>
 <h3 id="3-3-1-网络层作用"><a href="#3-3-1-网络层作用" class="headerlink" title="3.3.1 网络层作用"></a>3.3.1 网络层作用</h3><p>   为网络中的设备提供逻辑地址。</p>
@@ -923,7 +957,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/11/29/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-can-kao-mo-xing/">https://linuxcenter.icu/2025/11/29/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-can-kao-mo-xing/</a>
+                    <a href="https://linuxtech.top/2025/11/29/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-can-kao-mo-xing/">https://linuxtech.top/2025/11/29/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-can-kao-mo-xing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1010,12 +1044,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/11/30/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shu-ju-tong-xin-wang-luo-ji-chu/">
+                <a href="/2025/11/30/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shu-tong-tong-xin-wang-luo-ji-chu/">
                     <div class="card-image">
                         
-                        <img src="/img/network.jpeg" class="responsive-img" alt="数据通信网络基础">
+                        <img src="/img/network.jpeg" class="responsive-img" alt="数通通信网络基础">
                         
-                        <span class="card-title">数据通信网络基础</span>
+                        <span class="card-title">数通通信网络基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1043,8 +1077,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">数据通信网络基础</span>
+                    <a href="/tags/%E6%95%B0%E9%80%9A%E9%80%9A%E4%BF%A1%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">数通通信网络基础</span>
                     </a>
                     
                 </div>
@@ -1301,7 +1335,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">215.1k</span>&nbsp;字
+                class="white-color">242.4k</span>&nbsp;字
             
             
             

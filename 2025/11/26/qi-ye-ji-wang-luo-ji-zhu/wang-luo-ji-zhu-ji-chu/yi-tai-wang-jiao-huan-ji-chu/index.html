@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-01-08
+                    2026-01-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    3.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    11 分
                 </div>
                 
 
@@ -610,7 +610,17 @@
 <p><img src="/images/%E7%BB%84%E6%92%AD%E5%B8%A7.png"></p>
 <h1 id="3-以太网二层交换机"><a href="#3-以太网二层交换机" class="headerlink" title="3 以太网二层交换机"></a>3 以太网二层交换机</h1><p>  以太网二层交换机转发数据的端口都是以太网口，并且只能够针对数据的二层头部(以太网数据帧头)中的MAC地址进行寻址并转发数据。</p>
 <p><img src="/images/%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%8C%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA.png"></p>
-<h2 id="3-1-交换机工作原理"><a href="#3-1-交换机工作原理" class="headerlink" title="3.1 交换机工作原理"></a>3.1 交换机工作原理</h2><p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png"></p>
+<h2 id="3-1-交换机的转发方式"><a href="#3-1-交换机的转发方式" class="headerlink" title="3.1 交换机的转发方式"></a>3.1 交换机的转发方式</h2><p>  交换机有以下3种转发方式。</p>
+<p>  <strong>1.直通转发</strong></p>
+<p>  数据帧的结构如下图所示。直通转发是指交换机只要看到目的 MAC 地址就开始执行转发过程，它不检测错误，而是直接转发数据帧。</p>
+<p>  直通转发的优点是不需要存储，延迟非常小、交换特别快；缺点是因为数据包内容并没有被以太网交换机保存下来，所以无法检查传输的数据包是否有误。</p>
+<p><img src="/images/%E7%9B%B4%E9%80%9A%E8%BD%AC%E5%8F%91.jpg"></p>
+<p>  <strong>2.存储转发</strong></p>
+<p>  存储转发是指交换机在接收到完整的数据帧后才开始转发过程，其优点是会进行CRC检查，发现错误数据包将会丢弃；缺点是在处理时延时较长。</p>
+<p>  <strong>3.碎片隔离</strong></p>
+<p>  碎片隔离是指交换机接收完数据包的前64字节后根据帧头信息查表进行转发。此转发模式结合了直通转发和存储转发的优点。与直通转发一样，碎片隔离不用等待接收完全部数据帧就可以转发，会先检查数据包的长度是否够64字节(512比特)，如果小于64字节、说明是假包(或者残帧)，则丢弃该数据包；如果大于64字节，则进行转发。碎片隔离同存储转发一样，可以提供错误检测，能够检测前64字节的帧是否存在错误，并丢弃错误帧。优点是可以避免假包的转发，缺点是不提供数据校验。</p>
+<p>  华为交换机的转发方式默认为存储转发。</p>
+<h2 id="3-2-交换机工作原理"><a href="#3-2-交换机工作原理" class="headerlink" title="3.2 交换机工作原理"></a>3.2 交换机工作原理</h2><p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png"></p>
 <p>  <strong>1.基于源MAC地址学习</strong></p>
 <p>  <strong>2.基于目的MAC地址转发</strong></p>
 <p><code>主机1发出的数据帧</code>：</p>
@@ -621,27 +631,42 @@
 <p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84MAC%E5%9C%B0%E5%9D%80%E8%A1%A8.png"></p>
 <p><code>交换机的MAC地址学习</code>：</p>
 <p>  <strong>1.初始情况，交换机的MAC地址表是空的</strong></p>
+<p>  初始状态下，交换机并不知道所连接主机的 MAC 地址，所以 MAC 地址表是空的。交换机(SWA)为初始状态，在收到主机1发送的数据帧之前，MAC地址表中没有任何表项。</p>
 <p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%88%9D%E5%A7%8BMAC%E5%9C%B0%E5%9D%80%E8%A1%A8.png"></p>
-<p>  <strong>2.主机1发送数据帧给主机2，交换机GE0/0/1口接收到数据帧后，在MAC地址表中查询该帧的目的MAC地址，发现没有对应表项，则收到的数据帧是”未知单播帧”。</strong></p>
+<p>  <strong>2.主机1发送数据帧给主机2，交换机GE0/0/1口接收到数据帧后，在MAC地址表中查询该帧的目的MAC地址，发现没有对应表项，则收到的数据帧是<code>未知单播帧</code>。</strong></p>
 <p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%9F%A5MAC%E5%9C%B0%E5%9D%80%E8%A1%A81.png"></p>
 <p>  <strong>3.交换机在MAC地址表中没有查到对应表项，则交换机对该单播帧执行<code>泛洪</code>操作。同时，交换机学习该数据帧的<code>源MAC地址</code>，并创建对应的MAC地址表项，与接收口<code>GE0/0/1</code>关联。</strong></p>
+<p>  <code>基于源MAC地址学习:</code></p>
+<p>  主机1向主机2发送数据时，一般会先发送 ARP请求帧来获取主机2的MAC地址，此ARP请求帧中的目的MAC地址是广播地址，源 MAC 地址是主机1的MAC地址。SWA接收到该帧后，会将源 MAC 地址与接收接口的映射关系添加到MAC地址表中。默认情况下，交换机学习到的MAC地址表项的老化时间为300s。如果在老化时间内再次收到主机1发送的数据帧，则SWA中保存的主机1的MAC地址与 GE0/0/1 接口的映射的老化时间将会被刷新。此后，如果交换机接收到目标 MAC 地址为0050-5600-0001的数据帧时，都将通过 GE0/0/1 接口转发。</p>
+<p>  <code>管理员手工添加的MAC地址表项不会被老化刷新。</code></p>
 <p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%9F%A5MAC%E5%9C%B0%E5%9D%80%E8%A1%A82.png"></p>
 <p>  <strong>4.交换机其他端口连接的主机，也会收到该数据帧，但是会丢弃。主机2收到并处理该数据帧，向主机1回复，将数据帧发往交换机。</strong></p>
-<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE%E5%B8%A7.png"></p>
+<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE%E5%B8%A71.png"></p>
+<p>  如下图所示，SWA把主机A的MAC地址记录到自己的MAC地址表后，查看到数据帧的MAC地址为FF-FF-FF-FF-FF-FF，它便向除了源接口GE0/0/1外的所有接口进行转发，所以主机B和主机C都会接收该数据帧。</p>
+<p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE%E5%B8%A72.png"></p>
 <p>  <strong>5.交换机在MAC地址表中查到了对应表项，则交换机对该单播帧执行转发操作，将数据帧从GE0/0/1口转发出去。同时，交换机学习该数据帧的源MAC地址，并创建对应的MAC地址表项，与接收口GE0/0/2关联。</strong></p>
+<p>  <code>基于目的MAC地址转发：</code></p>
+<p>  所有主机接收到数据帧后，都会查看该数据帧。发现目的地址不是自己的主机不会回复该数据帧，而主机2会发送ARP回复数据帧，此回复数据帧的目的MAC地址为主机1的MAC地址，源MAC地址为主机2的MAC地址。SWA在收到回复数据帧时，会将该帧的源 MAC 地址和接口的映射关系添加到 MAC地址表中。如果此映射关系在MAC地址表中已经存在，则会被刷新。然后SWA查询MAC地址表，根据帧的目的MAC地址找到对应的转发接口后，从GE0/0/1接口转发此数据帧。</p>
 <p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BAMAC%E5%9C%B0%E5%9D%80%E5%AD%A6%E4%B9%A0.png"></p>
-<h2 id="3-2-交换机的数据帧处理"><a href="#3-2-交换机的数据帧处理" class="headerlink" title="3.2 交换机的数据帧处理"></a>3.2 交换机的数据帧处理</h2><p>  交换机对于从传输介质进入某一端口的帧的处理行为一共有3种：</p>
+<h2 id="3-3-交换机的数据帧处理"><a href="#3-3-交换机的数据帧处理" class="headerlink" title="3.3 交换机的数据帧处理"></a>3.3 交换机的数据帧处理</h2><p>  交换机会对通过传输介质进人其接口的每一个帧都进行转发操作，基本作用就是用来转发数据帧。</p>
+<p>  交换机对数据帧的处理行为有三种：泛洪(Flooding)、转发(Forwarding)和套弃(Discarding)。</p>
 <p><img src="/images/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B8%A7%E5%A4%84%E7%90%86.png"></p>
-<h3 id="3-2-1-泛洪"><a href="#3-2-1-泛洪" class="headerlink" title="3.2.1 泛洪"></a>3.2.1 泛洪</h3><p>  <strong>如果接收的是未知单播帧</strong>：</p>
-<p>  交换机在MAC地址表中查不到这个帧的目的MAC地址，则交换机对该单播帧执行泛洪操作。</p>
-<p>  <strong>如果接收的是广播帧</strong>：</p>
-<p>  交换机不会去查MAC地址表，直接对该广播帧执行泛洪操作。</p>
+<h3 id="3-2-1-泛洪"><a href="#3-2-1-泛洪" class="headerlink" title="3.2.1 泛洪"></a>3.2.1 泛洪</h3><p>  <code>泛洪是指交换机把从某一接口进人的帧通过其他所有接口转发出去。其他所有接口是指除了该帧进人交换机的接口以外的所有接口。</code></p>
+<p>  主机1想要访问主机2，发送单播数据帧，交换机从GE0/0/1接口接收到数据帧后，发现在MAC地址表中查不到对应的表项，则会泛洪该数据帧，即把它从GE002接口和GE0/0/3接口发送出去。</p>
+<p>  <strong>1.接收的是未知单播帧</strong>：</p>
+<p>   交换机在MAC地址表中查不到这个帧的目的MAC地址，则交换机对该单播帧执行泛洪操作。</p>
+<p>  <strong>2.接收的是广播帧</strong>：</p>
+<p>   交换机不会去查MAC地址表，直接对该广播帧执行泛洪操作。</p>
 <p><img src="/images/%E6%B3%9B%E6%B4%AA.png"></p>
-<h3 id="3-2-2-转发"><a href="#3-2-2-转发" class="headerlink" title="3.2.2 转发"></a>3.2.2 转发</h3><p>  <strong>如果接收的是已知的单播帧</strong>：</p>
-<p>  交换机在MAC地址表中查到了这个帧的目的MAC地址，并且表中对应的端口编号不是这个帧从传输介质进入交换机的那个端口编号，则交换机对该单播帧执行转发操作。</p>
+<h3 id="3-2-2-转发"><a href="#3-2-2-转发" class="headerlink" title="3.2.2 转发"></a>3.2.2 转发</h3><p>  <code>转发是指交换机把从某一接口进人的帧通过另一个接口转发出去，另一个接口不能是这个帧进人交换机的接口。</code></p>
+<p>  主机1想要访问主机2，发送单播数据帧，交换机从GE0/0/1接口接收到数据帧后，在 MAC地址表中查到了对应的表项，就会点对点地转发该数据帧，把数据帧从GE0/0/2接口发送出去。</p>
+<p>  <strong>接收的是已知的单播帧</strong>：</p>
+<p>   交换机在MAC地址表中查到了这个帧的目的MAC地址，并且表中对应的端口编号不是这个帧从传输介质进入交换机的那个端口编号，则交换机对该单播帧执行转发操作。</p>
 <p><img src="/images/%E8%BD%AC%E5%8F%91.png"></p>
-<h3 id="3-2-3-丢弃"><a href="#3-2-3-丢弃" class="headerlink" title="3.2.3 丢弃"></a>3.2.3 丢弃</h3><p>  <strong>如果接收的是单播帧</strong>：</p>
-<p>  交换机在MAC地址表中查到了这个帧的目的MAC地址，但是表中对应的端口编号是该帧从传输介质进入交换机的那个端口编号，则交换机对该单播帧执行丢弃操作。</p>
+<h3 id="3-2-3-丢弃"><a href="#3-2-3-丢弃" class="headerlink" title="3.2.3 丢弃"></a>3.2.3 丢弃</h3><p>  如果从传输介质进人交换机的某个接口的帧是一个单播帧，则交换机会去 MAC 地址表中查找这个帧的目的MAC地址。如果查到了目的MAC地址，则比较这个MAC地址在 MAC地址表中对应的接口编号是不是这个帧从传输介质进人交换机的接口的编号。如果是，则交换机将对该帧执行丢弃操作。</p>
+<p>  主机1想要访问主机2，发送单播数据帧，交换机1接收到数据帧后，若在MAC地址表中查不到对应的表项，则会泛洪该数据帧。交换机2接收到该数据帧后，发现目的MAC地址对应的接口就是接收该数据帧的接口，则会丢弃该数据帧。</p>
+<p>  <strong>接收的是单播帧</strong>：</p>
+<p>   交换机在MAC地址表中查到了这个帧的目的MAC地址，但是表中对应的端口编号是该帧从传输介质进入交换机的那个端口编号，则交换机对该单播帧执行丢弃操作。</p>
 <p><img src="/images/%E4%B8%A2%E5%BC%83.png"></p>
 
                 
@@ -669,7 +694,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/11/26/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-jiao-huan-ji-chu/">https://linuxcenter.icu/2025/11/26/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-jiao-huan-ji-chu/</a>
+                    <a href="https://linuxtech.top/2025/11/26/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-jiao-huan-ji-chu/">https://linuxtech.top/2025/11/26/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-jiao-huan-ji-chu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -756,30 +781,30 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/11/27/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/wang-luo-ceng-xie-yi-ji-ip-bian-zhi/">
+                <a href="/2025/11/26/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-ji-chu-jiao-cheng/">
                     <div class="card-image">
                         
-                        <img src="/img/network.jpeg" class="responsive-img" alt="网络层协议及IP编址">
+                        <img src="/img/network.jpeg" class="responsive-img" alt="Golang基础教程">
                         
-                        <span class="card-title">网络层协议及IP编址</span>
+                        <span class="card-title">Golang基础教程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            网络层的主要协议、IPv4地址的概念以及分类和特殊IP地址、计算IP网络以及IP子网、IP网络地址规划方式。
+                            以太网的基本概念、区分MAC地址的类型、二层交换机的工作流程、MAC地址表的构成与形成过程。
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-11-27
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-11-26
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    网络技术基础
+                            <a href="/categories/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/" class="post-category">
+                                    Golang基础与核心能力
                                 </a>
                             
                             
@@ -789,8 +814,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%8F%8AIP%E7%BC%96%E5%9D%80/">
-                        <span class="chip bg-color">网络层协议及IP编址</span>
+                    <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">Golang基础教程</span>
                     </a>
                     
                 </div>
@@ -1047,7 +1072,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">215.1k</span>&nbsp;字
+                class="white-color">242.4k</span>&nbsp;字
             
             
             

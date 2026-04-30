@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-01-09
+                    2026-01-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    4.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    14 分
                 </div>
                 
 
@@ -557,27 +557,88 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-什么是VLAN"><a href="#1-什么是VLAN" class="headerlink" title="1 什么是VLAN"></a>1 什么是VLAN</h1><h2 id="1-1-划分VLAN的背景"><a href="#1-1-划分VLAN的背景" class="headerlink" title="1.1 划分VLAN的背景"></a>1.1 划分VLAN的背景</h2><p>  在典型交换网络中，当某台主机发送一个广播帧或未知单播帧时，该数据帧会被泛洪，甚至传递到整个广播域。</p>
+                <h1 id="1-VLAN技术的意义"><a href="#1-VLAN技术的意义" class="headerlink" title="1 VLAN技术的意义"></a>1 VLAN技术的意义</h1><h2 id="1-1-划分VLAN的背景"><a href="#1-1-划分VLAN的背景" class="headerlink" title="1.1 划分VLAN的背景"></a>1.1 划分VLAN的背景</h2><p>  以太网是一种基于 CSMA/CD (Carrier Sense Multiple Access/Collision Detection，载波监听多路访问/冲突检测)的共享通信介质的数据网络通信技术。当主机数目较多时可能会导致冲突严重、广播泛滥、性能显著下降甚至网络不可用。通过交换机实现 LAN(局域网) 互连虽然可以解决冲突严重的问题，但仍然不能隔离广播报文和提升网络质量。在这种情况下出现了VLAN(虚拟局域网)技术。</p>
+<p>  在典型交换网络中，当某台主机发送一个广播帧或未知单播帧时，该数据帧会被泛洪，甚至传递到整个广播域。</p>
 <p>  广播域越大，产生的网络安全问题、垃圾流量问题，就越严重。</p>
 <p><img src="/images/%E4%BC%A0%E7%BB%9F%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84%E9%97%AE%E9%A2%98.png"></p>
-<h2 id="1-2-虚拟局域网-VLAN"><a href="#1-2-虚拟局域网-VLAN" class="headerlink" title="1.2 虚拟局域网(VLAN)"></a>1.2 虚拟局域网(VLAN)</h2><p>  虚拟局域网VLAN可以隔离广播域。</p>
+<p>  如果PC1要向PC2发送一个单播帧，假如此时SW1、SW3、SW7的MAC地址表中存在关于PC2的MAC地址表项，而SW2和SW5的MAC地址表中不存在关于PC2的MAC地址表项，那么SW1和SW3将对该单播帧执行点对点的转发操作，SW7将对该单播帧执行丢弃操作，SW2和SW5将对该单播帧执行泛洪操作。最后的结果是，PC2虽然收到了该单播帧，但网络中的很多其他非目的主机同样接收到了不该接收的数据帧。显然，广播域越大，网络安全问题和垃圾流量问题就越严重。</p>
+<h2 id="1-2-VLAN的概念"><a href="#1-2-VLAN的概念" class="headerlink" title="1.2 VLAN的概念"></a>1.2 VLAN的概念</h2><p>  VLAN(Virtual Local AreaNetwork，虚拟局域网)是将一个物理的LAN在逻辑上划分成多个广播域的通信技术。每个VLAN都是一个广播域，VLAN内的主机间可以直接通信，VLAN间则不能直接互通。这样，广播报文就被限制在一个VLAN内。</p>
+<h2 id="1-3-VLAN的作用"><a href="#1-3-VLAN的作用" class="headerlink" title="1.3 VLAN的作用"></a>1.3 VLAN的作用</h2><p>  为了解决广播域带来的问题，引人了VLAN技术。如下图所示，PC1与PC2在同一个VLAN内，所以PC1发送的广播帧只有PC2才能收到。</p>
+<p>  使用VLAN技术具有以下好处：</p>
+<p>   <code>限制广播域：</code>广播域被限制在一个VLAN内，节省了带宽，提高了网络处理能力。 </p>
+<p>   <code>增强局域网的安全性：</code>不同VLAN内的报文在传输时是相互隔离的，即一个VLAN内的用户不能和其他 VLAN 内的用户直接通信。</p>
+<p>   <code>提高了网络的健壮性：</code>故障被限制在一个VLAN内，本VLAN内的故障不会影响其他VLAN的正常工作。</p>
+<p>   <code>灵活构建虚拟工作组：</code>用VLAN可以划分不同的用户到不同的工作组，同一个工作组的用户也不必局限于某一固定的物理范围，网络构建和维护更加方便、灵活。</p>
+<p>  虚拟局域网VLAN可以隔离广播域。</p>
 <p>  特点：不受地域限制、同一VLAN内的设备才能直接二层通信</p>
 <p><img src="/images/%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91.png"></p>
-<h1 id="2-VLAN的基本原理"><a href="#2-VLAN的基本原理" class="headerlink" title="2 VLAN的基本原理"></a>2 VLAN的基本原理</h1><h2 id="2-1-如何实现VLAN"><a href="#2-1-如何实现VLAN" class="headerlink" title="2.1 如何实现VLAN"></a>2.1 如何实现VLAN</h2><p><img src="/images/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0VLAN.png"></p>
+<h1 id="2-VLAN的基本原理"><a href="#2-VLAN的基本原理" class="headerlink" title="2 VLAN的基本原理"></a>2 VLAN的基本原理</h1><h2 id="2-1-同VLAN跨设备传输数据"><a href="#2-1-同VLAN跨设备传输数据" class="headerlink" title="2.1 同VLAN跨设备传输数据"></a>2.1 同VLAN跨设备传输数据</h2><p><img src="/images/%E5%90%8CVLAN%E8%B7%A8%E8%AE%BE%E5%A4%87%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE1.png"></p>
 <p>  Switch1与Switch2同属一个企业，该企业统一规划了网络中的VLAN。其中VLAN10用于A部门，VLAN20用于B部门。A、B部门的员工在Switch1和Switch2上都有接入。</p>
 <p>  PC1发出的数据经过Switch1和Switch2之间的链路到达了Switch2。<strong>如果不加处理，后者无法判断该数据所属的VLAN，也不知道应该将这个数据输出到本地哪个VLAN中</strong>。</p>
+<p><img src="/images/%E5%90%8CVLAN%E8%B7%A8%E8%AE%BE%E5%A4%87%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE2.png"></p>
+<p>  Switch1和Switch2之间的链路要承载多个VLAN的数据，就需要一种基于VLAN的数据”标记”手段、以便对不同VLAN的数据帧进行区分，如上图所示。</p>
+<p>  IEEE 802.1Q标准(也被称为Dot1Q)定义了该”标记”方法。该标准对传统的以太网数据帧进行修改，在帧头中插入802.1Q Tag，而在该Tag中，便可以写入VLAN信息。</p>
 <h2 id="2-2-VLAN标签-VLAN-Tag"><a href="#2-2-VLAN标签-VLAN-Tag" class="headerlink" title="2.2 VLAN标签(VLAN Tag)"></a>2.2 VLAN标签(VLAN Tag)</h2><p>  <strong>交换机如何识别接收到的数据帧属于哪个VLAN？</strong></p>
 <p><img src="/images/VLAN%E6%A0%87%E7%AD%BE.png"></p>
 <p>  <code>VLAN标签</code>：</p>
 <p>   要使交换机能够分辨不同VLAN的报文，需要在报文中添加标识VLAN信息的字段。</p>
-<p>   IEEE802.1Q协议规定，在以太网数据帧中加入4个字节的VLAN标签，又称VLAN Tag，简称Tag。</p>
+<p>   IEEE802.1Q协议规定，在以太网数据帧的目的MAC地址和源MAC地址字段之后、协议类型字段之前加入4个字节的VLAN标签，用于标识VLAN信息，又称VLAN Tag，简称Tag。</p>
 <p>  <strong>VLAN数据帧</strong>：</p>
 <p><img src="/images/VLAN%E6%95%B0%E6%8D%AE%E5%B8%A7.png"></p>
-<h2 id="2-3-VLAN的实现"><a href="#2-3-VLAN的实现" class="headerlink" title="2.3 VLAN的实现"></a>2.3 VLAN的实现</h2><p><img src="/images/VLAN%E7%9A%84%E5%AE%9E%E7%8E%B0.png"></p>
-<p>  Switch1和Switch2之间的链路要承载多个VLAN的数据，需要一种基于VLAN的数据<strong>标记</strong>手段，以便<strong>对不同VLAN的数据帧进行区分</strong>。</p>
-<p>  IEEE 802.1Q标准(也被称为Dot1Q)定义了该”标记”方法。该标准对传统的以太网数据帧进行修改，在帧头中插入802.1Q Tag，而在该Tag中，便可以写入VLAN信息。</p>
-<h2 id="2-4-VLAN的划分方式"><a href="#2-4-VLAN的划分方式" class="headerlink" title="2.4 VLAN的划分方式"></a>2.4 VLAN的划分方式</h2><p><img src="/images/VLAN%E7%9A%84%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F.png"></p>
-<p><code>基于接口的VLAN划分</code>：</p>
+<p>  VLAN标签各字段含义如下：</p>
+<p>   TPID：表示数据帧类型，其值为0x8100时，表示 IEEE 802.1q 的 VLAN 数据帧。如果不支持 IEEE 802.1q 的设备收到这样的数据帧，会将其丢弃。</p>
+<p>   PRI：表示数据帧的优先级，用于QoS。</p>
+<p>   CFI：在以太网中，CFI的值为0。</p>
+<p>   VID：表示该数据帧所属VLAN的编号。取值范围为0~4095。</p>
+<h2 id="2-3-VLAN的划分方式"><a href="#2-3-VLAN的划分方式" class="headerlink" title="2.3 VLAN的划分方式"></a>2.3 VLAN的划分方式</h2><p>  计算机发出的数据帧不带任何标签(Untagged帧)。对支持VLAN特性的交换机来说，计算机发出的Untagged帧一旦进人交换机，交换机必须通过某种划分原则把这个帧划分到某个特定的VLAN中。</p>
+<p><img src="/images/VLAN%E7%9A%84%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F.png"></p>
+<p>  <strong>VLAN的划分包括以下5种方式：</strong></p>
+<p>   <code>基于接口划分:</code>根据交换机的接口划分VLAN。</p>
+<p>   <code>基于MAC地址划分:</code>根据数据帧的源MAC地址划分VLAN。</p>
+<p>   <code>基于IP子网划分:</code>根据数据帧中的源IP地址和子网掩码划分VLAN。</p>
+<p>   <code>基于策略划分:</code>根据配置的策略划分VLAN，能实现多种组合的划分方式，包括接、MAC地址、IP地址等。</p>
+<p>   <code>基于协议划分:</code>根据数据帧所属的协议(族)类型及封装格式划分VLAN。</p>
+<table>
+<thead>
+<tr>
+<th>划分方式</th>
+<th>原理</th>
+<th>优缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基于接口</td>
+<td>网络管理员预先给交换机的每个接口配置不同的PVID，当一个数据帧进人交换机时，如果没有带VLAN标签，则该数据帧就会被添加接口指定PVID的Tag，然后数据帧将在指定PVID中传输</td>
+<td>优点:定义成员简单。<br>缺点:成员移动需重新配置VLAN</td>
+<td>适用于任何大小但位置比较固定的网络</td>
+</tr>
+<tr>
+<td>基于MAC地址</td>
+<td>网络管理员预先配置MAC地址和VID映射关系表，当交换机接收到的是Untagged地址帧时，就依据该映射关系表给数据帧添加指定VLAN的Tag，然后数据帧将在指定VLAN中传输</td>
+<td>优点:当用户的物理位置发生改变时，不需要重新配置VLAN，提高了用户的安全性和接入的灵活性<br>缺点:需要预先定义网络中的所有成员</td>
+<td>适用于位置经常移动，但网卡不经常更换的小型网络、如移动PC</td>
+</tr>
+<tr>
+<td>基于IP子网</td>
+<td>网络管理员预先配置IP地址和VID映射关系表，若交换机接收到的是Untagged帧，就依据该映射关系表给数据帧添加指定VLAN 的 Tag，然后数据帧将在指定VLAN 中传输</td>
+<td>优点:当用户的物理位置发生改变时，不需要重新配置VLAN。可以减少网络的通信量，可使广播域跨越多个交换机<br>缺点:网络中的用户分布需要有规律，且多个用户在同一个网段</td>
+<td>适用于对安全需求不高、对移动性和简易管理需求较高的场景。例如，一台PC配置多个IP地址分别访问不同网段的服务器，以及PC切换IP地址后要求 VLAN 自动切换等场景</td>
+</tr>
+<tr>
+<td>基于协议</td>
+<td>网络管理员预先配置以太网帧中的协议域和VID的映射关系表，如果接收到的是Untagged帧，就依据该映射关系表给数据帧添加指定VLAN的Tag，然后数据帧将在指定 VLAN中传输</td>
+<td>优点:将网络中提供的服务类型与VLAN绑定，方便管理和维护<br>缺点:要对网络中所有的协议类和VID的映射关系表进行初始的网络配置。需要分析各种协议的格式并进行相应的转换，会消耗交换机较多的资源，速度上较显劣势</td>
+<td>适用于需要时运行多协议的网络</td>
+</tr>
+<tr>
+<td>基于策略</td>
+<td>网络管理员预先配置策略，如果接收到的是Untagged帧，且能匹配配置的策略时，给数据帧添加指定VLAN的Tag，然后数据帧将在指定 VLAN中传输</td>
+<td>优点:安全性高,VLAN划分后，用户不能改变 IP地址或 MAC地址。网络管理人员可根据自己的管理模式或需求选择划分方式。<br>缺点:针对每一条策略都需要进行手工配置</td>
+<td>适用于需求比较复杂的环境</td>
+</tr>
+</tbody></table>
+<h2 id="2-4-常见的VLAN划分方式"><a href="#2-4-常见的VLAN划分方式" class="headerlink" title="2.4 常见的VLAN划分方式"></a>2.4 常见的VLAN划分方式</h2><p><code>基于接口的VLAN划分</code>：</p>
 <p>  <strong>原理</strong>：</p>
 <p>   根据交换机的接口划分VLAN。</p>
 <p>   网络管理员预先给交换机的每个接口配置不同的<strong>PVID</strong>，将该接口划入PVID对应的VLAN。</p>
@@ -593,19 +654,25 @@
 <p>  <strong>映射表</strong>：</p>
 <p>   记录了MAC地址和VLAN ID的关联情况。</p>
 <p><img src="/images/VLAN%E7%9A%84%E5%88%92%E5%88%86.png"></p>
-<h2 id="2-5-以太网二层接口类型"><a href="#2-5-以太网二层接口类型" class="headerlink" title="2.5 以太网二层接口类型"></a>2.5 以太网二层接口类型</h2><p><img src="/images/%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%8C%E5%B1%82%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B.png"></p>
+<h2 id="2-5-以太网二层接口类型"><a href="#2-5-以太网二层接口类型" class="headerlink" title="2.5 以太网二层接口类型"></a>2.5 以太网二层接口类型</h2><p><img src="/images/%E5%8D%8E%E4%B8%BA%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B.png"></p>
+<p>  交换机内部处理的数据帧都带有VLAN标签，而现网中交换机连接的设备有些只会收发Untagged 帧，要想与这些设备交互，就需要接口能够识别 Untagged 帧并在收发时给帧添加、剥除 VLAN 标签。同时，现网中属于同一个VLAN的用户可能会被连接在不同的交换机上，且跨越交换机的 VLAN可能不止一个。如果用户间需要互通，就需要交换机间的接口能够同时识别和发送多个VLAN数据帧。根据接口连接对象以及对收发数据帧处理方式的不同，华为定义了4种接口链路类型：Access、Trunk、Hybrid和QinQ，以适应不同的连接和组网。其中，Access接口、Trunk接口和Hybrid接口如下图所示。</p>
+<p><img src="/images/%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%8C%E5%B1%82%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B.png"></p>
 <h3 id="2-5-1-Access接口"><a href="#2-5-1-Access接口" class="headerlink" title="2.5.1 Access接口"></a>2.5.1 Access接口</h3><p>  交换机上常用来连接用户PC、服务器等终端设备的接口。</p>
 <p>  Access接口所连接的设备的网卡只收发无标记帧。</p>
 <p>  Access接口只能加入一个VLAN。</p>
-<p><img src="/images/Access%E6%8E%A5%E5%8F%A3.png"></p>
+<p><img src="/images/Access%E6%8E%A5%E5%8F%A3.png"><br>  Access接口一般用于与不能识别Tag的用户终端(如用户主机、服务器等)相连，或者在不需要区分不同 VLAN成员时使用。</p>
+<p>  Access接口大部分情况下只能收发Untagged帧，且只能为Untagged帧添加唯一的VLAN Tag。交换机内部只处理Tagged帧，所以Access接口需要给接收到的数据帧添加 VLAN Tag，也就必须配置默认的 VLAN。配置默认的 VLAN 后，该Access接口便加人了该VLAN。当Access接口接收到带有Tag的帧，并且帧中的VID与 PVID相同时，Access接口也能接收并处理该帧。为了防止用户私自更改接口用途，接入其他交换设备，可以配置接口丢弃人方向带VLANTag的报文。</p>
 <h3 id="2-5-2-Trunk接口"><a href="#2-5-2-Trunk接口" class="headerlink" title="2.5.2 Trunk接口"></a>2.5.2 Trunk接口</h3><p>  Trunk接口允许多个VLAN的数据帧通过，这些数据帧通过802.1Q Tag实现区分。</p>
 <p>  Trunk接口常用于交换机之间的互联，也用于连接路由器、防火墙等设备的子接口。</p>
-<p><img src="/images/Trunk%E6%8E%A5%E5%8F%A3.png"></p>
-<h3 id="2-5-3-Access接口与Trunk接口示例"><a href="#2-5-3-Access接口与Trunk接口示例" class="headerlink" title="2.5.3 Access接口与Trunk接口示例"></a>2.5.3 Access接口与Trunk接口示例</h3><p>  描述主机之间数据访问的全流程。</p>
+<p><img src="/images/Trunk%E6%8E%A5%E5%8F%A3.png"><br>  Trunk接口一般用于连接交换机、路由器、AP以及可同时收发Tagged帧和Untagged帧的语音终端。</p>
+<p>  Trunk接口允许多个VLAN的帧带Tag通过，但只允许一个VLAN的帧从该类接口上发出时不带Tag(即剥除Tag)。</p>
+<h3 id="2-5-3-Access与Trunk示例"><a href="#2-5-3-Access与Trunk示例" class="headerlink" title="2.5.3 Access与Trunk示例"></a>2.5.3 Access与Trunk示例</h3><p>  描述主机之间数据访问的全流程。</p>
 <p><img src="/images/Access%E4%B8%8ETrunk%E6%8E%A5%E5%8F%A3%E7%A4%BA%E4%BE%8B.png"></p>
-<h3 id="2-5-3-Hybrid接口"><a href="#2-5-3-Hybrid接口" class="headerlink" title="2.5.3 Hybrid接口"></a>2.5.3 Hybrid接口</h3><p>  Hybrid接口与Trunk接口类似，也允许多个VLAN的数据帧通过，这些数据帧通过802.1Q Tag实现区分。</p>
+<h3 id="2-5-4-Hybrid接口"><a href="#2-5-4-Hybrid接口" class="headerlink" title="2.5.4 Hybrid接口"></a>2.5.4 Hybrid接口</h3><p>  Hybrid接口与Trunk接口类似，也允许多个VLAN的数据帧通过，这些数据帧通过802.1Q Tag实现区分。</p>
 <p>  用户可以灵活指定Hybrid接口在发送某个(或某些)VLAN的数据帧时是否携带Tag。</p>
 <p><img src="/images/Hybrid%E6%8E%A5%E5%8F%A3.png"></p>
+<p>  Hybrid接口既可以用于连接不能识别Tag的用户终端(如用户主机、服务器等)和网络设备(如Hub、傻瓜交换机)，也可以用于连接交换机、路由器以及可同时收发Tagged帧和Untagged帧的语音终端、AP。</p>
+<p>  Hybrid接口允许多个VLAN的帧带Tag通过，且允许从该类接口发出的帧根据需要配置某些VLAN的帧带Tag(即不剥除Tag)、某些VLAN的帧不带Tag(即剥除Tag)</p>
 <p>  <code>Hybrid接口示例</code>：</p>
 <p>  描述主机访问服务器的全流程。</p>
 <p><img src="/images/Hybrid%E6%8E%A5%E5%8F%A3%E7%A4%BA%E4%BE%8B.png"></p>
@@ -648,7 +715,13 @@
 <span class="token number">2</span>.配置Access接口的缺省VLAN
   <span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port default vlan vlan-id
   <span class="token comment"># 接口视图下，配置接口缺省VLAN并同时加入这个VLAN</span>
-  <span class="token comment"># vlan-id：配置缺省VLAN的编号。整数形式，取值范围是1~4094</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token comment"># vlan-id：配置缺省VLAN的编号。整数形式，取值范围是1~4094</span>
+  
+<span class="token comment"># 示例：</span>
+vla
+interface GigabitEthernet0/0/1
+port link-type access
+port default vlan <span class="token number">10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="3-3-Trunk接口基础配置命令"><a href="#3-3-Trunk接口基础配置命令" class="headerlink" title="3.3 Trunk接口基础配置命令"></a>3.3 Trunk接口基础配置命令</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.配置接口类型
   <span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> port link-type trunk   <span class="token comment"># 接口视图下，配置接口链路类型为Trunk</span>
@@ -726,7 +799,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/11/25/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/vlan-yuan-li-yu-pei-zhi/">https://linuxcenter.icu/2025/11/25/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/vlan-yuan-li-yu-pei-zhi/</a>
+                    <a href="https://linuxtech.top/2025/11/25/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/vlan-yuan-li-yu-pei-zhi/">https://linuxtech.top/2025/11/25/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/vlan-yuan-li-yu-pei-zhi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1104,7 +1177,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">215.1k</span>&nbsp;字
+                class="white-color">242.4k</span>&nbsp;字
             
             
             

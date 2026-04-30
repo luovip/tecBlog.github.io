@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-01-08
+                    2026-01-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    125
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -557,12 +557,74 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-什么是VLAN"><a href="#1-什么是VLAN" class="headerlink" title="1 什么是VLAN"></a>1 什么是VLAN</h1><h2 id="1-1-划分VLAN的背景"><a href="#1-1-划分VLAN的背景" class="headerlink" title="1.1 划分VLAN的背景"></a>1.1 划分VLAN的背景</h2><p>  在典型交换网络中，当某台主机发送一个广播帧或未知单播帧时，该数据帧会被泛洪，甚至传递到整个广播域。</p>
-<p>  广播域越大，产生的网络安全问题、垃圾流量问题，就越严重。</p>
-<p><img src="/images/%E4%BC%A0%E7%BB%9F%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84%E9%97%AE%E9%A2%98.png"></p>
-<h2 id="1-2-虚拟局域网-VLAN"><a href="#1-2-虚拟局域网-VLAN" class="headerlink" title="1.2 虚拟局域网(VLAN)"></a>1.2 虚拟局域网(VLAN)</h2><p>  虚拟局域网VLAN可以隔离广播域。</p>
-<p>  特点：不受地域限制、同一VLAN内的设备才能直接二层通信</p>
-<p><img src="/images/%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91.png"></p>
+                <h1 id="1-VLAN间通信技术背景"><a href="#1-VLAN间通信技术背景" class="headerlink" title="1 VLAN间通信技术背景"></a>1 VLAN间通信技术背景</h1><p>  实际网络部署中一般会将不同IP地址段划分到不同的VLAN。</p>
+<p>  同VLAN且同网段的PC之间可直接进行通信，无需借助三层转发设备，该通信方式被称为二层通信。</p>
+<p>  VLAN之间需要通过三层通信实现互访，三层通信需借助三层设备。</p>
+<p><img src="/images/%E4%B8%89%E5%B1%82%E9%80%9A%E4%BF%A1.png"></p>
+<p>  常见的三层设备:路由器、三层交换机、防火墙等。</p>
+<p>  将二层交换机与路由器的三层接口互联，由三层设备进行路由转发来实现通信。</p>
+<p><img src="/images/VLAN%E9%97%B4%E9%80%9A%E4%BF%A1.png"></p>
+<h1 id="2-路由器实现VLAN间通信"><a href="#2-路由器实现VLAN间通信" class="headerlink" title="2 路由器实现VLAN间通信"></a>2 路由器实现VLAN间通信</h1><h2 id="2-1-路由器物理接口"><a href="#2-1-路由器物理接口" class="headerlink" title="2.1 路由器物理接口"></a>2.1 路由器物理接口</h2><p><img src="/images/%E8%B7%AF%E7%94%B1%E5%99%A8%E7%89%A9%E7%90%86%E6%8E%A5%E5%8F%A3.png"></p>
+<p>  路由器三层接口作为网关，转发本网段前往其它网段的流量。</p>
+<p>  路由器三层接口无法处理携带VLAN Tag的数据帧，因此交换机上联路由器的接口需配置为Access.</p>
+<p>  路由器的一个物理接口作为一个VLAN的网关，因此存在一个VLAN就需要占用一个路由器物理接口。</p>
+<p>  路由器作为三层转发设备其接口数量较少，方案的可扩展性太差。</p>
+<h2 id="2-2-路由器子接口"><a href="#2-2-路由器子接口" class="headerlink" title="2.2 路由器子接口"></a>2.2 路由器子接口</h2><p><img src="/images/%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AD%90%E6%8E%A5%E5%8F%A3.png"></p>
+<p>  子接口(Sub-lnterface)是基于路由器以太网接口所创建的逻辑接口，以物理接口ID+子接口ID进行标识，子接口同物理接口一样可进行三层转发。</p>
+<p>  子接口不同于物理接口，可以终结携带VLAN Tag的数据帧。</p>
+<p>  基于一个物理接口创建多个子接口，将该物理接口对接到交换机的Trunk接口，即可实现使用一个物理接口为多个VLAN提供三层转发服务。</p>
+<h3 id="2-2-1-子接口处理流程"><a href="#2-2-1-子接口处理流程" class="headerlink" title="2.2.1 子接口处理流程"></a>2.2.1 子接口处理流程</h3><p>  交换机连接路由器的接口类型配置为Trunk，根据报文的VLAN Tag不同，路由器将收到的报文交由对应的子接口处理。</p>
+<p><img src="/images/%E5%AD%90%E6%8E%A5%E5%8F%A3%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B.png"></p>
+<h3 id="2-2-2-子接口配置示例"><a href="#2-2-2-子接口配置示例" class="headerlink" title="2.2.2 子接口配置示例"></a>2.2.2 子接口配置示例</h3><p><img src="/images/%E5%AD%90%E6%8E%A5%E5%8F%A3%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B.png"></p>
+<h1 id="3-VLANIF技术实现VLAN间通信"><a href="#3-VLANIF技术实现VLAN间通信" class="headerlink" title="3 VLANIF技术实现VLAN间通信"></a>3 VLANIF技术实现VLAN间通信</h1><h2 id="3-1-三层交换机和VLANIF接口"><a href="#3-1-三层交换机和VLANIF接口" class="headerlink" title="3.1 三层交换机和VLANIF接口"></a>3.1 三层交换机和VLANIF接口</h2><p><img src="/images/%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%92%8CVLANIF%E6%8E%A5%E5%8F%A3.png"></p>
+<p>  二层交换机(Layer 2 Switch)指的是只具备二层交换功能的交换机。</p>
+<p>  三层交换机(Layer 3 Switch)除了具备二层交换机的功能，还支持通过三层接口(如VLANIF接口)实现路由转发功能。</p>
+<p>  VLANIF接口是一种三层的逻辑接口，支持VLAN Tag的剥离和添加，因此可以通过VLANIF接口实现VLAN之间的通信。</p>
+<p>  VLANIF接口编号与所对应的VLAN ID相同，如VLAN 10对应VLANIF 10。</p>
+<h2 id="3-2-VLANIF配置示例"><a href="#3-2-VLANIF配置示例" class="headerlink" title="3.2 VLANIF配置示例"></a>3.2 VLANIF配置示例</h2><p><img src="/images/VLANIF%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B.png"></p>
+<p>  <code>配置需求：两台PC分别属于VLAN10、VLAN20。通过三层交换机完成两台PC之间的相互通信。</code></p>
+<p>  <strong>1.基础配置</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> vlan batch <span class="token number">10</span> <span class="token number">20</span>
+<span class="token punctuation">[</span>Sw1<span class="token punctuation">]</span> interface GigabitEthernet <span class="token number">0</span>/0/1
+<span class="token punctuation">[</span>SW1-GigabitEthernet0/0/1<span class="token punctuation">]</span> port link-type access
+<span class="token punctuation">[</span>SWi-GigabitEthernet0/0/1<span class="token punctuation">]</span> port default vlan <span class="token number">10</span>
+<span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> interface GigabitEthernet <span class="token number">0</span>/0/2
+<span class="token punctuation">[</span>SW1-GigabitEthernet0/0/2<span class="token punctuation">]</span> port link-type access
+<span class="token punctuation">[</span>SW1-GigabitEthernet0/0/2<span class="token punctuation">]</span> port default vlan <span class="token number">20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <strong>2.配置VLANIF</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> interface Vlanif <span class="token number">10</span>
+<span class="token punctuation">[</span>SW1-Vlanif10<span class="token punctuation">]</span> <span class="token function">ip</span> address <span class="token number">192.168</span>.10.254 <span class="token number">24</span>
+<span class="token punctuation">[</span>SW1<span class="token punctuation">]</span>interface Vlanif <span class="token number">20</span>
+<span class="token punctuation">[</span>SW1-Vlanif20<span class="token punctuation">]</span>ip address <span class="token number">192.168</span>.20.254 <span class="token number">24</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-3-VLANIF转发流程"><a href="#3-3-VLANIF转发流程" class="headerlink" title="3.3 VLANIF转发流程"></a>3.3 VLANIF转发流程</h2><p>  假设PC、三层交换机上都已存在相应的ARP或MAC表项。</p>
+<p>  PC1与PC2之间通信过程如下:</p>
+<p>   PC1通过本地IP地址、本地掩码、对端IP地址进行计算，发现目的设备PC2与自身不在同一个网段，判断该通信为三层通信，将去往PC2的流量发给网关。PC1发送的数据帧：源MAC=MAC1，目的MAC=MAC2。</p>
+<p><img src="/images/VLANIF%E8%BD%AC%E5%8F%91%E6%B5%81%E7%A8%8B1.png"></p>
+<p>  交换机收到PC1发送的去往PC2的报文，经解封装发现目的MAC为VLANIF10接口的MAC地址，所以将报文交给路由模块继续处理。</p>
+<p>  路由模块解析发现目的IP为192.168.20.2，非本地接口存在的IP地址，因此需要对该报文三层转发。查找路由表后，匹配中VLANIF20产生的直连路由。</p>
+<p><img src="/images/VLANIF%E8%BD%AC%E5%8F%91%E6%B5%81%E7%A8%8B2.png"></p>
+<p>  因为匹配的为直连路由，说明已经到达最后一跳，所以交换机在ARP表中查找192.168.20.2，获取192.168.20.2的MAC地址，交由交换模块重新封装为数据帧。</p>
+<p>  交换模块查找MAC地址表以明确报文出接口、是否需要携带VLAN Tag。最终交换模块发送的数据帧：源MAC=MAC2，目的MAC=MAC3，VLAN Tag= None。</p>
+<p><img src="/images/VLANIF%E8%BD%AC%E5%8F%91%E6%B5%81%E7%A8%8B3.png"></p>
+<h1 id="4-三层通信过程解析"><a href="#4-三层通信过程解析" class="headerlink" title="4 三层通信过程解析"></a>4 三层通信过程解析</h1><h2 id="4-1-网络拓扑"><a href="#4-1-网络拓扑" class="headerlink" title="4.1 网络拓扑"></a>4.1 网络拓扑</h2><p>  以该拓扑为例，讲解VLAN 10内PC1到Internet上的服务器(2、3、4、5)的通信过程。</p>
+<p><img src="/images/%E4%B8%89%E5%B1%82%E9%80%9A%E4%BF%A1%E7%9A%84%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91.png"></p>
+<h2 id="4-2-连接逻辑图"><a href="#4-2-连接逻辑图" class="headerlink" title="4.2 连接逻辑图"></a>4.2 连接逻辑图</h2><p><img src="/images/%E8%BF%9E%E6%8E%A5%E9%80%BB%E8%BE%91%E5%9B%BE.png"></p>
+<h2 id="4-3-通信过程"><a href="#4-3-通信过程" class="headerlink" title="4.3 通信过程"></a>4.3 通信过程</h2><p>  <strong>1.PC处理流程</strong>：PC发送报文前往2.3.4.5，经判断目的IP非本地网段，故将报文发送给网关。</p>
+<p><img src="/images/%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B1.png"></p>
+<p>  <strong>2.SW1处理流程</strong>：SW1收到数据帧之后根据目的MAC查找MAC地址表转发数据帧。</p>
+<p><img src="/images/%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B2.png"></p>
+<p>  <strong>3.SW2处理流程</strong>：</p>
+<p>   SW2收到数据帧之后，查看目的MAC为自身接口VLANIF 10的MAC地址，交由路由模块在路由表中查找2.3.4.5。</p>
+<p>   SW2路由查找结果为匹配缺省路由，出接口为VLANIF30、下一跳为192.168.30.2，查找ARP获取192.168.30.2的MAC地址。</p>
+<p><img src="/images/%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B3.png"></p>
+<p>  <strong>4.SW2处理流程</strong>：</p>
+<p>   SW2查找ARP表项获取到192.168.30.2的MAC地址，将报文(源MAC替换为VLANIF 30的接MAC)转交给交换模块，交换模块查找MAC地址表确定出接口，同时确认发送报文时是否携带VLAN Tag。</p>
+<p><img src="/images/%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B4.png"></p>
+<p>  <strong>5.R1处理流程</strong>：</p>
+<p>   查看数据帧的目的MAC为自身接口MAC，查看目的IP，非自身IP地址，查找路由表，匹配默认路由，交给运营商转发，同时执行NAT将报文源IP、Port转换</p>
+<p><img src="/images/%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B5.png"></p>
 
                 
             </div>
@@ -589,7 +651,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/11/23/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shi-xian-vlan-jian-tong-xin/">https://linuxcenter.icu/2025/11/23/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shi-xian-vlan-jian-tong-xin/</a>
+                    <a href="https://linuxtech.top/2025/11/23/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shi-xian-vlan-jian-tong-xin/">https://linuxtech.top/2025/11/23/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shi-xian-vlan-jian-tong-xin/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -724,7 +786,7 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/11/22/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-lian-lu-ju-he/">
+                <a href="/2025/11/22/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-lian-shou-suan-fa/">
                     <div class="card-image">
                         
                         <img src="/img/network.jpeg" class="responsive-img" alt="以太网链路聚合">
@@ -967,7 +1029,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">215.1k</span>&nbsp;字
+                class="white-color">242.4k</span>&nbsp;字
             
             
             

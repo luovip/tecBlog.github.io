@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-01-08
+                    2026-01-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    125
+                    3.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    13 分
                 </div>
                 
 
@@ -557,12 +557,300 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-什么是VLAN"><a href="#1-什么是VLAN" class="headerlink" title="1 什么是VLAN"></a>1 什么是VLAN</h1><h2 id="1-1-划分VLAN的背景"><a href="#1-1-划分VLAN的背景" class="headerlink" title="1.1 划分VLAN的背景"></a>1.1 划分VLAN的背景</h2><p>  在典型交换网络中，当某台主机发送一个广播帧或未知单播帧时，该数据帧会被泛洪，甚至传递到整个广播域。</p>
-<p>  广播域越大，产生的网络安全问题、垃圾流量问题，就越严重。</p>
-<p><img src="/images/%E4%BC%A0%E7%BB%9F%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84%E9%97%AE%E9%A2%98.png"></p>
-<h2 id="1-2-虚拟局域网-VLAN"><a href="#1-2-虚拟局域网-VLAN" class="headerlink" title="1.2 虚拟局域网(VLAN)"></a>1.2 虚拟局域网(VLAN)</h2><p>  虚拟局域网VLAN可以隔离广播域。</p>
-<p>  特点：不受地域限制、同一VLAN内的设备才能直接二层通信</p>
-<p><img src="/images/%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91.png"></p>
+                <h1 id="1-生成树技术概述"><a href="#1-生成树技术概述" class="headerlink" title="1 生成树技术概述"></a>1 生成树技术概述</h1><h2 id="1-1-生成树技术的背景"><a href="#1-1-生成树技术的背景" class="headerlink" title="1.1 生成树技术的背景"></a>1.1 生成树技术的背景</h2><p>  <strong>1.二层交换机网络的冗余性与环路</strong></p>
+<p><img src="/images/%E7%94%9F%E6%88%90%E6%A0%91%E6%8A%80%E6%9C%AF%E8%83%8C%E6%99%AF1.png"></p>
+<p>  <strong>2.人为错误导致的二层环路</strong></p>
+<p><img src="/images/%E7%94%9F%E6%88%90%E6%A0%91%E6%8A%80%E6%9C%AF%E8%83%8C%E6%99%AF2.png"></p>
+<p>  <strong>3.广播风暴与MAC地址漂移</strong></p>
+<p><img src="/images/%E5%B9%BF%E6%92%AD%E9%A3%8E%E6%9A%B4%E4%B8%8EMAC%E5%9C%B0%E5%9D%80%E6%BC%82%E7%A7%BB.png"></p>
+<h2 id="1-2-生成树协议"><a href="#1-2-生成树协议" class="headerlink" title="1.2 生成树协议"></a>1.2 生成树协议</h2><p>  <code>1.初识生成树协议</code></p>
+<p>  在网络中部署生成树后，交换机之间会进行生成树协议报文的交互并进行无环拓扑计算，最终将网络中的某个(或某些)接口进行阻塞(Block)，从而打破环路。</p>
+<p><img src="/images/%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE1.png"></p>
+<p>  <code>2.生成树能够动态响应网络拓扑变化调整阻塞接口</code></p>
+<p>  交换机上运行的生成树协议会持续监控网络的拓扑结构，当网络拓扑结构发生变化时，生成树能感知到这些变化，并且自动做出调整。因此，生成树既能解决二层环路问题，也能为网络的冗余性提供一种方案。</p>
+<p><img src="/images/%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE2.png"></p>
+<p>  <code>3.二层及三层环路</code></p>
+<p><img src="/images/%E4%BA%8C%E5%B1%82%E5%8F%8A%E4%B8%89%E5%B1%82%E7%8E%AF%E8%B7%AF.png"></p>
+<p>  <code>4.生成树协议在园区网络中的应用位置</code></p>
+<p><img src="/images/%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE3.png"></p>
+<h1 id="2-STP的基本概念"><a href="#2-STP的基本概念" class="headerlink" title="2 STP的基本概念"></a>2 STP的基本概念</h1><p>  STP是一个用于局域网中消除环路的协议。</p>
+<p>  运行该协议的设备通过彼此交互信息而发现网络中的环路，并对某些接口进行阻塞以消除环路。</p>
+<p>  STP在网络中运行后会持续监控网络的状态，当网络出现拓扑变更时，STP能够感知并且进行自动响应，从而使得网络状态适应新的拓扑结构，保证网络可靠性。</p>
+<p>  由于局域网规模的不断增长，生成树协议已经成为了当前最重要的局域网协议之一。</p>
+<h2 id="2-1-桥ID"><a href="#2-1-桥ID" class="headerlink" title="2.1 桥ID"></a>2.1 桥ID</h2><p><img src="/images/%E6%A1%A5ID.png"></p>
+<p>  <strong>桥ID (Bridge ID,BID)</strong></p>
+<p>  IEEE 802.1D标准中规定BID由16位的桥优先级(Bridge Priority)与桥MAC地址构成。</p>
+<p>  每一台运行STP的交换机都拥有一个唯一的BID。</p>
+<p>  BID桥优先级占据高16bit，其余的低48bit是桥MAC地址。</p>
+<p>  在STP网络中，BID最小的设备会被选举为根桥。</p>
+<p>  备注：此处网桥(Bridge)，或者桥也就是交换机。</p>
+<h2 id="2-2-根桥"><a href="#2-2-根桥" class="headerlink" title="2.2 根桥"></a>2.2 根桥</h2><p><img src="/images/%E6%A0%B9%E6%A1%A5.png"></p>
+<p>  <strong>根桥(Root Bridge)</strong></p>
+<p>  STP的主要作用之一是在整个交换网络中计算出一棵无环的”树”(STP树)。</p>
+<p>  根桥是一个STP交换网络中的”树根”。</p>
+<p>  STP开始工作后，会在交换网络中选举一个根桥，根桥是生成树进行拓扑计算的重要”参考点”，是STP计算得出的无环拓扑的”树根”。</p>
+<p>  在STP网络中，桥ID最小的设备会被选举为根桥。</p>
+<p>  在BID的比较过程中，首先比较桥优先级，优先级的值越小，则越优先，拥有最小优先级值的交换机会成为根桥；如果优先级相等，那么再比较MAC地址，拥有最小MAC地址的交换机会成为根桥。</p>
+<h2 id="2-3-Cost"><a href="#2-3-Cost" class="headerlink" title="2.3 Cost"></a>2.3 Cost</h2><p><img src="/images/Cost.png"></p>
+<p>  <strong>开销(Cost)</strong></p>
+<p>  每一个激活了STP的接口都维护着一个Cost值，接口的Cost主要用于计算根路径开销，也就是到达根的开销。</p>
+<p>  接口的缺省Cost除了与其速率、工作模式有关，还与交换机使用的STP Cost计算方法有关。</p>
+<p>  接口带宽越大，则Cost值越小。</p>
+<p>  可以根据需要通过命令调整接口的Cost。</p>
+<p>  Cost计算方法：</p>
+<p><img src="/images/Cost%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95.png"></p>
+<p>  接口Cost是已经激活了STP的接口所维护的一个开销值，该值存在默认值，与接口的速率有关联，并且设备使用不同的算法时，相同的接口速率对应不同的Cost值。</p>
+<h2 id="2-4-RPC"><a href="#2-4-RPC" class="headerlink" title="2.4 RPC"></a>2.4 RPC</h2><p><img src="/images/RPC.png"></p>
+<p>  <strong>根路径开销(Root Path Cost)</strong></p>
+<p>  在STP的拓扑计算过程中，一个非常重要的环节就是”丈量”交换机某个接口到根桥的”成本”，即RPC。</p>
+<p>  一台设备从某个接口到达根桥的RPC等于从根桥到该设备沿途所有入方向接口的Cost累加。</p>
+<p>  本例中，SW3从GE0/0/1接口到达根桥的RPC等于接口1的Cost加上接口2的Cost。</p>
+<h2 id="2-5-接口ID-Port-ID，PID"><a href="#2-5-接口ID-Port-ID，PID" class="headerlink" title="2.5 接口ID(Port ID，PID)"></a>2.5 接口ID(Port ID，PID)</h2><p><img src="/images/PID.png"></p>
+<p>  <strong>接口ID (Port ID,PID)</strong></p>
+<p>  运行STP的交换机使用接口ID来标识每个接口，接口ID主要用于在特定场景下选举指定接口。</p>
+<p>  接口ID由两部分构成，高4bit是接口优先级，低12bit是接口编号。</p>
+<p>  激活STP的接口会维护一个缺省的接口优先级，在华为交换机上，该值为128。可以根据实际需要，通过命令修改该优先级。</p>
+<h2 id="2-6-BPDU"><a href="#2-6-BPDU" class="headerlink" title="2.6 BPDU"></a>2.6 BPDU</h2><p>  <strong>BPDU(Bridge Protocol Data Unit,网桥协议数据单元)</strong></p>
+<p><img src="/images/BPDU.png"></p>
+<p>  BPDU是STP能够正常工作的根本。</p>
+<p>  BPDU是STP的协议报文。</p>
+<p>  STP交换机之间会交互BPDU报文，这些BPDU报文携带着一些重要信息，正是基于这些信息，STP才能够顺利工作。</p>
+<p>  BPDU分为两种类型:</p>
+<p>   配置BPDU(Configuration BPDU)</p>
+<p>   TCN BPDU (Topology Change Notification BPDU)</p>
+<p>  配置BPDU是STP进行拓扑计算的关键；TCN BPDU只在网络拓扑发生变更时才会被触发。</p>
+<h3 id="2-6-1-配置BPDU的报文格式"><a href="#2-6-1-配置BPDU的报文格式" class="headerlink" title="2.6.1 配置BPDU的报文格式"></a>2.6.1 配置BPDU的报文格式</h3><p><img src="/images/%E9%85%8D%E7%BD%AEBPDU%E7%9A%84%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F.png"></p>
+<table>
+<thead>
+<tr>
+<th>字节</th>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>PID</td>
+<td>协议ID，对于STP而言，该字段的值总为0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PVI</td>
+<td>协议版本ID，对于STP而言，该字段的值总为0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>BPDU Type</td>
+<td>指示本BPDU的类型，若值为0x00，则表示本报文为配置BPDU；若值为0x80，则为TCN BPDU</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Flags</td>
+<td>标志，STP只使用了该字段的最高及最低两个比特位，最低位是TC(Topology Change，拓扑变更)标志，最高位是TCA(Topology Change Acknowledgment，拓扑变更确认)标志</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Root ID</td>
+<td>根网桥的桥ID</td>
+</tr>
+<tr>
+<td>4</td>
+<td>RPC</td>
+<td>根路径开销，到达根桥的STP Cost</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Bridge ID</td>
+<td>BPDU发送桥的ID</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Port ID</td>
+<td>BPDU发送网桥的接口ID(优先级+接口号)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Message Age</td>
+<td>消息寿命，从根网桥发出BPDU之后的秒数，每经过一个网桥都加1，所以它本质上是到达根桥的跳数</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Max Age</td>
+<td>最大寿命，当一段时间未收到任何BPDU，生存期到达最大寿命时，网桥认为该接口连接的链路发生故障。默认20s</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Hello Time</td>
+<td>根网桥连续发送的BPDU之间的时间间隔，默认2s</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Forward Delay</td>
+<td>转发延迟，在侦听和学习状态所停留的时间间隔，默认15s</td>
+</tr>
+</tbody></table>
+<h3 id="2-6-2-配置BPDU的比较原则"><a href="#2-6-2-配置BPDU的比较原则" class="headerlink" title="2.6.2 配置BPDU的比较原则"></a>2.6.2 配置BPDU的比较原则</h3><p><img src="/images/%E9%85%8D%E7%BD%AEBPDU%E7%9A%84%E6%AF%94%E8%BE%83%E5%8E%9F%E5%88%99.png"></p>
+<p>  对于STP而言，最重要的工作就是在交换网络中计算出一个无环拓扑。在拓扑计算的过程中，一个非常重要的内容就是配置BPDU的比较。在配置BPDU中，有四个字段非常关键，它们是”根桥ID”、”根路径开销”、”网桥ID”以及”接口ID”，这四个字段便是交换机进行配置BPDU比较的关键内容。</p>
+<p>  STP按照如下顺序选择最优的配置BPDU:</p>
+<p>   1.最小的根桥ID</p>
+<p>   2.最小的RPC</p>
+<p>   3.最小的网桥ID</p>
+<p>   4.最小的接口ID</p>
+<p>  这四条原则中(每条原则都对应配置BPDU中的相应字段)，第一条原则主要用于在网络中选举根桥，后面的原则主要用于选举根接口及指定接口。</p>
+<h3 id="2-6-3-配置BPDU的转发过程"><a href="#2-6-3-配置BPDU的转发过程" class="headerlink" title="2.6.3 配置BPDU的转发过程"></a>2.6.3 配置BPDU的转发过程</h3><p><img src="/images/%E9%85%8D%E7%BD%AEBPDU%E7%9A%84%E8%BD%AC%E5%8F%91%E8%BF%87%E7%A8%8B.png"></p>
+<h1 id="3-STP的工作原理"><a href="#3-STP的工作原理" class="headerlink" title="3 STP的工作原理"></a>3 STP的工作原理</h1><h2 id="3-1-STP的计算过程"><a href="#3-1-STP的计算过程" class="headerlink" title="3.1 STP的计算过程"></a>3.1 STP的计算过程</h2><p><code>1.在交换网络中选举一个根桥</code></p>
+<p><img src="/images/STP%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B1.png"></p>
+<p>  STP在交换网络中开始工作后，每个交换机都会向网络中发送配置BPDU，配置BPDU中包含交换机自己的桥ID。</p>
+<p>  网络中拥有最小桥ID的交换机成为根桥。</p>
+<p>  在一个连续的STP交换网络中只会存在一个根桥。</p>
+<p>  根桥的角色是可抢占的。</p>
+<p>  为了确保交换网络的稳定，建议提前规划STP组网，并将规划为根桥的交换机的桥优先级设置为最小值0。</p>
+<p><code>2.在每台非根桥上选举一个根接口</code></p>
+<p><img src="/images/STP%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B2.png"></p>
+<p>  每一台非根桥交换机都会在自己的接口中选举出一个接口，根接口的作用：接收根桥的BPDU</p>
+<p>  非根桥交换机上有且只会有一个根接口。</p>
+<p>  当非根桥交换机有多个接口接入网络中时，根接口是其收到最优配置BPDU的接口。</p>
+<p>  可以形象地理解为，根接口是每台非根桥上”朝向”根桥的接口。</p>
+<p><code>3.在每条链路上选举一个指定接口</code></p>
+<p><img src="/images/STP%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B3.png"></p>
+<p>  根接口选举出来后，非根桥会使用其在该接口上收到的最优BPDU进行计算，然后将计算得到的配置BPDU与除了根接口之外的其他所有接口所收到的配置BPDU进行比较:</p>
+<p>   如果前者更优，则该接口为指定接口;</p>
+<p>   如果后者更优，则该接口为非指定接口。</p>
+<p>  一般情况下，根桥的所有接口都是指定接口。</p>
+<p><code>4.非指定接口被阻塞</code></p>
+<p><img src="/images/STP%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B4.png"></p>
+<p>  一台交换机上，既不是根接口，又不是指定接口的接口被称为非指定接口。</p>
+<p>  STP操作的最后一步是阻塞网络中的非指定接口。这一步完成后，网络中的二层环路就此消除。</p>
+<p><code>根端口与指定端口总结：</code></p>
+<table>
+<thead>
+<tr>
+<th>端口类型</th>
+<th>作用</th>
+<th>选举位置</th>
+<th>选举规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>根端口</td>
+<td>接收根桥的BPDU</td>
+<td>在每一台非根桥选举</td>
+<td>1、比较RPC<br>2、比较对端桥ID<br>3、比较对端的PID<br>4、比较自己的PID</td>
+</tr>
+<tr>
+<td>指定端口</td>
+<td>发送或转发BPDU</td>
+<td>在每一段链路上选举</td>
+<td>1、比较自己设备的RPC<br>2、比较自己的桥ID<br>3、比较自己的PID</td>
+</tr>
+</tbody></table>
+<h2 id="3-2-STP接口状态"><a href="#3-2-STP接口状态" class="headerlink" title="3.2 STP接口状态"></a>3.2 STP接口状态</h2><table>
+<thead>
+<tr>
+<th>状态名称</th>
+<th>状态描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>禁用(Disable)</td>
+<td>该接口不能收发BPDU，也不能收发业务数据帧，例如接口为down</td>
+</tr>
+<tr>
+<td>阻塞(Blocking)</td>
+<td>该接口被STP阻塞。处于阻塞状态的接口不能发送BPDU，但是会持续侦听BPDU,而且不能收发业务数据帧，也不会进行MAC地址学习</td>
+</tr>
+<tr>
+<td>侦听 (Listening)</td>
+<td>当接口处于该状态时，表明STP初步认定该接口为根接口或指定接口，但接口依然处于STP计算的过程中，此时接口可以收发BPDU，但是不能收发业务数据帧，也不会进行MAC地址学习</td>
+</tr>
+<tr>
+<td>学习 (Learning)</td>
+<td>当接口处于该状态时，会侦听业务数据帧(但是不能转发业务数据帧)，并且在收到业务数据帧后进行MAC地址学习</td>
+</tr>
+<tr>
+<td>转发(Forwarding)</td>
+<td>处于该状态的接口可以正常地收发业务数据帧，也会进行BPDU处理。<br>接口的角色需是根接口或指定接口才能进入转发状态</td>
+</tr>
+</tbody></table>
+<h2 id="3-3-STP接口状态迁移"><a href="#3-3-STP接口状态迁移" class="headerlink" title="3.3 STP接口状态迁移"></a>3.3 STP接口状态迁移</h2><p><img src="/images/STP%E6%8E%A5%E5%8F%A3%E7%8A%B6%E6%80%81%E8%BF%81%E7%A7%BB.png"></p>
+<p>  1.接口初始化或激活，自动进入阻塞状态</p>
+<p>  2.接口被选举为根接口或指定接口，自动进入侦听状态</p>
+<p>  3.转发延迟计时器超时且接口依然为根接口或指定接口</p>
+<p>  4.接口不再是根接口或指定接口或指定状态</p>
+<p>  5.接口被禁用或者链路失效</p>
+<h2 id="3-4-拓扑变化-根桥故障"><a href="#3-4-拓扑变化-根桥故障" class="headerlink" title="3.4 拓扑变化-根桥故障"></a>3.4 拓扑变化-根桥故障</h2><p><img src="/images/%E6%A0%B9%E6%A1%A5%E6%95%85%E9%9A%9C.png"></p>
+<p>  <strong>根桥故障恢复过程</strong></p>
+<p>  1.SW1根桥发生故障，停止发送BPDU报文。</p>
+<p>  2.SW2等待Max Age计时器(20s)超时，从而导致已经收到的BPDU报文失效，又接收不到根桥发送的新的BPDU报文，从而得知上游出现故障。</p>
+<p>  3.非根桥会互相发送配置BPDU，重新选举新的根桥。</p>
+<p>  4.经过重新选举后，SW3的A端口经过两个Forward Delay(15 s)时间恢复转发状态。</p>
+<p>  <code>非根桥会在BPDU老化之后开始根桥的重新选举。</code></p>
+<p>  <code>根桥故障会导致50 s左右的恢复时间。</code></p>
+<h2 id="3-5-拓扑变化-直连链路故障"><a href="#3-5-拓扑变化-直连链路故障" class="headerlink" title="3.5 拓扑变化-直连链路故障"></a>3.5 拓扑变化-直连链路故障</h2><p><img src="/images/%E7%9B%B4%E8%BF%9E%E9%93%BE%E8%B7%AF%E6%95%85%E9%9A%9C.png"></p>
+<p>  <strong>直连链路故障恢复过程</strong></p>
+<p>  当交换机SW2网络稳定时检测到根端口的链路发生故障，则其备用端口会经过两倍的Forward Delay(15s)时间进入用户流量转发状态。</p>
+<p>  <code>SW2检测到直连链路物理故障后，会将预备端口转换为根端口。</code></p>
+<p>  <code>直连链路故障，备用端口会经过30s后恢复转发状态。</code></p>
+<h2 id="3-6-拓扑变化-非直连链路故障"><a href="#3-6-拓扑变化-非直连链路故障" class="headerlink" title="3.6 拓扑变化-非直连链路故障"></a>3.6 拓扑变化-非直连链路故障</h2><p><img src="/images/%E9%9D%9E%E7%9B%B4%E8%BF%9E%E9%93%BE%E8%B7%AF%E6%95%85%E9%9A%9C.png"></p>
+<p>  非直连链路故障后，SW3的备用端口恢复到转发状态，非直连故障会导致50s左右的恢复时间。</p>
+<h2 id="3-7-拓扑改变导致MAC地址表错误"><a href="#3-7-拓扑改变导致MAC地址表错误" class="headerlink" title="3.7 拓扑改变导致MAC地址表错误"></a>3.7 拓扑改变导致MAC地址表错误</h2><p>  如下图，SW3的根端口发生故障，导致生成树拓扑重新收敛，在生成树拓扑完成收敛之后，从主机A到主机B的帧仍然不能到达目的地。这是因为交换机依赖MAC地址表转发数据帧，缺省情况下，MAC地址表项的老化时间是300秒。那么该怎么快速恢复转发?</p>
+<p><img src="/images/%E6%8B%93%E6%89%91%E6%94%B9%E5%8F%98%E5%AF%BC%E8%87%B4MAC%E5%9C%B0%E5%9D%80%E8%A1%A8%E9%94%99%E8%AF%AF1.png"></p>
+<p>  TCN BPDU在网络拓扑变化的时候产生。</p>
+<p>  报文格式：协议标识、版本号和类型。</p>
+<p>  拓扑变化：会使用到配置BPDU中Flags的TCA和TC位。</p>
+<p><img src="/images/%E6%8B%93%E6%89%91%E6%94%B9%E5%8F%98%E5%AF%BC%E8%87%B4MAC%E5%9C%B0%E5%9D%80%E8%A1%A8%E9%94%99%E8%AF%AF2.png"></p>
+<h1 id="4-STP基础配置命令"><a href="#4-STP基础配置命令" class="headerlink" title="4 STP基础配置命令"></a>4 STP基础配置命令</h1><p>  1.配置生成树工作模式</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 交换机支持STP、RSTP和MSTP(Multiple Spanning Tree Protocol)三种生成树工作模式，默认情况工作在MSTP模式。</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> stp mode <span class="token punctuation">{</span> stp <span class="token operator">|</span> rstp <span class="token operator">|</span> mstp <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  2.(可选)配置根桥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置当前设备为根桥。缺省情况下，交换机不作为任何生成树的根桥。配置后该设备优先级数值自动为0，并且不能更改设备优先级。</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> stp root primary<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  3.(可选)备份根桥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置当前交换机为备份根桥。缺省情况下，交换机不作为任何生成树的备份根桥。配置后该设备优先级数值为4096，并且不能更改设备优先级。</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> stp root secondary<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  4.(可选)配置交换机的STP优先级</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 缺省情况下，交换机的优先级取值是32768</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> stp priority priority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  5.(可选)配置接口路径开销</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置接口路径开销计算方法。缺省情况下，路径开销值的计算方法为IEEE 802.1t(dot1t)标准方法。</span>
+<span class="token comment"># 同一网络内所有交换机的接口路径开销应使用相同的计算方法。</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> stp pathcost-standard <span class="token punctuation">{</span> dot1d-1998 <span class="token operator">|</span> dot1t <span class="token operator">|</span> legacy <span class="token punctuation">}</span>
+
+<span class="token comment"># 设置当前接口的路径开销值。</span>
+<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> stp cost cost<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  6.(可选)配置接口优先级</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置接口的优先级。缺省情况下，交换机接口的优先级取值是128。</span>
+<span class="token punctuation">[</span>Huawei-intf<span class="token punctuation">]</span> stp priority priority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  7.启用STP/RSTP/MSTP</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用交换机的STP/RSTP/MSTP功能。缺省情况下，设备的STP/RSTP/MSTP功能处于启用状态</span>
+<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> stp <span class="token builtin class-name">enable</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 
             </div>
@@ -589,7 +877,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxcenter.icu/2025/11/24/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/sheng-cheng-shu/">https://linuxcenter.icu/2025/11/24/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/sheng-cheng-shu/</a>
+                    <a href="https://linuxtech.top/2025/11/24/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/sheng-cheng-shu/">https://linuxtech.top/2025/11/24/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/sheng-cheng-shu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -967,7 +1255,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">215.1k</span>&nbsp;字
+                class="white-color">242.4k</span>&nbsp;字
             
             
             
