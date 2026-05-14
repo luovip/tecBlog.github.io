@@ -6,7 +6,7 @@
   <link href="https://linuxtech.top/atom.xml" rel="self"/>
   
   <link href="https://linuxtech.top/"/>
-  <updated>2025-12-31T08:05:26.000Z</updated>
+  <updated>2026-05-14T01:46:48.756Z</updated>
   <id>https://linuxtech.top/</id>
   
   <author>
@@ -15,6 +15,73 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基础入门</title>
+    <link href="https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/ji-chu-ru-men/"/>
+    <id>https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/ji-chu-ru-men/</id>
+    <published>2026-02-28T13:48:00.000Z</published>
+    <updated>2026-05-14T01:46:48.756Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-Golang简介&quot;&gt;&lt;a href=&quot;#1-Golang简介&quot; class=&quot;headerlink&quot; title=&quot;1 Golang简介&quot;&gt;&lt;/a&gt;1 Golang简介&lt;/h1&gt;&lt;p&gt;  Go(Golang)是Google的 Robert</summary>
+        
+      
+    
+    
+    
+    <category term="Golang开发专栏" scheme="https://linuxtech.top/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/"/>
+    
+    
+    <category term="Golang基础教程" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>变量、常量与数据类型</title>
+    <link href="https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/bian-liang-chang-liang-yu-shu-ju-lei-xing/"/>
+    <id>https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/bian-liang-chang-liang-yu-shu-ju-lei-xing/</id>
+    <published>2026-02-28T13:47:00.000Z</published>
+    <updated>2026-05-14T02:37:41.075Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-标识符&quot;&gt;&lt;a href=&quot;#1-标识符&quot; class=&quot;headerlink&quot; title=&quot;1 标识符&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    <category term="Golang开发专栏" scheme="https://linuxtech.top/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/"/>
+    
+    
+    <category term="Golang基础教程" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>流程控制语句</title>
+    <link href="https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/liu-cheng-kong-zhi-yu-ju/"/>
+    <id>https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/liu-cheng-kong-zhi-yu-ju/</id>
+    <published>2026-02-28T13:45:00.000Z</published>
+    <updated>2026-05-14T02:39:04.378Z</updated>
+    
+    
+    
+    
+    <category term="Golang开发专栏" scheme="https://linuxtech.top/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/"/>
+    
+    
+    <category term="Golang基础教程" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>网络技术进阶</title>
@@ -135,31 +202,6 @@
   </entry>
   
   <entry>
-    <title>Golang基础教程</title>
-    <link href="https://linuxtech.top/2025/11/26/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-ji-chu-jiao-cheng/"/>
-    <id>https://linuxtech.top/2025/11/26/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-ji-chu-jiao-cheng/</id>
-    <published>2025-11-26T13:48:00.000Z</published>
-    <updated>2026-04-30T03:45:42.145Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-以太网协议&quot;&gt;&lt;a href=&quot;#1-以太网协议&quot; class=&quot;headerlink&quot; title=&quot;1 以太网协议&quot;&gt;&lt;/a&gt;1 以太网协议&lt;/h1&gt;&lt;p&gt;  以太网是当今现有局域网(Local Area</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础与核心能力" scheme="https://linuxtech.top/categories/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
-    
-    
-    <category term="Golang基础教程" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
     <title>以太网交换基础</title>
     <link href="https://linuxtech.top/2025/11/26/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-jiao-huan-ji-chu/"/>
     <id>https://linuxtech.top/2025/11/26/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-jiao-huan-ji-chu/</id>
@@ -256,31 +298,6 @@
     
     
     <category term="实现VLAN间通信" scheme="https://linuxtech.top/tags/%E5%AE%9E%E7%8E%B0VLAN%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>以太网链路聚合</title>
-    <link href="https://linuxtech.top/2025/11/22/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-lian-shou-suan-fa/"/>
-    <id>https://linuxtech.top/2025/11/22/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-lian-shou-suan-fa/</id>
-    <published>2025-11-22T13:48:00.000Z</published>
-    <updated>2026-01-27T07:15:52.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-网络可靠性需求&quot;&gt;&lt;a href=&quot;#1-网络可靠性需求&quot; class=&quot;headerlink&quot; title=&quot;1 网络可靠性需求&quot;&gt;&lt;/a&gt;1 网络可靠性需求&lt;/h1&gt;&lt;h2 id=&quot;1-1-设备可靠性&quot;&gt;&lt;a href=&quot;#1-1-设备可靠性&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="网络技术基础" scheme="https://linuxtech.top/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="以太网链路聚合" scheme="https://linuxtech.top/tags/%E4%BB%A5%E5%A4%AA%E7%BD%91%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/"/>
     
   </entry>
   
@@ -482,31 +499,6 @@
     
     
     <category term="WLAN概述" scheme="https://linuxtech.top/tags/WLAN%E6%A6%82%E8%BF%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nginx介绍与快速部署</title>
-    <link href="https://linuxtech.top/2025/09/20/nginx/nginx-jie-shao-yu-kuai-su-bu-shu/"/>
-    <id>https://linuxtech.top/2025/09/20/nginx/nginx-jie-shao-yu-kuai-su-bu-shu/</id>
-    <published>2025-09-20T13:13:00.000Z</published>
-    <updated>2025-09-24T08:25:48.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-基本概念&quot;&gt;&lt;a href=&quot;#1-基本概念&quot; class=&quot;headerlink&quot; title=&quot;1 基本概念&quot;&gt;&lt;/a&gt;1 基本概念&lt;/h1&gt;&lt;h2 id=&quot;1-1-什么是NGINX&quot;&gt;&lt;a href=&quot;#1-1-什么是NGINX&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="nginx" scheme="https://linuxtech.top/categories/nginx/"/>
-    
-    
-    <category term="nginx介绍与快速部署" scheme="https://linuxtech.top/tags/nginx%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   

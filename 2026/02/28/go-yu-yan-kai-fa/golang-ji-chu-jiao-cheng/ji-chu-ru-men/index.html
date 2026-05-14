@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="以太网链路聚合, Linux技术博客">
+    <meta name="keywords" content="基础入门, Linux技术博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
@@ -20,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>以太网链路聚合 | Linux技术博客</title>
+    <title>基础入门 | Linux技术博客</title>
     <link rel="icon" type="image/png"
         href="/favicon.png">
 
@@ -369,12 +369,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/img/network.jpeg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/img/Golang%E5%9F%BA%E7%A1%80.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">以太网链路聚合</h1>
+                    <h1 class="description center-align post-title">基础入门</h1>
                 </div>
             </div>
         </div>
@@ -491,8 +491,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%BB%A5%E5%A4%AA%E7%BD%91%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">
-                                <span class="chip bg-color">以太网链路聚合</span>
+                            <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+                                <span class="chip bg-color">Golang基础教程</span>
                             </a>
                         
                     </div>
@@ -503,8 +503,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" class="post-category">
-                                网络技术基础
+                            <a href="/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/" class="post-category">
+                                Golang开发专栏
                             </a>
                         
                     </div>
@@ -516,28 +516,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-11-22
+                    2026-02-28
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-01-27
+                    2026-05-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    11 分
+                    8 分
                 </div>
                 
 
@@ -557,191 +557,269 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-网络可靠性需求"><a href="#1-网络可靠性需求" class="headerlink" title="1 网络可靠性需求"></a>1 网络可靠性需求</h1><h2 id="1-1-设备可靠性"><a href="#1-1-设备可靠性" class="headerlink" title="1.1 设备可靠性"></a>1.1 设备可靠性</h2><p><img src="/images/%E8%AE%BE%E5%A4%87%E5%8F%AF%E9%9D%A0%E6%80%A7.png"></p>
-<p>  设备无冗余设计的网络中，下游交换机采用单上行接入，上行交换机的接口故障或设备故障会导致下游网络全部中断。</p>
-<p>  设备冗余设计的网络中，下游交换机双上行接入，采用链路一主一备的方式，主链路上行接口、设备故障可以切换到备份链路，通过备份设备转发。</p>
-<h2 id="1-2-链路可靠性"><a href="#1-2-链路可靠性" class="headerlink" title="1.2 链路可靠性"></a>1.2 链路可靠性</h2><p><img src="/images/%E9%93%BE%E8%B7%AF%E5%8F%AF%E9%9D%A0%E6%80%A7.png"></p>
-<p>  为保证设备间链路可靠性，在设备间部署多条物理线路，为防止环路STP只保留一条链路转发流量，其余链路成为备份链路。</p>
-<h1 id="2-链路聚合技术原理"><a href="#2-链路聚合技术原理" class="headerlink" title="2 链路聚合技术原理"></a>2 链路聚合技术原理</h1><h2 id="2-1-基本原理"><a href="#2-1-基本原理" class="headerlink" title="2.1 基本原理"></a>2.1 基本原理</h2><h3 id="2-1-1-提升链路带宽"><a href="#2-1-1-提升链路带宽" class="headerlink" title="2.1.1 提升链路带宽"></a>2.1.1 提升链路带宽</h3><p>  设备之间存在多条链路时，由于STP的存在，实际只会有一条链路转发流量，设备间链路带宽无法得到提升。</p>
-<p><img src="/images/%E6%8F%90%E5%8D%87%E9%93%BE%E8%B7%AF%E5%B8%A6%E5%AE%BD.png"></p>
-<h3 id="2-1-2-以太网链路聚合"><a href="#2-1-2-以太网链路聚合" class="headerlink" title="2.1.2 以太网链路聚合"></a>2.1.2 以太网链路聚合</h3><p>  以太网链路聚合Eth-Trunk：简称链路聚合，通过将多个物理接口捆绑成为一个逻辑接口，可以在不进行硬件升级的条件下，达到增加链路带宽的目的。</p>
-<p><img src="/images/%E4%BB%A5%E5%A4%AA%E7%BD%91%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88.png"></p>
-<h3 id="2-1-3-链路聚合基本术语-概念"><a href="#2-1-3-链路聚合基本术语-概念" class="headerlink" title="2.1.3 链路聚合基本术语(概念)"></a>2.1.3 链路聚合基本术语(概念)</h3><p>  <strong>聚合组(Link Aggregation Group,LAG)</strong></p>
-<p>   若干条链路捆绑在一起所形成的的逻辑链路。</p>
-<p>   每个聚合组唯一对应着一个逻辑接口，这个逻辑接口又被称为链路聚合接口或Eth-Trunk接口。</p>
-<p>  <strong>成员接口和成员链路</strong></p>
-<p>   组成Eth-Trunk接口的各个物理接口称为成员接口。</p>
-<p>   成员接口对应的链路称为成员链路。</p>
-<p>  <strong>活动接口和活动链路</strong></p>
-<p>   活动接口又叫选中(Selected)接口，是参与数据转发的成员接口。</p>
-<p>   活动接口对应的链路被称为活动链路(ActiveTink)。</p>
-<p>  <strong>非活动接口和非活动链路</strong></p>
-<p>   又叫非选中(Unselected)接口，是不参与转发数据的成员接口。</p>
-<p>   非活动接口对应的链路被称为非活动链路(Inactive link)。</p>
-<p>  <strong>聚合模式</strong></p>
-<p>   根据是否开启LACP(Link Aggregation Control Protocol,链路聚合控制协议)，链路聚合可以分为手工模式和LACP模式。</p>
-<p>  <strong>其他概念</strong></p>
-<p>   活动接口上限阈值和活动接口下限阈值。</p>
-<p><img src="/images/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E5%9F%BA%E6%9C%AC%E6%9C%AF%E8%AF%AD.png"></p>
-<h2 id="2-2-手工模式"><a href="#2-2-手工模式" class="headerlink" title="2.2 手工模式"></a>2.2 手工模式</h2><p><img src="/images/%E6%89%8B%E5%B7%A5%E6%A8%A1%E5%BC%8F.png"></p>
-<p>  <strong>手工模式</strong>：Eth-Trunk的建立、成员接口的加入均由手动配置，双方系统之间不使用LACP进行协商。</p>
-<p>  正常情况下所有链路都是活动链路，该模式下所有活动链路都参与数据的转发，平均分担流量，如果某条活动链路故障，链路聚合组自动在剩余的活动链路中平均分担流量。</p>
-<p>  当聚合的两端设备中存在一个不支持LACP协议时，可以使用手工模式。</p>
-<p><code>手工模式缺陷：</code></p>
-<p><img src="/images/%E6%89%8B%E5%B7%A5%E6%A8%A1%E5%BC%8F%E7%BC%BA%E9%99%B71.png"></p>
-<p>  为了使链路聚合接口正常工作，必须保证本端链路聚合接口中所有成员接口的对端接口:</p>
-<p>   属于同一设备</p>
-<p>   加入同一链路聚合接口</p>
-<p>  手工模式下，设备间没有报文交互，因此只能通过管理员人工确认。</p>
-<p><img src="/images/%E6%89%8B%E5%B7%A5%E6%A8%A1%E5%BC%8F%E7%BC%BA%E9%99%B72.png"></p>
-<p>  手动模式下，设备只能通过物理层状态判断对端接口是否正常工作。</p>
-<h2 id="2-3-LACP模式"><a href="#2-3-LACP模式" class="headerlink" title="2.3 LACP模式"></a>2.3 LACP模式</h2><p><img src="/images/LACPDU.png"></p>
-<p>  <strong>LACP模式</strong>：采用LACP协议的一种链路聚合模式。设备间通过链路聚合控制协议数据单元(Link Aggregation Control Protocol Data Unit，LACPDU)进行交互，通过协议协商确保对端是同一台设备、同一个聚合接口的成员接口。</p>
-<p>  LACPDU报文中包含设备优先级、MAC地址、接口优先级、接口号等。</p>
-<h3 id="2-3-1-系统优先级"><a href="#2-3-1-系统优先级" class="headerlink" title="2.3.1 系统优先级"></a>2.3.1 系统优先级</h3><p>  LACP模式下，两端设备所选择的活动接口数目必须保持一致，否则链路聚合组就无法建立。此时可以使其中一端成为主动端，另一端(被动端)根据主动端选择活动接口。</p>
-<p>  通过系统LACP优先级确定主动端，值越小优先级越高。</p>
-<p><img src="/images/%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%85%88%E7%BA%A7.png"></p>
-<h3 id="2-3-2-接口优先级"><a href="#2-3-2-接口优先级" class="headerlink" title="2.3.2 接口优先级"></a>2.3.2 接口优先级</h3><p>  选出主动端后，两端都会以主动端的接口优先级来选择活动接口，优先级高的接口将优先被选为活动接口。</p>
-<p>  接口LACP优先级值越小，优先级越高。</p>
-<p><img src="/images/%E6%8E%A5%E5%8F%A3%E4%BC%98%E5%85%88%E7%BA%A7.png"></p>
-<h3 id="2-3-3-最大活动接口数"><a href="#2-3-3-最大活动接口数" class="headerlink" title="2.3.3 最大活动接口数"></a>2.3.3 最大活动接口数</h3><p>  LACP模式支持配置最大活动接口数目，当成员接口数目超过最大活动接口数目时会通过比较接口优先级、接口号选举出较优的接口成为活动接口，其余的则成为备份端口(非活动接口)，同时对应的链路分别成为活动链路、非活动链路。</p>
-<p>  交换机只会从活动接口中发送、接收报文。</p>
-<p><img src="/images/%E6%9C%80%E5%A4%A7%E6%B4%BB%E5%8A%A8%E6%8E%A5%E5%8F%A3%E6%95%B01.png"></p>
-<p>  当活动链路中出现链路故障时，可以从非活动链路中找出一条优先级最高(接口优先级、接口编号比较)的链路替换故障链路，实现总体带宽不发生变化、业务的不间断转发。</p>
-<p><img src="/images/%E6%9C%80%E5%A4%A7%E6%B4%BB%E5%8A%A8%E6%8E%A5%E5%8F%A3%E6%95%B02.png"></p>
-<h3 id="2-3-4-活动链路选举"><a href="#2-3-4-活动链路选举" class="headerlink" title="2.3.4 活动链路选举"></a>2.3.4 活动链路选举</h3><p>  <strong>第一步</strong>：</p>
-<p>   SW1、SW2配置LACP模式的链路聚合。两端都设置最大活跃接口数为2。</p>
-<p>   通过LACPDU选举出优先级较高的交换机SW1，作为LACP协商过程的主动端。</p>
-<p><img src="/images/%E6%B4%BB%E5%8A%A8%E9%93%BE%E8%B7%AF%E9%80%89%E4%B8%BE1.png"></p>
-<p>  <strong>第二步</strong>：</p>
-<p>   SW1在本端通过比较接口优先级、接口编号选举出活动接口，其中1、2号接口在相同的接口优先级下拥有更小的接口编号，成为活动接口。</p>
-<p><img src="/images/%E6%B4%BB%E5%8A%A8%E9%93%BE%E8%B7%AF%E9%80%89%E4%B8%BE2.png"></p>
-<p>  <strong>第三步</strong>：</p>
-<p>   SW1通过LACPDU将本端活动端口选举结果告知对端。</p>
-<p><img src="/images/%E6%B4%BB%E5%8A%A8%E9%93%BE%E8%B7%AF%E9%80%89%E4%B8%BE3.png"></p>
-<p>  <strong>第四步</strong>：</p>
-<p>   SW2依据SW1的选举结果，明确本端的活动接口，同时对应的链路成为活动链路。至此，Eth-Trunk的活动链路选举过程完成。</p>
-<p><img src="/images/%E6%B4%BB%E5%8A%A8%E9%93%BE%E8%B7%AF%E9%80%89%E4%B8%BE4.png"></p>
-<h3 id="2-3-5-负载分担"><a href="#2-3-5-负载分担" class="headerlink" title="2.3.5 负载分担"></a>2.3.5 负载分担</h3><p><img src="/images/%E8%B4%9F%E8%BD%BD%E5%88%86%E6%8B%85.png"></p>
-<p>  在使用Eth-Trunk转发数据时，由于聚合组两端设备之间有多条物理链路，如果每个数据帧在不同的链路上转发，则有可能导致数据帧到达对端时间不一致，从而引起数据乱序。</p>
-<p>  Eth-Trunk推荐采用逐流负载分担的方式，即一条相同的流负载到一条链路，这样既保证了同一数据流的数据帧在同一条物理链路转发，又实现了流量在聚合组内各物理链路上的负载分担。</p>
-<p><code>负载分担模式：</code></p>
-<p>  Eth-trunk支持基于报文的IP地址或MAC地址来进行负载分担，可以配置不同的模式(本地有效，对出方向报文生效)将数据流分担到不同的成员接口上。</p>
-<p>  常见的模式有：源IP、源MAC、目的IP、目的MAC、源目IP、源目MAC。</p>
-<p>  实际业务中用户需要根据业务流量特征选择配置合适的负载分担方式。</p>
-<p>  业务流量中某种参数变化越频繁，选择与此参数相关的负载分担方式就越容易实现负载均衡。</p>
-<p><img src="/images/%E8%B4%9F%E8%BD%BD%E5%88%86%E6%8B%85%E6%A8%A1%E5%BC%8F.png"></p>
-<h1 id="3-链路聚合使用场景"><a href="#3-链路聚合使用场景" class="headerlink" title="3 链路聚合使用场景"></a>3 链路聚合使用场景</h1><p><code>1.交换机之间、交换机与服务器之间</code></p>
-<p>  为保证交换机之间的链路带宽以及可靠性，可以在交换机之间部署多条物理链路并使用Eth-Trunk。</p>
-<p>  为了提高服务器的接入带宽和可靠性，将两个或者更多的物理网卡聚合成一个网卡组，与交换机建立链路聚合。</p>
-<p><img src="/images/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF1.png"></p>
-<p><code>2.交换机与堆叠系统、防火墙双机热备心跳线</code></p>
-<p>  堆叠系统使得两台交换机成为一台逻辑上的设备，交换机与堆叠系统通过链路聚合互联可以组建高可靠、无环的网络。</p>
-<p>  防火墙双机热备组网中使用心跳线来检测对端设备的状态，为防止单端口、单链路故障导致的状态监测错误可以部署Eth-Trunk，使用Eth-Trunk作为检测状态的心跳线。</p>
-<p><img src="/images/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF2.png"></p>
-<h1 id="4-链路聚合的配置"><a href="#4-链路聚合的配置" class="headerlink" title="4 链路聚合的配置"></a>4 链路聚合的配置</h1><h2 id="4-1-配置命令"><a href="#4-1-配置命令" class="headerlink" title="4.1 配置命令"></a>4.1 配置命令</h2><p>  1.创建链路聚合组</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建Eth-Trunk接口，并进入Eth-Trunk接口视图。</span>
-<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> interface eth-trunk trunk-id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+                <h1 id="1-Golang简介"><a href="#1-Golang简介" class="headerlink" title="1 Golang简介"></a>1 Golang简介</h1><p>  Go(Golang)是Google的 Robert Griesemer，Rob Pike 及 Ken Thompson 开发的一种静态强类型、编译型语言。Go语言的语法与 C 相近，但功能上有：内存安全、GC(垃圾回收)，结构形态及CSP-style并发计算。</p>
+<p>  <strong>Go语言的特点</strong>:</p>
+<p>   1.背靠大厂，google背书，可靠</p>
+<p>   2.天生支持并发（最显著特点）</p>
+<p>   3.语法简单，容易上手</p>
+<p>   4.内置runtime，支持垃圾回收</p>
+<p>   5.可直接编译成机器码，不依赖其他库</p>
+<p>   6.丰富的标准库</p>
+<p>   7.跨平台编译</p>
+<p>  <strong>Go语言的应用领域</strong>：服务器编程、开发云平台、区块链、分布式系统、网络编程。</p>
+<p>  <strong>使用Go语言的公司(项目)</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>项目</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Google</td>
+<td>Kubernetes</td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td>facebookgo</td>
+</tr>
+<tr>
+<td>腾讯</td>
+<td>蓝鲸平台、容器技术</td>
+</tr>
+<tr>
+<td>百度</td>
+<td>运维项目BFE</td>
+</tr>
+<tr>
+<td>京东</td>
+<td>消息推送系统、云存储、京东商城</td>
+</tr>
+<tr>
+<td>小米</td>
+<td>运维监控系统、小米互娱、小米商城、小米视频、小米生态链</td>
+</tr>
+<tr>
+<td>360</td>
+<td>日志搜索系统Poseidon</td>
+</tr>
+</tbody></table>
+<h1 id="2-Go语言开发环境"><a href="#2-Go语言开发环境" class="headerlink" title="2 Go语言开发环境"></a>2 Go语言开发环境</h1><h2 id="2-1-windows平台"><a href="#2-1-windows平台" class="headerlink" title="2.1 windows平台"></a>2.1 windows平台</h2><p>  <strong>1.下载安装包并配置环境变量</strong></p>
+<p>   下载地址：<code>https://golang.google.cn/dl/</code></p>
+<p>   安装路径选择一个比较好找的路径，例如：<code>D:\Go</code>，其他安装都选择”下一步“即可。</p>
+<p>   安装完成后，把<code>D:\Go\bin</code>目录添加到环境变量(系统变量-Path中添加)，这里就可以使用go了，在命令行输入 <code>go version</code>查看版本，输出结果如下所示。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>bestv<span class="token operator">&gt;</span>go version
+go version go1.26.2 windows/amd64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>  2.配置链路聚合模式</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Mode lacp配置链路聚合模式为lacp模式、mode manual load-balance配置链路聚合模式为手工模式。</span>
-<span class="token comment"># 需要保持两端链路聚合模式一致。</span>
-<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> mode <span class="token punctuation">{</span> lacp <span class="token operator">|</span> manual load-balance <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>  <strong>2.配置Go环境</strong></p>
+<p>   使用go mod管理库，需要科学上网</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GO111MODULE</span><span class="token operator">=</span>on 
+go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GOPROXY</span><span class="token operator">=</span>https://goproxy.cn,https://goproxy.io,direct
 
-<p>  3.将接口加入链路聚合组中(以太网接口视图)</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在接口视图下，把接口加入到Eth-Trunk中。</span>
-<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> eth-trunk trunk-id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span class="token variable">$env</span>:GO111MODULE <span class="token operator">=</span> <span class="token string">"on"</span> 
+<span class="token variable">$env</span>:GOPROXY <span class="token operator">=</span> <span class="token string">"https://goproxy.cn"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>  4.将接口加入链路聚合组中(Eth-Trunk视图)</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在Eth-Trunk视图中将接口加入到链路聚合组中。</span>
-<span class="token comment"># 3、4两种方式都可以将接口加入到链路聚合组中。</span>
-<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> trunkport interface-type <span class="token punctuation">{</span> interface-number <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>  <strong>3.安装配置git</strong></p>
+<p>   下载地址：<code>https://www.git-scm.com/download/</code></p>
+<p>   安装路径选择一个比较好找的路径，例如：<code>D:\Git</code>，其他安装都选择”下一步“即可。</p>
+<p>   安装完成后，把<code>D:\Git\bin</code>目录添加到环境变量(系统变量-Path中添加)，这里就可以使用go了，在命令行输入 <code>git version</code>查看版本，输出结果如下所示。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>bestv<span class="token operator">&gt;</span>git version
+<span class="token function">git</span> version <span class="token number">2.54</span>.0.windows.1
 
-<p>  5.使能允许不同速率端口加入同一Eth-Trunk接口的功能</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 缺省情况下，设备未使能允许不同速率端口加入同一Eth-Trunk接口的功能，只能相同速率的接口加入到同一个Eth-Trunk接口中。</span>
-<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> mixed-rate <span class="token function">link</span> <span class="token builtin class-name">enable</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span class="token comment"># 测试git拉取项目</span>
+<span class="token comment"># git clone相当于go get</span>
+C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>bestv<span class="token operator">&gt;</span>git clone https://github.com/gin-gonic/gin.git
+Cloning into <span class="token string">'gin'</span><span class="token punctuation">..</span>.
+remote: Enumerating objects: <span class="token number">11207</span>, done.
+remote: Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">128</span>/128<span class="token punctuation">)</span>, done.
+remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">83</span>/83<span class="token punctuation">)</span>, done.
+remote: Total <span class="token number">11207</span> <span class="token punctuation">(</span>delta <span class="token number">100</span><span class="token punctuation">)</span>, reused <span class="token number">45</span> <span class="token punctuation">(</span>delta <span class="token number">45</span><span class="token punctuation">)</span>, pack-reused <span class="token number">11079</span> <span class="token punctuation">(</span>from <span class="token number">4</span><span class="token punctuation">)</span>
+Receiving objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">11207</span>/11207<span class="token punctuation">)</span>, <span class="token number">10.39</span> MiB <span class="token operator">|</span> <span class="token number">10.74</span> MiB/s, done.
+Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">6214</span>/6214<span class="token punctuation">)</span>, done.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>  6.配置系统LACP优先级</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 系统LACP优先级值越小优先级越高，缺省情况下，系统LACP优先级为32768。</span>
-<span class="token punctuation">[</span>Huawei<span class="token punctuation">]</span> lacp priority priority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="/images/git%E6%B5%8B%E8%AF%95.png"></p>
+<p>  <strong>4.goroot和gopath</strong></p>
+<p>   goroot就是go安装的根目录，gopath就是go项目所在的路径，高版本go项目已经不再依赖gopath来管理项目，使用go mod来管理项目。</p>
+<h2 id="2-2-Linux平台"><a href="#2-2-Linux平台" class="headerlink" title="2.2 Linux平台"></a>2.2 Linux平台</h2><p>  如果不是要在Linux平台敲go代码就不需要在Linux平台安装Go，写好的go代码只需要跨平台编译好之后就可以拷贝到Linux服务器上运行，这也是go程序跨平台易部署的优势。</p>
+<p>  在版本选择页面选择并下载好<code>go1.26.2.linux-amd64.tar.gz</code>文件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://dl.google.com/go/go1.26.2.linux-amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>  7.配置接口LACP优先级</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 接口视图下配置接口LACP优先级。</span>
-<span class="token comment"># 缺省情况下，接口的LACP优先级是32768。</span>
-<span class="token comment"># 接口优先级取值越小，接口的LACP优先级越高。</span>
-<span class="token comment"># 只有在接口已经加入到链路聚合中才可以配置该命令。</span>
-<span class="token punctuation">[</span>Huawei-GigabitEthernet0/0/1<span class="token punctuation">]</span> lacp priority priority<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  将下载好的文件解压到<code>/usr/local</code>目录下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> go1.26.2.linux-amd64.tar.gz <span class="token parameter variable">-C</span> /usr/local  <span class="token comment"># 解压</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>  8.配置最大活动接口数</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置时需注意保持本端和对端的最大活动接口数一致，只有LACP模式支持配置最大活动接口数</span>
-<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> max active-linknumber <span class="token punctuation">{</span> number <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>  如果提示没有权限，加上<code>sudo</code>以root用户的身份再运行。执行完就可以在<code>/usr/local/</code>下看到<code>go</code>目录了。</p>
+<p>  配置环境变量： Linux下有两个文件可以配置环境变量，其中<code>/etc/profile</code>是对所有用户生效的；<code>$HOME/.profile</code>是对当前用户生效的，根据自己的情况自行选择一个文件打开，添加如下两行代码，保存退出。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">GOROOT</span><span class="token operator">=</span>/usr/local/go
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$GOROOT</span>/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>  9.配置最小活动接口数</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 本端和对端设备的活动接口数下限阈值可以不同，手动模式、LACP模式都支持配置最小活动接口数。</span>
-<span class="token comment"># 配置最小活动接口数目的是为了保证最小带宽，当前活动链路数目小于下限阈值时，Eth-Trunk接口的状态转为Down。</span>
-<span class="token punctuation">[</span>Huawei-Eth-Trunk1<span class="token punctuation">]</span> least active-linknumber <span class="token punctuation">{</span> number <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>  修改<code>/etc/profile</code>后要重启生效，修改<code>$HOME/.profile</code>后使用source命令加载<code>$HOME/.profile</code>文件即可生效。 检查：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">~ go version
+go version go1.26.2 linux/amd64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="4-2-链路聚合配置"><a href="#4-2-链路聚合配置" class="headerlink" title="4.2 链路聚合配置"></a>4.2 链路聚合配置</h2><p><code>1.手工模式链路聚合配置</code></p>
-<p><img src="/images/%E6%89%8B%E5%B7%A5%E6%A8%A1%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E9%85%8D%E7%BD%AE.png"></p>
-<p>  <strong>需求描述</strong>:</p>
-<p>   SW1、SW2都连接着VLAN10、VLAN20的网络。</p>
-<p>   SW1和SW2之间通过两根以太网链路互联，为了提供链路冗余以及保证传输可靠性，在SW1、SW2之间配置手工模式的链路聚合。</p>
-<p>  SW1的配置如下:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> interface eth-trunk <span class="token number">1</span>
-<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> trunkport gigabitethernet <span class="token number">0</span>/0/1 to <span class="token number">0</span>/0/2
-<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> port link-type trunk
-<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token number">10</span> <span class="token number">20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="2-3-Mac平台"><a href="#2-3-Mac平台" class="headerlink" title="2.3 Mac平台"></a>2.3 Mac平台</h2><p>   下载可执行文件版，直接点击<strong>下一步</strong>安装即可，默认会将go安装到<code>/usr/local/go</code>目录下。</p>
+<p>   上一步安装过程执行完毕后，可以打开终端窗口，输入<code>go version</code>命令，查看安装的Go版本。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go version go1.26.2 darwin/amd64<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>  SW2的配置如下:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW2<span class="token punctuation">]</span> interface eth-trunk <span class="token number">1</span>
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> trunkport gigabitethernet <span class="token number">0</span>/0/1 to <span class="token number">0</span>/0/2
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> port link-type trunk
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token number">10</span> <span class="token number">20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="3-Golang开发工具"><a href="#3-Golang开发工具" class="headerlink" title="3 Golang开发工具"></a>3 Golang开发工具</h1><p>  golang的开发工具有很多，例如：vim、sublime、atom、LiteIDE、eclipse、goland、vscode</p>
+<p>  <strong>1.使用goland开发Go应用</strong></p>
+<p>   goland是一款付费的、功能强大的golang集成开发环境，是Jetbrain公司的产品。下载地址：<code>https://www.jetbrains.com/go/</code> goland非常智能，几乎不需要配置，安装即用。</p>
+<p>  <strong>2.使用vscode开发Go应用</strong></p>
+<p>   1.下载安装vscode <code>https://code.visualstudio.com/</code></p>
+<p>   2.下载安装插件，参考文档：<code>https://marketplace.visualstudio.com/items?itemName=golang.go</code></p>
+<p>   3.安装code runner运行脚本</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"># 快捷键：pkgm<span class="token operator">--</span><span class="token operator">-</span>创建主包和主方法    fp<span class="token operator">--</span><span class="token operator">-</span>打印的快速补齐
+# 运行：<span class="token number">1.</span><span class="token keyword">go</span> run main<span class="token punctuation">.</span><span class="token keyword">go</span>   <span class="token number">2.</span>安装code runner插件后直接运行
+<span class="token keyword">package</span> main
 
-<p><code>2.LACP模式链路聚合配置</code></p>
-<p><img src="/images/LACP%E6%A8%A1%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88%E9%85%8D%E7%BD%AE.png"></p>
-<p>  <strong>需求描述:</strong></p>
-<p>   SW1、SW2都连接着VLAN10、VLAN20的网络。</p>
-<p>   SW1和SW2之间通过三根以太网链路互联，为了提供链路冗余以及保证传输可靠性，在SW1、SW2之间配置LACP模式的链路聚合，并且手动调整优先级让SW1成为主动端，并配置最大活跃端口为2，另外一条链路作为备份。</p>
-<p>  SW1的配置如下:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> interface eth-trunk <span class="token number">1</span>
-<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> mode lacp
-<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> max active-linknumber <span class="token number">2</span>
-<span class="token punctuation">[</span>SWi-Eth-Trunk1<span class="token punctuation">]</span> trunkport gigabitethernet <span class="token number">0</span>/0/1 to <span class="token number">0</span>/0/3
-<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> port Iink-type trunk
-<span class="token punctuation">[</span>SWi-Eth-Trunk1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token number">10</span> <span class="token number">20</span>
-<span class="token punctuation">[</span>SW1-Eth-Trunk1<span class="token punctuation">]</span> quit
-<span class="token punctuation">[</span>SW1<span class="token punctuation">]</span> lacp priority <span class="token number">30000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
 
-<p>  SW2的配置如下:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>SW2<span class="token punctuation">]</span> interface eth-trunk <span class="token number">1</span>
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> mode lacp
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> max active-linknumber <span class="token number">2</span>
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> trunkport gigabitethernet <span class="token number">0</span>/0/1 to <span class="token number">0</span>/0/3
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> port link-type trunk
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> port trunk allow-pass vlan <span class="token number">10</span> <span class="token number">20</span>
-<span class="token punctuation">[</span>SW2-Eth-Trunk1<span class="token punctuation">]</span> quit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello,Go"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p><img src="/images/vscode%E9%85%8D%E7%BD%AEgo%E5%BC%80%E5%8F%91.png"></p>
+<h1 id="4-Golang常用命令"><a href="#4-Golang常用命令" class="headerlink" title="4 Golang常用命令"></a>4 Golang常用命令</h1><p>  在终端中输入 <code>go help</code> 即可显示所有的 go 命令以及相应命令功能简介，主要有下面这些:</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>build</td>
+<td>编译包和依赖</td>
+<td>list</td>
+<td>列出包</td>
+</tr>
+<tr>
+<td>clean</td>
+<td>移除对象文件</td>
+<td>run</td>
+<td>编译并运行go程序</td>
+</tr>
+<tr>
+<td>doc</td>
+<td>显示包或者符号的文档</td>
+<td>test</td>
+<td>运行测试</td>
+</tr>
+<tr>
+<td>env</td>
+<td>打印go的环境信息</td>
+<td>tool</td>
+<td>运行go提供的工具</td>
+</tr>
+<tr>
+<td>bug</td>
+<td>启动错误</td>
+<td>version</td>
+<td>显示go的版本</td>
+</tr>
+<tr>
+<td>fix</td>
+<td>运行go tool fix</td>
+<td>vet</td>
+<td>运行go tool vet</td>
+</tr>
+<tr>
+<td>fmt</td>
+<td>运行gofmt进行格式化</td>
+<td>generate</td>
+<td>从processing source生成go文件</td>
+</tr>
+<tr>
+<td>install</td>
+<td>编译并安装包和依赖</td>
+<td>get</td>
+<td>下载并安装包和依赖</td>
+</tr>
+</tbody></table>
+<p>  参考文档：<a target="_blank" rel="noopener" href="https://golang.org/doc/cmd">https://golang.org/doc/cmd</a></p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span class="token operator">&gt;</span> <span class="token keyword">go</span> run main<span class="token punctuation">.</span><span class="token keyword">go</span>
+Hello<span class="token punctuation">,</span>Go
+PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span class="token operator">&gt;</span> <span class="token keyword">go</span> build main<span class="token punctuation">.</span><span class="token keyword">go</span>
+PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span class="token operator">&gt;</span> <span class="token keyword">go</span> mod init go_pro
+<span class="token keyword">go</span><span class="token punctuation">:</span> creating <span class="token builtin">new</span> <span class="token keyword">go</span><span class="token punctuation">.</span>mod<span class="token punctuation">:</span> module go_pro
+<span class="token keyword">go</span><span class="token punctuation">:</span> to add module requirements and sums<span class="token punctuation">:</span>
+        <span class="token keyword">go</span> mod tidy
+PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span class="token operator">&gt;</span> <span class="token keyword">go</span> get github<span class="token punctuation">.</span>com<span class="token operator">/</span><span class="token keyword">go</span><span class="token operator">-</span>sql<span class="token operator">-</span>driver<span class="token operator">/</span>mysql
+<span class="token keyword">go</span><span class="token punctuation">:</span> downloading github<span class="token punctuation">.</span>com<span class="token operator">/</span><span class="token keyword">go</span><span class="token operator">-</span>sql<span class="token operator">-</span>driver<span class="token operator">/</span>mysql v1<span class="token punctuation">.</span><span class="token number">10.0</span>
+<span class="token keyword">go</span><span class="token punctuation">:</span> downloading filippo<span class="token punctuation">.</span>io<span class="token operator">/</span>edwards25519 v1<span class="token punctuation">.</span><span class="token number">2.0</span>
+<span class="token keyword">go</span><span class="token punctuation">:</span> added filippo<span class="token punctuation">.</span>io<span class="token operator">/</span>edwards25519 v1<span class="token punctuation">.</span><span class="token number">2.0</span>
+<span class="token keyword">go</span><span class="token punctuation">:</span> added github<span class="token punctuation">.</span>com<span class="token operator">/</span><span class="token keyword">go</span><span class="token operator">-</span>sql<span class="token operator">-</span>driver<span class="token operator">/</span>mysql v1<span class="token punctuation">.</span><span class="token number">10.0</span>
+PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span class="token operator">&gt;</span> <span class="token keyword">go</span> list
+go_pro
+PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span class="token operator">&gt;</span> <span class="token keyword">go</span> version
+<span class="token keyword">go</span> version go1<span class="token punctuation">.</span><span class="token number">26.2</span> windows<span class="token operator">/</span>amd64
+PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span class="token operator">&gt;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h1 id="5-VSCode快捷键"><a href="#5-VSCode快捷键" class="headerlink" title="5 VSCode快捷键"></a>5 VSCode快捷键</h1><p>  <strong>1.快捷键位置：File-&gt;Preferences-&gt;Keyboard Shortcuts</strong></p>
+<p>  <strong>2.常用快捷键</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>. 行注释 ctrl + /
+<span class="token number">2</span>. 块注释 shift+alt+a <span class="token punctuation">(</span>可以修改为ctrl+shift+/<span class="token punctuation">)</span>
+<span class="token number">3</span>. ctrl+a 全选
+<span class="token number">4</span>. ctrl+c 复制
+<span class="token number">5</span>. ctrl+v 粘贴
+<span class="token number">6</span>. ctrl+shift+k 删除行
+<span class="token number">7</span>. ctrl+e  查找文件
+<span class="token number">8</span>. ctrl+shift+p 打开设置命令行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>  <strong>3.修改快捷键</strong></p>
+<p>   1.打开快捷键 <code>File-&gt;Preferences-&gt;Keyboard Shortcuts</code></p>
+<p>   2.双击要修改的快捷键</p>
+<p>   3.键盘输入想要使用的快捷键</p>
+<p>  <strong>4.快速生成代码片段</strong></p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token number">1</span><span class="token punctuation">.</span>pkgm  main包<span class="token operator">+</span>main主函数
+<span class="token number">2</span><span class="token punctuation">.</span>ff  fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token keyword">var</span><span class="token punctuation">)</span>
+<span class="token number">3.</span><span class="token keyword">for</span> <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> count<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token number">4</span><span class="token punctuation">.</span>forr <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> v <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token number">5</span><span class="token punctuation">.</span>fmain <span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token number">6</span><span class="token punctuation">.</span>a<span class="token punctuation">.</span><span class="token builtin">print</span><span class="token operator">!</span> fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"a: %v\\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h1 id="6-编写Golang代码"><a href="#6-编写Golang代码" class="headerlink" title="6 编写Golang代码"></a>6 编写Golang代码</h1><p>  <strong>1.代码组织</strong></p>
+<p>   Go应用使用<strong>包</strong>和<strong>模块</strong>来组织代码，包对应到文件系统就是文件夹，模块就是**.go**的go源文件。一个包中会有多个模块，或者多个子包。</p>
+<p>  <strong>2.Go项目管理工具</strong></p>
+<p>   早期的go项目使用gopath来管理项目，不方便而且容易出错，golang 1.11 开始使用gomod管理项目，当然还有第三方模块例如：govendor</p>
+<p>  <strong>3.实现步骤</strong></p>
+<p>   3.1 创建项目：新建文件夹(Go_pro)</p>
+<p>   可通过在文件夹中通过cmd的方式，再输入code .以便于在vscode打开</p>
+<p><img src="/images/%E5%88%9B%E5%BB%BAgo%E9%A1%B9%E7%9B%AE.png"></p>
+<p>   3.2 初始化项目：<strong>通过go mod init 项目名</strong>去初始化项目</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"># <span class="token keyword">go</span> mod init 项目名
+<span class="token keyword">go</span> mod init Go_pro<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
+<p><img src="/images/%E5%88%9D%E5%A7%8B%E5%8C%96go%E9%A1%B9%E7%9B%AE.png"></p>
+<p>   3.3 创建包：包名可以随意指定，一般包文件夹名称和包名是一致的</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"># user是包名
+<span class="token keyword">package</span> user
 
+<span class="token keyword">func</span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> <span class="token string">"Hello,Golang!"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p><img src="/images/%E5%88%9B%E5%BB%BA%E5%8C%85.png"></p>
+<p>   3.4 创建模块与相互调用</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
+<span class="token comment">// 导入包user</span>
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"Go_pro/user"</span>
+	<span class="token string">"fmt"</span>
+<span class="token punctuation">)</span>
 
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// 调用方法   user.Hello().var!...</span>
+	s <span class="token operator">:=</span> user<span class="token punctuation">.</span><span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"s: %v\n"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span>
 
+	<span class="token comment">// s := user.Hello()</span>
+	<span class="token comment">// s.print!  ===&gt; fmt.Printf("s: %v\n", s)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-
-
-
-
-
-
-
-
-
+<p><img src="/images/%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9D%97%E4%B8%8E%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8.png"></p>
 
                 
             </div>
@@ -768,7 +846,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://linuxtech.top/2025/11/22/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-lian-shou-suan-fa/">https://linuxtech.top/2025/11/22/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-lian-shou-suan-fa/</a>
+                    <a href="https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/ji-chu-ru-men/">https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/ji-chu-ru-men/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -806,8 +884,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%BB%A5%E5%A4%AA%E7%BD%91%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">
-                                    <span class="chip bg-color">以太网链路聚合</span>
+                                <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+                                    <span class="chip bg-color">Golang基础教程</span>
                                 </a>
                             
                         </div>
@@ -851,45 +929,47 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/11/23/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/shi-xian-vlan-jian-tong-xin/">
+                <a href="/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/ji-chu-ru-men/">
                     <div class="card-image">
                         
-                        <img src="/img/network.jpeg" class="responsive-img" alt="实现VLAN间通信">
+                        <img src="/img/Golang%E5%9F%BA%E7%A1%80.jpg" class="responsive-img" alt="基础入门">
                         
-                        <span class="card-title">实现VLAN间通信</span>
+                        <span class="card-title">基础入门</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            实现VLAN间通信、使用路由器(物理接口、子接口)实现VLAN间通信、使用三层交换机实现VLAN间通信、掌握报文三层转发过程。
+                            Go(Golang)是Google开发的一种静态强类型、编译型语言。语法与C相近，但功能上有：内存安全、GC(垃圾回收)，结构形态及CSP-style并发计算。
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-11-23
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-02-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    网络技术基础
+                            <a href="/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/" class="post-category">
+                                    Golang开发专栏
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%AE%9E%E7%8E%B0VLAN%E9%97%B4%E9%80%9A%E4%BF%A1/">
-                        <span class="chip bg-color">实现VLAN间通信</span>
+                    <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">Golang基础教程</span>
                     </a>
                     
                 </div>
@@ -903,30 +983,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/11/22/qi-ye-ji-wang-luo-ji-zhu/wang-luo-ji-zhu-ji-chu/yi-tai-wang-lian-lu-ju-he/">
+                <a href="/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-jiao-cheng/bian-liang-chang-liang-yu-shu-ju-lei-xing/">
                     <div class="card-image">
                         
-                        <img src="/img/network.jpeg" class="responsive-img" alt="以太网链路聚合">
+                        <img src="/img/Golang%E5%9F%BA%E7%A1%80.jpg" class="responsive-img" alt="变量、常量与数据类型">
                         
-                        <span class="card-title">以太网链路聚合</span>
+                        <span class="card-title">变量、常量与数据类型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            链路聚合的作用、链路聚合的分类、LACP模式的链路聚合协商过程、iStack和CSS的优点与原理、链路聚合与堆叠技术常见应用与组网。
+                            Go(Golang)是Google开发的一种静态强类型、编译型语言。语法与C相近，但功能上有：内存安全、GC(垃圾回收)，结构形态及CSP-style并发计算。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-02-28
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    网络技术基础
+                            <a href="/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/" class="post-category">
+                                    Golang开发专栏
                                 </a>
                             
                             
@@ -936,8 +1016,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BB%A5%E5%A4%AA%E7%BD%91%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">
-                        <span class="chip bg-color">以太网链路聚合</span>
+                    <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">Golang基础教程</span>
                     </a>
                     
                 </div>
@@ -1146,7 +1226,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">242.4k</span>&nbsp;字
+                class="white-color">245.2k</span>&nbsp;字
             
             
             
