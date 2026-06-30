@@ -491,8 +491,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
-                                <span class="chip bg-color">Golang基础教程</span>
+                            <a href="/tags/Golang%E6%96%B9%E6%B3%95%E4%B8%8E%E6%8E%A5%E5%8F%A3/">
+                                <span class="chip bg-color">Golang方法与接口</span>
                             </a>
                         
                     </div>
@@ -503,8 +503,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/" class="post-category">
-                                Golang开发专栏
+                            <a href="/categories/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="post-category">
+                                Golang基础教程
                             </a>
                         
                     </div>
@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-06-16
+                    2026-06-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    3.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    14 分
                 </div>
                 
 
@@ -837,67 +837,381 @@
 	oc <span class="token operator">=</span> Door<span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment">// 这里编译错误，提示只实现了一个接口</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="2-4-接口类型"><a href="#2-4-接口类型" class="headerlink" title="2.4 接口类型"></a>2.4 接口类型</h2><h3 id="2-4-1-值类型接收者"><a href="#2-4-1-值类型接收者" class="headerlink" title="2.4.1 值类型接收者"></a>2.4.1 值类型接收者</h3><h1 id="golang接口值类型接收者和指针类型接收者"><a href="#golang接口值类型接收者和指针类型接收者" class="headerlink" title="golang接口值类型接收者和指针类型接收者"></a>golang接口值类型接收者和指针类型接收者</h1><p>这个话题，本质上和方法的值类型接收者和指针类型接收者，的思考方法是一样的，值接收者是一个拷贝，是一个副本，而指针接收者，传递的是指针。</p>
-<h2 id="实例演示"><a href="#实例演示" class="headerlink" title="实例演示"></a>实例演示</h2><p><strong>定义一个Pet接口</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Pet <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+<h2 id="2-4-接口接收者类型"><a href="#2-4-接口接收者类型" class="headerlink" title="2.4 接口接收者类型"></a>2.4 接口接收者类型</h2><h3 id="2-4-1-值类型接收者"><a href="#2-4-1-值类型接收者" class="headerlink" title="2.4.1 值类型接收者"></a>2.4.1 值类型接收者</h3><p>  本质上和方法的值类型接收者的思考方法是一样的，值接收者是一个拷贝，是一个副本。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 定义一个Pet接口</span>
+<span class="token keyword">type</span> Pet <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	<span class="token function">eat</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义一个Dog结构体</span>
+<span class="token keyword">type</span> Dog <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 实现Pet接口--接收者是值类型</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>MyDog Dog<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span>name <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"&amp;MyDog: %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>MyDog<span class="token punctuation">)</span>
+	MyDog<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"毛毛..."</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"name: %v\n"</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+	<span class="token keyword">return</span> <span class="token string">"吃的很好呦!"</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	dog <span class="token operator">:=</span> Dog<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"毛毛"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>dog<span class="token punctuation">)</span>
+
+	foodDog <span class="token operator">:=</span> dog<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token string">"火鸡"</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"foodDog: %v\n"</span><span class="token punctuation">,</span> foodDog<span class="token punctuation">)</span>
+
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %v\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token comment">// 运行结果: dog: 0x3400b03d0070   &amp;MyDog: 0x3400b03d0090   name: 火鸡  foodDog: 吃的很好呦!  dog: {毛毛}</span>
+<span class="token comment">// 从运行结果，我们看出dog的地址变了，说明是复制了一份，dog的name没有变说明，外面的dog变量没有被改变。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-4-2-指针类型接收者"><a href="#2-4-2-指针类型接收者" class="headerlink" title="2.4.2 指针类型接收者"></a>2.4.2 指针类型接收者</h3><p>  本质上和方法的指针类型接收者的思考方法是一样的,指针接收者，传递的是指针。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 定义一个Pet接口</span>
+<span class="token keyword">type</span> Pet <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	<span class="token function">eat</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义一个Dog结构体</span>
+<span class="token keyword">type</span> Dog <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 实现Pet接口--接收者是指针类型</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>MyDog <span class="token operator">*</span>Dog<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span>name <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"&amp;MyDog: %p\n"</span><span class="token punctuation">,</span> MyDog<span class="token punctuation">)</span>
+	MyDog<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"毛毛..."</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"name: %v\n"</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+	<span class="token keyword">return</span> <span class="token string">"吃的很好呦!"</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	dog <span class="token operator">:=</span> <span class="token operator">&amp;</span>Dog<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"毛毛"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	foodDog <span class="token operator">:=</span> dog<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token string">"火鸡"</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"foodDog: %v\n"</span><span class="token punctuation">,</span> foodDog<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %p\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %v\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>dog<span class="token punctuation">)</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 运行结果: &amp;MyDog: 0xf6061cba070   foodDog: 吃的很好呦!  dog: 0xf6061cba070  dog: {毛毛...}</span>
+<span class="token comment">// 从运行结果，dog是指针类型，地址没有改变。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-5-接口和类型的关系"><a href="#2-5-接口和类型的关系" class="headerlink" title="2.5 接口和类型的关系"></a>2.5 接口和类型的关系</h2><p>  1.一个类型可以实现多个接口</p>
+<p>  2.多个类型可以实现同一个接口（多态）</p>
+<h3 id="2-5-1-一个类型实现多个接口"><a href="#2-5-1-一个类型实现多个接口" class="headerlink" title="2.5.1 一个类型实现多个接口"></a>2.5.1 一个类型实现多个接口</h3><p>  一个类型实现多个接口，例如：有一个Player接口可以播放音乐，有一个Video接口可以播放视频，一个手机Mobile实现这两个接口，既可以播放音乐，又可以播放视频。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 定义一个Player接口</span>
+<span class="token keyword">type</span> Player <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	<span class="token function">PlayMusic</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义一个Video接口</span>
+<span class="token keyword">type</span> Video <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	<span class="token function">PlayVideo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义Mobile结构体</span>
+<span class="token keyword">type</span> Mobile <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	model <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 实现两个接口</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>m Mobile<span class="token punctuation">)</span> <span class="token function">PlayMusic</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"m.model: %v\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">.</span>model<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"播放音乐..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>m Mobile<span class="token punctuation">)</span> <span class="token function">PlayVideo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"m.model: %v\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">.</span>model<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"播放视频..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 测试</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Phone <span class="token operator">:=</span> Mobile<span class="token punctuation">{</span>
+		model<span class="token punctuation">:</span> <span class="token string">"华为手机"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	Phone<span class="token punctuation">.</span><span class="token function">PlayMusic</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	Phone<span class="token punctuation">.</span><span class="token function">PlayVideo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-5-2-多个类型实现同一个接口"><a href="#2-5-2-多个类型实现同一个接口" class="headerlink" title="2.5.2 多个类型实现同一个接口"></a>2.5.2 多个类型实现同一个接口</h3><p>  比如，一个宠物接口Pet，猫类型Cat和狗类型Dog都可以实现该接口，都可以把猫和狗当宠物类型对待，这在其他语言中叫做<strong>多态</strong>。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 定义一个Pet接口</span>
+<span class="token keyword">type</span> Pet <span class="token keyword">interface</span> <span class="token punctuation">{</span>
 	<span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span>
 
-<p><strong>定义一个Dog结构体</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">type Dog struct {
-	name string
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">// 定义一个Dog结构体</span>
+<span class="token keyword">type</span> Dog <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
 
-<p><strong>实现Pet接口（接收者是值类型）</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>dog Dog<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %p\\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>dog<span class="token punctuation">)</span>
-	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"dog eat.."</span><span class="token punctuation">)</span>
-	dog<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"黑黑"</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">// 定义一个Cat结构体</span>
+<span class="token keyword">type</span> Cat <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
 
-<p><strong>测试</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-	dog <span class="token operator">:=</span> Dog<span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">"花花"</span><span class="token punctuation">}</span>
-	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %p\\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>dog<span class="token punctuation">)</span>
+<span class="token comment">// 实现接口</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>dog Dog<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog.name: %v\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"dog eat..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>cat Cat<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"cat.name: %v\n"</span><span class="token punctuation">,</span> cat<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"cat eat..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 测试</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// myDog := Dog{</span>
+	<span class="token comment">// 	name: "毛毛",</span>
+	<span class="token comment">// }</span>
+	<span class="token comment">// MyCat := Cat{</span>
+	<span class="token comment">// 	name: "花花",</span>
+	<span class="token comment">// }</span>
+	<span class="token comment">// myDog.eat()</span>
+	<span class="token comment">// MyCat.eat()</span>
+	<span class="token keyword">var</span> MyPet Pet
+	MyPet <span class="token operator">=</span> Dog<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"毛毛"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	MyPet<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	MyPet <span class="token operator">=</span> Cat<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"花花"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	MyPet<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-6-接口嵌套"><a href="#2-6-接口嵌套" class="headerlink" title="2.6 接口嵌套"></a>2.6 接口嵌套</h2><p>  接口可以通过嵌套创建新的接口。例如：飞鱼，既可以飞，又可以游泳。创建一个飞Flyer接口，创建一个游泳接口Swimmer，飞鱼接口(FlyFish)由这两个接口组成。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 创建Flyer接口</span>
+<span class="token keyword">type</span> Flyer <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	<span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 创建Swimmer接口</span>
+<span class="token keyword">type</span> Swimmer <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	<span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 组合一个接口FlyFish</span>
+<span class="token keyword">type</span> FlyFish <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	Flyer
+	Swimmer
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 创建一个结构体Fish</span>
+<span class="token keyword">type</span> Fish <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 实现组合接口</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>fish Fish<span class="token punctuation">)</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"fish.name: %v\n"</span><span class="token punctuation">,</span> fish<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"fly..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>fish Fish<span class="token punctuation">)</span> <span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"fish.name: %v\n"</span><span class="token punctuation">,</span> fish<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"swim..."</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 测试</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> BigFish FlyFish
+	BigFish <span class="token operator">=</span> Fish<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"中华鲟"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	BigFish<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	BigFish<span class="token punctuation">.</span><span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-7-通过接口实现OCP设计原则"><a href="#2-7-通过接口实现OCP设计原则" class="headerlink" title="2.7 通过接口实现OCP设计原则"></a>2.7 通过接口实现OCP设计原则</h2><p>  <strong>面向对象可复用设计</strong>的第一块基石，便是所谓的”开-闭“原则（Open-Closed Principle,常缩写为OCP）。虽然，Go不是面向对象语言，但也可以模拟实现这个原则。对<strong>扩展</strong>是开放的，对<strong>修改</strong>是关闭的。</p>
+<p>  <strong>通过一个人养宠物的例子，来解释OCP设计原则</strong>。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 定义一个宠物接口Pet</span>
+<span class="token keyword">type</span> Pet <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	<span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义一个Dog结构体</span>
+<span class="token keyword">type</span> Dog <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+	age  <span class="token builtin">int</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Dog实现Pet接口</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>MyDog Dog<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"MyDog eat..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>MyDog Dog<span class="token punctuation">)</span> <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"MyDog sleep..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义一个Cat结构体</span>
+<span class="token keyword">type</span> Cat <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+	age  <span class="token builtin">int</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Cat实现Pet接口</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>MyCat Cat<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"MyCat eat..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>MyCat Cat<span class="token punctuation">)</span> <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"MyCat sleep..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义一个Person结构体</span>
+<span class="token keyword">type</span> Person <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 为Person添加一个养宠物方法</span>
+<span class="token comment">// pet既可以传递Dog，也可以传递Cat</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>per Person<span class="token punctuation">)</span> <span class="token function">care</span><span class="token punctuation">(</span>pet Pet<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	pet<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	pet<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	dog <span class="token operator">:=</span> Dog<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"毛毛"</span><span class="token punctuation">,</span>
+		age<span class="token punctuation">:</span>  <span class="token number">2</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	cat <span class="token operator">:=</span> Cat<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"小花"</span><span class="token punctuation">,</span>
+		age<span class="token punctuation">:</span>  <span class="token number">3</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	person <span class="token operator">:=</span> Person<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"小李"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	person<span class="token punctuation">.</span><span class="token function">care</span><span class="token punctuation">(</span>dog<span class="token punctuation">)</span>
+	person<span class="token punctuation">.</span><span class="token function">care</span><span class="token punctuation">(</span>cat<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  <code>使用接口的这种设计方法，可以很好的解耦合代码，实现软件设计的OCP原则（即开闭原则），这样设计，如果再添加一个宠物，例如：一个鸟</code>Bird<code>，原有的代码不用修改，直接添加就可以。</code></p>
+<h1 id="3-继承"><a href="#3-继承" class="headerlink" title="3 继承"></a>3 继承</h1><p>  Golang本质上没有oop的概念，也没有继承的概念，但是可以通过<strong>结构体嵌套</strong>实现这个特性。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Animal <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+	age  <span class="token builtin">int</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>a Animal<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"eat..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>a Animal<span class="token punctuation">)</span> <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"sleep..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> Dog <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	Animal      <span class="token comment">// 可理解为继承</span>
+	color <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> Cat <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	Animal
+	weight <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	dog <span class="token operator">:=</span> Dog<span class="token punctuation">{</span>
+		Animal<span class="token punctuation">:</span> Animal<span class="token punctuation">{</span>
+			name<span class="token punctuation">:</span> <span class="token string">"毛毛"</span><span class="token punctuation">,</span>
+			age<span class="token punctuation">:</span>  <span class="token number">2</span><span class="token punctuation">,</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		color<span class="token punctuation">:</span> <span class="token string">"黄色"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
 	dog<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %v\\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	dog<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog.color: %v\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">.</span>color<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog.age: %v\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">.</span>age<span class="token punctuation">)</span>
 
-<p>运行结果</p>
-<pre class="line-numbers language-none"><code class="language-none">dog: 0xc000046240
-dog: 0xc000046250
-dog eat..
-dog: {花花}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+	cat <span class="token operator">:=</span> Cat<span class="token punctuation">{</span>
+		Animal<span class="token punctuation">:</span> Animal<span class="token punctuation">{</span>
+			name<span class="token punctuation">:</span> <span class="token string">"花花"</span><span class="token punctuation">,</span>
+			age<span class="token punctuation">:</span>  <span class="token number">4</span><span class="token punctuation">,</span>
+		<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		weight<span class="token punctuation">:</span> <span class="token string">"13公斤"</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
 
-<p>从运行结果，我们看出dog的地址变了，说明是复制了一份，dog的name没有变说明，外面的dog变量没有被改变。</p>
-<p><strong>将Pet接口改为指针接收者</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>dog <span class="token operator">*</span>Dog<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %p\\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">)</span>
-	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"dog eat.."</span><span class="token punctuation">)</span>
-	dog<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"黑黑"</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	cat<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	cat<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"cat.weight: %v\n"</span><span class="token punctuation">,</span> cat<span class="token punctuation">.</span>weight<span class="token punctuation">)</span>
 
-<p><strong>再测试</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-	dog <span class="token operator">:=</span> <span class="token operator">&amp;</span>Dog<span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">"花花"</span><span class="token punctuation">}</span>
-	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %p\\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">)</span>
-	dog<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"dog: %v\\n"</span><span class="token punctuation">,</span> dog<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>运行结果</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">dog<span class="token punctuation">:</span> <span class="token number">0xc00008c230</span>
-dog<span class="token punctuation">:</span> <span class="token number">0xc00008c230</span>
-dog eat<span class="token punctuation">.</span><span class="token punctuation">.</span>
-dog<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token punctuation">{</span>黑黑<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-1-模拟OOP的属性和方法"><a href="#3-1-模拟OOP的属性和方法" class="headerlink" title="3.1 模拟OOP的属性和方法"></a>3.1 模拟OOP的属性和方法</h2><p>  Golang没有面向对象和封装的概念，但可以通过结构体<code>struct</code>和函数<strong>绑定</strong>来实现OOP的属性和方法等特性。接收者 receiver <strong>方法</strong>。</p>
+<p>  <strong>例如</strong>，想要定义一个Person类，有name和age属性，有eat/sleep/work方法。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Person <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+	age  <span class="token builtin">int</span>
+<span class="token punctuation">}</span>
 
+<span class="token keyword">func</span> <span class="token punctuation">(</span>per Person<span class="token punctuation">)</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"eat..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
+<span class="token keyword">func</span> <span class="token punctuation">(</span>per Person<span class="token punctuation">)</span> <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"sleep..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
+<span class="token keyword">func</span> <span class="token punctuation">(</span>per Person<span class="token punctuation">)</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"work..."</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	per <span class="token operator">:=</span> Person<span class="token punctuation">{</span>
+		name<span class="token punctuation">:</span> <span class="token string">"tom"</span><span class="token punctuation">,</span>
+		age<span class="token punctuation">:</span>  <span class="token number">20</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
 
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"per: %v\n"</span><span class="token punctuation">,</span> per<span class="token punctuation">)</span>
 
+	per<span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	per<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	per<span class="token punctuation">.</span><span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h1 id="4-构造函数"><a href="#4-构造函数" class="headerlink" title="4 构造函数"></a>4 构造函数</h1><p>  Golang没有构造函数的概念，可以使用函数来模拟构造函数的的功能。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Person <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	name <span class="token builtin">string</span>
+	age  <span class="token builtin">int</span>
+<span class="token punctuation">}</span>
 
+<span class="token keyword">func</span> <span class="token function">NewPerson</span><span class="token punctuation">(</span>name <span class="token builtin">string</span><span class="token punctuation">,</span> age <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>Person<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> name <span class="token operator">==</span> <span class="token string">""</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"name不能为空"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> age <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"age不能小于0"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token operator">&amp;</span>Person<span class="token punctuation">{</span>name<span class="token punctuation">:</span> name<span class="token punctuation">,</span> age<span class="token punctuation">:</span> age<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	per<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">NewPerson</span><span class="token punctuation">(</span><span class="token string">"Tom"</span><span class="token punctuation">,</span> <span class="token number">34</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"per: %v\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>per<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"err: %v\n"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -973,8 +1287,8 @@ dog<span class="token punctuation">:</span> <span class="token operator">&amp;</
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
-                                    <span class="chip bg-color">Golang基础教程</span>
+                                <a href="/tags/Golang%E6%96%B9%E6%B3%95%E4%B8%8E%E6%8E%A5%E5%8F%A3/">
+                                    <span class="chip bg-color">Golang方法与接口</span>
                                 </a>
                             
                         </div>
@@ -1044,8 +1358,8 @@ dog<span class="token punctuation">:</span> <span class="token operator">&amp;</
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/" class="post-category">
-                                    Golang开发专栏
+                            <a href="/categories/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="post-category">
+                                    Golang基础教程
                                 </a>
                             
                             
@@ -1055,8 +1369,8 @@ dog<span class="token punctuation">:</span> <span class="token operator">&amp;</
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
-                        <span class="chip bg-color">Golang基础教程</span>
+                    <a href="/tags/Golang%E7%9A%84%E6%8C%87%E9%92%88%E4%B8%8E%E7%BB%93%E6%9E%84%E4%BD%93/">
+                        <span class="chip bg-color">Golang的指针与结构体</span>
                     </a>
                     
                 </div>
@@ -1092,8 +1406,8 @@ dog<span class="token punctuation">:</span> <span class="token operator">&amp;</
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Golang%E5%BC%80%E5%8F%91%E4%B8%93%E6%A0%8F/" class="post-category">
-                                    Golang开发专栏
+                            <a href="/categories/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="post-category">
+                                    Golang基础教程
                                 </a>
                             
                             
@@ -1103,8 +1417,8 @@ dog<span class="token punctuation">:</span> <span class="token operator">&amp;</
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
-                        <span class="chip bg-color">Golang基础教程</span>
+                    <a href="/tags/Golang%E7%9A%84%E5%8C%85%E4%B8%8E%E6%A8%A1%E5%9D%97/">
+                        <span class="chip bg-color">Golang的包与模块</span>
                     </a>
                     
                 </div>
@@ -1313,7 +1627,7 @@ dog<span class="token punctuation">:</span> <span class="token operator">&amp;</
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">267.6k</span>&nbsp;字
+                class="white-color">280.5k</span>&nbsp;字
             
             
             
