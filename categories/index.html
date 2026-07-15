@@ -100,17 +100,17 @@
       function checkNightMode() {
         '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
       }
-      function switchNightMode() {
-        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
-          setTimeout(function () {
-            $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
-              setTimeout(function () {
-                $('.Cuteen_DarkSky').fadeOut(1e3, function () {
-                  $(this).remove()
-                })
-              }, 2e3)
-          })
-      }
+    //   function switchNightMode() {
+    //     $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+    //       setTimeout(function () {
+    //         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+    //           setTimeout(function () {
+    //             $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+    //               $(this).remove()
+    //             })
+    //           }, 2e3)
+    //       })
+    //   }
       function switchNightModeTop() {
         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
       }
@@ -422,11 +422,11 @@
                 
                 
                 
-                <a href="/categories/Kubernetes/" title="Kubernetes: 5">
+                <a href="/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/" title="Linux基本技术: 6">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F9EBEA;">Kubernetes
-                        <span class="tag-length">5</span>
+                            style="background-color: #F9EBEA;">Linux基本技术
+                        <span class="tag-length">6</span>
                     </span>
                 </a>
                 
@@ -440,10 +440,19 @@
                 </a>
                 
                 
+                <a href="/categories/Kubernetes/" title="Kubernetes: 5">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #D5F5E3;">Kubernetes
+                        <span class="tag-length">5</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/categories/nginx/" title="nginx: 7">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D5F5E3;">nginx
+                            style="background-color: #E8F8F5;">nginx
                         <span class="tag-length">7</span>
                     </span>
                 </a>
@@ -452,26 +461,8 @@
                 <a href="/categories/Kubernetes%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" title="Kubernetes管理工具: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #E8F8F5;">Kubernetes管理工具
+                            style="background-color: #FEF9E7;">Kubernetes管理工具
                         <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/" title="Linux基本技术: 6">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #FEF9E7;">Linux基本技术
-                        <span class="tag-length">6</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="容器技术: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F8F9F9;">容器技术
-                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
@@ -479,8 +470,17 @@
                 <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #82E0AA;">数据库
+                            style="background-color: #F8F9F9;">数据库
                         <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="容器技术: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #82E0AA;">容器技术
+                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
@@ -554,7 +554,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"Kubernetes","max":8},{"name":"Ansible","max":8},{"name":"nginx","max":8},{"name":"Kubernetes管理工具","max":8},{"name":"Linux基本技术","max":8},{"name":"容器技术","max":8},{"name":"数据库","max":8},{"name":"自动化运维","max":8},{"name":"运维中的编程","max":8},{"name":"Golang专栏-基础与核心能力","max":8}],
+            indicator: [{"name":"Linux基本技术","max":8},{"name":"Ansible","max":8},{"name":"Kubernetes","max":8},{"name":"nginx","max":8},{"name":"Kubernetes管理工具","max":8},{"name":"数据库","max":8},{"name":"容器技术","max":8},{"name":"自动化运维","max":8},{"name":"运维中的编程","max":8},{"name":"Golang专栏-基础与核心能力","max":8}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -565,7 +565,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [5,1,7,1,6,3,1,1,1,5],
+                    value : [6,1,5,7,1,1,3,1,1,5],
                     name : '文章分类数量'
                 }
             ]
@@ -653,7 +653,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">248.3k</span>&nbsp;字
+                class="white-color">252.2k</span>&nbsp;字
             
             
             

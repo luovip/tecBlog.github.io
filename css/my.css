@@ -1,1 +1,4 @@
 /* Here is your custom css styles. */
+#changeMode-top {
+    display: none !important;
+}

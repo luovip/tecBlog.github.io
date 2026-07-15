@@ -100,17 +100,17 @@
       function checkNightMode() {
         '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
       }
-      function switchNightMode() {
-        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
-          setTimeout(function () {
-            $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
-              setTimeout(function () {
-                $('.Cuteen_DarkSky').fadeOut(1e3, function () {
-                  $(this).remove()
-                })
-              }, 2e3)
-          })
-      }
+    //   function switchNightMode() {
+    //     $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+    //       setTimeout(function () {
+    //         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+    //           setTimeout(function () {
+    //             $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+    //               $(this).remove()
+    //             })
+    //           }, 2e3)
+    //       })
+    //   }
       function switchNightModeTop() {
         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
       }
@@ -1180,18 +1180,18 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2026/02/26/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-gao-pin-wen-ti/">
+                <a href="/2026/02/26/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-bing-fa-bian-cheng/">
                     <div class="card-image">
                         
-                        <img src="/img/Golang%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98.png" class="responsive-img" alt="Golang高频问题">
+                        <img src="/img/Golang%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B.jpg" class="responsive-img" alt="Golang并发编程">
                         
-                        <span class="card-title">Golang高频问题</span>
+                        <span class="card-title">Golang并发编程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Golang高频问题汇总!
+                            基于Goroutine轻量级协程与Channel通信模型，以CSP思想简洁高效地实现安全、低成本的并发编程。
                         
                     </div>
                     <div class="publish-info">
@@ -1471,7 +1471,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">248.3k</span>&nbsp;字
+                class="white-color">252.2k</span>&nbsp;字
             
             
             

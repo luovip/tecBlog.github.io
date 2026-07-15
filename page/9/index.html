@@ -100,17 +100,17 @@
       function checkNightMode() {
         '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
       }
-      function switchNightMode() {
-        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
-          setTimeout(function () {
-            $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
-              setTimeout(function () {
-                $('.Cuteen_DarkSky').fadeOut(1e3, function () {
-                  $(this).remove()
-                })
-              }, 2e3)
-          })
-      }
+    //   function switchNightMode() {
+    //     $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+    //       setTimeout(function () {
+    //         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+    //           setTimeout(function () {
+    //             $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+    //               $(this).remove()
+    //             })
+    //           }, 2e3)
+    //       })
+    //   }
       function switchNightModeTop() {
         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
       }
@@ -422,52 +422,6 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2024/07/28/linux-ji-ben-ji-zhu/chang-yong-de-linux-ruan-jian-bao-cang-ku/">
-                        <div class="card-image">
-                            
-                            <img src="/img/Linux.jpeg" class="responsive-img" alt="常见的Linux软件包仓库">
-                            
-                            <span class="card-title">常见的Linux软件包仓库</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                软件包仓库（或称为软件仓库、仓库或仓库源）是用来存储和管理软件包的集合，这些仓库包含了各种软件应用程序、库文件、文档以及其他资源。
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    Linux基本技术
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E5%B8%B8%E8%A7%81%E7%9A%84Linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E4%BB%93%E5%BA%93/">
-                            <span class="chip bg-color">常见的Linux软件包仓库</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
                     <a href="/2024/07/28/linux-ji-ben-ji-zhu/linux-de-fu-wu/">
                         <div class="card-image">
                             
@@ -505,6 +459,52 @@
                         
                         <a href="/tags/Linux%E7%9A%84%E6%9C%8D%E5%8A%A1/">
                             <span class="chip bg-color">Linux的服务</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2024/07/28/linux-ji-ben-ji-zhu/chang-yong-de-linux-ruan-jian-bao-cang-ku/">
+                        <div class="card-image">
+                            
+                            <img src="/img/Linux.jpeg" class="responsive-img" alt="常见的Linux软件包仓库">
+                            
+                            <span class="card-title">常见的Linux软件包仓库</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                软件包仓库（或称为软件仓库、仓库或仓库源）是用来存储和管理软件包的集合，这些仓库包含了各种软件应用程序、库文件、文档以及其他资源。
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    Linux基本技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%B8%B8%E8%A7%81%E7%9A%84Linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E4%BB%93%E5%BA%93/">
+                            <span class="chip bg-color">常见的Linux软件包仓库</span>
                         </a>
                         
                     </div>
@@ -664,7 +664,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">248.3k</span>&nbsp;字
+                class="white-color">252.2k</span>&nbsp;字
             
             
             
