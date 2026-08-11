@@ -100,17 +100,17 @@
       function checkNightMode() {
         '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
       }
-    //   function switchNightMode() {
-    //     $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
-    //       setTimeout(function () {
-    //         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
-    //           setTimeout(function () {
-    //             $('.Cuteen_DarkSky').fadeOut(1e3, function () {
-    //               $(this).remove()
-    //             })
-    //           }, 2e3)
-    //       })
-    //   }
+       function switchNightMode() {
+         $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+           setTimeout(function () {
+             $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+               setTimeout(function () {
+                 $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                   $(this).remove()
+                 })
+               }, 2e3)
+           })
+       }
       function switchNightModeTop() {
         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
       }
@@ -3415,30 +3415,30 @@ greg    <span class="token assign-left variable">ALL</span><span class="token op
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/05/28/linux-ji-ben-ji-zhu/linux-de-jin-jie-shi-yong/">
+                <a href="/2023/03/30/go-yu-yan-kai-fa/yun-yuan-sheng-yu-xi-tong-jia-gou/linux-ji-zhu/">
                     <div class="card-image">
                         
-                        <img src="/img/Linux.jpeg" class="responsive-img" alt="Linux的进阶使用">
+                        <img src="/img/Linux.jpeg" class="responsive-img" alt="Linux技术">
                         
-                        <span class="card-title">Linux的进阶使用</span>
+                        <span class="card-title">Linux技术</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Linux操作系统广泛应用于服务器、桌面和嵌入式设备中，以其稳定性、安全性和高效性受到广泛欢迎‌‌，文章描述了Linux的进阶使用
+                            Linux是一个操作系统(os)，就像Windows 或者MacOS一样，主要应用在企业服务器领域。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-30
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    Linux基本技术
+                            <a href="/categories/Golang-%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="post-category">
+                                    Golang-云原生与系统架构
                                 </a>
                             
                             
@@ -3448,8 +3448,8 @@ greg    <span class="token assign-left variable">ALL</span><span class="token op
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/">
-                        <span class="chip bg-color">Linux的进阶使用</span>
+                    <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">
+                        <span class="chip bg-color">云原生与系统架构</span>
                     </a>
                     
                 </div>
@@ -3658,7 +3658,7 @@ greg    <span class="token assign-left variable">ALL</span><span class="token op
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">252.2k</span>&nbsp;字
+                class="white-color">297.9k</span>&nbsp;字
             
             
             

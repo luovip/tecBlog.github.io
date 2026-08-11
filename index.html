@@ -100,17 +100,17 @@
       function checkNightMode() {
         '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
       }
-    //   function switchNightMode() {
-    //     $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
-    //       setTimeout(function () {
-    //         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
-    //           setTimeout(function () {
-    //             $('.Cuteen_DarkSky').fadeOut(1e3, function () {
-    //               $(this).remove()
-    //             })
-    //           }, 2e3)
-    //       })
-    //   }
+       function switchNightMode() {
+         $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+           setTimeout(function () {
+             $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+               setTimeout(function () {
+                 $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                   $(this).remove()
+                 })
+               }, 2e3)
+           })
+       }
       function switchNightModeTop() {
         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
       }
@@ -548,29 +548,6 @@
                 </div>
             </div>
         
-            
-            <div class="carousel-item amber white-text carousel-post bg-cover"
-                 style="background-image: url('/img/containerd.jpeg');">
-                <div class="container">
-                    <div class="row">
-                        <div class="col s10 offset-s1">
-                            <div class="title center-align">containerd容器</div>
-                            <div class="description center-align">
-                                
-                                    Containerd是一个开源的行业标准容器运行时，专注于管理容器的生命周期、镜像传输与存储、低级别存储和网络等功能
-                                
-                            </div>
-                            <div class="cover-btns">
-                                <a href="/2025/06/03/rong-qi-ji-zhu/containerd-rong-qi/" class="waves-effect waves-light btn"
-                                   target="_blank">
-                                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
     
 </div>
 
@@ -705,30 +682,6 @@
     
     <div class="col s12 m6" data-aos="zoom-in-up">
         
-             <div class="post-card" style="background-image: url('/img/k8s&network.jpg')">
-        
-            <div class="post-body">
-                <div class="post-categories">
-                    
-                        
-                            <a href="/categories/Kubernetes/" class="category">Kubernetes</a>
-                        
-                    
-                </div>
-                <a href="/2025/06/26/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/">
-                    <h3 class="post-title">Kubernetes网络系统原理</h3>
-                </a>
-                <p class="post-description">Kubernetes网络采用的是CNI标准，CNI的基本思想是：在创建容器时，先创建好网络命名空间，然后调用CNI插件为这个命名空间配置网络，最后再启动容器内的进程</p>
-                <a href="/2025/06/26/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #EF4DB6 0%, #C643FC 100%)" target="_blank">
-                    <i class="icon far fa-eye fa-fw"></i>阅读更多
-                </a>
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="col s12 m6" data-aos="zoom-in-up">
-        
              <div class="post-card" style="background-image: url('/img/docker&k8s.jpg')">
         
             <div class="post-body">
@@ -743,7 +696,31 @@
                     <h3 class="post-title">Kubernetes与Docker</h3>
                 </a>
                 <p class="post-description">容器编排是指自动化地部署、扩展、管理和协调容器化应用的过程,它涉及到多个方面，如容器的调度、资源分配、容器之间的通信、故障恢复等</p>
-                <a href="/2025/06/29/kubernetes/kubernetes-yu-docker/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #1AD6FD 0%, #1D62F0 100%)" target="_blank">
+                <a href="/2025/06/29/kubernetes/kubernetes-yu-docker/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #EF4DB6 0%, #C643FC 100%)" target="_blank">
+                    <i class="icon far fa-eye fa-fw"></i>阅读更多
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col s12 m6" data-aos="zoom-in-up">
+        
+             <div class="post-card" style="background-image: url('/img/k8s&network.jpg')">
+        
+            <div class="post-body">
+                <div class="post-categories">
+                    
+                        
+                            <a href="/categories/Kubernetes/" class="category">Kubernetes</a>
+                        
+                    
+                </div>
+                <a href="/2025/06/26/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/">
+                    <h3 class="post-title">Kubernetes网络系统原理</h3>
+                </a>
+                <p class="post-description">Kubernetes网络采用的是CNI标准，CNI的基本思想是：在创建容器时，先创建好网络命名空间，然后调用CNI插件为这个命名空间配置网络，最后再启动容器内的进程</p>
+                <a href="/2025/06/26/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #1AD6FD 0%, #1D62F0 100%)" target="_blank">
                     <i class="icon far fa-eye fa-fw"></i>阅读更多
                 </a>
             </div>
@@ -770,12 +747,104 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-ji-chu-jiao-cheng/">
+                    <a href="/2026/08/04/golang-xiang-mu/qq-qun-xiao-xi-jian-kong/">
                         <div class="card-image">
                             
-                            <img src="/img/Golang%E5%9F%BA%E7%A1%80.jpg" class="responsive-img" alt="Golang基础教程">
+                            <img src="/img/QQ%E7%BE%A4%E6%B6%88%E6%81%AF%E7%9B%91%E6%8E%A7.jpg" class="responsive-img" alt="QQ群消息监控">
                             
-                            <span class="card-title">Golang基础教程</span>
+                            <span class="card-title">QQ群消息监控</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                实时监控重要消息，准确预警。
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-08-04
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Golang%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                    Golang项目
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Golang%E9%A1%B9%E7%9B%AE-QQ%E7%BE%A4%E6%B6%88%E6%81%AF%E7%9B%91%E6%8E%A7/">
+                            <span class="chip bg-color">Golang项目-QQ群消息监控</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2026/03/26/go-yu-yan-kai-fa/web-kai-fa-yu-shu-ju-ku/mysql-shu-ju-ku/">
+                        <div class="card-image">
+                            
+                            <img src="/img/mysql.jpg" class="responsive-img" alt="MySQL数据库">
+                            
+                            <span class="card-title">MySQL数据库</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                数据库是用于存储、组织和管理数据的电子系统，可以让用户方便地存储和检索数据。
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Golang-Web%E5%BC%80%E5%8F%91%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    Golang-Web开发与数据库
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                            <span class="chip bg-color">数据库</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2026/02/28/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/golang-jiao-cheng/">
+                        <div class="card-image">
+                            
+                            <img src="/img/Go.jpeg" class="responsive-img" alt="Golang教程">
+                            
+                            <span class="card-title">Golang教程</span>
                         </div>
                     </a>
 
@@ -793,8 +862,8 @@
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/Golang%E4%B8%93%E6%A0%8F-%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/" class="post-category">
-                                    Golang专栏-基础与核心能力
+                                <a href="/categories/Golang-%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/" class="post-category">
+                                    Golang-核心语法与核心能力
                                 </a>
                                 
                                 
@@ -805,100 +874,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/">
-                            <span class="chip bg-color">Golang基础与核心能力</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2026/02/27/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-she-ji-mo-shi/">
-                        <div class="card-image">
-                            
-                            <img src="/img/Golang%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.png" class="responsive-img" alt="Golang设计模式">
-                            
-                            <span class="card-title">Golang设计模式</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                设计模式是面向对象软件的设计经验，是通常设计问题的解决方案。
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-02-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Golang%E4%B8%93%E6%A0%8F-%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/" class="post-category">
-                                    Golang专栏-基础与核心能力
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/">
-                            <span class="chip bg-color">Golang基础与核心能力</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2026/02/26/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-bing-fa-bian-cheng/">
-                        <div class="card-image">
-                            
-                            <img src="/img/Golang%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B.jpg" class="responsive-img" alt="Golang并发编程">
-                            
-                            <span class="card-title">Golang并发编程</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                基于Goroutine轻量级协程与Channel通信模型，以CSP思想简洁高效地实现安全、低成本的并发编程。
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-02-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Golang%E4%B8%93%E6%A0%8F-%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/" class="post-category">
-                                    Golang专栏-基础与核心能力
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/">
-                            <span class="chip bg-color">Golang基础与核心能力</span>
+                        <a href="/tags/Golang%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95/">
+                            <span class="chip bg-color">Golang核心语法</span>
                         </a>
                         
                     </div>
@@ -922,7 +899,7 @@
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 11</div>
+            <div class="center-align b-text-gray">1 / 10</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -1011,7 +988,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">252.2k</span>&nbsp;字
+                class="white-color">297.9k</span>&nbsp;字
             
             
             

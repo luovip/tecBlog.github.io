@@ -100,17 +100,17 @@
       function checkNightMode() {
         '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
       }
-    //   function switchNightMode() {
-    //     $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
-    //       setTimeout(function () {
-    //         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
-    //           setTimeout(function () {
-    //             $('.Cuteen_DarkSky').fadeOut(1e3, function () {
-    //               $(this).remove()
-    //             })
-    //           }, 2e3)
-    //       })
-    //   }
+       function switchNightMode() {
+         $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+           setTimeout(function () {
+             $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+               setTimeout(function () {
+                 $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                   $(this).remove()
+                 })
+               }, 2e3)
+           })
+       }
       function switchNightModeTop() {
         $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
       }
@@ -670,30 +670,30 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/05/28/rong-qi-ji-zhu/podman-rong-qi/">
+                <a href="/2025/06/26/kubernetes/kubernetes-wang-luo-xi-tong-yuan-li/">
                     <div class="card-image">
                         
-                        <img src="/img/podman.jpg" class="responsive-img" alt="podman容器">
+                        <img src="/img/k8s&network.jpg" class="responsive-img" alt="Kubernetes网络系统原理">
                         
-                        <span class="card-title">podman容器</span>
+                        <span class="card-title">Kubernetes网络系统原理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            容器是由一个或多个与系统其余部分隔离的进程组成的集合，软件容器是打包应用以简化其部署和管理的一种方式
+                            Kubernetes网络采用的是CNI标准，CNI的基本思想是：在创建容器时，先创建好网络命名空间，然后调用CNI插件为这个命名空间配置网络，最后再启动容器内的进程
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-05-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-26
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    容器技术
+                            <a href="/categories/Kubernetes/" class="post-category">
+                                    Kubernetes
                                 </a>
                             
                             
@@ -703,8 +703,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/podman%E5%AE%B9%E5%99%A8/">
-                        <span class="chip bg-color">podman容器</span>
+                    <a href="/tags/Kubernetes%E7%BD%91%E7%BB%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">
+                        <span class="chip bg-color">Kubernetes网络系统原理</span>
                     </a>
                     
                 </div>
@@ -718,30 +718,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/07/28/linux-ji-ben-ji-zhu/linux-de-fu-wu/">
+                <a href="/2024/05/14/shu-ju-ku/shu-ju-ku-de-ji-ben-cao-zuo/">
                     <div class="card-image">
                         
-                        <img src="/img/Linux.jpeg" class="responsive-img" alt="Linux的服务">
+                        <img src="/img/sql.jpeg" class="responsive-img" alt="数据库的基本操作">
                         
-                        <span class="card-title">Linux的服务</span>
+                        <span class="card-title">数据库的基本操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Linux中一切皆文件，因此提供服务需要一个文件，而这个文件一般称为daemon，即一个daemon文件启动，提供某些功能，就称为服务，比如SSH服务、httpd服务、mysqld服务
+                            数据库指的是以一定方式储存在一起、能为多个用户共享、具有尽可能小的冗余度、与应用程序彼此独立的数据集合
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    Linux基本技术
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
                                 </a>
                             
                             
@@ -751,8 +751,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux%E7%9A%84%E6%9C%8D%E5%8A%A1/">
-                        <span class="chip bg-color">Linux的服务</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+                        <span class="chip bg-color">数据库的基本操作</span>
                     </a>
                     
                 </div>
@@ -961,7 +961,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">252.2k</span>&nbsp;字
+                class="white-color">297.9k</span>&nbsp;字
             
             
             

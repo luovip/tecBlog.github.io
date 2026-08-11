@@ -6,7 +6,7 @@
   <link href="https://linuxtech.top/atom.xml" rel="self"/>
   
   <link href="https://linuxtech.top/"/>
-  <updated>2026-07-09T09:01:06.560Z</updated>
+  <updated>2026-08-05T07:30:13.220Z</updated>
   <id>https://linuxtech.top/</id>
   
   <author>
@@ -17,11 +17,61 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Golang基础教程</title>
-    <link href="https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-ji-chu-jiao-cheng/"/>
-    <id>https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-ji-chu-jiao-cheng/</id>
+    <title>QQ群消息监控</title>
+    <link href="https://linuxtech.top/2026/08/04/golang-xiang-mu/qq-qun-xiao-xi-jian-kong/"/>
+    <id>https://linuxtech.top/2026/08/04/golang-xiang-mu/qq-qun-xiao-xi-jian-kong/</id>
+    <published>2026-08-04T13:48:00.000Z</published>
+    <updated>2026-08-05T07:30:13.220Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;QQ群消息监控系统-企业级方案&quot;&gt;&lt;a href=&quot;#QQ群消息监控系统-企业级方案&quot; class=&quot;headerlink&quot; title=&quot;QQ群消息监控系统 - 企业级方案&quot;&gt;&lt;/a&gt;QQ群消息监控系统 - 企业级方案&lt;/h1&gt;&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="Golang项目" scheme="https://linuxtech.top/categories/Golang%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="Golang项目-QQ群消息监控" scheme="https://linuxtech.top/tags/Golang%E9%A1%B9%E7%9B%AE-QQ%E7%BE%A4%E6%B6%88%E6%81%AF%E7%9B%91%E6%8E%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL数据库</title>
+    <link href="https://linuxtech.top/2026/03/26/go-yu-yan-kai-fa/web-kai-fa-yu-shu-ju-ku/mysql-shu-ju-ku/"/>
+    <id>https://linuxtech.top/2026/03/26/go-yu-yan-kai-fa/web-kai-fa-yu-shu-ju-ku/mysql-shu-ju-ku/</id>
+    <published>2026-03-26T13:48:00.000Z</published>
+    <updated>2026-07-30T06:29:51.008Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-数据库简介&quot;&gt;&lt;a href=&quot;#1-数据库简介&quot; class=&quot;headerlink&quot; title=&quot;1 数据库简介&quot;&gt;&lt;/a&gt;1 数据库简介&lt;/h1&gt;&lt;h2 id=&quot;1-1-数据库管理系统&quot;&gt;&lt;a href=&quot;#1-1-数据库管理系统&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Golang-Web开发与数据库" scheme="https://linuxtech.top/categories/Golang-Web%E5%BC%80%E5%8F%91%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="数据库" scheme="https://linuxtech.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang教程</title>
+    <link href="https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/golang-jiao-cheng/"/>
+    <id>https://linuxtech.top/2026/02/28/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/golang-jiao-cheng/</id>
     <published>2026-02-28T13:48:00.000Z</published>
-    <updated>2026-07-09T09:01:06.560Z</updated>
+    <updated>2026-08-10T13:39:41.406Z</updated>
     
     
       
@@ -34,19 +84,19 @@
     
     
     
-    <category term="Golang专栏-基础与核心能力" scheme="https://linuxtech.top/categories/Golang%E4%B8%93%E6%A0%8F-%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang-核心语法与核心能力" scheme="https://linuxtech.top/categories/Golang-%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
     
-    <category term="Golang基础与核心能力" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang核心语法" scheme="https://linuxtech.top/tags/Golang%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>Golang设计模式</title>
-    <link href="https://linuxtech.top/2026/02/27/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-she-ji-mo-shi/"/>
-    <id>https://linuxtech.top/2026/02/27/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-she-ji-mo-shi/</id>
+    <link href="https://linuxtech.top/2026/02/27/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/golang-she-ji-mo-shi/"/>
+    <id>https://linuxtech.top/2026/02/27/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/golang-she-ji-mo-shi/</id>
     <published>2026-02-27T13:48:00.000Z</published>
-    <updated>2026-07-09T09:00:57.557Z</updated>
+    <updated>2026-08-05T14:51:58.718Z</updated>
     
     
       
@@ -59,19 +109,19 @@
     
     
     
-    <category term="Golang专栏-基础与核心能力" scheme="https://linuxtech.top/categories/Golang%E4%B8%93%E6%A0%8F-%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang-核心语法与核心能力" scheme="https://linuxtech.top/categories/Golang-%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
     
-    <category term="Golang基础与核心能力" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang核心能力" scheme="https://linuxtech.top/tags/Golang%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
   </entry>
   
   <entry>
     <title>Golang并发编程</title>
-    <link href="https://linuxtech.top/2026/02/26/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-bing-fa-bian-cheng/"/>
-    <id>https://linuxtech.top/2026/02/26/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/golang-bing-fa-bian-cheng/</id>
+    <link href="https://linuxtech.top/2026/02/26/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/golang-bing-fa-bian-cheng/"/>
+    <id>https://linuxtech.top/2026/02/26/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/golang-bing-fa-bian-cheng/</id>
     <published>2026-02-26T13:48:00.000Z</published>
-    <updated>2026-07-15T08:26:44.523Z</updated>
+    <updated>2026-08-05T14:51:43.162Z</updated>
     
     
       
@@ -84,19 +134,19 @@
     
     
     
-    <category term="Golang专栏-基础与核心能力" scheme="https://linuxtech.top/categories/Golang%E4%B8%93%E6%A0%8F-%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang-核心语法与核心能力" scheme="https://linuxtech.top/categories/Golang-%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
     
-    <category term="Golang基础与核心能力" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang核心能力" scheme="https://linuxtech.top/tags/Golang%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
   </entry>
   
   <entry>
     <title>算法原理与分析</title>
-    <link href="https://linuxtech.top/2026/02/02/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/suan-fa-yuan-li-yu-fen-xi/"/>
-    <id>https://linuxtech.top/2026/02/02/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/suan-fa-yuan-li-yu-fen-xi/</id>
+    <link href="https://linuxtech.top/2026/02/02/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/suan-fa-yuan-li-yu-fen-xi/"/>
+    <id>https://linuxtech.top/2026/02/02/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/suan-fa-yuan-li-yu-fen-xi/</id>
     <published>2026-02-02T13:51:00.000Z</published>
-    <updated>2026-07-09T08:58:44.338Z</updated>
+    <updated>2026-08-05T14:51:37.078Z</updated>
     
     
       
@@ -110,19 +160,19 @@
     
     
     
-    <category term="Golang专栏-基础与核心能力" scheme="https://linuxtech.top/categories/Golang%E4%B8%93%E6%A0%8F-%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang-核心语法与核心能力" scheme="https://linuxtech.top/categories/Golang-%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
     
-    <category term="Golang基础与核心能力" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang核心能力" scheme="https://linuxtech.top/tags/Golang%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
   </entry>
   
   <entry>
     <title>数据结构与算法</title>
-    <link href="https://linuxtech.top/2026/02/01/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/shu-ju-jie-gou-yu-suan-fa/"/>
-    <id>https://linuxtech.top/2026/02/01/go-yu-yan-kai-fa/golang-ji-chu-yu-he-xin-neng-li/shu-ju-jie-gou-yu-suan-fa/</id>
+    <link href="https://linuxtech.top/2026/02/01/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/shu-ju-jie-gou-yu-suan-fa/"/>
+    <id>https://linuxtech.top/2026/02/01/go-yu-yan-kai-fa/golang-he-xin-yu-fa-yu-he-xin-neng-li/shu-ju-jie-gou-yu-suan-fa/</id>
     <published>2026-02-01T13:49:00.000Z</published>
-    <updated>2026-07-09T08:58:47.511Z</updated>
+    <updated>2026-08-05T14:51:30.522Z</updated>
     
     
       
@@ -135,10 +185,10 @@
     
     
     
-    <category term="Golang专栏-基础与核心能力" scheme="https://linuxtech.top/categories/Golang%E4%B8%93%E6%A0%8F-%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang-核心语法与核心能力" scheme="https://linuxtech.top/categories/Golang-%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
     
-    <category term="Golang基础与核心能力" scheme="https://linuxtech.top/tags/Golang%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
+    <category term="Golang核心能力" scheme="https://linuxtech.top/tags/Golang%E6%A0%B8%E5%BF%83%E8%83%BD%E5%8A%9B/"/>
     
   </entry>
   
@@ -339,48 +389,6 @@
     
     
     <category term="开启HTTP2.0和HTTP3.0功能" scheme="https://linuxtech.top/tags/%E5%BC%80%E5%90%AFHTTP2-0%E5%92%8CHTTP3-0%E5%8A%9F%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>生成与使用自签名证书</title>
-    <link href="https://linuxtech.top/2025/09/17/linux-ji-ben-ji-zhu/sheng-cheng-yu-shi-yong-zi-qian-ming-zheng-shu/"/>
-    <id>https://linuxtech.top/2025/09/17/linux-ji-ben-ji-zhu/sheng-cheng-yu-shi-yong-zi-qian-ming-zheng-shu/</id>
-    <published>2025-09-17T13:12:00.000Z</published>
-    <updated>2025-09-21T03:53:38.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-环境介绍&quot;&gt;&lt;a href=&quot;#1-环境介绍&quot; class=&quot;headerlink&quot; title=&quot;1 环境介绍&quot;&gt;&lt;/a&gt;1</summary>
-        
-      
-    
-    
-    
-    <category term="Linux基本技术" scheme="https://linuxtech.top/categories/Linux%E5%9F%BA%E6%9C%AC%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="生成与使用自签名证书" scheme="https://linuxtech.top/tags/%E7%94%9F%E6%88%90%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker容器</title>
-    <link href="https://linuxtech.top/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/"/>
-    <id>https://linuxtech.top/2025/08/03/rong-qi-ji-zhu/docker-rong-qi/</id>
-    <published>2025-08-03T13:48:00.000Z</published>
-    <updated>2025-10-14T09:00:42.000Z</updated>
-    
-    
-    
-    
-    <category term="容器技术" scheme="https://linuxtech.top/categories/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="Docker容器" scheme="https://linuxtech.top/tags/Docker%E5%AE%B9%E5%99%A8/"/>
     
   </entry>
   
