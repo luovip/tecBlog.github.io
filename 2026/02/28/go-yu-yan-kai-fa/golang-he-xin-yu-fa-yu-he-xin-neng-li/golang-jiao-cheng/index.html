@@ -523,21 +523,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2026-08-10
+                    2026-09-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    44.6k
+                    45.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    199 分
+                    202 分
                 </div>
                 
 
@@ -558,73 +558,68 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="1-Golang-基础入门"><a href="#1-Golang-基础入门" class="headerlink" title="1 Golang 基础入门"></a>1 Golang 基础入门</h1><h2 id="1-1-Golang简介"><a href="#1-1-Golang简介" class="headerlink" title="1.1 Golang简介"></a>1.1 Golang简介</h2><p>  Go(Golang)是Google的 Robert Griesemer，Rob Pike 及 Ken Thompson 开发的一种静态强类型、编译型语言。Go语言的语法与 C 相近，但功能上有：内存安全、GC(垃圾回收)，结构形态及CSP-style并发计算。</p>
-<p>  <strong>Go语言的特点</strong>:</p>
-<p>   1.背靠大厂，google背书，可靠</p>
-<p>   2.天生支持并发（最显著特点）</p>
-<p>   3.语法简单，容易上手</p>
-<p>   4.内置runtime，支持垃圾回收</p>
-<p>   5.可直接编译成机器码，不依赖其他库</p>
-<p>   6.丰富的标准库</p>
-<p>   7.跨平台编译</p>
-<p>  <strong>Go语言的应用领域</strong>：服务器编程、开发云平台、区块链、分布式系统、网络编程。</p>
-<p>  <strong>使用Go语言的公司(项目)</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>公司</th>
-<th>项目</th>
+<th>Go语言的特点</th>
+<th>Go语言的应用领域</th>
+<th></th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Google</td>
-<td>Kubernetes</td>
+<td>背靠大厂，google背书，可靠</td>
+<td>服务器编程</td>
+<td></td>
 </tr>
 <tr>
-<td>Facebook</td>
-<td>facebookgo</td>
+<td>天生支持并发（最显著特点）</td>
+<td>开发云平台</td>
+<td></td>
 </tr>
 <tr>
-<td>腾讯</td>
-<td>蓝鲸平台、容器技术</td>
+<td>语法简单，容易上手</td>
+<td>区块链</td>
+<td></td>
 </tr>
 <tr>
-<td>百度</td>
-<td>运维项目BFE</td>
+<td>内置runtime，支持垃圾回收</td>
+<td>分布式系统</td>
+<td></td>
 </tr>
 <tr>
-<td>京东</td>
-<td>消息推送系统、云存储、京东商城</td>
+<td>可直接编译成机器码，不依赖其他库</td>
+<td>网络编程</td>
+<td></td>
 </tr>
 <tr>
-<td>小米</td>
-<td>运维监控系统、小米互娱、小米商城、小米视频、小米生态链</td>
+<td>丰富的标准库</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
-<td>360</td>
-<td>日志搜索系统Poseidon</td>
+<td>跨平台编译</td>
+<td></td>
+<td></td>
 </tr>
 </tbody></table>
-<h2 id="1-2-Go语言开发环境"><a href="#1-2-Go语言开发环境" class="headerlink" title="1.2 Go语言开发环境"></a>1.2 Go语言开发环境</h2><h3 id="1-2-1-windows平台"><a href="#1-2-1-windows平台" class="headerlink" title="1.2.1 windows平台"></a>1.2.1 windows平台</h3><p>  <strong>1.下载安装包并配置环境变量</strong></p>
-<p>   <code>https://go.dev/dl/</code> —— Go 官方全球站点，面向国际用户</p>
-<p>   <code>https://golang.google.cn/dl/</code>—— Google 中国官方镜像，专为国内用户优化</p>
-<p>   两者提供的安装包完全一致，国内用 <code>.cn</code> 地址下载速度会快很多</p>
-<p>   安装路径选择一个比较好找的路径，例如：<code>D:\Go</code>，其他安装都选择”下一步“即可。</p>
-<p>   安装完成后，把<code>D:\Go\bin</code>目录添加到环境变量(系统变量-Path中添加)，这里就可以使用go了，在命令行输入 <code>go version</code>查看版本，输出结果如下所示。</p>
+<h2 id="1-2-windows安装Go"><a href="#1-2-windows安装Go" class="headerlink" title="1.2 windows安装Go"></a>1.2 windows安装Go</h2><h3 id="1-2-1-安装并配置环境变量"><a href="#1-2-1-安装并配置环境变量" class="headerlink" title="1.2.1 安装并配置环境变量"></a>1.2.1 安装并配置环境变量</h3><p>  <code>https://go.dev/dl/</code> —— Go 官方全球站点，面向国际用户。</p>
+<p>  <code>https://golang.google.cn/dl/</code>—— Google 中国官方镜像，专为国内用户优化。</p>
+<p>  两者提供的安装包完全一致，国内用 <code>.cn</code> 地址下载速度会快很多。</p>
+<p>  安装路径选择一个比较好找的路径，例如：<code>D:\Go</code>，其他安装都选择”下一步“即可。</p>
+<p>  安装完成后，把<code>D:\Go\bin</code>目录添加到环境变量(系统变量-Path中添加)，这里就可以使用go了，在命令行输入 <code>go version</code>查看版本，输出结果如下所示。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>bestv<span class="token operator">&gt;</span>go version
 go version go1.26.2 windows/amd64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>  <strong>2.配置Go环境</strong></p>
-<p>   使用go mod管理库，需要科学上网</p>
+<h3 id="1-2-2-配置Go环境"><a href="#1-2-2-配置Go环境" class="headerlink" title="1.2.2 配置Go环境"></a>1.2.2 配置Go环境</h3><p>  使用go mod管理库，需要科学上网</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GO111MODULE</span><span class="token operator">=</span>on 
 go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GOPROXY</span><span class="token operator">=</span>https://goproxy.cn,https://goproxy.io,direct
 
 <span class="token variable">$env</span>:GO111MODULE <span class="token operator">=</span> <span class="token string">"on"</span> 
 <span class="token variable">$env</span>:GOPROXY <span class="token operator">=</span> <span class="token string">"https://goproxy.cn"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>  <strong>3.安装配置git</strong></p>
-<p>   下载地址：<code>https://www.git-scm.com/download/</code></p>
-<p>   安装路径选择一个比较好找的路径，例如：<code>D:\Git</code>，其他安装都选择”下一步“即可。</p>
-<p>   安装完成后，把<code>D:\Git\bin</code>目录添加到环境变量(系统变量-Path中添加)，这里就可以使用go了，在命令行输入 <code>git version</code>查看版本，输出结果如下所示。</p>
+<h3 id="1-2-3-安装配置Git"><a href="#1-2-3-安装配置Git" class="headerlink" title="1.2.3 安装配置Git"></a>1.2.3 安装配置Git</h3><p>  下载地址：<code>https://www.git-scm.com/download/</code></p>
+<p>  安装路径选择一个比较好找的路径，例如：<code>D:\Git</code>，其他安装都选择”下一步“即可。</p>
+<p>  安装完成后，把<code>D:\Git\bin</code>目录添加到环境变量(系统变量-Path中添加)，这里就可以使用git了，在命令行输入 <code>git version</code>查看版本，输出结果如下所示。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">C:<span class="token punctuation">\</span>Users<span class="token punctuation">\</span>bestv<span class="token operator">&gt;</span>git version
 <span class="token function">git</span> version <span class="token number">2.54</span>.0.windows.1
 
@@ -640,11 +635,9 @@ Receiving objects: <span class="token number">100</span>% <span class="token pun
 Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">6214</span>/6214<span class="token punctuation">)</span>, done.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/images/git%E6%B5%8B%E8%AF%95.png"></p>
-<p>  <strong>4.goroot和gopath</strong></p>
-<p>   goroot就是go安装的根目录，gopath就是go项目所在的路径，高版本go项目已经不再依赖gopath来管理项目，使用go mod来管理项目。</p>
-<p>  <strong>5.Go工具集</strong></p>
-<p>   所有的Go开发工具都可以通过go命令访问。除了go version，还有编译器(go build)、代码格式化工具(go fmt)、依赖管理器(go mod)、测试运行器(go test)以及用于扫描常见编程错误的工具(go vet)等。</p>
-<h3 id="1-2-2-Linux平台"><a href="#1-2-2-Linux平台" class="headerlink" title="1.2.2 Linux平台"></a>1.2.2 Linux平台</h3><p>  如果不是要在Linux平台敲go代码就不需要在Linux平台安装Go，写好的go代码只需要跨平台编译好之后就可以拷贝到Linux服务器上运行，这也是go程序跨平台易部署的优势。</p>
+<h3 id="1-2-4-goroot和gopath"><a href="#1-2-4-goroot和gopath" class="headerlink" title="1.2.4 goroot和gopath"></a>1.2.4 goroot和gopath</h3><p>  goroot就是go安装的根目录，gopath就是go项目所在的路径，高版本go项目已经不再依赖gopath来管理项目，使用go mod来管理项目。</p>
+<h3 id="1-2-5-Go工具集"><a href="#1-2-5-Go工具集" class="headerlink" title="1.2.5 Go工具集"></a>1.2.5 Go工具集</h3><p>  所有的Go开发工具都可以通过go命令访问。除了go version，还有编译器(go build)、代码格式化工具(go fmt)、依赖管理器(go mod)、测试运行器(go test)以及用于扫描常见编程错误的工具(go vet)等。</p>
+<h2 id="1-3-Linux安装Go"><a href="#1-3-Linux安装Go" class="headerlink" title="1.3 Linux安装Go"></a>1.3 Linux安装Go</h2><p>  如果不是要在Linux平台敲go代码就不需要在Linux平台安装Go，写好的go代码只需要跨平台编译好之后就可以拷贝到Linux服务器上运行，这也是go程序跨平台易部署的优势。</p>
 <p>  在版本选择页面选择并下载好<code>go1.26.2.linux-amd64.tar.gz</code>文件：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://dl.google.com/go/go1.26.2.linux-amd64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -664,10 +657,6 @@ Resolving deltas: <span class="token number">100</span>% <span class="token punc
 <p>  修改<code>/etc/profile</code>后要重启生效，修改<code>$HOME/.profile</code>后使用source命令加载<code>$HOME/.profile</code>文件即可生效。 检查：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">~ go version
 go version go1.26.2 linux/amd64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="1-2-3-Mac平台"><a href="#1-2-3-Mac平台" class="headerlink" title="1.2.3 Mac平台"></a>1.2.3 Mac平台</h3><p>   下载可执行文件版，直接点击<strong>下一步</strong>安装即可，默认会将go安装到<code>/usr/local/go</code>目录下。</p>
-<p>   上一步安装过程执行完毕后，可以打开终端窗口，输入<code>go version</code>命令，查看安装的Go版本。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go version go1.26.2 darwin/amd64<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="1-4-第一个Go程序"><a href="#1-4-第一个Go程序" class="headerlink" title="1.4 第一个Go程序"></a>1.4 第一个Go程序</h2><p>  <code>注明：所有程序的运行终端为Goland编辑器的终端</code></p>
 <h3 id="1-4-1-创建Go模块"><a href="#1-4-1-创建Go模块" class="headerlink" title="1.4.1 创建Go模块"></a>1.4.1 创建Go模块</h3><p>  创建一个目录来存放程序，将这个目录命名为ch1，在命令行中进入新目录：</p>
@@ -712,7 +701,65 @@ Hello<span class="token punctuation">,</span> World<span class="token operator">
 <p>  二进制文件的名称与模块声明中的名称相匹配。如果想为应用程序取一个不同的名字，或者希望将它存储在不同的位置，可以使用-o标志。例如，如果想把代码编译成一个名为“hello”的二进制文件，可以使用以下命令:</p>
 <pre class="line-numbers language-go" data-language="go"><code class="language-go">PS F<span class="token punctuation">:</span>\Go_Project\ch1<span class="token operator">&gt;</span> <span class="token keyword">go</span> build <span class="token operator">-</span>o hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="1-4-3-go-fmt"><a href="#1-4-3-go-fmt" class="headerlink" title="1.4.3 go fmt"></a>1.4.3 go fmt</h3><h2 id="1-3-Golang开发工具"><a href="#1-3-Golang开发工具" class="headerlink" title="1.3 Golang开发工具"></a>1.3 Golang开发工具</h2><p>  golang的开发工具有很多，例如：vim、sublime、atom、LiteIDE、eclipse、goland、vscode</p>
+<h3 id="1-4-3-go-fmt"><a href="#1-4-3-go-fmt" class="headerlink" title="1.4.3 go fmt"></a>1.4.3 go fmt</h3><p>  Go的开发工具包括一个命令go fmt，它会自动修复代码中的空白符，以匹配标准格式。然而，它无法修复错误行上的大括号。可以用以下方法运行它：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">$ <span class="token keyword">go</span> fmt <span class="token punctuation">.</span><span class="token operator">/</span><span class="token operator">...</span>
+hello<span class="token punctuation">.</span><span class="token keyword">go</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>  使用 ./… 告诉Go工具将命令应用到当前目录及其所有子目录中的所有文件。打开hello.go文件，会看到带有fmt.Println的那行现在已经用一个制表符正确地缩进了。</p>
+<p>  记得在编译代码之前运行go fmt命令，至少在提交源代码变更到仓库之前要这么做。如果忘记了，就做一个单独的提交，仅执行go fmt ./…，这样就不会在一堆格式变更中隐藏逻辑更改了。</p>
+<p>  <strong>分号插入规则</strong>：</p>
+<p>  go fmt 命令不会修复错误行上的大括号，因为有分号插入规则。Go要求每个语句的末尾都需要一个分号。然而，Go编译器会自动添加它们，遵循一个简单规则。如果一行最后的标识符是以下任何一个，语法法分析器会在该标识符后插入一个分号：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token number">1.</span>标识符<span class="token punctuation">(</span>包括像<span class="token builtin">int</span>和<span class="token builtin">float64</span>这样的<span class="token punctuation">)</span>
+<span class="token number">2.</span>基础字面量，例如数字或字符串常量
+<span class="token number">3.</span>其中一个符号<span class="token punctuation">:</span><span class="token keyword">break</span>、<span class="token keyword">continue</span>、<span class="token keyword">fallthrough</span>、<span class="token keyword">return</span>、<span class="token operator">++</span>、<span class="token operator">--</span>、<span class="token punctuation">)</span>或<span class="token punctuation">}</span>。
+有了这个简单的规则，就可以看到为什么把大括号放错地方会导致代码中断。如果这样写代码：
+  <span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+      fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello, world!"</span><span class="token punctuation">)</span> 
+  <span class="token punctuation">}</span>
+分号插入规则看到<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>行末的 <span class="token punctuation">)</span>，会将代码转换成<span class="token punctuation">:</span>
+  <span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{</span>
+      fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello, world!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+而这不是合法的Go语言代码。
+分号插入规则以及由此产生的大括号放置服制，是使Go编译器更简单、更快速的因素之一，同时也强制实行了一种编码风格。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-4-4-go-vet"><a href="#1-4-4-go-vet" class="headerlink" title="1.4.4 go vet"></a>1.4.4 go vet</h3><p>  有一类错误，代码在语法上是合法的，但很可能是不正确的。go工具包括一个称为go vet的命令检测这类错误。在程序中添加一个错误看它如何被检测出来。将hello.go中的fmt.println行更改为以下内容：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"Hello, %s!\n"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>  fmt.Printf 与C、Java、Ruby等语言中的printf类似。fmt.Printf是一个带有第一个参数模板的函数，并且剩余的参数中有模板占位符的值。</p>
+<p>  在这个例子中，有一个模板(“Hello，%s!\n”)和一个%s占位符，但没有为占位符指定值。这段代码将编译并运行，但它是不正确的。go vet能检测到的其中一个问题是，在格式化模板中是否存在每个占位符的值。在修改后的代码上运行90vet，它会发现一个错误:</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">PS F<span class="token punctuation">:</span>\Go_Project\ch1<span class="token operator">&gt;</span> <span class="token keyword">go</span> vet <span class="token punctuation">.</span><span class="token operator">/</span><span class="token operator">...</span>
+hello<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">7</span><span class="token punctuation">:</span><span class="token number">21</span><span class="token punctuation">:</span> fmt<span class="token punctuation">.</span>Printf format <span class="token operator">%</span>s reads arg #<span class="token number">1</span><span class="token punctuation">,</span> but call has <span class="token number">0</span> args
+
+修改：fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"Hello, %s!\n"</span><span class="token punctuation">,</span> <span class="token string">"world"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-5-Makefile文件"><a href="#1-5-Makefile文件" class="headerlink" title="1.5 Makefile文件"></a>1.5 Makefile文件</h2><p>  集成开发环境虽好用，但难以自动化。现代软件开发依赖于可重复、可自动化的构建，这些构建可以由任何人在任何地点干任何时间执行，这种要求是工具化良好的软件工程实践。Go开发人员采纳了make作为解决方案。让开发者能指定构建程序所需的一系列操作及其执行顺序。</p>
+<p>  在ch1目录中创建一个名为Makefile的文件，并写人以下内容:</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token punctuation">.</span>DEFAULT_GOAL <span class="token operator">:=</span> bUild
+<span class="token punctuation">.</span>PHONY<span class="token punctuation">:</span>fmt vet build
+fmt<span class="token punctuation">:</span>
+        <span class="token keyword">go</span> fmt <span class="token punctuation">.</span><span class="token operator">/</span><span class="token operator">...</span>
+
+vet<span class="token punctuation">:</span> fmt
+        <span class="token keyword">go</span> vet <span class="token punctuation">.</span><span class="token operator">/</span><span class="token operator">...</span>
+
+build<span class="token punctuation">:</span> vet
+        <span class="token keyword">go</span> build<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>  .DEFAULT_GOAL定义了在没有指定目标时运行的目标。在这种情况下，默认是build目标。</p>
+<p>  冒号(:)前的词是目标的名称。</p>
+<p>  目标后的任何词(如 build:vet 中的 vet) 是在指定目标运行之前必须运行的其他目标。</p>
+<p>  目标执行的任务在目标之后的缩进行上。</p>
+<p>  .PHONY行可以防止 make 在项目中存在与所列目标同名的目录或文件时产生混淆。</p>
+<p>  运行make你应该看到以下输出:</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">$ <span class="token builtin">make</span>
+<span class="token keyword">go</span> fmt <span class="token punctuation">.</span><span class="token operator">/</span><span class="token operator">...</span>
+<span class="token keyword">go</span> vet <span class="token punctuation">.</span><span class="token operator">/</span><span class="token operator">...</span>
+<span class="token keyword">go</span> build<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-6-Go开发工具"><a href="#1-6-Go开发工具" class="headerlink" title="1.6 Go开发工具"></a>1.6 Go开发工具</h2><p>  golang的开发工具有很多，例如：vim、sublime、atom、LiteIDE、eclipse、goland、vscode</p>
 <p>  <strong>1.使用goland开发Go应用</strong></p>
 <p>   goland是一款付费的、功能强大的golang集成开发环境，是Jetbrain公司的产品。下载地址：<code>https://www.jetbrains.com/go/</code> goland非常智能，几乎不需要配置，安装即用。</p>
 <p>  <strong>2.使用vscode开发Go应用</strong></p>
@@ -730,7 +777,7 @@ Hello<span class="token punctuation">,</span> World<span class="token operator">
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/images/vscode%E9%85%8D%E7%BD%AEgo%E5%BC%80%E5%8F%91.png"></p>
-<h2 id="1-4-Golang常用命令"><a href="#1-4-Golang常用命令" class="headerlink" title="1.4 Golang常用命令"></a>1.4 Golang常用命令</h2><p>  在终端中输入 <code>go help</code> 即可显示所有的 go 命令以及相应命令功能简介，主要有下面这些:</p>
+<h2 id="1-7-Go常用命令"><a href="#1-7-Go常用命令" class="headerlink" title="1.7 Go常用命令"></a>1.7 Go常用命令</h2><p>  在终端中输入 <code>go help</code> 即可显示所有的 go 命令以及相应命令功能简介，主要有下面这些:</p>
 <table>
 <thead>
 <tr>
@@ -808,7 +855,7 @@ PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span cla
 <span class="token keyword">go</span> version go1<span class="token punctuation">.</span><span class="token number">26.2</span> windows<span class="token operator">/</span>amd64
 PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span class="token operator">&gt;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="1-5-VSCode快捷键"><a href="#1-5-VSCode快捷键" class="headerlink" title="1.5 VSCode快捷键"></a>1.5 VSCode快捷键</h2><p>  <strong>1.快捷键位置：File-&gt;Preferences-&gt;Keyboard Shortcuts</strong></p>
+<h2 id="1-8-VSCode快捷键"><a href="#1-8-VSCode快捷键" class="headerlink" title="1.8 VSCode快捷键"></a>1.8 VSCode快捷键</h2><p>  <strong>1.快捷键位置：File-&gt;Preferences-&gt;Keyboard Shortcuts</strong></p>
 <p>  <strong>2.常用快捷键</strong></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>. 行注释 ctrl + /
 <span class="token number">2</span>. 块注释 shift+alt+a <span class="token punctuation">(</span>可以修改为ctrl+shift+/<span class="token punctuation">)</span>
@@ -831,7 +878,7 @@ PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span cla
 <span class="token number">5</span><span class="token punctuation">.</span>fmain <span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token number">6</span><span class="token punctuation">.</span>a<span class="token punctuation">.</span><span class="token builtin">print</span><span class="token operator">!</span> fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"a: %v\\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="1-6-编写Golang代码"><a href="#1-6-编写Golang代码" class="headerlink" title="1.6 编写Golang代码"></a>1.6 编写Golang代码</h2><p>  <strong>1.代码组织</strong></p>
+<h2 id="1-9-编写Go代码"><a href="#1-9-编写Go代码" class="headerlink" title="1.9 编写Go代码"></a>1.9 编写Go代码</h2><p>  <strong>1.代码组织</strong></p>
 <p>   Go应用使用<strong>包</strong>和<strong>模块</strong>来组织代码，包对应到文件系统就是文件夹，模块就是**.go**的go源文件。一个包中会有多个模块，或者多个子包。</p>
 <p>  <strong>2.Go项目管理工具</strong></p>
 <p>   早期的go项目使用gopath来管理项目，不方便而且容易出错，golang 1.11 开始使用gomod管理项目，当然还有第三方模块例如：govendor</p>
@@ -872,7 +919,7 @@ PS C<span class="token punctuation">:</span>\Users\bestv\Desktop\go_pro<span cla
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/images/%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9D%97%E4%B8%8E%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8.png"></p>
-<h1 id="2-变量、常量与数据类型"><a href="#2-变量、常量与数据类型" class="headerlink" title="2 变量、常量与数据类型"></a>2 变量、常量与数据类型</h1><h2 id="2-1-标识符"><a href="#2-1-标识符" class="headerlink" title="2.1 标识符"></a>2.1 标识符</h2><p>  标识符的英文是<code>identifier</code>，通俗讲，就是给变量、常量、函数、方法、结构体、数组、切片、接口起名字。</p>
+<h1 id="2-基础类型"><a href="#2-基础类型" class="headerlink" title="2 基础类型"></a>2 基础类型</h1><h1 id="2-变量、常量与数据类型"><a href="#2-变量、常量与数据类型" class="headerlink" title="2 变量、常量与数据类型"></a>2 变量、常量与数据类型</h1><h2 id="2-1-标识符"><a href="#2-1-标识符" class="headerlink" title="2.1 标识符"></a>2.1 标识符</h2><p>  标识符的英文是<code>identifier</code>，通俗讲，就是给变量、常量、函数、方法、结构体、数组、切片、接口起名字。</p>
 <p>  <strong>标识符的组成</strong>:</p>
 <p>  1.标识符由数字、字母和下划线(<code>_</code>)组成。 </p>
 <p>  2.只能以字母和下划线(<code>_</code>)<strong>开头</strong>。                 如：abc123 _sysVar </p>
@@ -8284,7 +8331,7 @@ PS D<span class="token punctuation">:</span>\Go_Project<span class="token operat
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">297.9k</span>&nbsp;字
+                class="white-color">281.2k</span>&nbsp;字
             
             
             

@@ -1,0 +1,2134 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Gitea搭建与使用, Linux技术博客">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Gitea搭建与使用 | Linux技术博客</title>
+    <link rel="icon" type="image/png"
+        href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css"
+        href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/matery.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/my.css">
+    <link rel="stylesheet" type="text/css"
+        href="/css/loading.css">
+
+    <script
+        src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Linux技术博客" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+    
+    <style>
+    body{
+       background-image: url(/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+    
+    <body>
+        <div class="stars-con">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
+        <svg aria-hidden="true"
+            style="position: absolute; overflow: hidden; width: 0; height: 0">
+            <symbol id="icon-sun" viewBox="0 0 1024 1024">
+                <path
+                    d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z"
+                    fill="#FFD878" p-id="8420"></path>
+                <path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z"
+                    fill="#FFE4A9" p-id="8421"></path>
+                <path
+                    d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z"
+                    fill="#4D5152" p-id="8422"></path>
+                <path
+                    d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z"
+                    fill="#4D5152" p-id="8423"></path>
+            </symbol>
+            <symbol id="icon-moon" viewBox="0 0 1024 1024">
+                <path
+                    d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z"
+                    fill="#FFB531" p-id="11345"></path>
+                <path
+                    d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z"
+                    fill="#030835" p-id="11346"></path>
+            </symbol>
+        </svg>
+        <a onclick="switchNightMode()" class="icon-V hidden" title="切换主题">
+            <svg width="48" height="48" viewBox="0 0 1024 1024">
+                <use id="modeicon" xlink:href="#icon-moon"></use>
+            </svg>
+        </a>
+        <script>
+      function checkNightMode() {
+        '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
+      }
+       function switchNightMode() {
+         $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+           setTimeout(function () {
+             $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+               setTimeout(function () {
+                 $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                   $(this).remove()
+                 })
+               }, 2e3)
+           })
+       }
+      function switchNightModeTop() {
+        $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
+      }
+    </script>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Linux技术博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Linux技术博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/luovip/tecBlog.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/luovip/tecBlog.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/img/gitea.jpeg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Gitea搭建与使用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet"
+    href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+        background-color: rgb(255, 255, 255,0.7);
+        border-radius: 10px;
+        box-shadow: 0 10px 35px 2px rgba(0, 0, 0, .15), 0 5px 15px rgba(0, 0, 0, .07), 0 2px 5px -5px rgba(0, 0, 0, .1) !important;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+    #toc-content .toc-link:hover {
+        color: #f40;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #f40;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">
+                                <span class="chip bg-color">云原生与系统架构</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Golang-%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="post-category">
+                                Golang-云原生与系统架构
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-09-14
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-09-14
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    29 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-架构与参数"><a href="#1-架构与参数" class="headerlink" title="1 架构与参数"></a>1 架构与参数</h1><p><img src="/images/%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%8F%82%E6%95%B0.png"></p>
+<table>
+<thead>
+<tr>
+<th>固定参数</th>
+<th>值</th>
+<th>固定参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Git 服务器</td>
+<td>公网：124.222.84.111</td>
+<td>仓库</td>
+<td>admin/learn-dev，私有</td>
+</tr>
+<tr>
+<td>Gitea 版本</td>
+<td>1.27.3 (迁移时新机必须装同版本)</td>
+<td>管理员</td>
+<td>admin + 你自己定的强密码</td>
+</tr>
+<tr>
+<td>网页端口</td>
+<td>3000/TCP</td>
+<td>三端统一的远程地址</td>
+<td>git@gitea:admin/learn-dev.git(SSH 别名解析)</td>
+</tr>
+<tr>
+<td>Git SSH 端口</td>
+<td>2222/TCP(与 MobaXterm 管理用的 22 分开)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="2-安全策略"><a href="#2-安全策略" class="headerlink" title="2 安全策略"></a>2 安全策略</h1><p><strong>2222(Git 推拉)对公网开放</strong>：Gitea 内置 SSH 只接受公钥认证，没有输密码的通道，安全等级等同 GitHub。</p>
+<p><strong>3000(网页)在轻量防火墙限来源 IP</strong>：只允许家宽带公网 IP，服务器不需要开网页。</p>
+<p>Gitea 内关闭注册、锁死安装向导、仓库私有；</p>
+<p>22 管理端口建议也限家 IP。 </p>
+<p>更严格的可选做法：2222 也限白名单（三台固定 IP + 家宽 IP）。代价是家宽 IP 变了要改一次防火墙。本手册按”2222 开放、3000 限 IP”写，文末给严格版的差异。</p>
+<h1 id="3-Windows-目录结构"><a href="#3-Windows-目录结构" class="headerlink" title="3 Windows 目录结构"></a>3 Windows 目录结构</h1><h2 id="3-1-目录树"><a href="#3-1-目录树" class="headerlink" title="3.1 目录树"></a>3.1 目录树</h2><p>在资源管理器或 GoLand 里按此结构创建（空目录先放一个<code>.gitkeep</code> 空文件占位）：</p>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">e:\TRAE\learn-dev\                     ← Git 仓库根，GoLand 直接 Open 这个目录
+├── .gitignore                         ← 1.3 节创建
+├── pitfalls.md                        ← 唯一的文字笔记：踩坑记录（1.6 节）
+│
+├── go/
+│   ├── go.mod                         ← 小练习共用一个 module（1.4 节）
+│   ├── stage1-basics/                 【第一阶段：基础与核心能力】
+│   │   ├── 01-basic-syntax/           变量/类型/流程/函数/结构体/接口/error
+│   │   ├── 02-concurrency/            goroutine/channel/select/context/sync
+│   │   ├── 03-algorithm/              LeetCode 一题一文件：lc001-two-sum.go
+│   │   ├── 04-design-pattern/         设计模式，一种一个文件
+│   │   ├── 05-data-structure/         链表/栈/队列/树/堆/图自己实现
+│   │   ├── 06-network/                TCP/UDP/HTTP Socket 编程
+│   │   ├── 07-source-read/            源码阅读（阶段二之后再学）
+│   │   └── 08-high-freq-qa/           高频问题的验证性小实验
+│   ├── stage2-web-db/                 【第二阶段：Web 与数据库】
+│   │   ├── 01-gorm/                   ★ 重点
+│   │   ├── 02-xorm/                   ✗ 跳过（与 GORM 二选一）
+│   │   ├── 03-mysql/                  ○ 选学，会通用 SQL 即可
+│   │   ├── 04-postgresql/             ★ 重点（你的主数据库）
+│   │   ├── sql/                       ★ 手写的建表/初始化/查询练习 SQL 放这
+│   │   ├── 05-gin/                    ★ 重点
+│   │   ├── 06-gin-middleware/         ★ 日志/recover/JWT/跨域
+│   │   ├── 07-beego/                  ✗ 跳过
+│   │   ├── 08-html/                   ✗ 跳过（前后端分离用不到）
+│   │   └── 09-crawler/                ○ 选学
+│   ├── stage3-microservice/           【第三阶段：分布式与微服务】
+│   │   ├── 01-zookeeper/              ✗
+│   │   ├── 02-kafka/                  ★ 消息队列主推
+│   │   ├── 03-rabbitmq/               ○ 二选一备选
+│   │   ├── 04-protobuf/               ★
+│   │   ├── 05-grpc/                   ★
+│   │   ├── 06-thrift/                 ✗
+│   │   ├── 07-etcd/                   ★（K8s 控制面也用它，学一次两收益）
+│   │   ├── 08-go-kit/                 ○ 框架读一个即可
+│   │   ├── 09-go-micro/               ○
+│   │   ├── 10-kitex/                  ○
+│   │   ├── 11-kratos/                 ○
+│   │   └── 12-langchaingo/            ✗
+│   ├── stage4-cloudnative/            【第四阶段中与 Go/运维相关部分】
+│   │   ├── 01-linux/                  shell/常用命令练习
+│   │   ├── 02-docker/                 Dockerfile、多阶段构建
+│   │   ├── 03-prometheus/             埋点、PromQL、告警规则
+│   │   ├── 04-jaeger/                 ○ 后期
+│   │   ├── 05-istio/                  ○ 后期
+│   │   ├── 06-nginx/                  反向代理/负载均衡配置
+│   │   └── 07-git/                    本次搭建的命令速查、操作记录
+│   └── stage5-projects/               【第五阶段：综合项目，每个项目独立 go.mod】
+│       ├── 02-blog/                   ★ 建议第一个做（热身，知识点全）
+│       ├── 01-ecommerce/              ★ 主线大型项目
+│       ├── 03-ecommerce-microservice/ 学完 gRPC/K8s 再做
+│       ├── 05-rbac-admin/             ○ 权限模型借鉴
+│       └── ...（其余按兴趣）
+│
+├── k8s/                               【第四阶段核心：全部 YAML】
+│   ├── 01-basics/                     Pod/Label/Namespace/kubectl
+│   ├── 02-workload/                   Deployment/StatefulSet/DaemonSet/Job
+│   ├── 03-networking/                 Service/Ingress/DNS/NetworkPolicy
+│   ├── 04-storage/                    PV/PVC/ConfigMap/Secret/Volume
+│   ├── 05-scheduling/                 nodeSelector/亲和/污点容忍
+│   ├── 06-security/                   ServiceAccount/RBAC/安全上下文
+│   ├── 07-ops/                        探针/资源限制/HPA/PDB/排错
+│   ├── 08-helm/                       Chart 模板
+│   ├── 09-crd-operator/               ○ 后期
+│   └── 99-projects/                   把 Go 项目部署上 K8s 的全套 YAML
+│
+└── ops/                               运维资产（GitOps：运维配置也入库）
+    ├── git-server/                    Gitea 的安装/备份/迁移操作记录
+    ├── k8s-cluster/                   集群初始化、calico 运维命令
+    └── wireguard/                     wg 配置模板（私钥一律写占位符）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>规则：</p>
+<ul>
+<li>文件名全小写英文 + 短横线：<code>lc206-reverse-list.go</code> 、<code>deploy-nginx.yaml</code> 、<code>01-create-user-table.sql</code> ；</li>
+<li>每个练习都是 独立可运行的最小例子 ；</li>
+<li>真实文件放进去后删掉同目录的<code>.gitkeep</code> 。</li>
+</ul>
+<h2 id="3-2-学习推进方式"><a href="#3-2-学习推进方式" class="headerlink" title="3.2 学习推进方式"></a>3.2 学习推进方式</h2><p>阶段一打地基（01/02 最关键，<code>go test -race</code> 用熟）→ 阶段二只学 GORM+PG+Gin，学完立刻开<code>02-blog</code> 项目 → 阶段三 protobuf/gRPC/etcd/Kafka，把 blog 拆服务 → 阶段四 K8s 与 Go 并行，每个主题走”apply 正常版→搞破坏→观察→修复→提交”→ 阶段五项目打成镜像部署到<code>k8s/99-projects/</code> ，全链路收尾。</p>
+<h2 id="3-3-创建-gitignore"><a href="#3-3-创建-gitignore" class="headerlink" title="3.3 创建 .gitignore"></a>3.3 创建 .gitignore</h2><p>在仓库根目录创建(在<code>e:\learn-dev\.gitignore</code> 创建)</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"># ===== Go 产物 =====
+*.exe
+*.exe~
+*.test
+*.out
+*.log
+vendor/
+bin/
+dist/
+
+# ===== IDE / 系统 =====
+.idea/
+.vscode/
+*.swp
+*~
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ===== 密钥与敏感配置（严禁进库）=====
+*.key
+*.pem
+*.crt
+kubeconfig
+*.kubeconfig
+*.local.yaml
+*.local.yml
+*secret*.yaml
+.env
+.env.*
+
+# ===== 数据库与备份 =====
+# 注意：正常的建表/初始化 .sql 要提交；只排除数据 dump 和压缩备份
+*.dump
+*.bak
+*.sql.gz
+backups/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# ===== 临时目录 =====
+tmp/
+.tmp/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>SQL：只提交表结构、索引、种子数据这类”手写 SQL” ，<code>pg_dump</code> 导出来的整库数据 dump 不进库（体积大、含数据）。</p>
+<h2 id="3-4-Go-module-策略"><a href="#3-4-Go-module-策略" class="headerlink" title="3.4 Go module 策略"></a>3.4 Go module 策略</h2><p><strong>PowerShell 或 goland中执行</strong>。</p>
+<p>1.<code>go/go.mod</code>：一个共享 module</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> e:<span class="token punctuation">\</span>learn-dev<span class="token punctuation">\</span>go <span class="token parameter variable">-Force</span>
+<span class="token builtin class-name">cd</span> e:<span class="token punctuation">\</span>learn-dev<span class="token punctuation">\</span>go
+go mod init learn-dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>运行某个练习：<code>go run ./stage1-basics/02-concurrency/xxx.go</code> （在 go 目录下执行）。</p>
+<p>2.每个综合项目独立 module：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> e:<span class="token punctuation">\</span>learn-dev<span class="token punctuation">\</span>go<span class="token punctuation">\</span>stage5-projects
+<span class="token function">mkdir</span> 02-blog<span class="token punctuation">;</span> <span class="token builtin class-name">cd</span> 02-blog
+go mod init blog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-5-K8s-YAML-头部模板"><a href="#3-5-K8s-YAML-头部模板" class="headerlink" title="3.5 K8s YAML 头部模板"></a>3.5 K8s YAML 头部模板</h2><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 目的：验证 readinessProbe 失败时 Service 是否摘除流量</span>
+<span class="token comment"># 命令：kubectl apply -f xxx.yaml; kubectl get endpoints -w</span>
+<span class="token comment"># 正常：探针通过后 Pod 进入 Endpoints</span>
+<span class="token comment"># 搞破坏：path 改成 /not-ready -&gt; Endpoints 变空</span>
+<span class="token comment"># 结论：不 Ready 的 Pod 不接流量，与容器 Running 无关</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token punctuation">...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-6-pitfalls-md-格式"><a href="#3-6-pitfalls-md-格式" class="headerlink" title="3.6 pitfalls.md 格式"></a>3.6 pitfalls.md 格式</h2><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">##</span> 2026-09-20 readinessProbe 配错导致 Service 无端点</span>
+<span class="token list punctuation">-</span> 现象：Pod Running，访问 Service 503
+<span class="token list punctuation">-</span> 排查：kubectl describe pod 看探针；kubectl get endpoints 对照
+<span class="token list punctuation">-</span> 根因：探针 path 写错，容器从未 Ready
+<span class="token list punctuation">-</span> 修复：改对 path，Endpoints 自动恢复<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-7-提交规范"><a href="#3-7-提交规范" class="headerlink" title="3.7 提交规范"></a>3.7 提交规范</h2><p>信息格式：<code>类型(模块): 内容</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">go<span class="token punctuation">(</span>concurrency<span class="token punctuation">)</span>: 用 <span class="token parameter variable">-race</span> 复现无锁 map 写入 panic
+go<span class="token punctuation">(</span>gorm<span class="token punctuation">)</span>: 练习 PostgreSQL 连接池与预加载
+k8s<span class="token punctuation">(</span>networking<span class="token punctuation">)</span>: 验证 headless <span class="token function">service</span> 的 Pod 稳定 DNS
+sql<span class="token punctuation">(</span>postgresql<span class="token punctuation">)</span>:  <span class="token function">users</span> 表建表与索引练习
+feat<span class="token punctuation">(</span>docker<span class="token punctuation">)</span>: blog 多阶段构建 900MB-<span class="token operator">&gt;</span>18MB
+fix<span class="token punctuation">(</span>k8s<span class="token punctuation">)</span>: 修正探针路径后端点恢复
+chore: 更新 gitignore<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>类型只用这几个：<code>feat / fix / docs / chore / refactor / test</code> 。<br>分支：日常全在<code>main</code> ；大实验开<code>exp/xxx</code> ，做完<code>git merge --no-ff</code> 合回；阶段完成打标签<code>git tag -a stage1-done -m "阶段一完成"</code> 。</p>
+<h1 id="4-安装-Gitea"><a href="#4-安装-Gitea" class="headerlink" title="4 安装 Gitea"></a>4 安装 Gitea</h1><h2 id="4-1-装依赖、建服务账号和目录"><a href="#4-1-装依赖、建服务账号和目录" class="headerlink" title="4.1 装依赖、建服务账号和目录"></a>4.1 装依赖、建服务账号和目录</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装 Gitea 运行所需的四个依赖：</span>
+<span class="token comment">#   git              — Gitea 底层靠 git 命令做版本控制</span>
+<span class="token comment">#   sqlite           — SQLite3 动态库，Gitea 的数据库引擎（学习场景用 SQLite，免装 MySQL/PG）</span>
+<span class="token comment">#   wget             — 下载 Gitea 二进制文件</span>
+<span class="token comment">#   bash-completion  — 补全 git/gitea 子命令，敲命令少打字</span>
+dnf <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token function">git</span> sqlite <span class="token function">wget</span> bash-completion
+
+<span class="token comment"># 创建一个专用的系统服务账号 git（如果还不存在）：</span>
+<span class="token comment">#   --system           — 系统账号（UID &lt; 1000），不显示在登录界面，安全隔离</span>
+<span class="token comment">#   --shell /bin/bash  — 给它一个能执行命令的 shell（Gitea 内部 SSH 推拉代码时需要）</span>
+<span class="token comment">#   --create-home      — 创建 /home/git 作为家目录（SSH 密钥、known_hosts 存这里）</span>
+<span class="token comment">#   --user-group       — 同时创建同名用户组 git</span>
+<span class="token comment">#   --comment          — 备注，方便以后 who/last 里识别用途</span>
+<span class="token function">id</span> <span class="token function">git</span> <span class="token operator">||</span> <span class="token function">useradd</span> <span class="token parameter variable">--system</span> <span class="token parameter variable">--shell</span> /bin/bash --create-home <span class="token punctuation">\</span>
+  --home-dir /home/git --user-group <span class="token parameter variable">--comment</span> <span class="token string">"Gitea service"</span> <span class="token function">git</span>
+
+<span class="token comment"># 一次性建好 Gitea 运行所需的目录结构：</span>
+<span class="token comment">#   /var/lib/gitea/custom/  — 自定义模板、静态文件</span>
+<span class="token comment">#   /var/lib/gitea/data/    — 数据库存放目录（gitea.db）、仓库本体（gitea-repositories/）、LFS 文件</span>
+<span class="token comment">#   /var/lib/gitea/log/     — 日志文件</span>
+<span class="token comment">#   /var/lib/gitea/tmp/     — 临时文件（dump 备份、上传中转）</span>
+<span class="token comment">#   /etc/gitea/             — 配置文件目录（放 app.ini）</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /var/lib/gitea/<span class="token punctuation">{</span>custom,data,log,tmp<span class="token punctuation">}</span> /etc/gitea
+
+<span class="token comment"># 把 /var/lib/gitea 整个目录的属主设为 git:git</span>
+<span class="token comment"># 原因：systemd 服务以 git 用户启动 Gitea，它必须有读写自己数据的权限</span>
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git /var/lib/gitea
+
+<span class="token comment"># 设置目录权限为 750（属主 rwx、属组 r-x、其他人无任何权限）</span>
+<span class="token comment"># 原因：防住其他系统用户偷看你的仓库内容和数据库</span>
+<span class="token function">chmod</span> <span class="token number">750</span> /var/lib/gitea<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-安装二进制"><a href="#4-2-安装二进制" class="headerlink" title="4.2 安装二进制"></a>4.2 安装二进制</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> <span class="token parameter variable">-O</span> /usr/local/bin/gitea https://dl.gitea.com/gitea/1.27.3/gitea-1.27.3-linux-amd64
+<span class="token function">chmod</span> +x /usr/local/bin/gitea
+/usr/local/bin/gitea <span class="token parameter variable">--version</span>        <span class="token comment"># 必须显示 1.27.3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-3-生成-4-个密钥"><a href="#4-3-生成-4-个密钥" class="headerlink" title="4.3 生成 4 个密钥"></a>4.3 生成 4 个密钥</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 生成 Gitea 运行所需的四个安全密钥/令牌：</span>
+<span class="token comment"># 每个 gitea generate secret 都会输出一个高熵随机字符串，存到 shell 变量里</span>
+<span class="token comment"># 供下一步写 app.ini 时自动填入，全程不会出现在命令历史或终端输出中</span>
+
+<span class="token comment"># 1. SECRET_KEY</span>
+<span class="token comment">#    用途：加密 Cookie、记住登录状态、签名 Session 数据</span>
+<span class="token comment">#    如果泄露：别人可以伪造你的登录 Cookie，相当于绕过密码</span>
+<span class="token assign-left variable">SECRET</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>/usr/local/bin/gitea generate secret SECRET_KEY<span class="token variable">)</span></span>
+
+<span class="token comment"># 2. INTERNAL_TOKEN</span>
+<span class="token comment">#    用途：Gitea 内部子进程/组件之间互相调用时的身份验证令牌</span>
+<span class="token comment">#    （如 web 进程调 git 命令、内部 API 互访）</span>
+<span class="token comment">#    如果泄露：攻击者可以调用 Gitea 内部 API 执行特权操作</span>
+<span class="token assign-left variable">INTERNAL</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>/usr/local/bin/gitea generate secret INTERNAL_TOKEN<span class="token variable">)</span></span>
+
+<span class="token comment"># 3. JWT_SECRET</span>
+<span class="token comment">#    用途：签发 OAuth2 令牌的 JSON Web Token 密钥</span>
+<span class="token comment">#    （Gitea 的 API Token、OAuth2 应用授权都用它签名）</span>
+<span class="token comment">#    如果泄露：别人可以伪造 API 令牌冒充任意用户调 API</span>
+<span class="token assign-left variable">JWT</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>/usr/local/bin/gitea generate secret JWT_SECRET<span class="token variable">)</span></span>
+
+<span class="token comment"># 4. LFS_JWT_SECRET</span>
+<span class="token comment">#    用途：Git LFS（大文件存储）推送/拉取时的认证令牌签名</span>
+<span class="token comment">#    LFS 让你把大文件（图片、二进制等）存到 Gitea 而不塞进 git 历史</span>
+<span class="token comment">#    如果泄露：别人可以读写你的 LFS 文件存储</span>
+<span class="token assign-left variable">LFS</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>/usr/local/bin/gitea generate secret LFS_JWT_SECRET<span class="token variable">)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-4-写主配置"><a href="#4-4-写主配置" class="headerlink" title="4.4 写主配置"></a>4.4 写主配置</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/gitea/app.ini <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+# ==================== 全局配置 ====================
+APP_NAME = Learn-Dev                    # 站点名称，显示在网页标题和左上角
+RUN_MODE = prod                        # 生产模式：关闭调试信息、压缩模板、不打印敏感日志
+RUN_USER = git                         # Gitea 进程以 git 用户身份运行（和文件权限匹配）
+WORK_PATH = /var/lib/gitea              # Gitea 工作目录，custom/data/log/tmp 的父目录
+
+# ==================== 数据库 ====================
+[database]
+DB_TYPE  = sqlite3                     # 用 SQLite3：单文件、零运维、学习场景足够
+PATH     = /var/lib/gitea/data/gitea.db  # 数据库文件路径（账号、仓库元信息、Issue 全在这一个文件里）
+LOG_SQL  = false                      # 不在日志里打印每条 SQL，减少日志噪音
+
+# ==================== 仓库存储 ====================
+[repository]
+ROOT           = /var/lib/gitea/data/gitea-repositories  # 所有 Git 裸仓库的根目录
+                                              # 你的仓库实际存在 admin/learn-dev.git/ 下
+DEFAULT_BRANCH = main                 # 新仓库默认分支名，和现代 Git 规范一致
+
+# ==================== 服务器/网络 ====================
+[server]
+PROTOCOL         = http               # 走 HTTP（不配 HTTPS，学习环境够用）
+DOMAIN           = 124.222.84.111     # 公网 IP，用于生成克隆地址和网页链接
+SSH_DOMAIN       = 124.222.84.111     # Git SSH 克隆地址里的主机名
+HTTP_ADDR        = 0.0.0.0            # 监听所有网卡（公网网卡可达），来源限制靠防火墙
+HTTP_PORT        = 3000               # 网页访问端口
+ROOT_URL         = http://124.222.84.111:3000/  # 网页上所有链接的基础 URL
+START_SSH_SERVER = true              # 启用 Gitea 内置 SSH 服务器（推送/拉取代码用）
+SSH_PORT         = 2222              # 对外显示的 SSH 端口（客户端连接用这个）
+SSH_LISTEN_PORT  = 2222              # 实际监听的 SSH 端口（和 SSH_PORT 一致）
+                                     # 2222 和系统管理的 22 端口分开，互不干扰
+LFS_START_SERVER = true              # 启用 Git LFS（大文件存储），以后存图片等大文件用
+OFFLINE_MODE     = true              # 离线模式：不访问 Gitea 官网下载模板/资源（国内网络稳定）
+
+# ==================== 安全 ====================
+[security]
+INSTALL_LOCK   = true               # 锁死安装向导：禁止任何人通过网页重新初始化 Gitea
+SECRET_KEY     = <span class="token variable">${SECRET}</span>           # Cookie/Session 签名密钥（上一步生成的变量自动填入）
+INTERNAL_TOKEN = <span class="token variable">${INTERNAL}</span>        # 内部组件互相调用的认证令牌（自动填入）
+
+# ==================== OAuth2 / API 令牌 ====================
+[oauth2]
+ENABLED     = true                   # 启用 OAuth2（API Token 签发依赖此功能）
+JWT_SECRET = <span class="token variable">${JWT}</span>                 # JWT 签名密钥（自动填入）
+
+# ==================== Git LFS 大文件 ====================
+[lfs]
+JWT_SECRET = <span class="token variable">${LFS}</span>                # LFS 推拉认证令牌的签名密钥（自动填入）
+
+# ==================== 用户/注册策略 ====================
+[service]
+DISABLE_REGISTRATION  = true       # 禁止任何人自助注册账号（只有管理员能建用户）
+REQUIRE_SIGNIN_VIEW   = true        # 未登录用户看不到任何页面内容（仓库列表也不可见）
+REGISTER_EMAIL_CONFIRM = false      # 关闭邮件验证（没配邮件服务，开了一半注册不了）
+
+# ==================== 邮件 ====================
+[mailer]
+ENABLED = false                     # 不启用邮件发送（忘记密码走命令行重置，不走邮件）
+
+# ==================== 日志 ====================
+[log]
+MODE      = console,file            # 同时输出到终端（systemd journal）和文件
+LEVEL     = Info                    # 日志级别：Info（排错时临时改 Debug 看更多细节）
+ROOT_PATH = /var/lib/gitea/log      # 日志文件存放目录
+
+# ==================== 其他 ====================
+[other]
+SHOW_FOOTER_VERSION = false         # 网页底部不显示 Gitea 版本号（减少信息泄露给扫描器）
+EOF</span>
+
+<span class="token function">chown</span> git:git /etc/gitea/app.ini
+<span class="token function">chmod</span> <span class="token number">640</span> /etc/gitea/app.ini<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>要点：<code>HTTP_ADDR=0.0.0.0</code> 保证公网网卡可访问；</p>
+<p><code>INSTALL_LOCK</code> 锁死安装向导；</p>
+<p><code>DISABLE_REGISTRATION</code> 禁止任何人自助注册。</p>
+<h2 id="4-5-注册-systemd-服务"><a href="#4-5-注册-systemd-服务" class="headerlink" title="4.5 注册 systemd 服务"></a>4.5 注册 systemd 服务</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;</span> /etc/systemd/system/gitea.service <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+[Unit]
+Description=Gitea (Git with a cup of tea)
+
+# 网络就绪后启动
+After=network.target                          
+
+[Service]
+
+# 主进程常驻型
+Type=simple                                   
+User=git
+Group=git
+
+# 工作目录，也是仓库根
+WorkingDirectory=/var/lib/gitea/ 
+
+# 用独立配置启动
+ExecStart=/usr/local/bin/gitea web --config /etc/gitea/app.ini  
+Restart=always
+
+# 崩溃后 3 秒重启
+RestartSec=3s             
+
+# 给 git 用户提供 HOME/GITEA_WORK_DIR
+Environment=USER=git HOME=/home/git GITEA_WORK_DIR=/var/lib/gitea  
+
+# 提升文件描述符上限，避免大量仓库时打开失败
+LimitNOFILE=524288                          
+
+[Install]
+# 多用户运行级（默认开机启动）
+WantedBy=multi-user.target                  
+EOF</span>
+
+systemctl daemon-reload                       
+systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> gitea                  
+<span class="token function">sleep</span> <span class="token number">3</span>                                       
+systemctl --no-pager status gitea <span class="token operator">|</span> <span class="token function">head</span> <span class="token parameter variable">-n</span> <span class="token number">12</span> 
+
+<span class="token comment"># 如果启用了 SELinux（CentOS 默认 enforce），给 Gitea 目录打默认标签，避免访问被拦截</span>
+<span class="token builtin class-name">command</span> <span class="token parameter variable">-v</span> restorecon <span class="token operator">&gt;</span>/dev/null <span class="token operator">&amp;&amp;</span> restorecon <span class="token parameter variable">-R</span> /var/lib/gitea /etc/gitea<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-6-创建管理员"><a href="#4-6-创建管理员" class="headerlink" title="4.6 创建管理员"></a>4.6 创建管理员</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token parameter variable">-u</span> <span class="token function">git</span> <span class="token assign-left variable"><span class="token environment constant">HOME</span></span><span class="token operator">=</span>/home/git <span class="token assign-left variable">GITEA_WORK_DIR</span><span class="token operator">=</span>/var/lib/gitea <span class="token punctuation">\</span>
+/usr/local/bin/gitea admin user create <span class="token punctuation">\</span>
+  <span class="token parameter variable">--config</span> /etc/gitea/app.ini <span class="token parameter variable">--admin</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--username</span> admin <span class="token parameter variable">--email</span> admin@learn.dev <span class="token punctuation">\</span>
+  <span class="token parameter variable">--password</span> <span class="token string">'gitea@779543'</span> --must-change-password<span class="token operator">=</span>false
+  
+<span class="token comment"># 忘记密码时的重置命令</span>
+<span class="token function">sudo</span> <span class="token parameter variable">-u</span> <span class="token function">git</span> <span class="token assign-left variable"><span class="token environment constant">HOME</span></span><span class="token operator">=</span>/home/git <span class="token assign-left variable">GITEA_WORK_DIR</span><span class="token operator">=</span>/var/lib/gitea <span class="token punctuation">\</span>
+/usr/local/bin/gitea admin user change-password <span class="token punctuation">\</span>
+<span class="token parameter variable">--config</span> /etc/gitea/app.ini <span class="token parameter variable">--username</span> admin <span class="token parameter variable">--password</span> <span class="token string">'新密码'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="5-防火墙与安全组"><a href="#5-防火墙与安全组" class="headerlink" title="5 防火墙与安全组"></a>5 防火墙与安全组</h1><h2 id="5-1-系统防火墙"><a href="#5-1-系统防火墙" class="headerlink" title="5.1 系统防火墙"></a>5.1 系统防火墙</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">if</span> systemctl is-active <span class="token parameter variable">--quiet</span> firewalld<span class="token punctuation">;</span> <span class="token keyword">then</span>
+  firewall-cmd <span class="token parameter variable">--permanent</span> --add-port<span class="token operator">=</span><span class="token number">3000</span>/tcp
+  firewall-cmd <span class="token parameter variable">--permanent</span> --add-port<span class="token operator">=</span><span class="token number">2222</span>/tcp
+  firewall-cmd <span class="token parameter variable">--reload</span>
+  firewall-cmd --list-ports
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>来源限制交给腾讯云控制台做（轻量的防火墙规则支持源 IP，比 firewalld 管理方便）。</p>
+<h2 id="5-2-腾讯云防火墙设置"><a href="#5-2-腾讯云防火墙设置" class="headerlink" title="5.2 腾讯云防火墙设置"></a>5.2 腾讯云防火墙设置</h2><p>控制台 → 轻量服务器 → 选中 （124.222.84.111）→ 防火墙 标签 → 添加规则：</p>
+<table>
+<thead>
+<tr>
+<th>应用类型</th>
+<th>协议端口</th>
+<th>来源</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自定义</td>
+<td>TCP:2222</td>
+<td>0.0.0.0/0</td>
+<td>Git 推拉，仅密钥认证，全网可访问（GitHub同款)</td>
+</tr>
+<tr>
+<td>自定义</td>
+<td>TCP:3000</td>
+<td>某宽带公网IP/32</td>
+<td>网页，只允许自己访问（百度搜”IP”获取）</td>
+</tr>
+<tr>
+<td>SSH</td>
+<td>TCP:22</td>
+<td>某宽带公网IP/32</td>
+<td>MobaXterm 管理（建议收紧；出门时临时改）</td>
+</tr>
+</tbody></table>
+<p>验收安全策略：</p>
+<ul>
+<li>手机关 WiFi 用 4G 浏览器开<code>http://124.222.84.111:3000</code> → 应打不开/超时（网页被限源）；</li>
+<li>但在手机热点网络下，Windows 上<code>ssh -T gitea</code> （第 6 章配完）仍能通 → 说明 Git 通道全网可达、网页不裸奔。</li>
+</ul>
+<h2 id="5-3-防暴力扫描"><a href="#5-3-防暴力扫描" class="headerlink" title="5.3 防暴力扫描"></a>5.3 防暴力扫描</h2><p>2222 只认密钥、3000 限了 IP，风险已经很低。想更稳可装 fail2ban 看守 22 和 Gitea 网页登录：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dnf <span class="token function">install</span> <span class="token parameter variable">-y</span> epel-release <span class="token operator">&amp;&amp;</span> dnf <span class="token function">install</span> <span class="token parameter variable">-y</span> fail2ban-server
+systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> fail2ban<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="6-Windows-配置"><a href="#6-Windows-配置" class="headerlink" title="6 Windows 配置"></a>6 Windows 配置</h1><h2 id="6-1-安装-Git"><a href="#6-1-安装-Git" class="headerlink" title="6.1 安装 Git"></a>6.1 安装 Git</h2><p><a target="_blank" rel="noopener" href="https://git-scm.com/download/win">https://git-scm.com/download/win</a> 下载，安装选项全部默认即可。装完打开 PowerShell：</p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token function">PS</span> C:\Users\Administrator&gt; git version
+git version 2<span class="token punctuation">.</span>55<span class="token punctuation">.</span>0<span class="token punctuation">.</span>windows<span class="token punctuation">.</span>2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="6-2-全局身份配置"><a href="#6-2-全局身份配置" class="headerlink" title="6.2 全局身份配置"></a>6.2 全局身份配置</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"admin"</span>
+git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"luovipyu@163.com"</span>
+git config <span class="token operator">--</span>global init<span class="token punctuation">.</span>defaultBranch main
+git config <span class="token operator">--</span>global core<span class="token punctuation">.</span>autocrlf false
+git config <span class="token operator">--</span>global core<span class="token punctuation">.</span>safecrlf warn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>core.autocrlf false</code> 很重要：保证写的<code>.sh/.yaml/.sql</code> 到 Linux 上换行符不乱。</p>
+<h2 id="6-3-生成-SSH-密钥"><a href="#6-3-生成-SSH-密钥" class="headerlink" title="6.3 生成 SSH 密钥"></a>6.3 生成 SSH 密钥</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">ssh-keygen <span class="token operator">-</span>t ed25519 <span class="token operator">-</span>C <span class="token string">"windows-goland"</span>
+
+连问三次（存哪里、口令、确认口令）， 全部直接回车 。然后复制公钥：
+
+<span class="token function">Get-Content</span> <span class="token variable">$HOME</span>\<span class="token punctuation">.</span>ssh\id_ed25519<span class="token punctuation">.</span>pub
+
+<span class="token function">PS</span> C:\Users\Administrator&gt; <span class="token function">Get-Content</span> <span class="token variable">$HOME</span>\<span class="token punctuation">.</span>ssh\id_ed25519<span class="token punctuation">.</span>pub
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFvIpqI708XKCDsBpPXCSfWC9DCJJfF96phsyzo2V7vU windows-goland
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-4-网页建仓-挂公钥"><a href="#6-4-网页建仓-挂公钥" class="headerlink" title="6.4 网页建仓 + 挂公钥"></a>6.4 网页建仓 + 挂公钥</h2><p>1.浏览器开<code>http://124.222.84.111:3000/</code> （此时需在你家宽带网络下），用 admin 登录；</p>
+<p>2.右上角 + → 新建仓库 ：仓库名<code>learn-dev</code> ，勾「私有仓库」， README/.gitignore/许可证都不勾 ，创建；</p>
+<p>3.右上角头像 → 设置 → 左侧 SSH / GPG 密钥 → 添加密钥：名称<code>windows-goland</code> ，粘贴公钥，保存。</p>
+<h2 id="6-5-配置-SSH-别名"><a href="#6-5-配置-SSH-别名" class="headerlink" title="6.5 配置 SSH 别名"></a>6.5 配置 SSH 别名</h2><p>用记事本创建文件<code>C:\Users\你的Windows用户名\.ssh\config</code> （ 没有后缀名 ），内容：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">Host gitea
+    HostName 124.222.84.111
+    User git
+    Port 2222
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>PowerShell 测试：</p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">ssh <span class="token operator">-</span>T gitea
+
+输入yes打通即可
+
+Hi there<span class="token punctuation">,</span> admin! You've successfully authenticated with the key named 代码提交与拉取<span class="token punctuation">,</span> but Gitea does not provide shell access<span class="token punctuation">.</span>
+<span class="token keyword">If</span> this is unexpected<span class="token punctuation">,</span> please log in with password and setup Gitea under another user<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-6-首次推送"><a href="#6-6-首次推送" class="headerlink" title="6.6 首次推送"></a>6.6 首次推送</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token function">PS</span> C:\Users\Administrator&gt; cd e:\learn-dev
+<span class="token function">PS</span> E:\learn-dev&gt; git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to include in what will be committed<span class="token punctuation">)</span>
+        go/
+        k8s/
+        ops/
+
+nothing added to commit but untracked files present <span class="token punctuation">(</span>use <span class="token string">"git add"</span> to track<span class="token punctuation">)</span>
+
+`git status` 里确认只有源码<span class="token operator">/</span>YAML/SQL/笔记，没有`<span class="token punctuation">.</span>exe/<span class="token punctuation">.</span>db/<span class="token punctuation">.</span>key` 等（验证`<span class="token punctuation">.</span>gitignore` 生效），然后：
+
+
+<span class="token comment"># 把所有未追踪/已修改文件加入暂存区</span>
+git add <span class="token punctuation">.</span>
+
+<span class="token comment"># 提交，-m 后跟提交说明（Conventional Commits 格式：chore 表示杂项/构建变更）</span>
+git commit <span class="token operator">-</span>m <span class="token string">"chore: 初始化 Go + K8s 学习仓库"</span>
+
+<span class="token comment"># 把当前分支重命名为 main（Git 默认 init 分支名可能是 master，统一为 main）</span>
+git branch <span class="token operator">-</span>M main
+
+<span class="token comment"># 添加远程仓库别名 origin，指向 Gitea 上 admin 用户的 learn-dev 仓库</span>
+git remote add origin git@gitea:admin/learn-dev<span class="token punctuation">.</span>git
+
+<span class="token comment"># 首次推送到 origin 的 main 分支，-u 设置 upstream 后以后直接 git push 即可</span>
+git push <span class="token operator">-</span>u origin main
+
+如果`git remote add origin` 报`remote origin already exists` （之前已加过），改成
+git remote <span class="token function">set-url</span> origin git@gitea:admin/learn-dev<span class="token punctuation">.</span>git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>刷新网页<code>http://124.222.84.111:3000/admin/learn-dev</code> ，看到目录结构即成功。</p>
+<p>若提示 remote origin 已存在：<code>git remote set-url origin git@gitea:admin/learn-dev.git</code> </p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">后续推送：
+git add <span class="token punctuation">.</span>
+git commit <span class="token operator">-</span>m <span class="token string">"你的提交说明"</span>
+git push
+
+简洁写法：
+git commit <span class="token operator">-</span>am <span class="token string">"你的提交说明"</span>
+git push
+
+
+`<span class="token operator">-</span>am` 的`<span class="token operator">-</span>a` 只处理 已追踪文件 的修改<span class="token operator">/</span>删除， 新文件不会被 add 。`pitfalls<span class="token punctuation">.</span>md` 是新的未追踪文件，所以没被纳入。
+`<span class="token punctuation">.</span>gitignore` 也没改动的话，就出现了`nothing added to commit` 。
+
+先加所有新文件和修改
+git add <span class="token punctuation">.</span>gitignore pitfalls<span class="token punctuation">.</span>md
+
+再提交（此时不需要 <span class="token operator">-</span>a）
+git commit <span class="token operator">-</span>m <span class="token string">"修改.gitignore文件和增加pitfalls.md文件"</span>
+git push
+
+一次性操作：
+git add <span class="token punctuation">.</span>
+git commit <span class="token operator">-</span>m <span class="token string">"修改.gitignore文件和增加pitfalls.md文件"</span>
+git push`
+
+总结记忆 ：`<span class="token operator">-</span>am` 适合只有修改没有新文件的场景；有新文件时必须先`git add` 。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-7-GoLand-配置"><a href="#6-7-GoLand-配置" class="headerlink" title="6.7 GoLand 配置"></a>6.7 GoLand 配置</h2><p><strong>1.File → Open → 选择 learn-dev</strong> ；</p>
+<p><strong>2.File → Settings → Version Control → Git ，Path to Git executable 一般自动识别为<code>C:\Program Files\Git\bin\git.exe</code> ，点 Test 出现版本号</strong>；</p>
+<p><strong>3.日常三个快捷键</strong>：</p>
+<p>Ctrl+K ：提交（勾选文件、写 message、Commit）</p>
+<p>Ctrl+Shift+K ：推送</p>
+<p>Ctrl+T ：拉取</p>
+<p><strong>4.底部 Git → Log 面板就是图形化<code>git log</code> ，右键文件可看 diff、历史</strong>。</p>
+<h1 id="7-服务器推送-拉取配置"><a href="#7-服务器推送-拉取配置" class="headerlink" title="7 服务器推送/拉取配置"></a>7 服务器推送/拉取配置</h1><p>Git 走公网 完全不需要碰 WG 配置 ，K8s 网络不受任何影响。以 master 为例：</p>
+<h2 id="7-1-装-Git、配身份、生成密钥"><a href="#7-1-装-Git、配身份、生成密钥" class="headerlink" title="7.1 装 Git、配身份、生成密钥"></a>7.1 装 Git、配身份、生成密钥</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dnf <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token function">git</span>
+
+<span class="token comment"># ---- master 上 ----</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> user.name <span class="token string">"k8s-master"</span>
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> user.email <span class="token string">"master@learn.dev"</span>
+
+<span class="token comment"># ---- node1 上改成 ----</span>
+<span class="token comment"># git config --global user.name "k8s-node1"</span>
+<span class="token comment"># git config --global user.email "node1@learn.dev"</span>
+
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> init.defaultBranch main
+<span class="token function">git</span> config <span class="token parameter variable">--global</span> core.autocrlf <span class="token boolean">false</span>
+
+ssh-keygen <span class="token parameter variable">-t</span> ed25519 <span class="token parameter variable">-C</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">hostname</span><span class="token variable">)</span></span>"</span>     <span class="token comment"># 全部直接回车</span>
+<span class="token function">cat</span> ~/.ssh/id_ed25519.pub                  <span class="token comment"># 复制整行</span>
+
+<span class="token punctuation">[</span>root@k8s-master ~<span class="token punctuation">]</span><span class="token comment"># cat ~/.ssh/id_ed25519.pub</span>
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILt/PFpEN2TuL84g3ll6wFs7wUsKjZAdoSaRhGyDSbJg k8s-master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-2-网页添加公钥"><a href="#7-2-网页添加公钥" class="headerlink" title="7.2 网页添加公钥"></a>7.2 网页添加公钥</h2><p><code>http://124.222.84.111:3000</code> → 头像 → 设置 → SSH / GPG 密钥 → 添加：master 的公钥名称填<code>k8s-master</code> ；node1 同样做一遍，名称<code>k8s-node1</code> 。一个账号可挂多把密钥。</p>
+<h2 id="7-3-配置-SSH-别名"><a href="#7-3-配置-SSH-别名" class="headerlink" title="7.3 配置 SSH 别名"></a>7.3 配置 SSH 别名</h2><p><strong>两台都配，HostName 是公网 IP</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&gt;&gt;</span> ~/.ssh/config <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+
+Host gitea
+    HostName 124.222.84.111
+    User git
+    Port 2222
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+EOF</span>
+
+<span class="token function">chmod</span> <span class="token number">600</span> ~/.ssh/config
+
+<span class="token function">ssh</span> <span class="token parameter variable">-T</span> gitea          <span class="token comment"># 首次输 yes，看到 Hi there, admin!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-4-克隆仓库"><a href="#7-4-克隆仓库" class="headerlink" title="7.4 克隆仓库"></a>7.4 克隆仓库</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone git@gitea:admin/learn-dev.git ~/learn-dev
+<span class="token function">ls</span> ~/learn-dev        <span class="token comment"># 能看到 go/ k8s/ ops/ pitfalls.md等</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="7-5-双向闭环测试"><a href="#7-5-双向闭环测试" class="headerlink" title="7.5 双向闭环测试"></a>7.5 双向闭环测试</h2><p>master 上推一个 YAML：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/learn-dev
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> k8s/01-basics
+<span class="token function">cat</span> <span class="token operator">&gt;</span> k8s/01-basics/nginx-pod.yaml <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
+# 目的：第一个 Pod 练习
+# 命令：kubectl apply -f nginx-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-test
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27-alpine
+EOF</span>
+
+<span class="token function">git</span> <span class="token function">add</span> k8s/01-basics/nginx-pod.yaml
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"feat(k8s): 第一个 Pod 练习"</span>
+<span class="token function">git</span> push
+
+然后到 GoLand 按 Ctrl+T ，能拉到该文件，三端链路完工。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="8-日常怎么用"><a href="#8-日常怎么用" class="headerlink" title="8 日常怎么用"></a>8 日常怎么用</h1><h2 id="8-1-Windows-写-Go"><a href="#8-1-Windows-写-Go" class="headerlink" title="8.1 Windows 写 Go"></a>8.1 Windows 写 Go</h2><p>GoLand 写代码 → Ctrl+K（message 示例如<code>go(gin): 练习 JSON 绑定与校验</code> ）→ Ctrl+Shift+K。网页随时在<code>http://124.222.84.111:3000</code> 查看。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span>.看改了啥
+  <span class="token function">git</span> status
+
+<span class="token number">2</span>.提交（有新文件用 <span class="token function">add</span> .，只有修改用 commit -am）
+  <span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+  <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"你的提交说明"</span>
+
+<span class="token number">3</span>.推送
+  <span class="token function">git</span> push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-2-服务器写-YAML"><a href="#8-2-服务器写-YAML" class="headerlink" title="8.2 服务器写 YAML"></a>8.2 服务器写 YAML</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/learn-dev
+<span class="token function">git</span> pull                                     <span class="token comment"># 动手前先拉</span>
+kubectl apply <span class="token parameter variable">-f</span> k8s/02-workload/xxx.yaml    <span class="token comment"># 实验、搞破坏、修复</span>
+<span class="token function">git</span> <span class="token function">add</span> <span class="token parameter variable">-A</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"feat(k8s): deployment 滚动更新与回滚实验"</span>
+<span class="token function">git</span> push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>实验结论写进 YAML 顶部五行注释或<code>pitfalls.md</code> 。 推荐 YAML 也尽量在 GoLand 写好推上来 ，服务器只负责 pull 和 apply，减少两端冲突；偶尔在服务器直接 vi 修改也没问题，照上面 commit/push 即可。</p>
+<h2 id="8-3-SQL-怎么存"><a href="#8-3-SQL-怎么存" class="headerlink" title="8.3 SQL 怎么存"></a>8.3 SQL 怎么存</h2><p>手写练习 SQL（建表、索引、查询、事务演示）：放<code>go/stage2-web-db/sql/</code> ，正常提交，例如：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在服务器或 GoLand 写好后，和普通文件一样提交</span>
+<span class="token function">git</span> <span class="token function">add</span> go/stage2-web-db/sql/01-create-user-table.sql
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"sql(postgresql): users 表建表与索引练习"</span>
+<span class="token function">git</span> push<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>项目的数据库迁移脚本：放各项目自己的<code>migrations/</code> 目录（如<code>stage5-projects/02-blog/migrations/</code> ）；</p>
+<p><code>pg_dump</code> 整库导出属于备份不属于代码： 不进 Git ，文件名用<code>*.dump</code> /<code>*.sql.gz</code> 会被自动忽略，需要留存用第 8 章备份机制。</p>
+<h2 id="8-4-协作规矩"><a href="#8-4-协作规矩" class="headerlink" title="8.4 协作规矩"></a>8.4 协作规矩</h2><p>推送前先拉取 。任何一端 push 报<code>rejected / fetch first</code> ：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> pull <span class="token parameter variable">--rebase</span>
+<span class="token function">git</span> push
+
+GoLand 里就是先 Ctrl+T 再 Ctrl+Shift+K。
+Go 代码主要在 Windows 改、YAML 主要在 Linux 改、SQL 跟着项目走，天然冲突很少。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="9-常用-Git-命令速查"><a href="#9-常用-Git-命令速查" class="headerlink" title="9 常用 Git 命令速查"></a>9 常用 Git 命令速查</h1><h2 id="9-1-日常五件套"><a href="#9-1-日常五件套" class="headerlink" title="9.1 日常五件套"></a>9.1 日常五件套</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> status                 <span class="token comment"># 状态（不确定就先执行它）</span>
+<span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>                  <span class="token comment"># 暂存全部（或 git add 路径 精确添加）</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"msg"</span>        <span class="token comment"># 提交</span>
+<span class="token function">git</span> push                   <span class="token comment"># 推送</span>
+<span class="token function">git</span> pull                   <span class="token comment"># 拉取</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-2-看历史与差异"><a href="#9-2-看历史与差异" class="headerlink" title="9.2 看历史与差异"></a>9.2 看历史与差异</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> log <span class="token parameter variable">--oneline</span> <span class="token parameter variable">-20</span>
+<span class="token function">git</span> log <span class="token parameter variable">--oneline</span> <span class="token parameter variable">--graph</span> <span class="token parameter variable">--all</span>
+<span class="token function">git</span> log <span class="token parameter variable">--since</span><span class="token operator">=</span><span class="token string">"1 week ago"</span> <span class="token parameter variable">--author</span><span class="token operator">=</span><span class="token string">"admin"</span>
+<span class="token function">git</span> <span class="token function">diff</span>                   <span class="token comment"># 工作区 vs 暂存区</span>
+<span class="token function">git</span> <span class="token function">diff</span> <span class="token parameter variable">--staged</span>          <span class="token comment"># 暂存区 vs 最近提交</span>
+<span class="token function">git</span> show <span class="token operator">&lt;</span>commit-id<span class="token operator">&gt;</span>       <span class="token comment"># 某次提交的完整改动</span>
+<span class="token function">git</span> blame main.go          <span class="token comment"># 每一行是谁、哪次提交改的</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-3-撤销"><a href="#9-3-撤销" class="headerlink" title="9.3 撤销"></a>9.3 撤销</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 改乱了还没 add：恢复成上次提交</span>
+<span class="token function">git</span> restore path/to/file
+
+<span class="token comment"># 已 add 想取消暂存（改动保留）</span>
+<span class="token function">git</span> restore <span class="token parameter variable">--staged</span> path/to/file
+
+<span class="token comment"># 已 commit 没 push：撤销提交、代码保留</span>
+<span class="token function">git</span> reset <span class="token parameter variable">--soft</span> HEAD~1
+
+<span class="token comment"># 已 commit，连代码一起丢弃（确认不要了再用）</span>
+<span class="token function">git</span> reset <span class="token parameter variable">--hard</span> HEAD~1
+
+<span class="token comment"># 已经 push 的错误提交：用反向提交（安全留痕，不要 reset）</span>
+<span class="token function">git</span> revert <span class="token operator">&lt;</span>commit-id<span class="token operator">&gt;</span> <span class="token operator">&amp;&amp;</span> <span class="token function">git</span> push
+
+<span class="token comment"># 提交信息写错且未 push</span>
+<span class="token function">git</span> commit <span class="token parameter variable">--amend</span> <span class="token parameter variable">-m</span> <span class="token string">"正确的信息"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-4-分支"><a href="#9-4-分支" class="headerlink" title="9.4 分支"></a>9.4 分支</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> switch <span class="token parameter variable">-c</span> exp/statefulset-pv    <span class="token comment"># 建并切换（旧写法 git checkout -b）</span>
+<span class="token function">git</span> switch main                     <span class="token comment"># 切回</span>
+<span class="token function">git</span> merge --no-ff exp/statefulset-pv
+<span class="token function">git</span> branch <span class="token parameter variable">-d</span> exp/statefulset-pv    <span class="token comment"># 删已合并分支</span>
+<span class="token function">git</span> push origin exp/statefulset-pv  <span class="token comment"># 推分支</span>
+<span class="token function">git</span> push origin <span class="token parameter variable">--delete</span> exp/statefulset-pv<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="9-5-暂存现场"><a href="#9-5-暂存现场" class="headerlink" title="9.5 暂存现场"></a>9.5 暂存现场</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> stash                <span class="token comment"># 收起当前改动</span>
+<span class="token function">git</span> stash list           <span class="token comment"># 查看</span>
+<span class="token function">git</span> stash pop            <span class="token comment"># 恢复并删除</span>
+<span class="token function">git</span> stash drop           <span class="token comment"># 丢弃</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="9-6-标签"><a href="#9-6-标签" class="headerlink" title="9.6 标签"></a>9.6 标签</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> tag <span class="token parameter variable">-a</span> stage1-done <span class="token parameter variable">-m</span> <span class="token string">"Go 基础阶段完成"</span>
+<span class="token function">git</span> push origin stage1-done
+<span class="token function">git</span> tag<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="9-7-远程管理"><a href="#9-7-远程管理" class="headerlink" title="9.7 远程管理"></a>9.7 远程管理</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> remote <span class="token parameter variable">-v</span>
+<span class="token function">git</span> remote set-url origin <span class="token operator">&lt;</span>新地址<span class="token operator">&gt;</span>   <span class="token comment"># 换服务器时改地址</span>
+<span class="token function">git</span> fetch <span class="token parameter variable">--all</span>                      <span class="token comment"># 只更新信息不合并</span>
+<span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main              <span class="token comment"># 首次绑定上游</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="9-8-误提交了密钥-大文件"><a href="#9-8-误提交了密钥-大文件" class="headerlink" title="9.8 误提交了密钥/大文件"></a>9.8 误提交了密钥/大文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> <span class="token function">rm</span> <span class="token parameter variable">--cached</span> secret.yaml          <span class="token comment"># 未 commit：移出暂存（配合 .gitignore）</span>
+<span class="token function">git</span> reset <span class="token parameter variable">--soft</span> HEAD~1              <span class="token comment"># 已 commit 未 push：撤回提交</span>
+<span class="token comment"># 已 push：密钥立即作废（换密码/换证书）再处理历史</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="9-9-GoLand-对应"><a href="#9-9-GoLand-对应" class="headerlink" title="9.9 GoLand 对应"></a>9.9 GoLand 对应</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>GoLand</th>
+<th>命令</th>
+<th>GoLand</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add/commit</td>
+<td>Ctrl+K</td>
+<td>log/diff</td>
+<td>底部 Git 面板</td>
+</tr>
+<tr>
+<td>push</td>
+<td>Ctrl+Shift+K</td>
+<td>分支</td>
+<td>右下角分支名</td>
+</tr>
+<tr>
+<td>pull</td>
+<td>Ctrl+T</td>
+<td>stash</td>
+<td>Git → Uncommitted Changes → Stash Changes</td>
+</tr>
+<tr>
+<td>ammend</td>
+<td>Commit 窗口勾选 Amend</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>10 备份策略</p>
+<p>第一份（实时） ：每次 push 成功，代码同时存在于 Windows 工作副本和 node2 仓库。</p>
+<p> 第二份（实时） ：master/node1 的 clone 又各有一份完整历史。 </p>
+<p>第三份（每周全量） ：Gitea 整站 dump（含数据库、所有仓库、账号、密钥），复制到 master 保存。</p>
+<p>配置第三份（走 WG 内网传，不占公网流量包）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># node2 上：生成专用备份密钥</span>
+ssh-keygen <span class="token parameter variable">-t</span> ed25519 <span class="token parameter variable">-N</span> <span class="token string">''</span> <span class="token parameter variable">-f</span> ~/.ssh/id_ed25519_gitbackup
+<span class="token function">cat</span> ~/.ssh/id_ed25519_gitbackup.pub
+<span class="token comment"># 把输出追加到 master 的 /root/.ssh/authorized_keys</span>
+<span class="token comment"># master 上执行：mkdir -p /root/gitea-backup</span>
+
+<span class="token comment"># node2 验证免密</span>
+<span class="token function">ssh</span> <span class="token parameter variable">-i</span> ~/.ssh/id_ed25519_gitbackup root@10.8.0.14 <span class="token function">hostname</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>node2 上<code>crontab -e</code> 加一行（每周日 03:00，自动清理 30 天前的旧包）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">0</span> <span class="token number">3</span> * * <span class="token number">0</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /var/backups/gitea <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token parameter variable">-u</span> <span class="token function">git</span> <span class="token assign-left variable"><span class="token environment constant">HOME</span></span><span class="token operator">=</span>/home/git <span class="token assign-left variable">GITEA_WORK_DIR</span><span class="token operator">=</span>/var/lib/gitea /usr/local/bin/gitea dump <span class="token parameter variable">--config</span> /etc/gitea/app.ini <span class="token parameter variable">--file</span> /var/backups/gitea/gitea-dump-<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span> +<span class="token punctuation">\</span>%F<span class="token variable">)</span></span>.zip <span class="token operator">&amp;&amp;</span> <span class="token function">find</span> /var/backups/gitea <span class="token parameter variable">-name</span> <span class="token string">'gitea-dump-*.zip'</span> <span class="token parameter variable">-mtime</span> +30 <span class="token parameter variable">-delete</span> <span class="token operator">&amp;&amp;</span> <span class="token function">scp</span> <span class="token parameter variable">-i</span> /root/.ssh/id_ed25519_gitbackup /var/backups/gitea/gitea-dump-<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span> +<span class="token punctuation">\</span>%F<span class="token variable">)</span></span>.zip root@10.8.0.14:/root/gitea-backup/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>先手动跑一次验证：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token parameter variable">-u</span> <span class="token function">git</span> <span class="token assign-left variable"><span class="token environment constant">HOME</span></span><span class="token operator">=</span>/home/git <span class="token assign-left variable">GITEA_WORK_DIR</span><span class="token operator">=</span>/var/lib/gitea <span class="token punctuation">\</span>
+/usr/local/bin/gitea dump <span class="token parameter variable">--config</span> /etc/gitea/app.ini <span class="token parameter variable">--file</span> /var/backups/gitea/test.zip
+<span class="token function">ls</span> <span class="token parameter variable">-lh</span> /var/backups/gitea/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="10-迁移到新服务器"><a href="#10-迁移到新服务器" class="headerlink" title="10 迁移到新服务器"></a>10 迁移到新服务器</h1><p>公网方案下迁移 = 新机装同版本 Gitea + 恢复数据 + 三端把 IP 改成新公网 IP。</p>
+<h2 id="10-1-旧-node2-打包"><a href="#10-1-旧-node2-打包" class="headerlink" title="10.1 旧 node2 打包"></a>10.1 旧 node2 打包</h2><p>先确认三端代码都已 push</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl stop gitea
+/usr/local/bin/gitea <span class="token parameter variable">--version</span> <span class="token operator">|</span> <span class="token function">tee</span> /root/gitea-version.txt   <span class="token comment"># 确认 1.27.3</span>
+<span class="token function">tar</span> czpf /root/gitea-migrate.tar.gz <span class="token parameter variable">-C</span> / <span class="token punctuation">\</span>
+  etc/gitea var/lib/gitea usr/local/bin/gitea root/gitea-version.txt
+systemctl start gitea        <span class="token comment"># 切换验证期间旧机保持可用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-2-新机装同版本外壳"><a href="#10-2-新机装同版本外壳" class="headerlink" title="10.2 新机装同版本外壳"></a>10.2 新机装同版本外壳</h2><p>1.新机轻量防火墙先按 3.2 配好（2222 开放、3000/22 限你家 IP）；</p>
+<p>2.在新机执行 第 2 章 2.1～2.5 （建用户、装 1.27.3、写配置时 DOMAIN 先写新机公网 IP、建 systemd 服务），不用建管理员。</p>
+<h2 id="10-3-传数据并恢复"><a href="#10-3-传数据并恢复" class="headerlink" title="10.3 传数据并恢复"></a>10.3 传数据并恢复</h2><p>在新机器执行。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">scp</span> root@124.222.84.111:/root/gitea-migrate.tar.gz /root/
+systemctl stop gitea
+<span class="token function">tar</span> xzpf /root/gitea-migrate.tar.gz <span class="token parameter variable">-C</span> /
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> git:git /var/lib/gitea
+<span class="token function">chown</span> root:git /etc/gitea/app.ini <span class="token operator">&amp;&amp;</span> <span class="token function">chmod</span> <span class="token number">640</span> /etc/gitea/app.ini
+<span class="token comment"># 把配置中的旧 IP 换成新机公网 IP（假设新机 IP 为 NEW_IP）</span>
+<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">-e</span> <span class="token string">'s|^DOMAIN *=.*|DOMAIN = NEW_IP|'</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">-e</span> <span class="token string">'s|^SSH_DOMAIN *=.*|SSH_DOMAIN = NEW_IP|'</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">-e</span> <span class="token string">'s|^ROOT_URL *=.*|ROOT_URL = http://NEW_IP:3000/|'</span> <span class="token punctuation">\</span>
+  /etc/gitea/app.ini
+<span class="token builtin class-name">command</span> <span class="token parameter variable">-v</span> restorecon <span class="token operator">&gt;</span>/dev/null <span class="token operator">&amp;&amp;</span> restorecon <span class="token parameter variable">-R</span> /var/lib/gitea /etc/gitea /usr/local/bin/gitea
+systemctl daemon-reload <span class="token operator">&amp;&amp;</span> systemctl <span class="token builtin class-name">enable</span> <span class="token parameter variable">--now</span> gitea
+systemctl --no-pager status gitea <span class="token operator">|</span> <span class="token function">head</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-4-三端切换"><a href="#10-4-三端切换" class="headerlink" title="10.4 三端切换"></a>10.4 三端切换</h2><p>各改一处，因为都用 gitea 别名</p>
+<ul>
+<li>Windows ：改<code>C:\Users\你\.ssh\config</code> 里<code>HostName</code> 为新 IP；</li>
+<li>master / node1 ：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'s/^    HostName .*/    HostName 新IP/'</span> ~/.ssh/config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>仓库的 remote 写的是别名<code>git@gitea:...</code> ， 不需要改 remote 。</p>
+<h2 id="10-5-验证与收尾"><a href="#10-5-验证与收尾" class="headerlink" title="10.5 验证与收尾"></a>10.5 验证与收尾</h2><ol>
+<li>网页<code>http://新IP:3000</code> 登录，确认仓库、历史、SSH 密钥、账号都在；</li>
+<li>GoLand Ctrl+T 拉取、改文件 Ctrl+Shift+K；</li>
+<li>master<code>git pull</code> 验证；</li>
+<li>在新机重建第 8 章的备份密钥和 crontab；</li>
+<li>旧机到期释放。</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">罗宇</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://linuxtech.top/2022/09/14/go-yu-yan-kai-fa/git-shi-yong/git-shi-yong/">https://linuxtech.top/2022/09/14/go-yu-yan-kai-fa/git-shi-yong/git-shi-yong/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">罗宇</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">
+                                    <span class="chip bg-color">云原生与系统架构</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/03/19/go-yu-yan-kai-fa/yun-yuan-sheng-yu-xi-tong-jia-gou/rancher/">
+                    <div class="card-image">
+                        
+                        <img src="/img/k8s%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86.jpeg" class="responsive-img" alt="Rancher">
+                        
+                        <span class="card-title">Rancher</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Kubernetes管理工具主要分为部署、运维、可视化三大类，可以方便、快捷的部署与管理k8s平台，支持集群创建、运维等各种复杂场景的使用。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-19
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Golang-%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="post-category">
+                                    Golang-云原生与系统架构
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">
+                        <span class="chip bg-color">云原生与系统架构</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/09/14/go-yu-yan-kai-fa/git-shi-yong/git-shi-yong/">
+                    <div class="card-image">
+                        
+                        <img src="/img/gitea.jpeg" class="responsive-img" alt="Gitea搭建与使用">
+                        
+                        <span class="card-title">Gitea搭建与使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一款自托管的 DevOps 平台，为团队和开发者提供从规划到生产的高效、易运行的运维体验。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Golang-%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="post-category">
+                                    Golang-云原生与系统架构
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">
+                        <span class="chip bg-color">云原生与系统架构</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i
+                    class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script
+    src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+        <footer class="page-footer bg-color">
+    
+    <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="6402467630"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align"
+        style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+            <span id="year">2021-2026</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">罗宇</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/"
+                target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a
+                href="https://github.com/blinkfox/hexo-theme-matery"
+                target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">281.2k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span
+                    id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span
+                    id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            
+            <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2021";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+<a href="https://github.com/luovip/tecBlog.github.io" class="tooltipped" target="_blank"
+    data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fab fa-github"></i>
+</a>
+
+
+
+<a href="mailto:luovipyu@163.com" class="tooltipped"
+    target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fas fa-envelope-open"></i>
+</a>
+
+
+
+<a
+    href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=252414302"
+    class="tooltipped" target="_blank"
+    data-tooltip="QQ联系我: 252414302" data-position="top"
+    data-delay="50">
+    <i class="fab fa-qq"></i>
+</a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+        <script
+            src="/libs/materialize/materialize.min.js"></script>
+        <script
+            src="/libs/masonry/masonry.pkgd.min.js"></script>
+        <script
+            src="/libs/aos/aos.js"></script>
+        <script
+            src="/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script
+            src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script
+            src="/js/matery.js"></script>
+
+        <!-- Baidu Analytics -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7da0b91cd12d47a8bbf00c442b97ce74";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+        <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+        
+        <script
+            src="/libs/others/clicklove.js"
+            async="async"></script>
+        
+        
+        <script async
+            src="/libs/others/busuanzi.pure.mini.js"></script>
+        
+
+        
+
+        
+
+        
+        
+        <script type="text/javascript" color="64,224,208"
+            pointColor="0,0,255"
+            opacity='0.5'
+            zIndex="-1"
+            count="100"
+            src="/libs/background/canvas-nest.js"></script>
+        
+
+        
+        
+        <script type="text/javascript" size="150"
+            alpha='0.6'
+            zIndex="-1"
+            src="/libs/background/ribbon.min.js"
+            async="async"></script>
+        
+
+        
+        <script type="text/javascript"
+            src="/libs/background/ribbon-dynamic.js"
+            async="async"></script>
+        
+
+        
+        <script
+            src="/libs/instantpage/instantpage.js"
+            type="module"></script>
+        
+        <!-- 冒泡 -->
+        
+        <script type="text/javascript">
+        // 只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        document.write(
+            '<script type="text/javascript" src="/libs/others/buble.js"><\/script>'
+        );
+    </script>
+        
+        <script type="text/javascript">
+    var a_idx = 0;
+jQuery(document).ready(function ($) {
+    $("body").click(function (e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+            y = e.pageY;
+        $i.css({
+            "z-index": 5,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": "#FF0000"
+        });
+        $("body").append($i);
+        $i.animate({
+                "top": y - 180,
+                "opacity": 0
+            },
+            3000,
+            function () {
+                $i.remove();
+            });
+    });
+    setTimeout('delay()', 2000);
+});
+ 
+function delay() {
+    $(".buryit").removeAttr("onclick");
+}
+ 
+    </script>
+        <script type="text/javascript" src="/js/mouse_snow.js"></script>
+
+        <!-- 动态标签栏 -->
+        <script type="text/javascript">
+      var OriginTitile = document.title, st; 
+      document.addEventListener("visibilitychange", function () { 
+        document.hidden ? (document.title = "爱我，别走！", clearTimeout(st)) : (document.title = "咦，你来啦！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) 
+    </script>
+
+    </body>
+
+</html>
